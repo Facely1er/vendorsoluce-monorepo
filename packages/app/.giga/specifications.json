@@ -1,0 +1,22 @@
+[
+  {
+    "fileName": "main-overview.mdc",
+    "description": "High-level system architecture focusing on the core risk assessment platform, key components, and their interactions. Includes vendor risk management workflow and NIST compliance integration."
+  },
+  {
+    "fileName": "risk-assessment-algorithms.mdc",
+    "description": "Detailed documentation of risk calculation algorithms including vendor risk scoring, SBOM analysis scoring, and NIST SP 800-161 compliance scoring formulas. Covers weighting factors, thresholds, and scoring methodologies."
+  },
+  {
+    "fileName": "data-models.mdc",
+    "description": "Comprehensive documentation of data models for vendor profiles, risk assessments, SBOM analysis results, and compliance tracking. Includes relationships between models and their role in risk calculations."
+  },
+  {
+    "fileName": "assessment-workflow.mdc",
+    "description": "Detailed flow documentation for the multi-stage vendor assessment process, including SBOM analysis, risk scoring, compliance validation, and recommendation generation pipelines."
+  },
+  {
+    "fileName": "subscription-model.mdc",
+    "description": "Documentation of the tiered subscription system including feature access controls, usage tracking, billing calculations, and tier-specific limitations for vendor assessments and SBOM scans."
+  }
+]

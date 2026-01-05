@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<!-- saved from url=(0089)file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html -->
+<html lang="en" class="h-full" id="html-root"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title data-i18n="title">ERMITS – Enterprise Risk Management &amp; Information Technology Solutions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" data-i18n="description" content="Navigate Risks. Unlock Growth. Future-Proof Your Organization with ERMITS Insights and Tools.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/ermits-logo.png">
+    <link rel="shortcut icon" type="image/png" href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/ermits-logo.png">
+    <link rel="apple-touch-icon" href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/ermits-logo.png">
+
+    <!-- Tailwind via CDN -->
+    <script src="./ERMITS – Enterprise Risk Management &amp; Information Technology Solutions_files/saved_resource"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              ermitsBlue: "#3B6FA8",
+              ermitsIndigo: "#6366F1",
+              ermitsGold: "#FBBF24", // Updated for better contrast
+              ermitsGoldDark: "#D97706", // Darker gold for better contrast
+              ermitsOrange: "#FB923C",
+              ermitsGreen: "#10B981",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      @keyframes gridMove {
+        0% { transform: translate(0,0); }
+        100% { transform: translate(60px,60px); }
+      }
+
+      @keyframes floatParticle {
+        0%, 100% {
+          transform: translateY(0) translateX(0);
+          opacity: 0.3;
+        }
+        50% {
+          transform: translateY(-20px) translateX(10px);
+          opacity: 0.7;
+        }
+      }
+
+      @keyframes fadeInOut {
+        0% {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        10%, 40% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        50%, 100% {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+      }
+
+      .carousel-item {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        animation: fadeInOut 8s infinite;
+        pointer-events: none;
+        line-height: 1.5;
+      }
+
+      .carousel-item:nth-child(1) {
+        animation-delay: 0s;
+        position: relative;
+        opacity: 1;
+      }
+
+      .carousel-item:nth-child(2) {
+        animation-delay: 4s;
+        position: absolute;
+      }
+
+      .carousel-container {
+        position: relative;
+        min-height: 4.5em;
+        display: block;
+      }
+
+      .bg-gradient-radial {
+        background-image: radial-gradient(circle, var(--tw-gradient-stops));
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      .ermits-logo-text {
+        min-width: 280px;
+        text-align: center;
+      }
+
+      .ermits-brand-font {
+        font-family: Inter, 'SF Pro Display', system-ui, -apple-system, sans-serif;
+      }
+
+      /* Light theme styles */
+      body.light {
+        background-color: #f8fafc;
+        color: #0f172a;
+      }
+
+      body.light .bg-slate-900 {
+        background-color: #ffffff;
+      }
+
+      body.light .bg-slate-800 {
+        background-color: #f1f5f9;
+      }
+
+      body.light .text-slate-50 {
+        color: #0f172a;
+      }
+
+      body.light .text-slate-200 {
+        color: #1e293b;
+      }
+
+      body.light .text-slate-300 {
+        color: #475569;
+      }
+
+      body.light .text-slate-400 {
+        color: #64748b;
+      }
+
+      body.light .text-slate-100 {
+        color: #1e293b;
+      }
+
+      body.light .border-slate-800 {
+        border-color: #e2e8f0;
+      }
+
+      body.light .border-slate-700 {
+        border-color: #cbd5e1;
+      }
+
+      body.light .bg-slate-900\/80 {
+        background-color: rgba(255, 255, 255, 0.95);
+      }
+
+      body.light .bg-slate-800\/80 {
+        background-color: rgba(248, 250, 252, 0.9);
+      }
+
+      body.light .bg-slate-800\/60 {
+        background-color: rgba(241, 245, 249, 0.7);
+      }
+
+      body.light .bg-slate-700 {
+        background-color: #e2e8f0;
+      }
+
+      body.light .bg-slate-600\/50 {
+        background-color: rgba(203, 213, 225, 0.5);
+      }
+
+      body.light .hover\:bg-slate-700:hover {
+        background-color: #cbd5e1;
+      }
+
+      body.light .hover\:bg-slate-800\/60:hover {
+        background-color: rgba(241, 245, 249, 0.8);
+      }
+
+      body.light .from-blue-900 {
+        --tw-gradient-from: #3b82f6;
+        --tw-gradient-to: rgba(59, 130, 246, 0);
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+      }
+
+      body.light .via-slate-900 {
+        --tw-gradient-to: rgba(248, 250, 252, 0);
+        --tw-gradient-stops: var(--tw-gradient-from), #ffffff, var(--tw-gradient-to);
+      }
+
+      body.light .to-slate-950 {
+        --tw-gradient-to: #f1f5f9;
+      }
+
+      body.light .to-slate-900 {
+        --tw-gradient-to: #ffffff;
+      }
+
+      body.light .via-slate-800 {
+        --tw-gradient-stops: var(--tw-gradient-from), #f8fafc, var(--tw-gradient-to);
+      }
+
+      body.light .from-ermitsBlue {
+        --tw-gradient-from: #60a5fa;
+      }
+
+      body.light .from-ermitsOrange {
+        --tw-gradient-from: #fb923c;
+      }
+
+      body.light .from-ermitsGold {
+        --tw-gradient-from: #d97706;
+      }
+
+      body.light .text-ermitsGold {
+        color: #d97706;
+      }
+
+      body.light .bg-ermitsGold\/20 {
+        background-color: rgba(217, 119, 6, 0.2);
+      }
+
+      body.light .hover\:text-ermitsGold:hover {
+        color: #b45309;
+      }
+
+      body.light .border-ermitsGold\/50 {
+        border-color: rgba(217, 119, 6, 0.5);
+      }
+
+      body.light .hover\:border-ermitsGold\/50:hover {
+        border-color: rgba(217, 119, 6, 0.5);
+      }
+
+      /* Enhanced contrast for gold text */
+      .text-ermitsGold {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      body.light .text-ermitsGold {
+        color: #d97706;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Framework badges visibility in light theme */
+      body.light #frameworks .rounded-full.bg-slate-800 {
+        background-color: #3B6FA8 !important;
+        color: #ffffff !important;
+      }
+
+      body.light .animated-grid {
+        background-image:
+          linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(96, 165, 250, 0.1) 1px, transparent 1px);
+      }
+
+      body.light #mouse-glow {
+        background-image: radial-gradient(circle, rgba(251, 191, 36, 0.12), rgba(251, 191, 36, 0.06), transparent);
+      }
+
+      #mouse-glow {
+        left: 50%;
+        top: 50%;
+      }
+
+      .animated-grid {
+        background-image:
+          linear-gradient(rgba(56, 189, 248, 0.18) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(59, 130, 246, 0.18) 1px, transparent 1px);
+        background-size: 60px 60px;
+        animation: gridMove 22s linear infinite;
+      }
+    </style>
+  <style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0px}.left-0{left:0px}.right-0{right:0px}.top-0{top:0px}.top-full{top:100%}.z-10{z-index:10}.z-20{z-index:20}.col-span-1{grid-column:span 1 / span 1}.mx-auto{margin-left:auto;margin-right:auto}.mb-0\.5{margin-bottom:0.125rem}.mb-1{margin-bottom:0.25rem}.mb-12{margin-bottom:3rem}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.ml-1{margin-left:0.25rem}.ml-2{margin-left:0.5rem}.mt-0\.5{margin-top:0.125rem}.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.mt-8{margin-top:2rem}.mt-auto{margin-top:auto}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-1\.5{height:0.375rem}.h-10{height:2.5rem}.h-12{height:3rem}.h-16{height:4rem}.h-3{height:0.75rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-96{height:24rem}.h-full{height:100%}.h-1{height:0.25rem}.min-h-screen{min-height:100vh}.w-1\.5{width:0.375rem}.w-10{width:2.5rem}.w-12{width:3rem}.w-3{width:0.75rem}.w-4{width:1rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-96{width:24rem}.w-full{width:100%}.w-1{width:0.25rem}.min-w-0{min-width:0px}.max-w-2xl{max-width:42rem}.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.max-w-5xl{max-width:64rem}.max-w-6xl{max-width:72rem}.max-w-7xl{max-width:80rem}.max-w-xs{max-width:20rem}.flex-1{flex:1 1 0%}.flex-shrink-0{flex-shrink:0}.flex-grow{flex-grow:1}.-translate-x-1\/2{--tw-translate-x:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1{gap:0.25rem}.gap-1\.5{gap:0.375rem}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-x-4{column-gap:1rem}.gap-y-1\.5{row-gap:0.375rem}.space-y-1\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.375rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.375rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-2{border-width:2px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-blue-500\/50{border-color:rgb(59 130 246 / 0.5)}.border-ermitsGold\/50{border-color:rgb(251 191 36 / 0.5)}.border-ermitsOrange\/30{border-color:rgb(251 146 60 / 0.3)}.border-green-500\/50{border-color:rgb(34 197 94 / 0.5)}.border-indigo-500\/50{border-color:rgb(99 102 241 / 0.5)}.border-purple-500\/50{border-color:rgb(168 85 247 / 0.5)}.border-red-500\/30{border-color:rgb(239 68 68 / 0.3)}.border-slate-600{--tw-border-opacity:1;border-color:rgb(71 85 105 / var(--tw-border-opacity, 1))}.border-slate-600\/50{border-color:rgb(71 85 105 / 0.5)}.border-slate-700{--tw-border-opacity:1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.border-slate-700\/50{border-color:rgb(51 65 85 / 0.5)}.border-slate-800{--tw-border-opacity:1;border-color:rgb(30 41 59 / var(--tw-border-opacity, 1))}.bg-blue-500\/20{background-color:rgb(59 130 246 / 0.2)}.bg-emerald-400{--tw-bg-opacity:1;background-color:rgb(52 211 153 / var(--tw-bg-opacity, 1))}.bg-ermitsGold{--tw-bg-opacity:1;background-color:rgb(251 191 36 / var(--tw-bg-opacity, 1))}.bg-ermitsGold\/20{background-color:rgb(251 191 36 / 0.2)}.bg-green-500\/20{background-color:rgb(34 197 94 / 0.2)}.bg-indigo-500\/20{background-color:rgb(99 102 241 / 0.2)}.bg-purple-500\/20{background-color:rgb(168 85 247 / 0.2)}.bg-sky-400{--tw-bg-opacity:1;background-color:rgb(56 189 248 / var(--tw-bg-opacity, 1))}.bg-slate-800{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.bg-slate-800\/40{background-color:rgb(30 41 59 / 0.4)}.bg-slate-800\/60{background-color:rgb(30 41 59 / 0.6)}.bg-slate-800\/80{background-color:rgb(30 41 59 / 0.8)}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42 / var(--tw-bg-opacity, 1))}.bg-slate-900\/80{background-color:rgb(15 23 42 / 0.8)}.bg-slate-900\/95{background-color:rgb(15 23 42 / 0.95)}.bg-ermitsGold\/40{background-color:rgb(251 191 36 / 0.4)}.bg-gradient-to-br{background-image:linear-gradient(to bottom right, var(--tw-gradient-stops))}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-blue-900{--tw-gradient-from:#1e3a8a var(--tw-gradient-from-position);--tw-gradient-to:rgb(30 58 138 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-ermitsBlue{--tw-gradient-from:#3B6FA8 var(--tw-gradient-from-position);--tw-gradient-to:rgb(59 111 168 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-ermitsGold{--tw-gradient-from:#FBBF24 var(--tw-gradient-from-position);--tw-gradient-to:rgb(251 191 36 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-ermitsGold\/15{--tw-gradient-from:rgb(251 191 36 / 0.15) var(--tw-gradient-from-position);--tw-gradient-to:rgb(251 191 36 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-ermitsOrange{--tw-gradient-from:#FB923C var(--tw-gradient-from-position);--tw-gradient-to:rgb(251 146 60 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-slate-900{--tw-gradient-from:#0f172a var(--tw-gradient-from-position);--tw-gradient-to:rgb(15 23 42 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-ermitsIndigo{--tw-gradient-to:rgb(99 102 241 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), #6366F1 var(--tw-gradient-via-position), var(--tw-gradient-to)}.via-slate-800{--tw-gradient-to:rgb(30 41 59 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), #1e293b var(--tw-gradient-via-position), var(--tw-gradient-to)}.via-slate-900{--tw-gradient-to:rgb(15 23 42 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), #0f172a var(--tw-gradient-via-position), var(--tw-gradient-to)}.to-ermitsIndigo{--tw-gradient-to:#6366F1 var(--tw-gradient-to-position)}.to-ermitsOrange\/10{--tw-gradient-to:rgb(251 146 60 / 0.1) var(--tw-gradient-to-position)}.to-orange-500{--tw-gradient-to:#f97316 var(--tw-gradient-to-position)}.to-sky-300{--tw-gradient-to:#7dd3fc var(--tw-gradient-to-position)}.to-slate-900{--tw-gradient-to:#0f172a var(--tw-gradient-to-position)}.to-slate-950{--tw-gradient-to:#020617 var(--tw-gradient-to-position)}.to-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position)}.bg-clip-text{-webkit-background-clip:text;background-clip:text}.object-contain{object-fit:contain}.p-2{padding:0.5rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-16{padding-top:4rem;padding-bottom:4rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.pb-16{padding-bottom:4rem}.pb-2{padding-bottom:0.5rem}.pb-20{padding-bottom:5rem}.pt-10{padding-top:2.5rem}.pt-2{padding-top:0.5rem}.pt-20{padding-top:5rem}.pt-4{padding-top:1rem}.text-left{text-align:left}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-\[6px\]{font-size:6px}.text-\[7px\]{font-size:7px}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-none{line-height:1}.leading-normal{line-height:1.5}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-\[0\.16em\]{letter-spacing:0.16em}.tracking-\[0\.2em\]{letter-spacing:0.2em}.tracking-tight{letter-spacing:-0.025em}.tracking-wider{letter-spacing:0.05em}.tracking-widest{letter-spacing:0.1em}.text-blue-400{--tw-text-opacity:1;color:rgb(96 165 250 / var(--tw-text-opacity, 1))}.text-emerald-400{--tw-text-opacity:1;color:rgb(52 211 153 / var(--tw-text-opacity, 1))}.text-ermitsGold{--tw-text-opacity:1;color:rgb(251 191 36 / var(--tw-text-opacity, 1))}.text-ermitsGreen{--tw-text-opacity:1;color:rgb(16 185 129 / var(--tw-text-opacity, 1))}.text-ermitsOrange{--tw-text-opacity:1;color:rgb(251 146 60 / var(--tw-text-opacity, 1))}.text-green-400{--tw-text-opacity:1;color:rgb(74 222 128 / var(--tw-text-opacity, 1))}.text-indigo-400{--tw-text-opacity:1;color:rgb(129 140 248 / var(--tw-text-opacity, 1))}.text-purple-400{--tw-text-opacity:1;color:rgb(192 132 252 / var(--tw-text-opacity, 1))}.text-red-400{--tw-text-opacity:1;color:rgb(248 113 113 / var(--tw-text-opacity, 1))}.text-sky-400{--tw-text-opacity:1;color:rgb(56 189 248 / var(--tw-text-opacity, 1))}.text-slate-100{--tw-text-opacity:1;color:rgb(241 245 249 / var(--tw-text-opacity, 1))}.text-slate-200{--tw-text-opacity:1;color:rgb(226 232 240 / var(--tw-text-opacity, 1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-slate-50{--tw-text-opacity:1;color:rgb(248 250 252 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-transparent{color:transparent}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.opacity-25{opacity:0.25}.shadow{--tw-shadow:0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-blue-500\/40{--tw-shadow-color:rgb(59 130 246 / 0.4);--tw-shadow:var(--tw-shadow-colored)}.shadow-orange-500\/40{--tw-shadow-color:rgb(249 115 22 / 0.4);--tw-shadow:var(--tw-shadow-colored)}.blur-3xl{--tw-blur:blur(64px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur{--tw-backdrop-blur:blur(8px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.backdrop-blur-sm{--tw-backdrop-blur:blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:border-blue-500\/50:hover{border-color:rgb(59 130 246 / 0.5)}.hover\:border-ermitsGold\/50:hover{border-color:rgb(251 191 36 / 0.5)}.hover\:border-ermitsGreen\/50:hover{border-color:rgb(16 185 129 / 0.5)}.hover\:border-ermitsOrange\/50:hover{border-color:rgb(251 146 60 / 0.5)}.hover\:border-indigo-500\/50:hover{border-color:rgb(99 102 241 / 0.5)}.hover\:border-purple-500\/50:hover{border-color:rgb(168 85 247 / 0.5)}.hover\:border-sky-500\/50:hover{border-color:rgb(14 165 233 / 0.5)}.hover\:bg-slate-700:hover{--tw-bg-opacity:1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}.hover\:text-blue-300:hover{--tw-text-opacity:1;color:rgb(147 197 253 / var(--tw-text-opacity, 1))}.hover\:text-ermitsGold:hover{--tw-text-opacity:1;color:rgb(251 191 36 / var(--tw-text-opacity, 1))}.hover\:text-green-400:hover{--tw-text-opacity:1;color:rgb(74 222 128 / var(--tw-text-opacity, 1))}.hover\:text-indigo-300:hover{--tw-text-opacity:1;color:rgb(165 180 252 / var(--tw-text-opacity, 1))}.hover\:text-purple-300:hover{--tw-text-opacity:1;color:rgb(216 180 254 / var(--tw-text-opacity, 1))}.hover\:text-sky-300:hover{--tw-text-opacity:1;color:rgb(125 211 252 / var(--tw-text-opacity, 1))}.hover\:text-yellow-400:hover{--tw-text-opacity:1;color:rgb(250 204 21 / var(--tw-text-opacity, 1))}.hover\:shadow-lg:hover{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.hover\:shadow-xl:hover{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}@media (min-width: 640px){.sm\:mb-4{margin-bottom:1rem}.sm\:flex{display:flex}.sm\:hidden{display:none}.sm\:h-12{height:3rem}.sm\:w-12{width:3rem}.sm\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.sm\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.sm\:flex-row{flex-direction:row}.sm\:justify-start{justify-content:flex-start}.sm\:gap-6{gap:1.5rem}.sm\:p-6{padding:1.5rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pb-24{padding-bottom:6rem}.sm\:pt-24{padding-top:6rem}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}.sm\:text-\[11px\]{font-size:11px}.sm\:text-base{font-size:1rem;line-height:1.5rem}.sm\:text-lg{font-size:1.125rem;line-height:1.75rem}.sm\:text-sm{font-size:0.875rem;line-height:1.25rem}.sm\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width: 768px){.md\:col-span-2{grid-column:span 2 / span 2}.md\:ml-4{margin-left:1rem}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.md\:grid-cols-6{grid-template-columns:repeat(6, minmax(0, 1fr))}.md\:text-4xl{font-size:2.25rem;line-height:2.5rem}}@media (min-width: 1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.lg\:px-8{padding-left:2rem;padding-right:2rem}.lg\:text-5xl{font-size:3rem;line-height:1}}</style></head>
+  <body class="h-full bg-slate-900 text-slate-50 antialiased" id="body">
+    <div class="min-h-screen flex flex-col">
+      <!-- NAVBAR -->
+      <header class="relative z-20 border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0">
+        <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#home" class="flex items-center gap-1">
+            <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/ermits-logo.png" alt="ERMITS logo" class="h-10 w-10 sm:h-12 sm:w-12 rounded-full shadow object-contain">
+            <div class="flex flex-col leading-none text-left ermits-brand-font">
+              <span class="text-sm sm:text-xl font-bold tracking-widest text-slate-50 mb-0.5">
+                ERMITS
+              </span>
+              <span class="text-[7px] sm:text-[11px] font-medium tracking-tight uppercase text-slate-400">
+                Enterprise Risk Management
+              </span>
+              <span class="text-[6px] sm:text-[11px] font-medium tracking-tight uppercase leading-tight text-slate-400">
+                Information Technology Solutions
+              </span>
+            </div>
+          </a>
+          <div class="flex items-center gap-4">
+            <nav class="hidden gap-4 text-xs font-medium text-slate-300 sm:flex">
+              <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#home" class="flex items-center gap-1.5 hover:text-ermitsGold transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                <span data-i18n="nav.home">Home</span>
+              </a>
+              <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#advisory" class="flex items-center gap-1.5 hover:text-ermitsGold transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+                <span data-i18n="nav.advisory">Advisory</span>
+              </a>
+              <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#ecosystem" class="flex items-center gap-1.5 hover:text-ermitsGold transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                </svg>
+                <span data-i18n="nav.ecosystem">Ecosystem</span>
+              </a>
+              <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#contact" class="flex items-center gap-1.5 hover:text-ermitsGold transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                <span data-i18n="nav.contact">Contact</span>
+              </a>
+            </nav>
+            
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-button" class="sm:hidden p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-ermitsGold transition-colors" aria-label="Toggle menu" data-i18n-aria-label="aria.toggleMenu" aria-expanded="false">
+              <svg id="mobile-menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+            
+            <!-- Language Switcher -->
+            <button id="language-switcher" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-ermitsGold transition-colors text-xs font-semibold uppercase" aria-label="Change language" data-i18n-aria-label="aria.changeLanguage" onclick="setLanguage(window.currentLanguage === &#39;en&#39; ? &#39;fr&#39; : &#39;en&#39;)">
+              <span id="lang-text">EN</span>
+            </button>
+            
+            <button id="theme-toggle" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-ermitsGold transition-colors" aria-label="Toggle theme" data-i18n-aria-label="aria.toggleTheme" data-listener-attached="true">
+              <svg id="theme-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            </button>
+          </div>
+          
+          <!-- Mobile menu dropdown -->
+          <nav id="mobile-menu" class="hidden sm:hidden absolute top-full left-0 right-0 bg-slate-900/95 backdrop-blur border-b border-slate-800">
+            <div class="px-4 py-4 space-y-3">
+              <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#home" class="mobile-menu-link flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-ermitsGold transition-colors py-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                <span data-i18n="nav.home">Home</span>
+              </a>
+              <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#advisory" class="mobile-menu-link flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-ermitsGold transition-colors py-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+                <span data-i18n="nav.advisory">Advisory</span>
+              </a>
+              <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#ecosystem" class="mobile-menu-link flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-ermitsGold transition-colors py-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                </svg>
+                <span data-i18n="nav.ecosystem">Ecosystem</span>
+              </a>
+              <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#contact" class="mobile-menu-link flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-ermitsGold transition-colors py-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                <span data-i18n="nav.contact">Contact</span>
+              </a>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <main id="home" class="flex-1">
+        <!-- HERO WITH ANIMATED BACKGROUND -->
+        <section class="relative overflow-hidden">
+          <!-- Animated background container -->
+          <div id="animated-bg" class="pointer-events-none absolute inset-0">
+            <!-- Base gradient -->
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-slate-900 to-slate-950"></div>
+
+            <!-- Animated grid -->
+            <div class="absolute inset-0 opacity-25">
+              <div class="h-full w-full animated-grid"></div>
+            </div>
+
+            <!-- Mouse-follow glow -->
+            <div id="mouse-glow" class="absolute h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-radial from-ermitsGold/15 via-ermitsGold/8 to-transparent blur-3xl transition-transform duration-300" style="transform: translate3d(810px, 333px, 0px);"></div>
+
+            <!-- Particles container -->
+            <div id="particles-layer" class="absolute inset-0"><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 7.02752%; top: 2.04558%; animation: 4.92039s ease-in-out 3.42412s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 65.3993%; top: 35.5561%; animation: 4.23669s ease-in-out 0.980833s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 9.65027%; top: 65.6477%; animation: 7.33175s ease-in-out 0.651019s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 63.0669%; top: 22.1531%; animation: 8.21386s ease-in-out 0.156279s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 80.2539%; top: 41.0707%; animation: 5.76752s ease-in-out 0.896806s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 47.1603%; top: 63.4117%; animation: 6.98614s ease-in-out 1.76045s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 20.097%; top: 92.9466%; animation: 7.52297s ease-in-out 2.46736s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 1.42101%; top: 47.8826%; animation: 5.73305s ease-in-out 1.35247s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 20.6173%; top: 48.7074%; animation: 7.01374s ease-in-out 0.700468s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 88.5989%; top: 81.156%; animation: 5.79726s ease-in-out 1.59532s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 81.0421%; top: 27.2533%; animation: 4.93232s ease-in-out 2.23192s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 83.7019%; top: 19.4168%; animation: 4.9366s ease-in-out 1.44778s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 65.5789%; top: 14.8876%; animation: 8.80113s ease-in-out 3.20992s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 5.6899%; top: 76.0453%; animation: 4.80378s ease-in-out 0.423073s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 8.88345%; top: 17.1398%; animation: 8.6895s ease-in-out 1.53076s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 94.5276%; top: 97.8694%; animation: 7.64182s ease-in-out 3.51729s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 32.0728%; top: 94.1277%; animation: 8.81873s ease-in-out 3.74471s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 48.6312%; top: 82.3156%; animation: 7.41705s ease-in-out 0.93916s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 47.9415%; top: 18.1095%; animation: 6.44886s ease-in-out 2.49892s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 13.7052%; top: 38.932%; animation: 4.19931s ease-in-out 2.59973s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 39.5039%; top: 0.502258%; animation: 4.06422s ease-in-out 1.05963s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 88.9538%; top: 2.24125%; animation: 8.0255s ease-in-out 0.730439s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 41.8812%; top: 52.1758%; animation: 4.4256s ease-in-out 1.17968s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 77.6317%; top: 96.5846%; animation: 5.78616s ease-in-out 3.10337s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 5.59858%; top: 26.2362%; animation: 8.20931s ease-in-out 3.01212s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 47.1724%; top: 14.399%; animation: 7.15455s ease-in-out 2.94659s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 14.7298%; top: 74.6044%; animation: 4.47881s ease-in-out 3.73923s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 12.2816%; top: 23.6404%; animation: 8.33446s ease-in-out 0.887217s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 83.2734%; top: 91.7422%; animation: 6.36476s ease-in-out 1.5042s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 27.1196%; top: 12.5785%; animation: 8.97234s ease-in-out 2.04146s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 69.8738%; top: 65.8204%; animation: 8.57835s ease-in-out 1.78102s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 49.9372%; top: 50.3135%; animation: 4.91123s ease-in-out 0.66334s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 84.4457%; top: 37.0938%; animation: 5.3247s ease-in-out 3.5712s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 47.5346%; top: 6.94005%; animation: 5.83936s ease-in-out 2.97834s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 13.5496%; top: 75.2472%; animation: 8.91034s ease-in-out 1.99411s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 7.12019%; top: 33.0781%; animation: 5.20306s ease-in-out 1.51415s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 95.7541%; top: 68.0485%; animation: 5.63421s ease-in-out 1.81557s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 90.2145%; top: 72.0097%; animation: 7.97433s ease-in-out 2.93564s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 86.6498%; top: 71.1489%; animation: 6.86517s ease-in-out 2.97866s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 50.3285%; top: 49.8842%; animation: 5.24733s ease-in-out 2.14729s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 29.3144%; top: 70.1036%; animation: 8.93102s ease-in-out 0.654857s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 45.2833%; top: 89.6979%; animation: 5.08661s ease-in-out 1.5558s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 23.5053%; top: 6.34899%; animation: 7.77004s ease-in-out 3.90634s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 11.7684%; top: 48.3047%; animation: 7.86831s ease-in-out 1.22194s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 48.1399%; top: 20.1029%; animation: 8.93035s ease-in-out 2.68952s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 2.92972%; top: 61.4587%; animation: 7.48065s ease-in-out 0.482297s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 30.2797%; top: 60.5705%; animation: 6.23167s ease-in-out 1.93412s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 19.0821%; top: 1.81424%; animation: 4.02407s ease-in-out 3.77737s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 70.1934%; top: 31.475%; animation: 6.57166s ease-in-out 0.74793s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 3.82158%; top: 77.2724%; animation: 8.41561s ease-in-out 1.27867s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 50.5933%; top: 61.6438%; animation: 6.76862s ease-in-out 2.70757s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 67.4493%; top: 61.2478%; animation: 4.55206s ease-in-out 2.95167s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 72.8887%; top: 67.3302%; animation: 7.41357s ease-in-out 1.98479s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 23.2276%; top: 49.2523%; animation: 8.48494s ease-in-out 2.1931s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 80.9182%; top: 59.3719%; animation: 4.4887s ease-in-out 1.44116s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 8.28444%; top: 39.9732%; animation: 4.39965s ease-in-out 0.738232s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 1.30135%; top: 69.8894%; animation: 6.65679s ease-in-out 1.51967s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 45.154%; top: 80.5212%; animation: 6.67813s ease-in-out 3.60969s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 10.6196%; top: 79.7145%; animation: 7.56503s ease-in-out 3.47248s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 29.2207%; top: 43.2596%; animation: 6.11873s ease-in-out 1.75603s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 68.136%; top: 51.844%; animation: 5.11705s ease-in-out 0.845632s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 93.9228%; top: 50.3122%; animation: 5.89481s ease-in-out 1.13782s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 86.4336%; top: 72.3674%; animation: 5.48971s ease-in-out 1.43708s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 6.38015%; top: 73.4847%; animation: 6.03349s ease-in-out 1.17983s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 43.7532%; top: 6.3897%; animation: 8.25567s ease-in-out 0.690715s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 9.08046%; top: 17.4522%; animation: 6.51907s ease-in-out 0.643053s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 52.9221%; top: 41.9222%; animation: 6.56394s ease-in-out 0.908129s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 9.6355%; top: 96.1739%; animation: 6.91617s ease-in-out 3.92168s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 83.3372%; top: 68.4927%; animation: 6.49967s ease-in-out 3.58665s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 64.9756%; top: 78.275%; animation: 5.25683s ease-in-out 1.23936s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 94.1954%; top: 55.4589%; animation: 5.14154s ease-in-out 1.12961s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 70.5924%; top: 99.3644%; animation: 5.06327s ease-in-out 1.63523s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 22.9979%; top: 86.0822%; animation: 6.99895s ease-in-out 0.350448s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 71.2979%; top: 97.6988%; animation: 8.39905s ease-in-out 3.82794s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 61.9057%; top: 5.62574%; animation: 4.85117s ease-in-out 0.796455s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 85.8547%; top: 94.815%; animation: 8.88083s ease-in-out 2.39914s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 15.7391%; top: 78.2818%; animation: 7.00737s ease-in-out 0.44256s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 43.9122%; top: 9.62214%; animation: 5.08995s ease-in-out 1.96018s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 29.7887%; top: 37.4202%; animation: 5.76141s ease-in-out 1.50247s infinite normal none running floatParticle;"></div><div class="absolute w-1 h-1 rounded-full bg-ermitsGold/40" style="left: 77.3269%; top: 28.1902%; animation: 8.26291s ease-in-out 0.000159051s infinite normal none running floatParticle;"></div></div>
+          </div>
+
+          <!-- Hero content -->
+          <div class="relative z-10 mx-auto max-w-5xl px-4 pb-20 pt-20 sm:px-6 sm:pb-24 sm:pt-24 lg:px-8">
+            <div class="max-w-3xl space-y-4">
+              <h1 class="text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl mb-6">
+                <div class="block text-slate-50" data-i18n="hero.title1">Navigate Risks. Unlock Growth.</div>
+                <div class="block bg-gradient-to-r from-ermitsGold via-ermitsIndigo to-sky-300 bg-clip-text text-transparent" data-i18n="hero.title2">
+                  Future-Proof Your Organization
+                </div>
+              </h1>
+
+              <div class="carousel-container">
+                <p class="carousel-item text-sm text-slate-200 sm:text-base leading-normal" data-i18n="hero.message1">
+                  ERMITS empowers organizations to navigate complex risks in cyberspace with safety, responsibility, and strategy. 
+                  We combine cutting-edge, privacy-first, compliance-based tools with innovative sourcing and consulting methodologies 
+                  to transform your security and related data into actionable intelligence, enabling better resilience without sacrificing competitiveness.
+                </p>
+                <p class="carousel-item text-sm text-slate-200 sm:text-base leading-normal" data-i18n="hero.message2">
+                  Transform your security posture with comprehensive risk management solutions. Our integrated platform combines privacy compliance, 
+                  threat intelligence, and vendor risk management into a unified view that helps you make informed decisions and build resilient operations.
+                </p>
+              </div>
+
+
+              <div class="mt-2 grid grid-cols-1 gap-3 text-[11px] text-slate-200 sm:grid-cols-2 md:grid-cols-3">
+                <div class="flex items-center gap-2">
+                  <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
+                  <span data-i18n="hero.feature1">Privacy, cyber &amp; vendors in one view</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="h-1.5 w-1.5 rounded-full bg-sky-400 flex-shrink-0"></span>
+                  <span data-i18n="hero.feature2">Advisory + self-service tools</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="h-1.5 w-1.5 rounded-full bg-ermitsGold flex-shrink-0"></span>
+                  <span data-i18n="hero.feature3">Built for SMBs and sectors</span>
+                </div>
+              </div>
+
+              <!-- Value Metrics -->
+              <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                <div class="rounded-lg border border-slate-700/50 bg-slate-800/40 p-4 backdrop-blur-sm">
+                  <div class="text-2xl font-bold text-ermitsGold mb-1" data-i18n="hero.metric1.value">$4.88M</div>
+                  <div class="text-xs text-slate-300" data-i18n="hero.metric1.label">Average data breach cost</div>
+                </div>
+                <div class="rounded-lg border border-slate-700/50 bg-slate-800/40 p-4 backdrop-blur-sm">
+                  <div class="text-2xl font-bold text-ermitsGold mb-1" data-i18n="hero.metric2.value">61%</div>
+                  <div class="text-xs text-slate-300" data-i18n="hero.metric2.label">Breaches involve third parties</div>
+                </div>
+                <div class="rounded-lg border border-slate-700/50 bg-slate-800/40 p-4 backdrop-blur-sm">
+                  <div class="text-2xl font-bold text-ermitsGold mb-1" data-i18n="hero.metric3.value">277 days</div>
+                  <div class="text-xs text-slate-300" data-i18n="hero.metric3.label">Average time to detect breach</div>
+                </div>
+              </div>
+
+              <!-- Hero CTAs -->
+              <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#action" class="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-ermitsBlue to-ermitsIndigo px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/40 hover:shadow-xl transition-all">
+                  <span data-i18n="hero.cta1">Start Free Assessment</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+                <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#contact" class="inline-flex items-center justify-center rounded-lg border-2 border-slate-600 px-6 py-3 text-sm font-semibold text-ermitsGold hover:border-ermitsGold/50 transition-colors">
+                  <span data-i18n="hero.cta2">Schedule Demo</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROBLEM SECTION -->
+        <section id="problem" class="border-t border-slate-800 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-16">
+          <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+              <h2 class="text-2xl font-bold text-slate-50 sm:text-3xl mb-4" data-i18n="problem.title">
+                The Hidden Cost of Fragmented Risk Management
+              </h2>
+              <p class="text-sm text-slate-300 sm:text-base max-w-3xl mx-auto" data-i18n="problem.subtitle">
+                Organizations struggle with disconnected tools, manual processes, and reactive security that leaves critical gaps exposed.
+              </p>
+            </div>
+
+            <!-- Problem Statistics -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              <div class="rounded-xl border-2 border-red-500/30 bg-slate-800/60 p-6 text-center">
+                <div class="text-3xl font-bold text-red-400 mb-2" data-i18n="problem.stat1.value">$4.88M</div>
+                <div class="text-sm text-slate-300 mb-2" data-i18n="problem.stat1.label">Average data breach cost</div>
+                <div class="text-xs text-slate-400" data-i18n="problem.stat1.context">IBM Cost of Data Breach 2024</div>
+              </div>
+              <div class="rounded-xl border-2 border-red-500/30 bg-slate-800/60 p-6 text-center">
+                <div class="text-3xl font-bold text-red-400 mb-2" data-i18n="problem.stat2.value">61%</div>
+                <div class="text-sm text-slate-300 mb-2" data-i18n="problem.stat2.label">Breaches involve third parties</div>
+                <div class="text-xs text-slate-400" data-i18n="problem.stat2.context">Vendor risk is critical</div>
+              </div>
+              <div class="rounded-xl border-2 border-red-500/30 bg-slate-800/60 p-6 text-center">
+                <div class="text-3xl font-bold text-red-400 mb-2" data-i18n="problem.stat3.value">277 days</div>
+                <div class="text-sm text-slate-300 mb-2" data-i18n="problem.stat3.label">Average time to detect breach</div>
+                <div class="text-xs text-slate-400" data-i18n="problem.stat3.context">Reactive security fails</div>
+              </div>
+            </div>
+
+            <!-- Pain Points -->
+            <div class="max-w-4xl mx-auto">
+              <h3 class="text-xl font-semibold text-slate-50 mb-6 text-center" data-i18n="problem.painPoints.title">
+                Are You Struggling With:
+              </h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex items-start gap-3 p-4 rounded-lg bg-slate-800/40 border border-slate-700/50">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                  <p class="text-sm text-slate-300" data-i18n="problem.painPoint1">Flying blind to compliance gaps and regulatory obligations</p>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-lg bg-slate-800/40 border border-slate-700/50">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                  <p class="text-sm text-slate-300" data-i18n="problem.painPoint2">Unknown vendor risks that could break your compliance</p>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-lg bg-slate-800/40 border border-slate-700/50">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                  <p class="text-sm text-slate-300" data-i18n="problem.painPoint3">Reactive security that discovers threats too late</p>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-lg bg-slate-800/40 border border-slate-700/50">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                  <p class="text-sm text-slate-300" data-i18n="problem.painPoint4">Manual processes that consume time and introduce errors</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SOLUTION SECTION -->
+        <section id="solution" class="border-t border-slate-800 bg-gradient-to-br from-ermitsBlue via-slate-800 to-slate-900 py-16">
+          <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+              <h2 class="text-2xl font-bold text-slate-50 sm:text-3xl mb-4" data-i18n="solution.title">
+                ERMITS: The 4-Layer Intelligence Model
+              </h2>
+              <p class="text-sm text-slate-300 sm:text-base max-w-3xl mx-auto" data-i18n="solution.subtitle">
+                Transform fragmented risk management into unified intelligence that answers the critical questions every organization faces.
+              </p>
+            </div>
+
+            <!-- 4-Layer Model Visualization -->
+            <div class="max-w-4xl mx-auto mb-12">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Layer 1: Obligations -->
+                <div class="rounded-xl border-2 border-blue-500/50 bg-slate-800/60 p-6">
+                  <div class="flex items-center gap-3 mb-3">
+                    <div class="rounded-full bg-blue-500/20 p-2">
+                      <span class="text-lg font-bold text-blue-400">1</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-50" data-i18n="solution.layer1.title">Obligations</h3>
+                  </div>
+                  <p class="text-sm text-slate-300 mb-2" data-i18n="solution.layer1.question"><strong>Question:</strong> "What must we comply with?"</p>
+                  <p class="text-xs text-slate-400" data-i18n="solution.layer1.description">Regulatory mapping and compliance obligation identification (GDPR, CCPA, HIPAA, SOX, NIST, ISO, CMMC)</p>
+                  <p class="text-xs text-ermitsGold mt-2 font-semibold" data-i18n="solution.layer1.product">CyberCorrect™</p>
+                </div>
+
+                <!-- Layer 2: Vendors -->
+                <div class="rounded-xl border-2 border-green-500/50 bg-slate-800/60 p-6">
+                  <div class="flex items-center gap-3 mb-3">
+                    <div class="rounded-full bg-green-500/20 p-2">
+                      <span class="text-lg font-bold text-green-400">2</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-50" data-i18n="solution.layer2.title">Vendors</h3>
+                  </div>
+                  <p class="text-sm text-slate-300 mb-2" data-i18n="solution.layer2.question"><strong>Question:</strong> "Who can break our compliance?"</p>
+                  <p class="text-xs text-slate-400" data-i18n="solution.layer2.description">Third-party risk assessment and supply chain analysis with compliance impact scoring</p>
+                  <p class="text-xs text-ermitsGold mt-2 font-semibold" data-i18n="solution.layer2.product">VendorSoluce™</p>
+                </div>
+
+                <!-- Layer 3: Controls -->
+                <div class="rounded-xl border-2 border-purple-500/50 bg-slate-800/60 p-6">
+                  <div class="flex items-center gap-3 mb-3">
+                    <div class="rounded-full bg-purple-500/20 p-2">
+                      <span class="text-lg font-bold text-purple-400">3</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-50" data-i18n="solution.layer3.title">Controls</h3>
+                  </div>
+                  <p class="text-sm text-slate-300 mb-2" data-i18n="solution.layer3.question"><strong>Question:</strong> "What actually exists today?"</p>
+                  <p class="text-xs text-slate-400" data-i18n="solution.layer3.description">Asset inventory and control implementation verification across your organization</p>
+                  <p class="text-xs text-ermitsGold mt-2 font-semibold" data-i18n="solution.layer3.product">CyberSoluce™</p>
+                </div>
+
+                <!-- Layer 4: Threats -->
+                <div class="rounded-xl border-2 border-indigo-500/50 bg-slate-800/60 p-6">
+                  <div class="flex items-center gap-3 mb-3">
+                    <div class="rounded-full bg-indigo-500/20 p-2">
+                      <span class="text-lg font-bold text-indigo-400">4</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-50" data-i18n="solution.layer4.title">Threats</h3>
+                  </div>
+                  <p class="text-sm text-slate-300 mb-2" data-i18n="solution.layer4.question"><strong>Question:</strong> "What is happening right now?"</p>
+                  <p class="text-xs text-slate-400" data-i18n="solution.layer4.description">Real-time threat intelligence and risk prioritization with control stress analysis</p>
+                  <p class="text-xs text-ermitsGold mt-2 font-semibold" data-i18n="solution.layer4.product">CyberCaution™</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Solution Benefits -->
+            <div class="max-w-4xl mx-auto">
+              <h3 class="text-xl font-semibold text-slate-50 mb-6 text-center" data-i18n="solution.benefits.title">
+                Instead of Fragmented Tools, You Get:
+              </h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex items-start gap-3 p-4 rounded-lg bg-slate-800/40 border border-slate-700/50">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <p class="text-sm text-slate-300" data-i18n="solution.benefit1">Unified view across obligations, vendors, controls, and threats</p>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-lg bg-slate-800/40 border border-slate-700/50">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <p class="text-sm text-slate-300" data-i18n="solution.benefit2">Proactive intelligence that identifies risks before they become incidents</p>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-lg bg-slate-800/40 border border-slate-700/50">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <p class="text-sm text-slate-300" data-i18n="solution.benefit3">Automated evidence collection and compliance reporting</p>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-lg bg-slate-800/40 border border-slate-700/50">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <p class="text-sm text-slate-300" data-i18n="solution.benefit4">Ecosystem integration that amplifies value across all products</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ERMITS ADVISORY -->
+        <section id="advisory" class="border-t border-slate-800 bg-gradient-to-br from-ermitsBlue via-slate-800 to-slate-900 py-16">
+          <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+              <h2 class="text-2xl font-bold text-slate-50 sm:text-3xl mb-4">
+                <span data-i18n="advisory.title">ERMITS</span> <span class="text-ermitsGold" data-i18n="advisory.titleHighlight">Advisory</span>
+              </h2>
+              <p class="text-sm text-slate-300 sm:text-base max-w-3xl mx-auto" data-i18n="advisory.subtitle">
+                Strategic intelligence and executive-ready guidance powered by the STEEL framework. Connect your current risk posture with practical roadmaps, investment plans, and ERMITS platform implementation.
+              </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto mb-8">
+              <article class="flex flex-col rounded-2xl border-2 border-slate-600/50 bg-slate-800/60 p-6 shadow-lg">
+                <div class="flex items-center gap-3 mb-4">
+                  <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/ermits-advisory.png" alt="ERMITS Advisory" class="h-12 w-12 rounded-full object-contain">
+                  <div>
+                    <h3 class="text-base font-semibold text-slate-50" data-i18n="advisory.name">ERMITS Advisory</h3>
+                    <p class="text-[11px] uppercase tracking-[0.16em] text-ermitsGold font-semibold" data-i18n="advisory.tagline">Strategic Intelligence &amp; vCISO Services</p>
+                  </div>
+                </div>
+                <p class="text-sm text-slate-200 leading-normal mb-4" data-i18n="advisory.description">
+                  Comprehensive risk management advisory services leveraging the STEEL framework (Strategic Threat &amp; Enterprise Evaluation Layer) to provide strategic diagnostics, vCISO leadership, compliance guidance, and governance strategy that integrates seamlessly with the ERMITS ecosystem.
+                </p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                  <div class="flex items-start gap-2">
+                    <span class="h-1.5 w-1.5 rounded-full bg-ermitsGold mt-2 flex-shrink-0"></span>
+                    <div>
+                      <p class="text-xs font-semibold text-slate-50 mb-1" data-i18n="advisory.feature1Title">STEEL Strategic Diagnostics</p>
+                      <p class="text-[11px] text-slate-300" data-i18n="advisory.feature1Desc">Rapid and comprehensive risk diagnostics with quantified scoring</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <span class="h-1.5 w-1.5 rounded-full bg-ermitsGold mt-2 flex-shrink-0"></span>
+                    <div>
+                      <p class="text-xs font-semibold text-slate-50 mb-1" data-i18n="advisory.feature2Title">vCISO Services</p>
+                      <p class="text-[11px] text-slate-300" data-i18n="advisory.feature2Desc">Strategic, operational, and executive virtual CISO leadership</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <span class="h-1.5 w-1.5 rounded-full bg-ermitsGold mt-2 flex-shrink-0"></span>
+                    <div>
+                      <p class="text-xs font-semibold text-slate-50 mb-1" data-i18n="advisory.feature3Title">Compliance Advisory</p>
+                      <p class="text-[11px] text-slate-300" data-i18n="advisory.feature3Desc">NIST CSF, ISO 27001, SOC 2, HIPAA, CMMC readiness</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <span class="h-1.5 w-1.5 rounded-full bg-ermitsGold mt-2 flex-shrink-0"></span>
+                    <div>
+                      <p class="text-xs font-semibold text-slate-50 mb-1" data-i18n="advisory.feature4Title">Governance &amp; Risk Strategy</p>
+                      <p class="text-[11px] text-slate-300" data-i18n="advisory.feature4Desc">Security program foundation and board governance</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-3">
+                  <a href="https://ermits-advisory.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-ermitsBlue to-ermitsIndigo px-6 py-3 text-xs font-semibold text-white shadow-lg shadow-blue-500/40 hover:shadow-xl transition-all">
+                    <span data-i18n="advisory.cta1">Explore Advisory Services</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 12h14"></path>
+                      <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                  </a>
+                  <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#contact" class="inline-flex items-center justify-center rounded-lg border-2 border-slate-600 px-6 py-3 text-xs font-semibold text-ermitsGold hover:border-ermitsGold/50 transition-colors">
+                    <span data-i18n="advisory.cta2">Contact Sales</span>
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- ERMITS ECOSYSTEM -->
+        <section id="ecosystem" class="border-t border-slate-800 bg-slate-900 py-16">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-3xl text-center mb-12">
+              <h2 class="text-2xl font-bold text-slate-50 sm:text-3xl mb-4">
+                <span data-i18n="ecosystem.title">ERMITS</span> <span class="text-ermitsGold" data-i18n="ecosystem.titleHighlight">Ecosystem</span>
+              </h2>
+              <p class="text-sm text-slate-300 sm:text-base mb-4" data-i18n="ecosystem.subtitle">
+                Start where you are today, then plug in additional ERMITS components as your maturity grows.
+              </p>
+              <p class="text-xs text-slate-400 mb-4 leading-relaxed" data-i18n="ecosystem.description">
+                Seven integrated platforms: CyberCorrect™ (privacy), CyberCaution™ (threats), CyberSoluce™ (asset management), VendorSoluce™, TechnoSoluce™,
+                SocialCaution™, and CyberCertitude™.
+              </p>
+            </div>
+
+            <div class="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+              <!-- CyberCorrect -->
+              <article class="flex flex-col rounded-2xl border-2 border-slate-700 bg-slate-800/80 p-4 sm:p-6 shadow-sm hover:border-blue-500/50 transition-all hover:shadow-lg">
+                <div class="flex items-center gap-3 mb-3 sm:mb-4">
+                  <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/cybercorrect.png" alt="CyberCorrect" class="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-contain flex-shrink-0">
+                  <div class="min-w-0">
+                    <h3 class="text-base sm:text-lg font-semibold text-slate-50 truncate" data-i18n="ecosystem.cybercorrect.name">CyberCorrect™</h3>
+                    <p class="text-[10px] uppercase tracking-[0.16em] text-blue-400" data-i18n="ecosystem.cybercorrect.tagline">Privacy &amp; data rights</p>
+                  </div>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-300 leading-normal mb-3 sm:mb-4 flex-grow" data-i18n="ecosystem.cybercorrect.description">
+                  Regulatory mapping and compliance obligation identification across GDPR, CCPA, HIPAA, SOX, NIST, ISO, and CMMC. 
+                  Automates compliance evidence collection and operationalizes privacy rights management.
+                </p>
+                <a href="https://cybercorrect.com/" target="_blank" rel="noopener noreferrer" class="mt-auto inline-flex items-center text-xs font-semibold text-blue-400 hover:text-blue-300 transition-colors">
+                  <span data-i18n="ecosystem.cybercorrect.cta">Launch CyberCorrect</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+              </article>
+
+              <!-- CyberCaution -->
+              <article class="flex flex-col rounded-2xl border-2 border-slate-800 bg-slate-900/80 p-6 shadow-sm hover:border-indigo-500/50 transition-all hover:shadow-lg">
+                <div class="flex items-center gap-3 mb-4">
+                  <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/cybercaution.png" alt="CyberCaution" class="h-12 w-12 rounded-full object-contain">
+                  <div>
+                    <h3 class="text-lg font-semibold text-slate-50" data-i18n="ecosystem.cybercaution.name">CyberCaution™</h3>
+                    <p class="text-[10px] uppercase tracking-[0.16em] text-indigo-400" data-i18n="ecosystem.cybercaution.tagline">Threat &amp; ransomware</p>
+                  </div>
+                </div>
+                <p class="text-sm text-slate-300 leading-normal" data-i18n="ecosystem.cybercaution.description">
+                  Real-time threat intelligence and risk prioritization with control stress analysis. 
+                  Identifies active threats targeting your environment and validates control effectiveness against current attack vectors.
+                </p>
+                <a href="https://cybercaution.com/" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition-colors">
+                  <span data-i18n="ecosystem.cybercaution.cta">Launch CyberCaution</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+              </article>
+
+              <!-- CyberSoluce -->
+              <article class="flex flex-col rounded-2xl border-2 border-slate-800 bg-slate-900/80 p-6 shadow-sm hover:border-purple-500/50 transition-all hover:shadow-lg">
+                <div class="flex items-center gap-3 mb-4">
+                  <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/cybersoluce.png" alt="CyberSoluce" class="h-12 w-12 rounded-full object-contain">
+                  <div>
+                    <h3 class="text-lg font-semibold text-slate-50" data-i18n="ecosystem.cybersoluce.name">CyberSoluce™</h3>
+                    <p class="text-[10px] uppercase tracking-[0.16em] text-purple-400" data-i18n="ecosystem.cybersoluce.tagline">Intelligent Asset Management</p>
+                  </div>
+                </div>
+                <p class="text-sm text-slate-300 leading-normal" data-i18n="ecosystem.cybersoluce.description">
+                  Platform for managing and mitigating cyber risks across your enterprise. Comprehensive 
+                  tools for asset discovery, risk assessment, governance strategy, and security program implementation.
+                </p>
+                <a href="https://cybersoluce.com/" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center text-xs font-semibold text-purple-400 hover:text-purple-300 transition-colors">
+                  <span data-i18n="ecosystem.cybersoluce.cta">Launch CyberSoluce</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+              </article>
+
+              <!-- VendorSoluce -->
+              <article class="flex flex-col rounded-2xl border-2 border-slate-800 bg-slate-900/80 p-6 shadow-sm hover:border-ermitsGreen/50 transition-all hover:shadow-lg">
+                <div class="flex items-center gap-3 mb-4">
+                  <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/vendorsoluce.png" alt="VendorSoluce" class="h-12 w-12 rounded-full object-contain">
+                  <div>
+                    <h3 class="text-lg font-semibold text-slate-50" data-i18n="ecosystem.vendorsoluce.name">VendorSoluce™</h3>
+                    <p class="text-[10px] uppercase tracking-[0.16em] text-ermitsGreen" data-i18n="ecosystem.vendorsoluce.tagline">Third-party risk</p>
+                  </div>
+                </div>
+                <p class="text-sm text-slate-300 leading-normal" data-i18n="ecosystem.vendorsoluce.description">
+                  Third-party risk assessment and supply chain analysis with compliance impact scoring. 
+                  Evaluates vendor risk against regulatory obligations and provides vendor risk matrix with evidence requirements.
+                </p>
+                <a href="https://vendorsoluce.com/" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center text-xs font-semibold text-ermitsGreen hover:text-green-400 transition-colors">
+                  <span data-i18n="ecosystem.vendorsoluce.cta">Launch VendorSoluce</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+              </article>
+
+              <!-- TechnoSoluce -->
+              <article class="flex flex-col rounded-2xl border-2 border-slate-800 bg-slate-900/80 p-6 shadow-sm hover:border-sky-500/50 transition-all hover:shadow-lg">
+                <div class="flex items-center gap-3 mb-4">
+                  <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/TechnoSoluce.png" alt="TechnoSoluce" class="h-12 w-12 rounded-full object-contain">
+                  <div>
+                    <h3 class="text-lg font-semibold text-slate-50" data-i18n="ecosystem.technosoluce.name">TechnoSoluce™</h3>
+                    <p class="text-[10px] uppercase tracking-[0.16em] text-sky-400" data-i18n="ecosystem.technosoluce.tagline">Technology operations</p>
+                  </div>
+                </div>
+                <p class="text-sm text-slate-300 leading-normal" data-i18n="ecosystem.technosoluce.description">
+                  Technology operations and IT risk management platform for infrastructure and systems security. 
+                  Continuous monitoring and risk assessment for your technology stack.
+                </p>
+                <a href="https://technosoluce.com/" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center text-xs font-semibold text-sky-400 hover:text-sky-300 transition-colors">
+                  <span data-i18n="ecosystem.technosoluce.cta">Launch TechnoSoluce</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+              </article>
+
+              <!-- CyberCertitude -->
+              <article class="flex flex-col rounded-2xl border-2 border-slate-800 bg-slate-900/80 p-6 shadow-sm hover:border-ermitsGold/50 transition-all hover:shadow-lg">
+                <div class="flex items-center gap-3 mb-4">
+                  <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/CyberCertitude.png" alt="CyberCertitude" class="h-12 w-12 rounded-full object-contain">
+                  <div>
+                    <h3 class="text-lg font-semibold text-slate-50" data-i18n="ecosystem.cybercertitude.name">CyberCertitude™</h3>
+                    <p class="text-[10px] uppercase tracking-[0.16em] text-ermitsGold font-semibold" data-i18n="ecosystem.cybercertitude.tagline">Government Contracts</p>
+                  </div>
+                </div>
+                <p class="text-sm text-slate-300 leading-normal" data-i18n="ecosystem.cybercertitude.description">
+                  Guidance and readiness platform for security validation and confidence verification. Streamline your path to compliance certifications and ongoing assurance.
+                </p>
+                <a href="https://cybercertitude.com/" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center text-xs font-semibold text-ermitsGold hover:text-yellow-400 transition-colors">
+                  <span data-i18n="ecosystem.cybercertitude.cta">Launch CyberCertitude</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- SOCIALCAUTION - THE HUMAN LAYER -->
+        <section id="socialcaution" class="border-t border-slate-800 bg-gradient-to-br from-slate-900 via-slate-800 to-ermitsOrange/10 py-16">
+          <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+              <article class="flex flex-col rounded-2xl border-2 border-ermitsOrange/30 bg-slate-800/60 p-6 shadow-lg hover:border-ermitsOrange/50 transition-all">
+                <div class="flex items-center gap-3 mb-4">
+                  <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/socialcaution.png" alt="SocialCaution" class="h-12 w-12 rounded-full object-contain">
+                  <div>
+                    <h3 class="text-base font-semibold text-slate-50" data-i18n="ecosystem.socialcaution.name">SocialCaution™</h3>
+                    <p class="text-[11px] uppercase tracking-[0.16em] text-ermitsOrange" data-i18n="ecosystem.socialcaution.tagline">
+                      Human Risk Layer
+                    </p>
+                  </div>
+                </div>
+                <p class="text-sm text-slate-200 leading-normal mb-4" data-i18n="ecosystem.socialcaution.description">
+                  Addresses the critical "Social" dimension of Enterprise Risk Management by providing clear visibility into personal digital vulnerabilities with actionable insights to strengthen privacy and reduce social engineering risk across your workforce.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-3">
+                  <a href="https://socialcaution.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-ermitsOrange to-orange-500 px-6 py-3 text-xs font-semibold text-white shadow-lg shadow-orange-500/40 hover:shadow-xl transition-all">
+                    <span data-i18n="ecosystem.socialcaution.cta">Launch SocialCaution</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 12h14"></path>
+                      <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- OUR STORY SECTION -->
+        <section class="border-t border-slate-800 bg-gradient-to-br from-ermitsBlue via-slate-800 to-slate-900 py-16">
+          <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <span class="inline-block rounded-full bg-ermitsGold/20 px-4 py-1 text-xs font-semibold text-ermitsGold mb-6" data-i18n="story.label">
+              Our Story
+            </span>
+            <div class="space-y-4 text-sm text-slate-200 sm:text-base leading-normal">
+              <p data-i18n="story.paragraph1">
+                ERMITS was conceived in 2016 to research and address emerging global issues in data privacy law and cybersecurity from a comprehensive business intelligence perspective. Our purview now expands to a wider range of problems at the intersection of enterprise risk management and information technology. We solve these problems by helping organizations leverage their compliance with the highest technical and regulatory standards, through a combination of automated digital tools and customized professional consulting services.
+              </p>
+              <p data-i18n-html="story.paragraph2">
+                <strong class="text-ermitsGold">Privacy First Philosophy:</strong> At ERMITS, privacy is not an afterthought—it's the foundation of everything we build. We believe that protecting personal data and respecting individual privacy rights is not just a fundamental responsibility but also a strategic advantage—as well as a good model for data security in general—ensuring organizations can build trust with their stakeholders while seizing overlooked opportunities and achieving compliance in co-evolving legal, technical and business landscapes.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ACTION SECTION -->
+        <section id="action" class="border-t border-slate-800 bg-gradient-to-br from-ermitsBlue via-slate-800 to-slate-900 py-16">
+          <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+              <h2 class="text-2xl font-bold text-slate-50 sm:text-3xl mb-4" data-i18n="action.title">
+                Start Your ERMITS Assessment Today
+              </h2>
+              <p class="text-sm text-slate-300 sm:text-base max-w-3xl mx-auto" data-i18n="action.subtitle">
+                Join organizations using ERMITS to transform cybersecurity from cost center to competitive advantage.
+              </p>
+            </div>
+
+            <!-- CTA Options -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8">
+              <!-- Primary CTA: Free Trial -->
+              <div class="rounded-xl border-2 border-ermitsGold/50 bg-slate-800/60 p-8 text-center">
+                <div class="mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-ermitsGold mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <h3 class="text-xl font-semibold text-slate-50 mb-2" data-i18n="action.cta1.title">Free 14-Day Trial</h3>
+                  <p class="text-sm text-slate-300 mb-4" data-i18n="action.cta1.description">Full access to ERMITS platform, no credit card required</p>
+                </div>
+                <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#contact" class="inline-flex items-center justify-center w-full rounded-lg bg-gradient-to-r from-ermitsBlue to-ermitsIndigo px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/40 hover:shadow-xl transition-all">
+                  <span data-i18n="action.cta1.button">Start Free Trial</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+
+              <!-- Secondary CTA: Demo -->
+              <div class="rounded-xl border-2 border-slate-600/50 bg-slate-800/60 p-8 text-center">
+                <div class="mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-ermitsGold mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                  </svg>
+                  <h3 class="text-xl font-semibold text-slate-50 mb-2" data-i18n="action.cta2.title">See It In Action</h3>
+                  <p class="text-sm text-slate-300 mb-4" data-i18n="action.cta2.description">15-minute personalized demo with ERMITS expert</p>
+                </div>
+                <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#contact" class="inline-flex items-center justify-center w-full rounded-lg border-2 border-slate-600 px-6 py-3 text-sm font-semibold text-ermitsGold hover:border-ermitsGold/50 transition-colors">
+                  <span data-i18n="action.cta2.button">Schedule Demo</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Trust Signals -->
+            <div class="flex flex-wrap justify-center gap-6 text-xs text-slate-400">
+              <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span data-i18n="action.trust1">No credit card required</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span data-i18n="action.trust2">2-minute setup</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span data-i18n="action.trust3">Cancel anytime</span>
+              </div>
+            </div>
+
+            <!-- Urgency Message -->
+            <div class="mt-8 text-center">
+              <h3 class="text-lg font-semibold text-ermitsGold mb-2" data-i18n="action.urgency.title">Why Wait?</h3>
+              <p class="text-sm text-slate-300 max-w-2xl mx-auto" data-i18n="action.urgency.message">
+                Every day without unified risk intelligence increases your exposure. Start your assessment today and get your Value Declaration Report in 48 hours.
+              </p>
+            </div>
+          </div>
+        </section>
+
+<!-- FRAMEWORKS + CONTACT -->
+        <section id="frameworks" class="border-t border-slate-800 bg-slate-900 pb-16 pt-10">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="rounded-2xl border border-slate-700 bg-slate-800/80 p-6 text-center shadow-sm mb-12">
+              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3" data-i18n="frameworks.label">
+                Framework Alignment
+              </p>
+              <p class="text-sm text-slate-200 sm:text-base mb-4" data-i18n="frameworks.description">
+                ERMITS tools and advisory are designed to align with leading cybersecurity, privacy and risk frameworks.
+              </p>
+              <div class="flex flex-wrap justify-center gap-2 text-xs">
+                <span class="rounded-full bg-slate-800 px-3 py-1 text-slate-100">ISO 27001</span>
+                <span class="rounded-full bg-slate-800 px-3 py-1 text-slate-100">NIST CSF</span>
+                <span class="rounded-full bg-slate-800 px-3 py-1 text-slate-100">SOC 2</span>
+                <span class="rounded-full bg-slate-800 px-3 py-1 text-slate-100">CMMC</span>
+                <span class="rounded-full bg-slate-800 px-3 py-1 text-slate-100">GDPR</span>
+                <span class="rounded-full bg-slate-800 px-3 py-1 text-slate-100">CCPA</span>
+                <span class="rounded-full bg-slate-800 px-3 py-1 text-slate-100">LGPD</span>
+                <span class="rounded-full bg-slate-800 px-3 py-1 text-slate-100">DPDP</span>
+              </div>
+            </div>
+
+            <div id="contact" class="text-center">
+              <h3 class="text-2xl font-bold text-slate-50 mb-4" data-i18n="contact.title">
+                Ready to Transform Your Risk Management?
+              </h3>
+              <p class="text-sm text-slate-300 sm:text-base mb-6 max-w-2xl mx-auto" data-i18n="contact.description">
+                Share your current situation and constraints, and we'll help you prioritize the first practical steps across 
+                privacy, cyber risk and vendor assurance.
+              </p>
+              <div class="flex justify-center">
+                <a href="mailto:contact@ermits.com" class="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-ermitsBlue to-ermitsIndigo px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/40 hover:shadow-xl transition-all">
+                  <span data-i18n="contact.cta">Contact Sales</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="border-t border-slate-800 bg-slate-900 pt-4 pb-2 mt-auto">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 md:grid-cols-6 gap-6 mb-2">
+            <!-- Company Info -->
+            <div class="col-span-1 md:col-span-2">
+              <div class="flex items-center gap-1 mb-3 justify-center sm:justify-start">
+                <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/ermits-logo.png" alt="ERMITS logo" class="h-12 w-12 rounded-full shadow object-contain">
+                <div class="flex flex-col leading-none text-left ermits-brand-font">
+                  <span class="text-xl font-bold tracking-widest text-slate-50 mb-0.5">
+                    ERMITS
+                  </span>
+                  <span class="text-[11px] font-medium tracking-tight uppercase text-slate-400" data-i18n="company.tagline1">
+                    Enterprise Risk Management
+                  </span>
+                  <span class="text-[11px] font-medium tracking-tight uppercase leading-tight text-slate-400" data-i18n="company.tagline2">
+                    Information Technology Solutions
+                  </span>
+                </div>
+              </div>
+              <p class="text-xs text-ermitsGold font-semibold mb-3" data-i18n="footer.tagline">
+                Navigate Risks. Unlock Growth. Future-Proof Your Organization.
+              </p>
+              <a href="mailto:contact@ermits.com" class="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-ermitsGold transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                contact@ermits.com
+              </a>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+              <h5 class="text-xs font-semibold text-slate-50 uppercase tracking-wider mb-3" data-i18n="footer.quickLinks">Quick Links</h5>
+              <ul class="space-y-1.5">
+                <li>
+                  <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#home" class="text-xs text-slate-400 hover:text-ermitsGold transition-colors flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span data-i18n="nav.home">Home</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/index-ERMITS.html#contact" class="text-xs text-slate-400 hover:text-ermitsGold transition-colors flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span data-i18n="nav.contact">Contact</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://ermits-advisory.com/" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-ermitsGold transition-colors flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                    <span data-i18n="nav.advisory">Advisory</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Ecosystem Platforms -->
+            <div class="col-span-1 md:col-span-2 flex flex-col items-center">
+              <div class="flex justify-center mb-3 w-full">
+                <h5 class="text-xs font-semibold text-slate-50 uppercase tracking-wider" data-i18n="footer.platforms">Platforms</h5>
+              </div>
+              <ul class="grid grid-cols-2 gap-x-4 gap-y-1.5 w-full max-w-xs">
+                <li>
+                  <a href="https://cybercorrect.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-xs text-slate-400 hover:text-ermitsGold transition-colors">
+                    <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/cybercorrect.png" alt="CyberCorrect" class="h-5 w-5 rounded-full object-contain">
+                    CyberCorrect™
+                  </a>
+                </li>
+                <li>
+                  <a href="https://cybercaution.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-xs text-slate-400 hover:text-ermitsGold transition-colors">
+                    <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/cybercaution.png" alt="CyberCaution" class="h-5 w-5 rounded-full object-contain">
+                    CyberCaution™
+                  </a>
+                </li>
+                <li>
+                  <a href="https://cybersoluce.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-xs text-slate-400 hover:text-ermitsGold transition-colors">
+                    <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/cybersoluce.png" alt="CyberSoluce" class="h-5 w-5 rounded-full object-contain">
+                    CyberSoluce™
+                  </a>
+                </li>
+                <li>
+                  <a href="https://vendorsoluce.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-xs text-slate-400 hover:text-ermitsGold transition-colors">
+                    <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/vendorsoluce.png" alt="VendorSoluce" class="h-5 w-5 rounded-full object-contain">
+                    VendorSoluce™
+                  </a>
+                </li>
+                <li>
+                  <a href="https://socialcaution.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-xs text-slate-400 hover:text-ermitsGold transition-colors">
+                    <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/socialcaution.png" alt="SocialCaution" class="h-5 w-5 rounded-full object-contain">
+                    SocialCaution™
+                  </a>
+                </li>
+                <li>
+                  <a href="https://technosoluce.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-xs text-slate-400 hover:text-ermitsGold transition-colors">
+                    <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/TechnoSoluce.png" alt="TechnoSoluce" class="h-5 w-5 rounded-full object-contain">
+                    TechnoSoluce™
+                  </a>
+                </li>
+                <li>
+                  <a href="https://cybercertitude.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-xs text-slate-400 hover:text-ermitsGold transition-colors">
+                    <img src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/assets/logos/CyberCertitude.png" alt="CyberCertitude" class="h-5 w-5 rounded-full object-contain">
+                    CyberCertitude™
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Legal & Policies -->
+            <div class="md:ml-4">
+              <h5 class="text-xs font-semibold text-slate-50 uppercase tracking-wider mb-3" data-i18n="footer.legal">Legal</h5>
+              <ul class="space-y-1.5">
+                <li>
+                  <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/terms-of-service.html" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-ermitsGold transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <span data-i18n="footer.termsOfService">Terms of Service</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/privacy-policy.html" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-ermitsGold transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                    <span data-i18n="footer.privacyPolicy">Privacy Policy</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/cookie-policy.html" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-ermitsGold transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                    </svg>
+                    <span data-i18n="footer.cookiePolicy">Cookie Policy</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/acceptable-use-policy.html" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-ermitsGold transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                    <span data-i18n="footer.acceptableUsePolicy">Acceptable Use Policy</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Bottom Bar -->
+          <div class="border-t border-slate-800 pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-[11px] text-slate-500">
+              © <span id="year">2026</span> ERMITS LLC. <span data-i18n="footer.copyright">All rights reserved.</span>
+            </p>
+            <div class="flex items-center gap-4 text-[11px] text-slate-500">
+              <span class="flex items-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+                <span data-i18n="footer.privacyFirst">Privacy First</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Translation System -->
+    <script src="file:///C:/Users/facel/Downloads/GitHub/ERMITS_PRODUCTION/LANDING-SITES/js/translations.js"></script>
+    
+    <script>
+      // Theme Toggle - Initialize immediately since script is at end of body
+      (function initThemeToggle() {
+        // Wait for DOM to be fully ready
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initThemeToggle);
+          return;
+        }
+
+        const body = document.getElementById('body');
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+
+        // Verify all required elements exist
+        if (!body) {
+          console.error('Theme toggle: body element not found');
+          return;
+        }
+        if (!themeToggle) {
+          console.error('Theme toggle: button element not found');
+          return;
+        }
+        if (!themeIcon) {
+          console.error('Theme toggle: icon element not found');
+          return;
+        }
+
+        function updateThemeIcon(theme) {
+          if (!themeIcon) return;
+          const sunIcon = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />';
+          const moonIcon = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />';
+          themeIcon.innerHTML = theme === 'light' ? sunIcon : moonIcon;
+        }
+
+        // Get saved theme or default to dark
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+          body.classList.add('light');
+          updateThemeIcon('light');
+        } else {
+          updateThemeIcon('dark');
+        }
+        
+        // Update language switcher display
+        if (window.currentLanguage) {
+          const langText = document.getElementById('lang-text');
+          if (langText) {
+            langText.textContent = window.currentLanguage.toUpperCase();
+          }
+          const htmlRoot = document.getElementById('html-root');
+          if (htmlRoot) {
+            htmlRoot.lang = window.currentLanguage;
+          }
+        }
+
+        // Add click event listener to toggle theme
+        themeToggle.addEventListener('click', function handleThemeToggle() {
+          body.classList.toggle('light');
+          const isLight = body.classList.contains('light');
+          const newTheme = isLight ? 'light' : 'dark';
+          localStorage.setItem('theme', newTheme);
+          updateThemeIcon(newTheme);
+        });
+
+        // Verify event listener was attached
+        if (themeToggle.onclick === null && !themeToggle.getAttribute('data-listener-attached')) {
+          themeToggle.setAttribute('data-listener-attached', 'true');
+        }
+      })();
+
+      // Year
+      document.getElementById("year").textContent = new Date().getFullYear().toString();
+
+      // Mouse glow
+      const glow = document.getElementById("mouse-glow");
+      if (glow) {
+        window.addEventListener("mousemove", (e) => {
+          const x = e.clientX;
+          const y = e.clientY;
+          glow.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        });
+      }
+
+      // Particles
+      const particlesLayer = document.getElementById("particles-layer");
+      if (particlesLayer) {
+        const particleCount = 80;
+        for (let i = 0; i < particleCount; i++) {
+          const dot = document.createElement("div");
+          dot.className = "absolute w-1 h-1 rounded-full bg-ermitsGold/40";
+          const left = Math.random() * 100;
+          const top = Math.random() * 100;
+          const delay = Math.random() * 4;
+          const duration = 4 + Math.random() * 5;
+          dot.style.left = left + "%";
+          dot.style.top = top + "%";
+          dot.style.animation = `floatParticle ${duration}s ease-in-out ${delay}s infinite`;
+          particlesLayer.appendChild(dot);
+        }
+      }
+
+      // Mobile menu toggle
+      (function initMobileMenu() {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+        if (!mobileMenuButton || !mobileMenu || !mobileMenuIcon) {
+          return;
+        }
+
+        function toggleMenu() {
+          const isOpen = !mobileMenu.classList.contains('hidden');
+          mobileMenu.classList.toggle('hidden');
+          mobileMenuButton.setAttribute('aria-expanded', !isOpen);
+          
+          // Update icon (hamburger to X)
+          if (isOpen) {
+            mobileMenuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />';
+          } else {
+            mobileMenuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
+          }
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking on a link
+        mobileMenuLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+            mobileMenuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />';
+          });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
+            if (!mobileMenu.classList.contains('hidden')) {
+              toggleMenu();
+            }
+          }
+        });
+      })();
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    </script>
+  
+
+</body></html>

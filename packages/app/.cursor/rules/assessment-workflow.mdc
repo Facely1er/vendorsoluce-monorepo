@@ -1,0 +1,69 @@
+---
+description: Guidelines for implementing multi-stage vendor assessment workflows including SBOM analysis, risk scoring, and compliance validation
+---
+
+
+# assessment-workflow
+
+Core Assessment Pipeline Components:
+
+1. Vendor Assessment Orchestrator
+Location: src/services/assessment/orchestrator.ts
+Importance Score: 95/100
+
+Workflow Stages:
+- Initial vendor onboarding assessment
+- SBOM document collection and validation
+- Framework-specific questionnaire delivery
+- Evidence collection and validation
+- Risk score calculation
+- Compliance status determination
+- Recommendation generation
+
+2. SBOM Analysis Pipeline
+Location: src/services/sbom/analyzer.ts
+Importance Score: 90/100
+
+Processing Steps:
+- Format detection (CycloneDX/SPDX)
+- Component inventory generation
+- License compliance validation
+- Vulnerability correlation
+- Risk scoring based on:
+  - Component criticality 
+  - Vulnerability severity
+  - Usage context
+  - Update availability
+
+3. Compliance Validation Engine
+Location: src/services/compliance/validator.ts 
+Importance Score: 85/100
+
+Framework Processing:
+- NIST SP 800-161 control mapping
+- Section-based scoring (0-100)
+- Evidence requirement tracking
+- Gap analysis generation
+- Automated remediation planning
+
+4. Recommendation Pipeline
+Location: src/services/assessment/recommendations.ts
+Importance Score: 80/100
+
+Generation Logic:
+- Risk-based prioritization
+- Framework-specific guidance
+- Implementation difficulty scoring
+- Cost-benefit analysis
+- Timeline recommendations
+- Dependency consideration
+
+Integration Points:
+- Assessment results feed vendor management
+- SBOM analysis triggers risk updates
+- Compliance status affects vendor rating
+- Recommendations drive remediation planning
+
+$END$
+
+ If you're using this file in context, clearly say in italics in one small line that "Context added by Giga assessment-workflow" along with specifying exactly what information was used from this file in a human-friendly way, instead of using kebab-case use normal sentence case.
