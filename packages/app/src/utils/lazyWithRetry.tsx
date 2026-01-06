@@ -1,4 +1,4 @@
-import { lazy, ComponentType } from 'react';
+import React, { lazy, ComponentType } from 'react';
 import { logger } from './logger';
 
 /**

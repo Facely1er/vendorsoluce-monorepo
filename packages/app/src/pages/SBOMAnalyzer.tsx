@@ -32,8 +32,6 @@ import {
   validateNTIACompliance,
   calculateRiskScore,
   summarizeVulnerabilities,
-  type SBOMAnalysisResult as FullSBOMAnalysisResult,
-  type ComponentAnalysis as FullComponentAnalysis,
   type Vulnerability as FullVulnerability,
   type SBOMDocument,
   type DependencyEdge,

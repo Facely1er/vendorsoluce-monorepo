@@ -12,8 +12,8 @@ import { useMarketingAutomation } from '../../hooks/useMarketingAutomation';
  * Add this to your App.tsx or main layout component
  */
 export function MarketingEventTracker() {
-  const { user, profile } = useAuth();
-  const { events, triggerWelcomeWorkflow } = useMarketingAutomation();
+  const { user } = useAuth();
+  const { events } = useMarketingAutomation();
   const location = useLocation();
 
   // Track page views

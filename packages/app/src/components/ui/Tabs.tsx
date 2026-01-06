@@ -1,7 +1,7 @@
 // Tabs Component
 // File: src/components/ui/Tabs.tsx
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, ReactNode } from 'react';
 
 interface TabsContextType {
   value: string;

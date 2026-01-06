@@ -19,7 +19,7 @@ afterEach(() => {
 if (typeof global.fetch === 'undefined') {
   // Try to use native fetch from Node.js 18+
   try {
-    // @ts-ignore - fetch might be available but not typed
+    // @ts-expect-error - fetch might be available but not typed
     if (typeof fetch !== 'undefined') {
       global.fetch = fetch as any;
     } else {
@@ -52,7 +52,7 @@ if (typeof global.fetch === 'undefined') {
 // These are required by jsdom's webidl-conversions
 if (typeof global.Headers === 'undefined') {
   try {
-    // @ts-ignore - Headers might be available but not typed
+    // @ts-expect-error - Headers might be available but not typed
     if (typeof Headers !== 'undefined') {
       global.Headers = Headers as any;
     } else {
@@ -80,7 +80,7 @@ if (typeof global.Headers === 'undefined') {
 
 if (typeof global.Request === 'undefined') {
   try {
-    // @ts-ignore - Request might be available but not typed
+    // @ts-expect-error - Request might be available but not typed
     if (typeof Request !== 'undefined') {
       global.Request = Request as any;
     } else {
@@ -93,7 +93,7 @@ if (typeof global.Request === 'undefined') {
 
 if (typeof global.Response === 'undefined') {
   try {
-    // @ts-ignore - Response might be available but not typed
+    // @ts-expect-error - Response might be available but not typed
     if (typeof Response !== 'undefined') {
       global.Response = Response as any;
     } else {

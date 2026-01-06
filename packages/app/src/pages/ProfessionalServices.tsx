@@ -3,13 +3,10 @@
  * B2B enterprise services and consulting offerings
  */
 
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import { Check, Shield, Zap, Building2, ArrowRight, Clock, Users, Code, HeadphonesIcon } from 'lucide-react';
 
 const ProfessionalServices: React.FC = () => {
-  const navigate = useNavigate();
-  const [selectedService, setSelectedService] = useState<string | null>(null);
 
   const services = [
     {

@@ -1,4 +1,4 @@
-import { extractWordDocumentContent, extractWordDocumentHtml } from './generatePdf';
+import { extractWordDocumentContent } from './generatePdf';
 import { downloadFromStorage, fileExists } from './supabaseStorage';
 
 const ASSESSMENT_EVIDENCE_BUCKET = 'assessment-evidence';

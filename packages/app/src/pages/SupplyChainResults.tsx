@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Info } from 'lucide-react';
 import { AssessmentResults } from '../components/assessments/AssessmentResults';
-import { generateResultsPdf, generateComprehensiveAssessmentPdf, extractWordDocumentContent, type ComprehensiveAssessmentData } from '../utils/generatePdf';
+import { generateResultsPdf, generateComprehensiveAssessmentPdf } from '../utils/generatePdf';
 import { useSupplyChainAssessments } from '../hooks/useSupplyChainAssessments';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';

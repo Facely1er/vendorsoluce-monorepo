@@ -241,7 +241,7 @@ export class MarketingAutomationService {
   static async checkEventTriggers(
     userId: string,
     eventType: string,
-    eventData?: Record<string, any>
+    _eventData?: Record<string, any>
   ): Promise<void> {
     try {
       const { data: campaigns } = await supabase

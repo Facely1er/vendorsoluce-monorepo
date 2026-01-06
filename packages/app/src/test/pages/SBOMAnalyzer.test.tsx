@@ -11,7 +11,7 @@ import SBOMAnalyzer from '../../pages/SBOMAnalyzer';
 // Mock the hooks
 vi.mock('../../hooks/useSBOMAnalyses');
 vi.mock('../../hooks/useUsageTracking', () => ({
-  useUsageTracking: vi.fn((feature: string) => ({
+  useUsageTracking: vi.fn((_feature: string) => ({
     usage: {
       used: 5,
       limit: 50,

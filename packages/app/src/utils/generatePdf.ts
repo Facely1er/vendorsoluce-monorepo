@@ -168,7 +168,7 @@ export const generateRecommendationsPdf = async (
       
       <h2 style="color: #2D7D7D; margin-bottom: 20px; font-size: 22px;">Recommendations by Priority</h2>
       
-      ${recommendations.map((rec, index) => `
+      ${recommendations.map((rec) => `
         <div style="margin-bottom: 25px; padding: 20px; background-color: #f9fafb; border-radius: 8px; border-left: 4px solid ${getPriorityColor(rec.priority)};">
           <div style="display: flex; align-items: center; margin-bottom: 15px;">
             <span style="font-size: 18px; margin-right: 8px;">${getPriorityIcon(rec.priority)}</span>

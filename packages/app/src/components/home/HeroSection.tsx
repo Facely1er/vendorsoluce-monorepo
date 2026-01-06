@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Target, CheckCircle, Zap, Eye, Shield, User, DollarSign, ArrowRight } from 'lucide-react';
+import { Target, CheckCircle, Zap, Eye, Shield, User, DollarSign } from 'lucide-react';
 import Button from '../ui/Button';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';

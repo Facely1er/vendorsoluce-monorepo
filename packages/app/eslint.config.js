@@ -11,7 +11,11 @@ export default [
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.es2020,
+      },
       parser: tsParser,
       parserOptions: {
         ecmaVersion: 2020,
@@ -44,6 +48,31 @@ export default [
         }
       ],
       'react-hooks/exhaustive-deps': 'warn',
+      'no-case-declarations': 'error',
     },
-  }
+  },
+  {
+    files: ['**/*.test.{ts,tsx}', '**/test/**/*.{ts,tsx}', '**/vitest.config.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.es2020,
+        vi: 'readonly',
+        describe: 'readonly',
+        it: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+      },
+    },
+  },
+  {
+    files: ['scripts/**/*.ts', 'supabase/**/*.ts', '**/*.config.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.es2020,
+      },
+    },
+  },
 ];

@@ -2,13 +2,13 @@
 // React hook for managing marketing automation workflows
 // File: src/hooks/useMarketingAutomation.ts
 
-import { useEffect, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { MarketingAutomationService } from '../services/marketingAutomationService';
 import { logger } from '../utils/monitoring';
 
 export function useMarketingAutomation() {
-  const { user, profile } = useAuth();
+  const { user } = useAuth();
 
   /**
    * Log a user event (triggers event-based campaigns)

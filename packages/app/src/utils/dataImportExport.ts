@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabase';
-import { generatePdfFromHtml, generateComprehensiveAssessmentPdf, type ComprehensiveAssessmentData } from './generatePdf';
+import { generatePdfFromHtml } from './generatePdf';
 
 export interface ImportResult {
   success: boolean;

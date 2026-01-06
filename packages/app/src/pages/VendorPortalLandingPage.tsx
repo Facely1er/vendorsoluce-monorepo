@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { 
@@ -18,7 +17,6 @@ import { logger } from '../utils/logger';
 import { isVendorPortalDomain, getBaseUrl } from '../utils/domainDetection';
 
 const VendorPortalLandingPage: React.FC = () => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const [assessmentId, setAssessmentId] = useState('');
   const [loading, setLoading] = useState(false);
@@ -28,7 +26,6 @@ const VendorPortalLandingPage: React.FC = () => {
   // SEO optimization for vendor portal domain
   useEffect(() => {
     const isVendorPortal = isVendorPortalDomain();
-    const domain = isVendorPortal ? 'vendortal.com' : 'vendorsoluce.com';
     const baseUrl = getBaseUrl();
     const appName = isVendorPortal ? 'VendorTal' : 'VendorSoluce';
     

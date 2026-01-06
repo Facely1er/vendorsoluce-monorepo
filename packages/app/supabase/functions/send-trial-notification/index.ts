@@ -67,7 +67,6 @@ serve(async (req) => {
     const emailContent = generateEmailContent(type, name, daysRemaining, trialEnd);
 
     // Send email using Resend (or your email service)
-    const emailService = Deno.env.get('EMAIL_SERVICE') || 'resend';
     const emailApiKey = Deno.env.get('RESEND_API_KEY') || Deno.env.get('EMAIL_API_KEY');
 
     if (!emailApiKey) {
@@ -132,7 +131,7 @@ function generateEmailContent(
   type: 'started' | 'ending_soon' | 'expired',
   name: string,
   daysRemaining?: number,
-  trialEnd?: string | null
+  _trialEnd?: string | null
 ): { subject: string; html: string } {
   const userName = name || 'there';
   const baseUrl = Deno.env.get('SITE_URL') || 'https://vendorsoluce.com';
@@ -173,7 +172,7 @@ function generateEmailContent(
         `,
       };
 
-    case 'ending_soon':
+    case 'ending_soon': {
       const days = daysRemaining || 3;
       return {
         subject: `Your Free Trial Ends in ${days} Day${days > 1 ? 's' : ''} - VendorSoluce`,
@@ -212,6 +211,7 @@ function generateEmailContent(
           </html>
         `,
       };
+    }
 
     case 'expired':
       return {

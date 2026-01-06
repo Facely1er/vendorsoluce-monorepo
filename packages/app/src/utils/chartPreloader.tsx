@@ -64,11 +64,11 @@ export const useChartPreloader = ({ onLoad, delay = 0 }: ChartPreloaderProps = {
     preloadCharts();
   }, [onLoad, delay]);
 
-  return { isPreloaded, isLoading };
+  return { isLoading };
 };
 
 export const ChartPreloader: React.FC<ChartPreloaderProps> = ({ onLoad, delay }) => {
-  const { isPreloaded, isLoading } = useChartPreloader({ onLoad, delay });
+  const { isLoading } = useChartPreloader({ onLoad, delay });
 
   if (isLoading) {
     return (

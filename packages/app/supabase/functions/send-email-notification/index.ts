@@ -11,7 +11,6 @@ declare const Deno: {
 };
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -45,7 +44,6 @@ serve(async (req) => {
     }
 
     // Send email using Resend (or your email service)
-    const emailService = Deno.env.get('EMAIL_SERVICE') || 'resend';
     const emailApiKey = Deno.env.get('RESEND_API_KEY') || Deno.env.get('EMAIL_API_KEY');
 
     if (!emailApiKey) {

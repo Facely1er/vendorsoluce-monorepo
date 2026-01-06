@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { PieChart, CheckCircle, AlertTriangle, Download, FileOutput, ArrowRight, Info, ChevronDown, ChevronUp, TrendingUp, Target, Clock } from 'lucide-react';
+import { PieChart, CheckCircle, AlertTriangle, Download, FileOutput, ArrowRight, Info, ChevronDown, ChevronUp, TrendingUp, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import './AssessmentResults.css';
 

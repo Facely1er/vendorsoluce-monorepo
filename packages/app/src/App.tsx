@@ -22,7 +22,6 @@ import NotFoundPage from './pages/NotFoundPage';
 
 // Lazy-loaded pages - loaded on demand with retry logic
 const ResetPasswordPage = lazyWithRetry(() => import('./pages/ResetPasswordPage'));
-const DashboardPage = lazyWithRetry(() => import('./pages/DashboardPage'));
 const SBOMAnalyzer = lazyWithRetry(() => import('./pages/SBOMAnalyzer'));
 const SBOMAnalysisPage = lazyWithRetry(() => import('./pages/SBOMAnalysisPage'));
 const SupplyChainAssessment = lazyWithRetry(() => import('./pages/SupplyChainAssessment'));

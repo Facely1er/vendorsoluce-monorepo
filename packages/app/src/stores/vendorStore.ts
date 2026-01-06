@@ -105,7 +105,6 @@ export const useVendorStore = create<VendorState>()(
               user_id: userId,
             };
             
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const { data, error } = await (supabase
               .from('vs_vendors') as any)
               .insert(newVendorData)
@@ -141,7 +140,6 @@ export const useVendorStore = create<VendorState>()(
           set({ loading: true, error: null }, false, 'updateVendor/start');
           
           try {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const { data, error } = await (supabase
               .from('vs_vendors') as any)
               .update(vendorData)
