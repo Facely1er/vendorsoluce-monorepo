@@ -189,7 +189,12 @@ const Navbar: React.FC = () => {
                 className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 flex-shrink-0 transition-transform group-hover:scale-105" 
               />
               <span className="ml-1.5 sm:ml-2 min-w-0">
-                <span className="block text-[10px] sm:text-xs md:text-sm font-bold !text-vendorsoluce-green dark:!text-white truncate leading-tight">VendorSoluce™</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="block text-[10px] sm:text-xs md:text-sm font-bold !text-vendorsoluce-green dark:!text-white truncate leading-tight">VendorSoluce™</span>
+                  <span className="px-1 py-0.5 text-[8px] sm:text-[9px] font-semibold uppercase tracking-wide bg-vendorsoluce-green/10 text-vendorsoluce-green dark:text-white dark:bg-vendorsoluce-green/20 rounded border border-vendorsoluce-green/20 dark:border-vendorsoluce-green/30">
+                    Beta
+                  </span>
+                </div>
                 <span className="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-700 dark:text-gray-400 font-normal leading-tight tracking-tighter" style={{ letterSpacing: '-0.02em' }}>Supply Chain Assurance</span>
                 <span className="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
               </span>
