@@ -1,18 +1,32 @@
 
+/* Light theme - default */
 :root{
-  --bg: #070A12;
-  --bg-2: rgba(255,255,255,.04);
-  --card: rgba(255,255,255,.06);
-  --border: rgba(255,255,255,.12);
-  --text: rgba(255,255,255,.92);
-  --muted: rgba(255,255,255,.70);
+  --bg: #F0F7FF;
+  --bg-2: rgba(51,105,30,.08);
+  --card: rgba(255,255,255,.95);
+  --border: rgba(51,105,30,.20);
+  --text: rgba(15,23,42,.95);
+  --muted: rgba(51,65,85,.75);
 
   --accent: #0072C6;
-  --accent-2:#00A3FF;
-  --accent-ink:#08111F;
+  --accent-2: #00A3FF;
+  --accent-ink: #08111F;
+  
+  /* Additional vibrant colors for light theme */
+  --primary: #33691E;
+  --primary-light: #66BB6A;
+  --primary-pale: #E8F5E9;
+  --secondary: #0072C6;
+  --secondary-light: #4FC3F7;
+  --tertiary: #7B1FA2;
+  --tertiary-light: #BA68C8;
+  --success: #16A34A;
+  --warning: #F59E0B;
+  --error: #DC2626;
+  --info: #0284C7;
 
   --radius: 22px;
-  --shadow: 0 18px 60px rgba(0,0,0,.35);
+  --shadow: 0 18px 60px rgba(51,105,30,.15);
 
   --s-1: .25rem;
   --s-2: .5rem;
@@ -31,4 +45,33 @@
   --text-xl: 1.35rem;
   --text-2xl: 1.7rem;
   --text-3xl: 2.2rem;
+}
+
+/* Dark theme */
+html.dark,
+[data-theme="dark"]{
+  --bg: #070A12;
+  --bg-2: rgba(255,255,255,.04);
+  --card: rgba(255,255,255,.06);
+  --border: rgba(255,255,255,.12);
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.70);
+
+  --accent: #0072C6;
+  --accent-2:#00A3FF;
+  --accent-ink:#08111F;
+  
+  --primary: #66BB6A;
+  --primary-light: #81C784;
+  --primary-pale: rgba(102,187,106,.15);
+  --secondary: #00A3FF;
+  --secondary-light: #4FC3F7;
+  --tertiary: #BA68C8;
+  --tertiary-light: #CE93D8;
+  --success: #16A34A;
+  --warning: #F59E0B;
+  --error: #DC2626;
+  --info: #0284C7;
+
+  --shadow: 0 18px 60px rgba(0,0,0,.35);
 }
