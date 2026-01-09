@@ -4,21 +4,36 @@
   nav a[title].active,
   nav a[title][aria-current="page"] {
     color: #33691E !important;
-    background: rgba(51,105,30,.08) !important;
+    background: rgba(51,105,30,.15) !important;
     font-weight: 700 !important;
+    border: 1px solid rgba(51,105,30,.2) !important;
   }
   html.dark nav a[title].active,
   html.dark nav a[title][aria-current="page"] {
     color: #66BB6A !important;
-    background: rgba(102,187,106,.12) !important;
+    background: rgba(102,187,106,.18) !important;
+    border: 1px solid rgba(102,187,106,.3) !important;
   }
   nav a[title].active:hover,
   nav a[title][aria-current="page"]:hover {
-    background: rgba(51,105,30,.12) !important;
+    background: rgba(51,105,30,.2) !important;
+    border-color: rgba(51,105,30,.3) !important;
+    transform: translateY(-1px) !important;
   }
   html.dark nav a[title].active:hover,
   html.dark nav a[title][aria-current="page"]:hover {
-    background: rgba(102,187,106,.18) !important;
+    background: rgba(102,187,106,.25) !important;
+    border-color: rgba(102,187,106,.4) !important;
+  }
+  /* Enhanced hover states for non-active navigation links */
+  nav a[title]:not(.active):not([aria-current="page"]):hover {
+    color: #33691E !important;
+    background: rgba(51,105,30,.08) !important;
+    transform: translateY(-1px) !important;
+  }
+  html.dark nav a[title]:not(.active):not([aria-current="page"]):hover {
+    color: #66BB6A !important;
+    background: rgba(102,187,106,.12) !important;
   }
   /* Ensure brand logo link is never affected by active/hover nav styles */
   nav [data-tour="main-nav"] a,
@@ -29,6 +44,8 @@
     color: inherit !important;
     background: transparent !important;
     font-weight: inherit !important;
+    border: none !important;
+    transform: none !important;
   }
   /* Prevent hover effects on active Vendor Radar button */
   nav a[aria-current="page"][style*="pointer-events: none"],
@@ -40,6 +57,10 @@
   nav a[aria-current="page"].cursor-default:hover {
     transform: none !important;
     box-shadow: none !important;
+  }
+  /* Ensure transitions work for all nav links */
+  nav a[title] {
+    transition: all 0.2s ease-in-out !important;
   }
 </style>
 <nav class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-[100] w-full">

@@ -491,9 +491,11 @@
     </div>
   </div>
 </div>
-<main class="flex-1 pt-[var(--nav-height,64px)]">
+<main class="flex-1">
+    <!-- Spacer for nav height -->
+    <div style="height: var(--nav-height, 64px);"></div>
     <!-- Breadcrumb Navigation -->
-    <nav aria-label="Breadcrumb" class="sticky z-40 w-full h-10 sm:h-11 text-sm border-b border-gray-200 dark:border-gray-700 transition-colors px-4 sm:px-6 lg:px-8 flex items-center backdrop-blur-sm bg-white/95 dark:bg-gray-900/95" style="top: 64px;">
+    <nav aria-label="Breadcrumb" class="sticky z-40 w-full h-10 sm:h-11 text-sm border-b border-gray-200 dark:border-gray-700 transition-colors px-4 sm:px-6 lg:px-8 flex items-center backdrop-blur-sm bg-white/95 dark:bg-gray-900/95" style="top: var(--nav-height, 64px);">
         <div class="max-w-7xl mx-auto w-full">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-1">

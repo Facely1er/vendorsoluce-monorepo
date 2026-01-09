@@ -25,7 +25,22 @@ body:not(.dark):not([data-theme="dark"]) {
     linear-gradient(180deg, #F0F7FF 0%, #E8F5E9 100%);
 }
 a{ color:inherit; text-decoration:none; }
-a:hover{ opacity:.95; }
+a:hover{ opacity:1; }
+/* Ensure hover states are visible */
+a:not([aria-current="page"]):hover {
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
+}
+button:hover,
+[role="button"]:hover {
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
+}
+button:active,
+[role="button"]:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease-in-out;
+}
 p{ margin:0 0 var(--s-4); }
 h1,h2,h3{ margin:0 0 var(--s-4); line-height:1.12; }
 h1{ font-size: var(--text-3xl); }
