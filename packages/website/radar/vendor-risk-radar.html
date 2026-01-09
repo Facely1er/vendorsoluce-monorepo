@@ -3017,51 +3017,131 @@ function hashStringToRange(str, min, max){
         document.getElementById('vendorForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const formData = {
-                id: editingVendorId || generateId(),
-                name: document.getElementById('vendorName').value,
-                category: document.getElementById('vendorCategory').value,
-                dataTypes: Array.from(document.querySelectorAll('input[name="dataType"]:checked')).map(cb => cb.value),
-                sector: document.getElementById('vendorSector').value,
-                location: document.getElementById('vendorLocation').value,
-                contact: document.getElementById('vendorContact').value,
-                notes: document.getElementById('vendorNotes').value
-            };
-            
-            if (editingVendorId) {
-                const index = vendorData.findIndex(v => v.id === editingVendorId);
-                if (index !== -1) {
-                    vendorData[index] = { ...vendorData[index], ...formData };
+            try {
+                const vendorNameEl = document.getElementById('vendorName');
+                const vendorName = vendorNameEl ? vendorNameEl.value.trim() : '';
+                
+                if (!vendorName) {
+                    alert('Vendor name is required.');
+                    if (vendorNameEl) vendorNameEl.focus();
+                    return;
                 }
-            } else {
-                vendorData.push(formData);
+                
+                const formData = {
+                    id: editingVendorId || generateId(),
+                    name: vendorName,
+                    category: (document.getElementById('vendorCategory')?.value || 'tactical').toLowerCase(),
+                    dataTypes: Array.from(document.querySelectorAll('input[name="dataType"]:checked')).map(cb => cb.value).filter(Boolean),
+                    sector: (document.getElementById('vendorSector')?.value || 'Other').trim(),
+                    location: (document.getElementById('vendorLocation')?.value || 'Unknown').trim(),
+                    contact: (document.getElementById('vendorContact')?.value || '').trim(),
+                    notes: (document.getElementById('vendorNotes')?.value || '').trim()
+                };
+                
+                // Validate category
+                if (!['critical', 'strategic', 'tactical', 'commodity'].includes(formData.category)) {
+                    formData.category = 'tactical';
+                }
+                
+                // Ensure dataTypes is an array
+                if (!Array.isArray(formData.dataTypes) || formData.dataTypes.length === 0) {
+                    formData.dataTypes = ['Confidential'];
+                }
+                
+                // Calculate risk for the vendor
+                let vendorWithRisk;
+                try {
+                    vendorWithRisk = {
+                        ...formData,
+                        ...calculateVendorRisk(formData)
+                    };
+                } catch (riskErr) {
+                    console.error('Error calculating risk:', riskErr);
+                    // Use default risk values if calculation fails
+                    vendorWithRisk = {
+                        ...formData,
+                        inherentRisk: 50,
+                        residualRisk: 50,
+                        riskLevel: 'medium',
+                        sbomProfile: formData.sbomProfile || { providesSoftware: false, sbomAvailable: false, sbomFormat: 'none' }
+                    };
+                }
+                
+                if (editingVendorId) {
+                    const index = vendorData.findIndex(v => v.id === editingVendorId);
+                    if (index !== -1) {
+                        vendorData[index] = vendorWithRisk;
+                    } else {
+                        console.warn('Vendor ID not found for editing:', editingVendorId);
+                        vendorData.push(vendorWithRisk);
+                    }
+                } else {
+                    // Check vendor limit before adding
+                    const mode = (typeof detectMode === 'function') ? detectMode() : 'demo';
+                    const config = (typeof MODE_CONFIG !== 'undefined' && MODE_CONFIG[mode]) 
+                        ? MODE_CONFIG[mode] 
+                        : { maxVendors: 25, dataSource: 'catalog', persistence: 'session' };
+                    
+                    if (config.maxVendors !== Infinity && vendorData.length >= config.maxVendors) {
+                        alert(`Vendor limit reached (${config.maxVendors} vendors max). Please remove a vendor or upgrade your plan.`);
+                        return;
+                    }
+                    
+                    vendorData.push(vendorWithRisk);
+                }
+                
+                // Recalculate risks for all vendors to ensure consistency
+                vendorData = vendorData.map(vendor => {
+                    try {
+                        return {
+                            ...vendor,
+                            ...calculateVendorRisk(vendor)
+                        };
+                    } catch (err) {
+                        console.error('Error recalculating risk for vendor:', vendor, err);
+                        return vendor; // Keep original if recalculation fails
+                    }
+                });
+                
+                // Save with mode-specific key
+                const mode = (typeof detectMode === 'function') ? detectMode() : 'demo';
+                const config = (typeof MODE_CONFIG !== 'undefined' && MODE_CONFIG[mode]) 
+                    ? MODE_CONFIG[mode] 
+                    : { dataSource: 'catalog', persistence: 'session', maxVendors: 25 };
+                const storageKey = config.dataSource === 'catalog' 
+                    ? 'vendorsoluce_demo_data' 
+                    : 'vendorsoluce_user_data';
+                const storage = config.persistence === 'session' ? sessionStorage : localStorage;
+                
+                try {
+                    storage.setItem(storageKey, JSON.stringify(vendorData));
+                } catch (storageErr) {
+                    console.error('Error saving vendor data:', storageErr);
+                    alert('Warning: Vendor added but could not be saved to storage. ' + storageErr.message);
+                }
+                
+                if (typeof updateAllDisplays === 'function') {
+                    updateAllDisplays();
+                } else {
+                    console.warn('updateAllDisplays function not available');
+                }
+                
+                closeVendorModal();
+            } catch (error) {
+                console.error('Error submitting vendor form:', error);
+                alert('Error saving vendor: ' + (error.message || 'Unknown error'));
             }
-            
-            // Recalculate risks
-            vendorData = vendorData.map(vendor => ({
-                ...vendor,
-                ...calculateVendorRisk(vendor)
-            }));
-            
-            // Save with mode-specific key
-            const mode = (typeof detectMode === 'function') ? detectMode() : 'demo';
-            const config = (typeof MODE_CONFIG !== 'undefined' && MODE_CONFIG[mode]) 
-                ? MODE_CONFIG[mode] 
-                : { dataSource: 'catalog', persistence: 'session' };
-            const storageKey = config.dataSource === 'catalog' 
-                ? 'vendorsoluce_demo_data' 
-                : 'vendorsoluce_user_data';
-            const storage = config.persistence === 'session' ? sessionStorage : localStorage;
-            storage.setItem(storageKey, JSON.stringify(vendorData));
-            
-            updateAllDisplays();
-            closeVendorModal();
         });
 
         // Import/Export Functions
         
 function normalizeHeader(h){
-            return (h||'').toString().trim().toLowerCase().replace(/\s+/g,' ').replace(/[^a-z0-9 ]/g,'');
+            if (!h) return '';
+            // Normalize header: lowercase, replace spaces/underscores with single space, remove special chars except spaces
+            return h.toString().trim().toLowerCase()
+                .replace(/[_\s]+/g, ' ')  // Replace underscores and multiple spaces with single space
+                .replace(/[^a-z0-9 ]/g, '')  // Remove special characters
+                .trim();
         }
 
         function mapRowToVendor(row){
@@ -3103,13 +3183,30 @@ function normalizeHeader(h){
 
         function importVendors(event) {
             const file = event.target.files && event.target.files[0];
-            if (!file) return;
+            if (!file) {
+                console.warn('No file selected for import');
+                return;
+            }
 
             const filename = (file.name || '').toLowerCase();
             const isXlsx = filename.endsWith('.xlsx') || filename.endsWith('.xls');
+            const isCsv = filename.endsWith('.csv');
+
+            if (!isXlsx && !isCsv) {
+                alert('Please select a CSV or Excel file (.csv, .xlsx, .xls)');
+                event.target.value = '';
+                return;
+            }
 
             const finishImport = (vendors) => {
-                const cleaned = vendors.filter(v => v && v.name);
+                if (!Array.isArray(vendors)) {
+                    console.error('finishImport: vendors is not an array', vendors);
+                    alert('Error processing file: Invalid data format.');
+                    event.target.value = '';
+                    return;
+                }
+
+                const cleaned = vendors.filter(v => v && v.name && typeof v.name === 'string' && v.name.trim().length > 0);
                 if (cleaned.length === 0) {
                     alert('No valid vendors found in file. Please check the format and ensure vendor names are provided.');
                     event.target.value = '';
@@ -3118,13 +3215,31 @@ function normalizeHeader(h){
                 
                 // Get current vendor data
                 const currentData = (typeof vendorData !== 'undefined' && Array.isArray(vendorData)) ? vendorData : [];
-                vendorData = [...currentData, ...cleaned].map(v => ({ ...v, ...calculateVendorRisk(v) }));
+                
+                // Calculate risk for new vendors
+                const vendorsWithRisk = cleaned.map(v => {
+                    try {
+                        return { ...v, ...calculateVendorRisk(v) };
+                    } catch (err) {
+                        console.error('Error calculating risk for vendor:', v, err);
+                        // Return vendor with default risk if calculation fails
+                        return {
+                            ...v,
+                            inherentRisk: 50,
+                            residualRisk: 50,
+                            riskLevel: 'medium',
+                            sbomProfile: v.sbomProfile || { providesSoftware: false, sbomAvailable: false, sbomFormat: 'none' }
+                        };
+                    }
+                });
+                
+                vendorData = [...currentData, ...vendorsWithRisk];
                 
                 // Save with mode-specific key
                 const mode = (typeof detectMode === 'function') ? detectMode() : 'demo';
                 const config = (typeof MODE_CONFIG !== 'undefined' && MODE_CONFIG[mode]) 
                     ? MODE_CONFIG[mode] 
-                    : { dataSource: 'catalog', persistence: 'session', maxVendors: 25 };
+                    : { dataSource: 'catalog', persistence: 'session', maxVendors: 25, name: 'Demo' };
                 const storageKey = config.dataSource === 'catalog' 
                     ? 'vendorsoluce_demo_data' 
                     : 'vendorsoluce_user_data';
@@ -3134,39 +3249,87 @@ function normalizeHeader(h){
                 if (config.maxVendors !== Infinity && vendorData.length > config.maxVendors) {
                     const excess = vendorData.length - config.maxVendors;
                     vendorData = vendorData.slice(0, config.maxVendors);
-                    alert(`Successfully imported ${cleaned.length} vendors! However, ${excess} vendor(s) were removed due to the ${config.maxVendors} vendor limit in ${config.name} mode.`);
+                    alert(`Successfully imported ${cleaned.length} vendor(s)! However, ${excess} vendor(s) were removed due to the ${config.maxVendors} vendor limit in ${config.name || 'demo'} mode.`);
                 } else {
                     alert(`Successfully imported ${cleaned.length} vendor(s)!`);
                 }
                 
-                storage.setItem(storageKey, JSON.stringify(vendorData));
+                try {
+                    storage.setItem(storageKey, JSON.stringify(vendorData));
+                } catch (err) {
+                    console.error('Error saving vendor data:', err);
+                    alert('Warning: Data imported but could not be saved to storage. ' + err.message);
+                }
                 
                 if (typeof updateAllDisplays === 'function') {
                     updateAllDisplays();
+                } else {
+                    console.warn('updateAllDisplays function not available');
                 }
                 event.target.value = '';
             };
 
-            if (isXlsx && window.XLSX) {
+            if (isXlsx) {
+                if (!window.XLSX) {
+                    alert('Excel import requires XLSX library. Please use CSV format or ensure XLSX library is loaded.');
+                    event.target.value = '';
+                    return;
+                }
+                
                 const reader = new FileReader();
                 reader.onload = function(e){
                     try{
                         const data = new Uint8Array(e.target.result);
                         const wb = XLSX.read(data, { type: 'array' });
+                        
+                        if (!wb.SheetNames || wb.SheetNames.length === 0) {
+                            throw new Error('Excel file has no sheets');
+                        }
+                        
                         const sheetName = wb.SheetNames[0];
                         const ws = wb.Sheets[sheetName];
                         const json = XLSX.utils.sheet_to_json(ws, { defval: '' });
 
-                        const vendors = json.map(obj => {
-                            const row = {};
-                            Object.keys(obj).forEach(k => row[normalizeHeader(k)] = obj[k]);
-                            return mapRowToVendor(row);
-                        });
+                        if (!json || json.length === 0) {
+                            throw new Error('Excel file is empty or has no data rows');
+                        }
+
+                        const vendors = json.map((obj, index) => {
+                            try {
+                                const row = {};
+                                Object.keys(obj).forEach(k => {
+                                    const normalizedKey = normalizeHeader(k);
+                                    row[normalizedKey] = obj[k];
+                                });
+                                const vendor = mapRowToVendor(row);
+                                if (vendor && vendor.name) {
+                                    return {
+                                        id: generateId(),
+                                        ...vendor
+                                    };
+                                }
+                                return null;
+                            } catch (err) {
+                                console.warn(`Error processing row ${index + 1}:`, err);
+                                return null;
+                            }
+                        }).filter(v => v !== null);
+
+                        if (vendors.length === 0) {
+                            throw new Error('No valid vendors found in Excel file. Please check the format.');
+                        }
 
                         finishImport(vendors);
                     }catch(err){
-                        alert('Error importing Excel: ' + err.message);
+                        console.error('Excel import error:', err);
+                        alert('Error importing Excel file: ' + (err.message || 'Unknown error'));
+                        event.target.value = '';
                     }
+                };
+                reader.onerror = function(err) {
+                    console.error('FileReader error:', err);
+                    alert('Error reading Excel file. Please try again.');
+                    event.target.value = '';
                 };
                 reader.readAsArrayBuffer(file);
                 return;
@@ -3177,70 +3340,107 @@ function normalizeHeader(h){
             reader.onload = function(e) {
                 try {
                     const csv = e.target.result || '';
+                    if (!csv || csv.trim().length === 0) {
+                        alert('File is empty.');
+                        event.target.value = '';
+                        return;
+                    }
+                    
                     const lines = csv.split(/\r?\n/).filter(line => line.trim());
-                    if (!lines.length) return alert('Empty file.');
-
-                    // Parse CSV line handling quoted fields
-                    function parseCSVLine(line) {
-                        const result = [];
-                        let current = '';
-                        let inQuotes = false;
-                        
-                        for (let i = 0; i < line.length; i++) {
-                            const char = line[i];
-                            const nextChar = line[i + 1];
-                            
-                            if (char === '"') {
-                                if (inQuotes && nextChar === '"') {
-                                    // Escaped quote
-                                    current += '"';
-                                    i++; // Skip next quote
-                                } else {
-                                    // Toggle quote state
-                                    inQuotes = !inQuotes;
-                                }
-                            } else if (char === ',' && !inQuotes) {
-                                // Field separator
-                                result.push(current.trim());
-                                current = '';
-                            } else {
-                                current += char;
-                            }
-                        }
-                        result.push(current.trim()); // Add last field
-                        return result;
+                    if (lines.length < 2) {
+                        alert('CSV file must have at least a header row and one data row.');
+                        event.target.value = '';
+                        return;
                     }
 
-                    const headers = parseCSVLine(lines[0]).map(h => normalizeHeader(h));
+                    // Use the parseCSVLine function that's already defined in the file
+                    // If it's not available, define a local version
+                    const parseCSVLineLocal = (typeof parseCSVLine === 'function') 
+                        ? parseCSVLine 
+                        : function(line) {
+                            const result = [];
+                            let current = '';
+                            let inQuotes = false;
+                            
+                            for (let i = 0; i < line.length; i++) {
+                                const char = line[i];
+                                const nextChar = line[i + 1];
+                                
+                                if (char === '"') {
+                                    if (inQuotes && nextChar === '"') {
+                                        // Escaped quote
+                                        current += '"';
+                                        i++; // Skip next quote
+                                    } else {
+                                        // Toggle quote state
+                                        inQuotes = !inQuotes;
+                                    }
+                                } else if (char === ',' && !inQuotes) {
+                                    // Field separator
+                                    result.push(current.trim());
+                                    current = '';
+                                } else {
+                                    current += char;
+                                }
+                            }
+                            result.push(current.trim()); // Add last field
+                            return result;
+                        };
+
+                    const headers = parseCSVLineLocal(lines[0]).map(h => normalizeHeader(h.trim()));
+                    if (headers.length === 0) {
+                        throw new Error('Could not parse CSV headers');
+                    }
+                    
                     const vendors = [];
 
                     for (let i = 1; i < lines.length; i++) {
-                        const values = parseCSVLine(lines[i]);
-                        const row = {};
-                        headers.forEach((h, idx) => {
-                            let val = (values[idx] ?? '').trim();
-                            // Remove surrounding quotes if present
-                            if (val.startsWith('"') && val.endsWith('"')) {
-                                val = val.slice(1, -1).replace(/""/g, '"');
+                        try {
+                            const values = parseCSVLineLocal(lines[i]);
+                            if (values.length === 0) continue;
+                            
+                            const row = {};
+                            headers.forEach((h, idx) => {
+                                let val = (values[idx] ?? '').trim();
+                                // Remove surrounding quotes if present
+                                if (val.startsWith('"') && val.endsWith('"')) {
+                                    val = val.slice(1, -1).replace(/""/g, '"');
+                                }
+                                row[h] = val;
+                            });
+                            
+                            const vendor = mapRowToVendor(row);
+                            if (vendor && vendor.name && vendor.name.trim().length > 0) {
+                                vendors.push({
+                                    id: generateId(),
+                                    ...vendor
+                                });
                             }
-                            row[h] = val;
-                        });
-                        const vendor = mapRowToVendor(row);
-                        if (vendor.name) vendors.push(vendor);
+                        } catch (rowErr) {
+                            console.warn(`Error processing CSV row ${i + 1}:`, rowErr);
+                            // Continue processing other rows
+                        }
                     }
 
                     if (vendors.length === 0) {
-                        alert('No valid vendors found in file. Please check the format.');
+                        alert('No valid vendors found in file. Please check the format and ensure vendor names are provided.');
+                        event.target.value = '';
                         return;
                     }
 
                     finishImport(vendors);
                 } catch (error) {
                     console.error('CSV import error:', error);
-                    alert('Error importing CSV: ' + error.message);
+                    alert('Error importing CSV file: ' + (error.message || 'Unknown error'));
+                    event.target.value = '';
                 }
             };
-            reader.readAsText(file);
+            reader.onerror = function(err) {
+                console.error('FileReader error:', err);
+                alert('Error reading CSV file. Please try again.');
+                event.target.value = '';
+            };
+            reader.readAsText(file, 'UTF-8');
         }
 
 
@@ -3296,12 +3496,30 @@ function normalizeHeader(h){
         window.exportVendors = exportVendors;
 
         function generateReport() {
+            // Check for vendor data
             if (!vendorData || vendorData.length === 0) {
                 alert('No vendor data available. Please scan vendors first.');
                 return;
             }
 
+            // Check if PDF is enabled in current mode
+            const mode = (typeof detectMode === 'function') ? detectMode() : 'demo';
+            const config = (typeof MODE_CONFIG !== 'undefined' && MODE_CONFIG[mode]) 
+                ? MODE_CONFIG[mode] 
+                : { pdfEnabled: false };
+            
+            // Check demo mode restriction
+            if (mode === 'demo' && (DEMO_MODE.pdfEnabled === false || config.pdfEnabled === false)) {
+                if (typeof openUpgrade === 'function') {
+                    openUpgrade('PDF reports are locked in Demo Mode. Start your free trial to unlock PDF exports and unlimited vendors.');
+                } else {
+                    alert('PDF reports are locked in Demo Mode. Please upgrade to generate reports.');
+                }
+                return;
+            }
+
             try {
+                // Check for jsPDF library
                 if (!window.jspdf) {
                     alert('PDF library not loaded. Please refresh the page and try again.');
                     return;
@@ -3309,6 +3527,25 @@ function normalizeHeader(h){
                 
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
+                
+                // Check for autoTable plugin
+                if (typeof doc.autoTable !== 'function') {
+                    alert('PDF table plugin not loaded. Please refresh the page and try again.');
+                    return;
+                }
+                
+                // Validate vendor data
+                const validVendors = vendorData.filter(v => {
+                    return v && 
+                           v.name && 
+                           typeof v.name === 'string' && 
+                           v.name.trim().length > 0;
+                });
+
+                if (validVendors.length === 0) {
+                    alert('No valid vendor data available for PDF generation.');
+                    return;
+                }
                 
                 // Title
                 doc.setFontSize(20);
@@ -3320,19 +3557,19 @@ function normalizeHeader(h){
                 doc.setTextColor(0, 0, 0);
                 const now = new Date();
                 doc.text(`Generated: ${now.toLocaleString()}`, 14, 30);
-                doc.text(`Total Vendors: ${vendorData.length}`, 14, 36);
+                doc.text(`Total Vendors: ${validVendors.length}`, 14, 36);
                 
                 // Executive Summary
                 doc.setFontSize(14);
                 doc.text('Executive Summary', 14, 46);
                 doc.setFontSize(10);
                 
-                const criticalCount = vendorData.filter(v => v.riskLevel === 'critical').length;
-                const highCount = vendorData.filter(v => v.riskLevel === 'high').length;
-                const criticalCategoryCount = vendorData.filter(v => v.category === 'critical').length;
-                const sbomGaps = vendorData.filter(v => (v.sbomProfile||{}).providesSoftware && !(v.sbomProfile||{}).sbomAvailable).length;
-                const avgRisk = vendorData.length > 0 
-                    ? Math.round(vendorData.reduce((sum, v) => sum + (v.residualRisk || 0), 0) / vendorData.length)
+                const criticalCount = validVendors.filter(v => v.riskLevel === 'critical').length;
+                const highCount = validVendors.filter(v => v.riskLevel === 'high').length;
+                const criticalCategoryCount = validVendors.filter(v => v.category === 'critical').length;
+                const sbomGaps = validVendors.filter(v => (v.sbomProfile||{}).providesSoftware && !(v.sbomProfile||{}).sbomAvailable).length;
+                const avgRisk = validVendors.length > 0 
+                    ? Math.round(validVendors.reduce((sum, v) => sum + (v.residualRisk || 0), 0) / validVendors.length)
                     : 0;
                 
                 let yPos = 54;
@@ -3357,35 +3594,40 @@ function normalizeHeader(h){
                 doc.text('Vendor Risk Details', 14, yPos);
                 yPos += 8;
                 
-                // Prepare table data
-                const tableData = vendorData
+                // Prepare table data with validation
+                const tableData = validVendors
                     .sort((a, b) => (b.residualRisk || 0) - (a.residualRisk || 0))
                     .map(v => [
-                        v.name || '',
-                        (VENDOR_CATEGORIES[v.category]?.name || v.category || '').substring(0, 10),
-                        v.riskLevel || '',
+                        (v.name || 'Unknown').substring(0, 50),
+                        (VENDOR_CATEGORIES[v.category]?.name || v.category || 'Unknown').substring(0, 15),
+                        (v.riskLevel || 'unknown').toUpperCase(),
                         String(Math.round(v.residualRisk || 0)),
                         String(Math.round(v.inherentRisk || 0)),
-                        (v.dataTypes || []).join('; ').substring(0, 20)
+                        ((v.dataTypes || []).join('; ') || 'None').substring(0, 30)
                     ]);
                 
-                doc.autoTable({
-                    startY: yPos,
-                    head: [['Vendor', 'Category', 'Risk', 'Residual', 'Inherent', 'Data Types']],
-                    body: tableData,
-                    theme: 'striped',
-                    headStyles: { fillColor: [51, 105, 30], textColor: 255, fontStyle: 'bold' },
-                    styles: { fontSize: 8, cellPadding: 2 },
-                    columnStyles: {
-                        0: { cellWidth: 50 },
-                        1: { cellWidth: 30 },
-                        2: { cellWidth: 25 },
-                        3: { cellWidth: 20 },
-                        4: { cellWidth: 20 },
-                        5: { cellWidth: 45 }
-                    },
-                    margin: { left: 14, right: 14 }
-                });
+                try {
+                    doc.autoTable({
+                        startY: yPos,
+                        head: [['Vendor', 'Category', 'Risk', 'Residual', 'Inherent', 'Data Types']],
+                        body: tableData,
+                        theme: 'striped',
+                        headStyles: { fillColor: [51, 105, 30], textColor: 255, fontStyle: 'bold' },
+                        styles: { fontSize: 8, cellPadding: 2 },
+                        columnStyles: {
+                            0: { cellWidth: 50 },
+                            1: { cellWidth: 30 },
+                            2: { cellWidth: 25 },
+                            3: { cellWidth: 20 },
+                            4: { cellWidth: 20 },
+                            5: { cellWidth: 45 }
+                        },
+                        margin: { left: 14, right: 14 }
+                    });
+                } catch (tableError) {
+                    console.error('AutoTable error:', tableError);
+                    throw new Error('Failed to generate PDF table: ' + (tableError.message || 'Unknown error'));
+                }
                 
                 // Footer
                 const pageCount = doc.internal.getNumberOfPages();
@@ -3408,10 +3650,20 @@ function normalizeHeader(h){
                 // Show success message
                 if (typeof showToast === 'function') {
                     showToast('PDF report generated successfully!');
+                } else {
+                    console.log('PDF report generated successfully!');
                 }
             } catch (error) {
                 console.error('PDF generation error:', error);
-                alert('Error generating PDF report: ' + (error.message || 'Unknown error'));
+                
+                // More specific error messages
+                if (error.message && error.message.includes('autoTable')) {
+                    alert('Error generating PDF table. Please refresh the page and try again.');
+                } else if (error.message && error.message.includes('font')) {
+                    alert('Error with PDF fonts. Please try again.');
+                } else {
+                    alert('Error generating PDF report: ' + (error.message || 'Unknown error'));
+                }
             }
         }
         
@@ -4078,57 +4330,119 @@ document.addEventListener("DOMContentLoaded", ()=>{
   }
 
   function addVendorsToWorkingList(records) {
-    if(!Array.isArray(records) || records.length===0) return;
-    
-    // Get current mode and config
-    const mode = (typeof detectMode === 'function') ? detectMode() : 'demo';
-    const config = (typeof MODE_CONFIG !== 'undefined' && MODE_CONFIG[mode]) 
-        ? MODE_CONFIG[mode] 
-        : { maxVendors: 25, dataSource: 'catalog', persistence: 'session' };  // Updated to 25 for demo mode
-    const storageKey = config.dataSource === 'catalog' 
-        ? 'vendorsoluce_demo_data' 
-        : 'vendorsoluce_user_data';
-    const storage = config.persistence === 'session' ? sessionStorage : localStorage;
-    
-    // Use the vendorData variable from the main scope, not window.vendorData
-    const current = (typeof vendorData !== 'undefined' && Array.isArray(vendorData)) ? vendorData : [];
-    const room = config.maxVendors - current.length;
-    
-    if(room <= 0) {
-        if (mode === 'demo') {
-            const message = 'Vendor limit reached in demo mode (25 vendors max). Start a free trial for up to 100 vendors!';
-            if(typeof startTrial === 'function') {
-                if(confirm(message + '\n\nWould you like to start your free trial now?')) {
-                    startTrial();
-                }
-            } else {
-                if(typeof openUpgrade === 'function') {
-                    openUpgrade(message);
-                }
-            }
-        } else {
-            if(typeof openUpgrade === 'function') {
-                openUpgrade('Vendor limit reached. Upgrade to Professional for unlimited vendors.');
-            }
-        }
+    if(!Array.isArray(records) || records.length===0) {
+        console.warn('addVendorsToWorkingList: Invalid or empty records array');
         return;
     }
     
-    const trimmed = records.slice(0, room);
-    vendorData = current.concat(trimmed);
-    
-    // Recalculate risks
-    vendorData = vendorData.map(v => ({
-        ...v,
-        ...calculateVendorRisk(v)
-    }));
-    
-    // Save with mode-specific key
-    storage.setItem(storageKey, JSON.stringify(vendorData));
-    
-    // Update displays
-    if(typeof updateAllDisplays === 'function') updateAllDisplays();
-    if(typeof updateKpis === 'function') updateKpis(vendorData);
+    try {
+        // Filter out invalid records
+        const validRecords = records.filter(r => r && r.name && typeof r.name === 'string' && r.name.trim().length > 0);
+        
+        if (validRecords.length === 0) {
+            console.warn('addVendorsToWorkingList: No valid records after filtering');
+            alert('No valid vendors to add. Please check the data.');
+            return;
+        }
+        
+        // Get current mode and config
+        const mode = (typeof detectMode === 'function') ? detectMode() : 'demo';
+        const config = (typeof MODE_CONFIG !== 'undefined' && MODE_CONFIG[mode]) 
+            ? MODE_CONFIG[mode] 
+            : { maxVendors: 25, dataSource: 'catalog', persistence: 'session', name: 'Demo' };
+        const storageKey = config.dataSource === 'catalog' 
+            ? 'vendorsoluce_demo_data' 
+            : 'vendorsoluce_user_data';
+        const storage = config.persistence === 'session' ? sessionStorage : localStorage;
+        
+        // Use the vendorData variable from the main scope, not window.vendorData
+        const current = (typeof vendorData !== 'undefined' && Array.isArray(vendorData)) ? vendorData : [];
+        const room = config.maxVendors - current.length;
+        
+        if(room <= 0) {
+            if (mode === 'demo') {
+                const message = `Vendor limit reached in demo mode (${config.maxVendors} vendors max). Start a free trial for up to 100 vendors!`;
+                if(typeof startTrial === 'function') {
+                    if(confirm(message + '\n\nWould you like to start your free trial now?')) {
+                        startTrial();
+                    }
+                } else {
+                    if(typeof openUpgrade === 'function') {
+                        openUpgrade(message);
+                    } else {
+                        alert(message);
+                    }
+                }
+            } else {
+                if(typeof openUpgrade === 'function') {
+                    openUpgrade('Vendor limit reached. Upgrade to Professional for unlimited vendors.');
+                } else {
+                    alert('Vendor limit reached. Upgrade to Professional for unlimited vendors.');
+                }
+            }
+            return;
+        }
+        
+        const trimmed = validRecords.slice(0, room);
+        
+        // Ensure each vendor has an ID
+        const vendorsWithIds = trimmed.map(v => ({
+            ...v,
+            id: v.id || generateId()
+        }));
+        
+        vendorData = current.concat(vendorsWithIds);
+        
+        // Recalculate risks with error handling
+        vendorData = vendorData.map(v => {
+            try {
+                return {
+                    ...v,
+                    ...calculateVendorRisk(v)
+                };
+            } catch (err) {
+                console.error('Error calculating risk for vendor:', v, err);
+                // Return vendor with default risk if calculation fails
+                return {
+                    ...v,
+                    inherentRisk: v.inherentRisk || 50,
+                    residualRisk: v.residualRisk || 50,
+                    riskLevel: v.riskLevel || 'medium',
+                    sbomProfile: v.sbomProfile || { providesSoftware: false, sbomAvailable: false, sbomFormat: 'none' }
+                };
+            }
+        });
+        
+        // Save with mode-specific key
+        try {
+            storage.setItem(storageKey, JSON.stringify(vendorData));
+        } catch (storageErr) {
+            console.error('Error saving vendor data:', storageErr);
+            alert('Warning: Vendors added but could not be saved to storage. ' + storageErr.message);
+        }
+        
+        // Update displays
+        if(typeof updateAllDisplays === 'function') {
+            updateAllDisplays();
+        } else {
+            console.warn('updateAllDisplays function not available');
+        }
+        
+        if(typeof updateKpis === 'function') {
+            updateKpis(vendorData);
+        }
+        
+        // Show success message
+        if (trimmed.length < validRecords.length) {
+            alert(`Added ${trimmed.length} vendor(s). ${validRecords.length - trimmed.length} vendor(s) were skipped due to limit.`);
+        } else if (trimmed.length === validRecords.length && trimmed.length > 0) {
+            // Silent success for single vendor additions from catalog
+            console.log(`Successfully added ${trimmed.length} vendor(s)`);
+        }
+    } catch (error) {
+        console.error('Error in addVendorsToWorkingList:', error);
+        alert('Error adding vendors: ' + (error.message || 'Unknown error'));
+    }
   }
 
   function downloadCsv(filename, csvText){

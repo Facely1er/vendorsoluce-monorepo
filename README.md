@@ -23,7 +23,25 @@ Static HTML marketing website deployed to `vendorsoluce.com`. Contains landing p
 **Tech Stack**: HTML, Tailwind CSS, JavaScript
 
 ### `packages/app`
-Full-stack React application for vendor risk management. The main platform deployed to `app.vendorsoluce.com`.
+Full-stack React application for vendor risk and supply chain assurance workflow platform. The main platform deployed to `app.vendorsoluce.com`.
+
+**Core Features:**
+- Vendor risk management and assessment
+- Supply chain security assessment (NIST SP 800-161 aligned)
+- SBOM (Software Bill of Materials) analysis and management
+- Vendor onboarding and lifecycle management
+- Vendor portal (separate domain for vendor self-service)
+- Vendor security assessments
+- Asset management integration
+- Marketing automation and campaign management
+- Multi-language support (i18n)
+
+**Tool Suite:**
+- NIST Checklist Tool
+- SBOM Quick Scan
+- Vendor Risk Radar
+- Vendor Risk Calculator
+- Vendor IQ
 
 **Tech Stack**: React, TypeScript, Vite, Supabase, Stripe
 

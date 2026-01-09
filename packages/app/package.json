@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "VendorSoluce main application platform",
+  "description": "VendorSoluce - Vendor risk and supply chain assurance workflow platform with SBOM analysis, NIST SP 800-161 compliance, vendor assessments, and supply chain security tools",
   "scripts": {
     "clean": "rm -rf dist dist-demo node_modules",
     "dev": "vite",
