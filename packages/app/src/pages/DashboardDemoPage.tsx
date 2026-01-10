@@ -24,11 +24,8 @@ import { useAuth } from '../context/AuthContext';
 const DashboardDemoPage: React.FC = () => {
   const { isAuthenticated } = useAuth();
 
-  // If user is authenticated, redirect to actual dashboard
-  if (isAuthenticated) {
-    window.location.href = '/dashboard';
-    return null;
-  }
+  // Note: This component is now used for demo mode in ConditionalDashboard
+  // Authenticated users will see the actual DashboardPage instead
 
   const demoMetrics = [
     { label: 'Total Vendors', value: 47, icon: <Users className="h-6 w-6 text-blue-500" />, change: '+12 this month' },

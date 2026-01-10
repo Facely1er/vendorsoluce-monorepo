@@ -4,7 +4,7 @@ import PageLoader from '../common/PageLoader';
 import { lazyWithRetry } from '../../utils/lazyWithRetry';
 
 const DashboardPage = lazyWithRetry(() => import('../../pages/DashboardPage'));
-const DashboardLandingPage = lazyWithRetry(() => import('../../pages/DashboardLandingPage'));
+const DashboardDemoPage = lazyWithRetry(() => import('../../pages/DashboardDemoPage'));
 
 const ConditionalDashboard: React.FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -13,9 +13,10 @@ const ConditionalDashboard: React.FC = () => {
     return <PageLoader />;
   }
 
+  // Show demo mode for unauthenticated users, full dashboard for authenticated
   return (
     <Suspense fallback={<PageLoader />}>
-      {isAuthenticated ? <DashboardPage /> : <DashboardLandingPage />}
+      {isAuthenticated ? <DashboardPage /> : <DashboardDemoPage />}
     </Suspense>
   );
 };

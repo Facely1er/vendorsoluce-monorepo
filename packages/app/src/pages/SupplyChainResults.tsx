@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { Info } from 'lucide-react';
+import { Info, Sparkles } from 'lucide-react';
 import { AssessmentResults } from '../components/assessments/AssessmentResults';
-import { generateResultsPdf, generateComprehensiveAssessmentPdf } from '../utils/generatePdf';
+import { generateResultsPdf, generateComprehensiveAssessmentPdf, generatePremiumReportPdf } from '../utils/generatePdf';
+import { PremiumReportModal } from '../components/reports/PremiumReportModal';
 import { useSupplyChainAssessments } from '../hooks/useSupplyChainAssessments';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
@@ -34,6 +35,8 @@ const SupplyChainResults = () => {
     answers?: Record<string, string>;
     assessmentId?: string;
   }>({});
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
+  const [hasPremiumAccess, setHasPremiumAccess] = useState(false);
   
   // Get results from location state or fetch from most recent completed assessment
   useEffect(() => {
@@ -228,6 +231,13 @@ const SupplyChainResults = () => {
       {/* Enhanced Export Options */}
       <div className="mt-4 flex gap-2 justify-end">
         <button
+          onClick={() => setShowPremiumModal(true)}
+          className="px-4 py-2 bg-gradient-to-r from-blue-600 to-teal-600 text-white rounded-md hover:from-blue-700 hover:to-teal-700 transition-colors text-sm font-medium flex items-center gap-2"
+        >
+          <Sparkles className="h-4 w-4" />
+          Premium Report - $49
+        </button>
+        <button
           onClick={() => handleExport(false)}
           className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors text-sm font-medium"
         >
@@ -285,6 +295,45 @@ const SupplyChainResults = () => {
           </button>
         </Link>
       </div>
+
+      {/* Premium Report Modal */}
+      <PremiumReportModal
+        isOpen={showPremiumModal}
+        onClose={() => setShowPremiumModal(false)}
+        onPurchase={async () => {
+          // After successful purchase, generate premium report
+          try {
+            await generatePremiumReportPdf(
+              `${assessmentMetadata.assessmentName || 'Supply Chain Risk Assessment'} - Premium Report`,
+              results.overallScore,
+              results.sectionScores,
+              new Date(assessmentMetadata.completedAt || Date.now()).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              }),
+              `${(assessmentMetadata.assessmentName || 'supply-chain-assessment').toLowerCase().replace(/\s+/g, '-')}-premium-report.pdf`,
+              {
+                vendorCount: assessments?.length || 0,
+                criticalFindings: results.sectionScores
+                  .filter(s => s.percentage < 60)
+                  .map(s => `${s.title} requires immediate attention (${s.percentage}% compliance)`)
+              }
+            );
+            setShowPremiumModal(false);
+            setHasPremiumAccess(true);
+          } catch (error) {
+            logger.error('Error generating premium report:', error);
+          }
+        }}
+        reportType="assessment"
+        reportData={{
+          overallScore: results.overallScore,
+          sectionScores: results.sectionScores,
+          assessmentName: assessmentMetadata.assessmentName,
+          completedAt: assessmentMetadata.completedAt
+        }}
+      />
     </div>
   );
 };

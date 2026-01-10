@@ -125,6 +125,160 @@ export const generateResultsPdf = async (
   await generatePdfFromHtml(htmlContent, filename);
 };
 
+/**
+ * Generate Premium PDF Report with enhanced features
+ * Includes: Executive summary, detailed analytics, charts, recommendations
+ */
+export const generatePremiumReportPdf = async (
+  title: string,
+  overallScore: number,
+  sectionScores: { title: string; percentage: number }[],
+  completedDate: string,
+  filename: string,
+  additionalData?: {
+    recommendations?: any[];
+    riskTrends?: { month: string; score: number }[];
+    vendorCount?: number;
+    criticalFindings?: string[];
+  }
+) => {
+  const getScoreColor = (score: number) => {
+    if (score >= 80) return '#16A34A';
+    if (score >= 60) return '#F59E0B';
+    if (score >= 40) return '#EA580C';
+    return '#DC2626';
+  };
+
+  const getScoreGrade = (score: number) => {
+    if (score >= 90) return 'A';
+    if (score >= 80) return 'B';
+    if (score >= 70) return 'C';
+    if (score >= 60) return 'D';
+    return 'F';
+  };
+
+  const htmlContent = `
+    <div style="font-family: 'Arial', 'Helvetica', sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);">
+      <!-- Premium Header with Logo -->
+      <div style="text-align: center; margin-bottom: 40px; padding: 30px; background: linear-gradient(135deg, #1E3B8A 0%, #2D7D7D 100%); color: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="font-size: 32px; font-weight: bold; margin-bottom: 10px;">PREMIUM REPORT</div>
+        <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 300;">${title}</h1>
+        <p style="color: rgba(255,255,255,0.9); margin: 15px 0 0 0; font-size: 14px;">Completed: ${completedDate}</p>
+      </div>
+      
+      <!-- Executive Summary Card -->
+      <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px; border-left: 5px solid ${getScoreColor(overallScore)};">
+        <h2 style="color: #1E3B8A; margin: 0 0 20px 0; font-size: 22px; font-weight: 600;">Executive Summary</h2>
+        <div style="display: flex; align-items: center; gap: 30px; margin-bottom: 20px;">
+          <div style="text-align: center; flex: 1;">
+            <div style="font-size: 64px; font-weight: bold; color: ${getScoreColor(overallScore)}; margin-bottom: 5px;">${overallScore}%</div>
+            <div style="font-size: 24px; color: ${getScoreColor(overallScore)}; font-weight: 600; margin-bottom: 5px;">Grade ${getScoreGrade(overallScore)}</div>
+            <div style="font-size: 14px; color: #6B7280;">Overall Compliance Score</div>
+          </div>
+          <div style="flex: 1; padding-left: 20px; border-left: 2px solid #e5e7eb;">
+            <p style="color: #374151; line-height: 1.8; margin: 0; font-size: 14px;">
+              ${overallScore >= 80 
+                ? 'Your organization demonstrates strong supply chain risk management practices aligned with NIST SP 800-161 guidelines. Continue monitoring and improvement efforts to maintain compliance.'
+                : overallScore >= 60
+                ? 'Your organization shows moderate compliance with NIST SP 800-161. Focus on addressing high-priority recommendations to strengthen your security posture.'
+                : 'Your organization requires immediate attention to improve supply chain risk management. Prioritize critical recommendations to achieve compliance.'}
+            </p>
+          </div>
+        </div>
+        ${additionalData?.vendorCount ? `
+          <div style="margin-top: 20px; padding: 15px; background: #f0f7ff; border-radius: 8px;">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center;">
+              <div>
+                <div style="font-size: 24px; font-weight: bold; color: #1E3B8A;">${additionalData.vendorCount}</div>
+                <div style="font-size: 12px; color: #6B7280;">Vendors Assessed</div>
+              </div>
+              <div>
+                <div style="font-size: 24px; font-weight: bold; color: #1E3B8A;">${sectionScores.length}</div>
+                <div style="font-size: 12px; color: #6B7280;">Assessment Domains</div>
+              </div>
+              <div>
+                <div style="font-size: 24px; font-weight: bold; color: #1E3B8A;">${additionalData.criticalFindings?.length || 0}</div>
+                <div style="font-size: 12px; color: #6B7280;">Critical Findings</div>
+              </div>
+            </div>
+          </div>
+        ` : ''}
+      </div>
+      
+      <!-- Detailed Section Scores -->
+      <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
+        <h2 style="color: #2D7D7D; margin: 0 0 25px 0; font-size: 22px; font-weight: 600;">Detailed Section Analysis</h2>
+        ${sectionScores.map(section => `
+          <div style="margin-bottom: 20px; padding: 20px; background: #f9fafb; border-radius: 8px; border-left: 4px solid ${getScoreColor(section.percentage)};">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="font-weight: 600; color: #374151; font-size: 16px;">${section.title}</span>
+              <div style="text-align: right;">
+                <span style="font-weight: 700; color: ${getScoreColor(section.percentage)}; font-size: 20px;">${section.percentage}%</span>
+                <div style="font-size: 11px; color: #6B7280; margin-top: 2px;">Grade ${getScoreGrade(section.percentage)}</div>
+              </div>
+            </div>
+            <div style="width: 100%; height: 12px; background-color: #e5e7eb; border-radius: 6px; overflow: hidden; margin-bottom: 10px;">
+              <div style="width: ${section.percentage}%; height: 100%; background: linear-gradient(90deg, ${getScoreColor(section.percentage)} 0%, ${getScoreColor(section.percentage)}CC 100%); border-radius: 6px;"></div>
+            </div>
+            <p style="color: #6B7280; margin: 0; font-size: 13px; line-height: 1.6;">
+              ${section.percentage >= 80 
+                ? 'This section demonstrates strong compliance with recommended practices.'
+                : section.percentage >= 60
+                ? 'This section shows moderate compliance. Review recommendations for improvement opportunities.'
+                : 'This section requires immediate attention. Prioritize implementing recommended controls.'}
+            </p>
+          </div>
+        `).join('')}
+      </div>
+      
+      ${additionalData?.recommendations && additionalData.recommendations.length > 0 ? `
+        <!-- Priority Recommendations -->
+        <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
+          <h2 style="color: #2D7D7D; margin: 0 0 25px 0; font-size: 22px; font-weight: 600;">Priority Recommendations</h2>
+          ${additionalData.recommendations.slice(0, 5).map((rec: any) => `
+            <div style="margin-bottom: 15px; padding: 15px; background: #fef3c7; border-radius: 8px; border-left: 4px solid #F59E0B;">
+              <div style="font-weight: 600; color: #374151; margin-bottom: 5px;">${rec.title || rec.category}</div>
+              <p style="color: #6B7280; margin: 0; font-size: 13px; line-height: 1.5;">${rec.description || rec.recommendation}</p>
+            </div>
+          `).join('')}
+        </div>
+      ` : ''}
+      
+      ${additionalData?.criticalFindings && additionalData.criticalFindings.length > 0 ? `
+        <!-- Critical Findings -->
+        <div style="background: #fef2f2; padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px; border-left: 5px solid #DC2626;">
+          <h2 style="color: #DC2626; margin: 0 0 20px 0; font-size: 22px; font-weight: 600;">⚠️ Critical Findings</h2>
+          <ul style="margin: 0; padding-left: 20px; color: #374151; line-height: 1.8;">
+            ${additionalData.criticalFindings.map((finding: string) => `<li style="margin-bottom: 8px;">${finding}</li>`).join('')}
+          </ul>
+        </div>
+      ` : ''}
+      
+      <!-- Next Steps -->
+      <div style="background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%); padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px;">
+        <h2 style="color: #1E3B8A; margin: 0 0 15px 0; font-size: 22px; font-weight: 600;">Recommended Next Steps</h2>
+        <ol style="margin: 0; padding-left: 20px; color: #374151; line-height: 2;">
+          <li>Review and prioritize recommendations based on business impact</li>
+          <li>Assign ownership and establish timelines for implementation</li>
+          <li>Schedule quarterly reassessments to track progress</li>
+          <li>Document remediation efforts for compliance records</li>
+          <li>Engage with VendorSoluce support for implementation guidance</li>
+        </ol>
+      </div>
+      
+      <!-- Premium Footer -->
+      <div style="margin-top: 40px; text-align: center; color: #6B7280; font-size: 11px; border-top: 2px solid #e5e7eb; padding-top: 20px;">
+        <div style="font-weight: 600; color: #1E3B8A; margin-bottom: 5px;">PREMIUM REPORT</div>
+        <p style="margin: 5px 0;">Generated by VendorSoluce Supply Chain Risk Management Platform</p>
+        <p style="margin: 5px 0;">© ${new Date().getFullYear()} VendorSoluce. All rights reserved.</p>
+        <p style="margin: 10px 0 0 0; font-size: 10px; color: #9CA3AF;">This premium report includes enhanced analytics, executive summaries, and detailed recommendations.</p>
+      </div>
+    </div>
+  `;
+
+  await generatePdfFromHtml(htmlContent, filename);
+};
+
 export const generateRecommendationsPdf = async (
   title: string,
   recommendations: any[],
