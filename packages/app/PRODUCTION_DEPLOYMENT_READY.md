@@ -17,11 +17,11 @@ Go to [Vercel Dashboard](https://vercel.com/dashboard) → Your Project → Sett
 Add these for **Production** environment:
 
 ```
-VITE_SUPABASE_URL = https://nuwfdvwqiynzhbbsqagw.supabase.co
-VITE_SUPABASE_ANON_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51d2ZkdndxaXluemhiYnNxYWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2NDQxMjQsImV4cCI6MjA3NzIyMDEyNH0.9X_HxnSYDFqzxvzEUMx1dGg4GPHyw13oQfxpCXprsX8
-SUPABASE_SERVICE_ROLE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51d2ZkdndxaXluemhiYnNxYWd3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MTY0NDEyNCwiZXhwIjoyMDc3MjIwMTI0fQ.bWa5K7YIi3KW_4FGdnC0Y63-B5UICFTx9n0H1Vg_JVs
-VITE_STRIPE_PUBLISHABLE_KEY = pk_live_51SN9R3I8FTbdI7aV7VqkNvllrQpyDbUcMgC0siDO3kWLBH2674mUyyZ5WHnlzYftGsWaly462J2W9fQJYBZ0XYDF00SegxJfHl
-STRIPE_SECRET_KEY = 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
+VITE_SUPABASE_URL = https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY = your_supabase_anon_key_here
+SUPABASE_SERVICE_ROLE_KEY = your_supabase_service_role_key_here
+VITE_STRIPE_PUBLISHABLE_KEY = pk_live_your_stripe_publishable_key_here
+STRIPE_SECRET_KEY = sk_live_your_stripe_secret_key_here
 VITE_APP_ENV = production
 VITE_APP_VERSION = 1.0.0
 VITE_APP_NAME = VendorSoluce
@@ -55,17 +55,17 @@ git push origin main
 ## 📋 Production Credentials Summary
 
 ### Supabase
-- **URL:** `https://nuwfdvwqiynzhbbsqagw.supabase.co`
-- **Anon Key:** Configured ✅
-- **Service Role Key:** Configured ✅
+- **URL:** `https://your-project.supabase.co` (get from Supabase Dashboard)
+- **Anon Key:** `your_anon_key_here` (get from Supabase Dashboard → Settings → API)
+- **Service Role Key:** `your_service_role_key_here` (get from Supabase Dashboard → Settings → API)
 
 ### Stripe
-- **Publishable Key:** `pk_live_51SN9R3I8FTbdI7aV7VqkNvllrQpyDbUcMgC0siDO3kWLBH2674mUyyZ5WHnlzYftGsWaly462J2W9fQJYBZ0XYDF00SegxJfHl`
-- **Secret Key:** `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`
-- **Webhook Secret:** ⚠️ Needs to be configured from Stripe Dashboard
+- **Publishable Key:** `pk_live_your_key_here` (get from Stripe Dashboard → Developers → API keys)
+- **Secret Key:** `sk_live_your_key_here` (get from Stripe Dashboard → Developers → API keys)
+- **Webhook Secret:** `whsec_your_webhook_secret` (get from Stripe Dashboard → Webhooks)
 
 ### Vercel
-- **Token:** `GHgsANNuU3amkHubJLSnSoOU`
+- **Token:** `your_vercel_token_here` (get from Vercel Dashboard → Settings → Tokens)
 - **Project:** `vendorsoluce.com`
 
 ---
@@ -132,7 +132,8 @@ npm run type-check
 npm run build
 
 # Deploy
-vercel --prod --token GHgsANNuU3amkHubJLSnSoOU
+vercel --prod
+# Note: You'll be prompted for authentication or use VERCEL_TOKEN environment variable
 ```
 
 ---

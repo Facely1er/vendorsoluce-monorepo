@@ -5,7 +5,11 @@ import Stripe from 'stripe';
 import { ALL_STRIPE_PRODUCTS, getMainProducts, getAddonProducts, getBundleProducts } from './src/lib/stripeProducts.js';
 
 // Initialize Stripe with your secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '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');
+// SECURITY: Never hardcode credentials. Always use environment variables.
+if (!process.env.STRIPE_SECRET_KEY) {
+  throw new Error('STRIPE_SECRET_KEY environment variable is required. Set it in your .env.local file or environment.');
+}
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 async function testCompleteStripeIntegration() {
   console.log('🧪 Testing Complete Stripe Integration...\n');

@@ -21,11 +21,11 @@
 #### Required Variables:
 
 ```
-VITE_SUPABASE_URL = https://nuwfdvwqiynzhbbsqagw.supabase.co
-VITE_SUPABASE_ANON_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51d2ZkdndxaXluemhiYnNxYWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2NDQxMjQsImV4cCI6MjA3NzIyMDEyNH0.9X_HxnSYDFqzxvzEUMx1dGg4GPHyw13oQfxpCXprsX8
-SUPABASE_SERVICE_ROLE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51d2ZkdndxaXluemhiYnNxYWd3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MTY0NDEyNCwiZXhwIjoyMDc3MjIwMTI0fQ.bWa5K7YIi3KW_4FGdnC0Y63-B5UICFTx9n0H1Vg_JVs
-VITE_STRIPE_PUBLISHABLE_KEY = pk_live_51SN9R3I8FTbdI7aV7VqkNvllrQpyDbUcMgC0siDO3kWLBH2674mUyyZ5WHnlzYftGsWaly462J2W9fQJYBZ0XYDF00SegxJfHl
-STRIPE_SECRET_KEY = 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
+VITE_SUPABASE_URL = https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY = your_supabase_anon_key_here
+SUPABASE_SERVICE_ROLE_KEY = your_supabase_service_role_key_here
+VITE_STRIPE_PUBLISHABLE_KEY = pk_live_your_stripe_publishable_key_here
+STRIPE_SECRET_KEY = sk_live_your_stripe_secret_key_here
 VITE_APP_ENV = production
 VITE_APP_VERSION = 1.0.0
 VITE_APP_NAME = VendorSoluce
@@ -42,19 +42,19 @@ vercel login
 
 # Set environment variables
 vercel env add VITE_SUPABASE_URL production
-# Paste: https://nuwfdvwqiynzhbbsqagw.supabase.co
+# Paste: https://your-project.supabase.co (get from Supabase Dashboard)
 
 vercel env add VITE_SUPABASE_ANON_KEY production
-# Paste: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51d2ZkdndxaXluemhiYnNxYWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2NDQxMjQsImV4cCI6MjA3NzIyMDEyNH0.9X_HxnSYDFqzxvzEUMx1dGg4GPHyw13oQfxpCXprsX8
+# Paste: your_supabase_anon_key_here (get from Supabase Dashboard → Settings → API)
 
 vercel env add STRIPE_SECRET_KEY production
-# Paste: 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
+# Paste: sk_live_your_stripe_secret_key_here (get from Stripe Dashboard → Developers → API keys)
 
 vercel env add VITE_STRIPE_PUBLISHABLE_KEY production
-# Paste: pk_live_51SN9R3I8FTbdI7aV7VqkNvllrQpyDbUcMgC0siDO3kWLBH2674mUyyZ5WHnlzYftGsWaly462J2W9fQJYBZ0XYDF00SegxJfHl
+# Paste: pk_live_your_stripe_publishable_key_here (get from Stripe Dashboard → Developers → API keys)
 
 vercel env add SUPABASE_SERVICE_ROLE_KEY production
-# Paste: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51d2ZkdndxaXluemhiYnNxYWd3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MTY0NDEyNCwiZXhwIjoyMDc3MjIwMTI0fQ.bWa5K7YIi3KW_4FGdnC0Y63-B5UICFTx9n0H1Vg_JVs
+# Paste: your_supabase_service_role_key_here (get from Supabase Dashboard → Settings → API)
 
 vercel env add VITE_APP_ENV production
 # Paste: production
@@ -68,9 +68,9 @@ Set secrets for Supabase Edge Functions (webhook handlers):
 
 ```bash
 # Using Supabase CLI
-npx supabase secrets set STRIPE_SECRET_KEY=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
+npx supabase secrets set STRIPE_SECRET_KEY=sk_live_your_stripe_secret_key_here
 
-npx supabase secrets set SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51d2ZkdndxaXluemhiYnNxYWd3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MTY0NDEyNCwiZXhwIjoyMDc3MjIwMTI0fQ.bWa5K7YIi3KW_4FGdnC0Y63-B5UICFTx9n0H1Vg_JVs
+npx supabase secrets set SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
 
 npx supabase secrets set APP_URL=https://vendorsoluce.com
 ```
@@ -110,7 +110,8 @@ Or configure in Supabase Dashboard:
 
 ```bash
 # Link to your project
-npx supabase link --project-ref nuwfdvwqiynzhbbsqagw
+npx supabase link --project-ref your-project-ref
+# Get project-ref from Supabase Dashboard → Settings → General
 
 # Push all migrations
 npx supabase db push
@@ -122,7 +123,8 @@ npx supabase db push
 
 1. Go to [Stripe Dashboard](https://dashboard.stripe.com/webhooks)
 2. Click **Add endpoint**
-3. Set endpoint URL: `https://nuwfdvwqiynzhbbsqagw.supabase.co/functions/v1/stripe-webhook`
+3. Set endpoint URL: `https://your-project-ref.supabase.co/functions/v1/stripe-webhook`
+# Replace your-project-ref with your actual Supabase project reference
 4. Select events:
    - `checkout.session.completed`
    - `customer.subscription.created`
@@ -157,7 +159,8 @@ npm install
 npm run build
 
 # Deploy to production
-vercel --prod --token GHgsANNuU3amkHubJLSnSoOU
+vercel --prod
+# Note: You'll be prompted for authentication or use VERCEL_TOKEN environment variable
 ```
 
 ### Option B: Using Git Push (if CI/CD configured)
@@ -277,14 +280,14 @@ npm run build
 ### Production URLs
 
 - **Application:** https://vendorsoluce.com (or your Vercel URL)
-- **Supabase:** https://nuwfdvwqiynzhbbsqagw.supabase.co
+- **Supabase:** https://your-project-ref.supabase.co (get from Supabase Dashboard)
 - **Stripe Dashboard:** https://dashboard.stripe.com
 
 ### Important Credentials
 
-- **Vercel Token:** `GHgsANNuU3amkHubJLSnSoOU`
-- **Supabase Project:** `nuwfdvwqiynzhbbsqagw`
-- **Stripe Account:** Live mode
+- **Vercel Token:** Get from Vercel Dashboard → Settings → Tokens
+- **Supabase Project:** Get project reference from Supabase Dashboard → Settings → General
+- **Stripe Account:** Live mode (use live keys for production)
 
 ---
 
