@@ -822,14 +822,14 @@
 
       /* VendorSoluce header/footer + shell */
       .vs-shell{ max-width:1180px; margin:0 auto; padding: 18px 18px 34px; }
-      .vs-header{ position:sticky; top:0; z-index:50; border-bottom:1px solid var(--line); background: color-mix(in srgb, var(--panel) 92%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+      .vs-header{ position:sticky; top:0; z-index:50; border-bottom:1px solid var(--line); background: var(--panel); background: color-mix(in srgb, var(--panel) 92%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
       .vs-header__inner{ max-width:1180px; margin:0 auto; padding:14px 18px; display:flex; align-items:center; gap:16px; }
       .vs-brand{ display:flex; gap:12px; align-items:center; text-decoration:none; color:var(--text); }
-      .vs-brand__logo{ width:40px; height:40px; display:grid; place-items:center; border-radius:14px; background: linear-gradient(135deg, color-mix(in srgb, var(--brand) 22%, transparent), color-mix(in srgb, var(--brand-2) 14%, transparent)); border:1px solid color-mix(in srgb, var(--brand) 22%, transparent); box-shadow: 0 10px 26px rgba(0,0,0,.18); }
+      .vs-brand__logo{ width:40px; height:40px; display:grid; place-items:center; border-radius:14px; background: linear-gradient(135deg, rgba(51,105,30,0.22), rgba(102,187,106,0.14)); background: linear-gradient(135deg, color-mix(in srgb, var(--brand) 22%, transparent), color-mix(in srgb, var(--brand-2) 14%, transparent)); border:1px solid rgba(51,105,30,0.22); border:1px solid color-mix(in srgb, var(--brand) 22%, transparent); box-shadow: 0 10px 26px rgba(0,0,0,.18); }
       .vs-brand__text{ display:flex; flex-direction:column; line-height:1.05; }
       .vs-brand__line1{ font-weight:800; letter-spacing:.2px; font-size:14px; }
       .vs-brand__line2{ font-weight:650; font-size:12px; color:var(--muted); }
-      .vs-brand__line3{ font-weight:700; font-size:12px; color: color-mix(in srgb, var(--brand) 64%, var(--text)); }
+      .vs-brand__line3{ font-weight:700; font-size:12px; color: var(--brand); color: color-mix(in srgb, var(--brand) 64%, var(--text)); }
 
       .vs-nav{ margin-left:10px; display:flex; gap:10px; flex-wrap:wrap; }
       .vs-nav__item{ padding:8px 10px; border-radius:10px; text-decoration:none; color:var(--muted); border:1px solid transparent; }
@@ -838,7 +838,7 @@
       .vs-actions{ margin-left:auto; display:flex; gap:10px; align-items:center; }
 
       .btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:12px; border:1px solid var(--line); background: var(--panel); color:var(--text); cursor:pointer; }
-      .btn:hover{ border-color: color-mix(in srgb, var(--brand) 30%, var(--line)); }
+      .btn:hover{ border-color: var(--brand); border-color: color-mix(in srgb, var(--brand) 30%, var(--line)); }
       .btn-ghost{ background: transparent; }
       .btn__icon{ font-size:14px; }
       .btn__text{ font-weight:650; font-size:13px; }
@@ -850,7 +850,7 @@
       .vs-footer__text{ line-height:1.08; }
       .vs-footer__line1{ font-weight:800; font-size:13px; }
       .vs-footer__line2{ font-weight:650; font-size:12px; color:var(--muted); }
-      .vs-footer__line3{ font-weight:700; font-size:12px; color: color-mix(in srgb, var(--brand) 64%, var(--text)); }
+      .vs-footer__line3{ font-weight:700; font-size:12px; color: var(--brand); color: color-mix(in srgb, var(--brand) 64%, var(--text)); }
       .vs-footer__meta{ display:flex; gap:10px; align-items:center; }
       .pill{ font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background: color-mix(in srgb, var(--panel) 75%, transparent); }
       .muted{ color:var(--muted); font-size:12px; }
