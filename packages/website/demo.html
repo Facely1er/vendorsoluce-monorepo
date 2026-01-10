@@ -18,23 +18,18 @@
             --vendorsoluce-pale-green: #E8F5E8;
         }
         
-        .demo-badge {
-            display: inline-block;
-            background: var(--vendorsoluce-pale-green);
-            color: var(--vendorsoluce-green);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-        
         .progress-container {
             background: white;
             padding: 1.5rem;
-            border-radius: 12px;
+            border-radius: 0.75rem;
             margin-bottom: 2rem;
-            box-shadow: 0 2px 8px rgba(51, 105, 30, 0.06);
+            border: 1px solid rgb(229 231 235);
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        }
+        
+        .dark .progress-container {
+            background: rgb(31 41 55);
+            border-color: rgb(55 65 81);
         }
         
         .progress-steps {
@@ -107,9 +102,20 @@
         .stage-content {
             background: white;
             padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(51, 105, 30, 0.08);
+            border-radius: 0.75rem;
+            border: 1px solid rgb(229 231 235);
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
             display: none;
+            transition: all 0.3s ease;
+        }
+        
+        .dark .stage-content {
+            background: rgb(31 41 55);
+            border-color: rgb(55 65 81);
+        }
+        
+        .stage-content:hover {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         
         .stage-content.active {
@@ -147,14 +153,24 @@
         .vendor-card {
             background: var(--vendorsoluce-pale-green);
             padding: 1.5rem;
-            border-radius: 12px;
-            border: 2px solid transparent;
-            transition: all 0.3s;
+            border-radius: 0.75rem;
+            border: 1px solid rgb(229 231 235);
+            transition: all 0.3s ease;
+        }
+        
+        .dark .vendor-card {
+            background: rgb(31 41 55);
+            border-color: rgb(55 65 81);
         }
         
         .vendor-card:hover {
             border-color: var(--vendorsoluce-light-green);
-            box-shadow: 0 4px 12px rgba(51, 105, 30, 0.08);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            transform: translateY(-2px) scale(1.01);
+        }
+        
+        .dark .vendor-card:hover {
+            box-shadow: 0 0 0 0;
         }
         
         .risk-badge {
@@ -179,10 +195,22 @@
         .requirement-item {
             background: var(--vendorsoluce-pale-green);
             padding: 1.5rem;
-            border-radius: 12px;
+            border-radius: 0.75rem;
+            border: 1px solid rgb(229 231 235);
             display: flex;
             align-items: start;
             gap: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark .requirement-item {
+            background: rgb(31 41 55);
+            border-color: rgb(55 65 81);
+        }
+        
+        .requirement-item:hover {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transform: translateY(-1px);
         }
         
         .requirement-icon {
@@ -208,10 +236,12 @@
     
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!-- Header -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
-            <div class="demo-badge">🚀 Interactive Demo</div>
-            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Experience VendorSoluce® in Action</h1>
-            <p class="text-lg text-gray-600 dark:text-gray-300">Walk through the complete vendor risk workflow - no signup required. All data stays in your browser.</p>
+        <div class="text-center mb-12">
+            <div class="inline-block mb-4">
+                <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-vendorsoluce-green/10 text-vendorsoluce-green border border-vendorsoluce-green/30">🚀 Interactive Demo</span>
+            </div>
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 text-gray-900 dark:text-white bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Experience VendorSoluce® in Action</h1>
+            <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">Walk through the complete vendor risk workflow - no signup required. All data stays in your browser.</p>
         </div>
         
         <!-- Progress Bar -->
@@ -241,8 +271,8 @@
         
         <!-- Stage 1: Upload -->
         <div class="stage-content active" id="stage1">
-            <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Stage 1: Upload Your Vendor List</h2>
-            <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">Start by uploading a CSV file with your vendors, or try our sample data to see how it works.</p>
+            <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-gray-900 dark:text-white">Stage 1: Upload Your Vendor List</h2>
+            <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">Start by uploading a CSV file with your vendors, or try our sample data to see how it works.</p>
             
             <div class="upload-area" id="uploadArea">
                 <div class="text-5xl mb-4">📤</div>
@@ -251,7 +281,7 @@
                 <input type="file" id="fileInput" accept=".csv" style="display: none;">
             </div>
             
-            <div class="flex justify-between items-center mt-6">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6">
                 <div class="text-sm text-gray-600 dark:text-gray-400">💡 Tip: CSV should have columns: Vendor Name, Domain, Industry</div>
                 <button class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors" onclick="loadSampleData()">Load Sample Vendors</button>
             </div>
@@ -259,23 +289,23 @@
         
         <!-- Stage 2: Risk Radar -->
         <div class="stage-content" id="stage2">
-            <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Stage 2: Vendor Risk Radar</h2>
-            <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">Your vendors have been scored based on risk intelligence. Click on any vendor to see details.</p>
+            <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-gray-900 dark:text-white">Stage 2: Vendor Risk Radar</h2>
+            <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">Your vendors have been scored based on risk intelligence. Click on any vendor to see details.</p>
             
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-700">
+                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-600">
                     <div class="text-3xl font-bold text-vendorsoluce-green mb-2" id="totalVendors">0</div>
                     <div class="text-sm text-gray-600 dark:text-gray-400">Total Vendors</div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-700">
+                <div class="bg-red-50 dark:bg-red-900/20 p-6 rounded-lg text-center border border-red-200 dark:border-red-800/30">
                     <div class="text-3xl font-bold text-red-600 mb-2" id="criticalCount">0</div>
                     <div class="text-sm text-gray-600 dark:text-gray-400">Critical Risk</div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-700">
+                <div class="bg-orange-50 dark:bg-orange-900/20 p-6 rounded-lg text-center border border-orange-200 dark:border-orange-800/30">
                     <div class="text-3xl font-bold text-orange-600 mb-2" id="highCount">0</div>
                     <div class="text-sm text-gray-600 dark:text-gray-400">High Risk</div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-700">
+                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-600">
                     <div class="text-3xl font-bold text-vendorsoluce-green mb-2" id="avgScore">0</div>
                     <div class="text-sm text-gray-600 dark:text-gray-400">Avg Risk Score</div>
                 </div>
@@ -283,7 +313,7 @@
             
             <div class="vendor-grid" id="vendorGrid"></div>
             
-            <div class="flex gap-4 mt-8">
+            <div class="flex flex-col sm:flex-row gap-4 mt-8">
                 <button class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" onclick="goToStage(1)">← Back</button>
                 <button class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors" onclick="goToStage(3)">Define Requirements →</button>
             </div>
@@ -291,12 +321,12 @@
         
         <!-- Stage 3: Requirements -->
         <div class="stage-content" id="stage3">
-            <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Stage 3: Define Vendor Requirements</h2>
-            <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">Based on risk levels, here are the requirements for your critical vendors.</p>
+            <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-gray-900 dark:text-white">Stage 3: Define Vendor Requirements</h2>
+            <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">Based on risk levels, here are the requirements for your critical vendors.</p>
             
             <div class="requirements-list" id="requirementsList"></div>
             
-            <div class="flex gap-4 mt-8">
+            <div class="flex flex-col sm:flex-row gap-4 mt-8">
                 <button class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" onclick="goToStage(2)">← Back</button>
                 <button class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors" onclick="goToStage(4)">View Results →</button>
             </div>
@@ -306,31 +336,31 @@
         <div class="stage-content" id="stage4">
             <div class="text-center py-12">
                 <div class="text-6xl mb-4">✅</div>
-                <h2 class="text-4xl font-bold mb-4 text-gray-900 dark:text-white">Demo Complete!</h2>
-                <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                <h2 class="text-3xl md:text-4xl font-semibold mb-4 text-gray-900 dark:text-white bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Demo Complete!</h2>
+                <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
                     You've experienced the VendorSoluce workflow:<br>
                     Upload → Risk Scoring → Requirements Definition → Evidence Collection
                 </p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-700">
+                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-600">
                         <div class="text-3xl font-bold text-vendorsoluce-green mb-2">70%</div>
                         <div class="text-sm text-gray-600 dark:text-gray-400">Faster Onboarding</div>
                     </div>
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-700">
+                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-600">
                         <div class="text-3xl font-bold text-vendorsoluce-green mb-2">95%</div>
                         <div class="text-sm text-gray-600 dark:text-gray-400">Completion Rate</div>
                     </div>
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-700">
+                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-600">
                         <div class="text-3xl font-bold text-vendorsoluce-green mb-2">$180K</div>
                         <div class="text-sm text-gray-600 dark:text-gray-400">Annual Savings</div>
                     </div>
                 </div>
                 
-                <div class="flex gap-4 justify-center">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <button class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" onclick="resetDemo()">Restart Demo</button>
-                    <a href="trial.html" class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors inline-block">Try With Your Data →</a>
-                    <a href="contact.html" class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors inline-block">Schedule Full Demo →</a>
+                    <a href="trial.html" class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors inline-block text-center">Try With Your Data →</a>
+                    <a href="contact.html" class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors inline-block text-center">Schedule Full Demo →</a>
                 </div>
             </div>
         </div>
@@ -477,7 +507,7 @@
                 const requirements = requirementsByTier.critical;
                 
                 const header = document.createElement('h3');
-                header.className = 'text-2xl font-bold mb-4 text-gray-900 dark:text-white';
+                header.className = 'text-xl md:text-2xl font-semibold mb-4 text-gray-900 dark:text-white';
                 header.textContent = `Requirements for: ${vendor.name}`;
                 list.appendChild(header);
                 
@@ -487,8 +517,8 @@
                     item.innerHTML = `
                         <div class="requirement-icon">${req.status === 'collected' ? '✓' : '!'}</div>
                         <div class="flex-1">
-                            <h4 class="font-bold text-lg text-gray-900 dark:text-white mb-1">${req.name}</h4>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-2">${req.description}</p>
+                            <h4 class="font-semibold text-base md:text-lg text-gray-900 dark:text-white mb-1">${req.name}</h4>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-2 leading-relaxed">${req.description}</p>
                             <span class="requirement-status status-${req.status} px-3 py-1 rounded-full text-xs font-semibold">
                                 ${req.status === 'collected' ? 'Evidence Collected' : 'Missing Evidence'}
                             </span>

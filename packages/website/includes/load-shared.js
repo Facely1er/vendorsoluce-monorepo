@@ -288,7 +288,7 @@
     // ============================================
     function loadFooter() {
         // Try to find placeholder first, then fall back to existing footer element
-        let footerPlaceholder = document.getElementById('shared-footer');
+        let footerPlaceholder = document.getElementById('shared-footer') || document.getElementById('footer-placeholder');
         if (!footerPlaceholder) {
             // Look for existing footer element to replace
             const existingFooter = document.querySelector('footer.bg-gray-900, body > footer, main + footer, #root > div > footer');
