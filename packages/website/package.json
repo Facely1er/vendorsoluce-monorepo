@@ -1,15 +1,10 @@
 {
-  "name": "website",
+  "name": "vendorsoluce-static",
   "version": "1.0.0",
-  "private": true,
   "type": "module",
-  "description": "VendorSoluce marketing website",
   "scripts": {
-    "dev": "npm run watch:css",
-    "build": "npm run build:css",
     "build:css": "tailwindcss -i ./src/tailwind.css -o ./assets/css/tailwind.css --minify",
-    "watch:css": "tailwindcss -i ./src/tailwind.css -o ./assets/css/tailwind.css --watch",
-    "clean": "rm -rf assets/css/tailwind.css node_modules"
+    "watch:css": "tailwindcss -i ./src/tailwind.css -o ./assets/css/tailwind.css --watch"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.18",

@@ -4,36 +4,21 @@
   nav a[title].active,
   nav a[title][aria-current="page"] {
     color: #33691E !important;
-    background: rgba(51,105,30,.15) !important;
+    background: rgba(51,105,30,.08) !important;
     font-weight: 700 !important;
-    border: 1px solid rgba(51,105,30,.2) !important;
   }
   html.dark nav a[title].active,
   html.dark nav a[title][aria-current="page"] {
     color: #66BB6A !important;
-    background: rgba(102,187,106,.18) !important;
-    border: 1px solid rgba(102,187,106,.3) !important;
+    background: rgba(102,187,106,.12) !important;
   }
   nav a[title].active:hover,
   nav a[title][aria-current="page"]:hover {
-    background: rgba(51,105,30,.2) !important;
-    border-color: rgba(51,105,30,.3) !important;
-    transform: translateY(-1px) !important;
+    background: rgba(51,105,30,.12) !important;
   }
   html.dark nav a[title].active:hover,
   html.dark nav a[title][aria-current="page"]:hover {
-    background: rgba(102,187,106,.25) !important;
-    border-color: rgba(102,187,106,.4) !important;
-  }
-  /* Enhanced hover states for non-active navigation links */
-  nav a[title]:not(.active):not([aria-current="page"]):hover {
-    color: #33691E !important;
-    background: rgba(51,105,30,.08) !important;
-    transform: translateY(-1px) !important;
-  }
-  html.dark nav a[title]:not(.active):not([aria-current="page"]):hover {
-    color: #66BB6A !important;
-    background: rgba(102,187,106,.12) !important;
+    background: rgba(102,187,106,.18) !important;
   }
   /* Ensure brand logo link is never affected by active/hover nav styles */
   nav [data-tour="main-nav"] a,
@@ -44,8 +29,6 @@
     color: inherit !important;
     background: transparent !important;
     font-weight: inherit !important;
-    border: none !important;
-    transform: none !important;
   }
   /* Prevent hover effects on active Vendor Radar button */
   nav a[aria-current="page"][style*="pointer-events: none"],
@@ -58,10 +41,6 @@
     transform: none !important;
     box-shadow: none !important;
   }
-  /* Ensure transitions work for all nav links */
-  nav a[title] {
-    transition: all 0.2s ease-in-out !important;
-  }
 </style>
 <nav class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-[100] w-full">
   <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 w-full">
@@ -71,10 +50,7 @@
         <a class="flex items-center min-w-0 group" href="index.html">
           <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 flex-shrink-0 transition-transform group-hover:scale-105 pointer-events-none">
           <span class="ml-1.5 sm:ml-2 min-w-0 pointer-events-none">
-            <div class="flex items-center gap-1.5">
-              <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">VendorSoluce™</span>
-              <span class="px-1 py-0.5 text-[8px] sm:text-[9px] font-semibold uppercase tracking-wide bg-vendorsoluce-green/10 text-vendorsoluce-green dark:text-white dark:bg-vendorsoluce-green/20 rounded border border-vendorsoluce-green/20 dark:border-vendorsoluce-green/30">Beta</span>
-            </div>
+            <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">VendorSoluce™</span>
             <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter" style="letter-spacing: -0.02em; margin-top: -3px;">Supply Chain Assurance</span>
             <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
           </span>
@@ -123,7 +99,7 @@
           <span class="text-sm font-medium whitespace-nowrap">Vendor Radar</span>
         </a>
         <div data-tour="user-menu">
-          <a href="profile.html">
+          <a href="account.html">
             <button type="button" class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="User Account">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user w-5 h-5">
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>

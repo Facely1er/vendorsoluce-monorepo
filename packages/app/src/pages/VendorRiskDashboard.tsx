@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Card, { CardHeader, CardTitle, CardContent } from '../components/ui/Card';
 import VendorRiskTable from '../components/vendor/VendorRiskTable';
 import { VendorRisk } from '../types';
@@ -20,10 +20,14 @@ import { useSupplyChainAssessments } from '../hooks/useSupplyChainAssessments';
 import BackToDashboardLink from '../components/common/BackToDashboardLink';
 import { useThreatIntelligence } from '../hooks/useThreatIntelligence';
 import { logger } from '../utils/logger';
+import RadarWidget from '../components/dashboard/RadarWidget';
+import PortalStatusWidget from '../components/dashboard/PortalStatusWidget';
+import UnifiedQuickActions from '../components/dashboard/UnifiedQuickActions';
 
 const VendorRiskDashboard: React.FC = () => {
   const { t } = useTranslation();
   const location = useLocation();
+  const navigate = useNavigate();
   const { vendors, loading, error, refetch } = useVendors();
   const { analyses } = useSBOMAnalyses();
   const { assessments } = useSupplyChainAssessments();
@@ -347,13 +351,60 @@ const VendorRiskDashboard: React.FC = () => {
                 </div>
               </Card>
             </div>
+
+            {/* Unified Integration Section: Radar + Portal + Quick Actions */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Vendor Risk Radar Widget */}
+              <div className="lg:col-span-2">
+                <RadarWidget 
+                  vendors={vendorRiskData}
+                  onVendorClick={(vendor) => {
+                    // Navigate to vendor detail or open in radar with vendor selected
+                    navigate(`/tools/vendor-risk-radar?vendor=${vendor.id}`);
+                  }}
+                />
+              </div>
+              
+              {/* Portal Status Widget */}
+              <div className="space-y-6">
+                <PortalStatusWidget 
+                  assessments={assessments.map(a => ({
+                    id: a.id,
+                    vendorName: a.vendor_name || 'Unknown',
+                    status: a.status as 'pending' | 'in_progress' | 'completed' | 'overdue',
+                    dueDate: a.due_date,
+                    framework: a.framework
+                  }))}
+                />
+                
+                {/* Quick Actions */}
+                <UnifiedQuickActions
+                  onAddVendor={() => setShowAddModal(true)}
+                  onCreateAssessment={() => navigate('/vendor-security-assessments?action=create')}
+                />
+              </div>
+            </div>
             
-            {/* Vendor Table Section */}
+            {/* Vendor Table Section with Enhanced Integration */}
             <Card className="overflow-hidden">
               <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
                 <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-4">
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('vendorRisk.vendorOverview')}</h2>
+                  <div>
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('vendorRisk.vendorOverview')}</h2>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                      Click vendors to view in Radar • Portal status shown for each vendor
+                    </p>
+                  </div>
                   <div className="flex flex-col sm:flex-row gap-3">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => navigate('/tools/vendor-risk-radar')}
+                      className="w-full sm:w-auto"
+                    >
+                      <BarChart3 className="h-4 w-4 mr-2" />
+                      View in Radar
+                    </Button>
                     <DataImportExport
                       dataType="vendors"
                       data={vendors}
@@ -382,6 +433,10 @@ const VendorRiskDashboard: React.FC = () => {
                 <VendorRiskTable 
                   vendors={vendorRiskData}
                   onRefresh={handleRefresh}
+                  onView={(vendor) => {
+                    // Navigate to radar with vendor selected
+                    navigate(`/tools/vendor-risk-radar?vendor=${vendor.id}`);
+                  }}
                 />
               ) : (
                 <div className="p-12 text-center bg-gray-50 dark:bg-gray-800/30">

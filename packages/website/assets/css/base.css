@@ -12,35 +12,8 @@ body{
   color:var(--text);
   line-height:1.5;
 }
-
-/* Enhanced colorful light theme background */
-html:not(.dark):not([data-theme="dark"]) body,
-body:not(.dark):not([data-theme="dark"]) {
-  background:
-    radial-gradient(1400px 900px at 15% 5%, rgba(51,105,30,.12), transparent 65%),
-    radial-gradient(1100px 700px at 85% 0%, rgba(0,163,255,.18), transparent 65%),
-    radial-gradient(900px 600px at 25% 75%, rgba(102,187,106,.10), transparent 60%),
-    radial-gradient(800px 500px at 75% 60%, rgba(79,195,247,.12), transparent 60%),
-    radial-gradient(600px 400px at 50% 30%, rgba(186,104,200,.08), transparent 70%),
-    linear-gradient(180deg, #F0F7FF 0%, #E8F5E9 100%);
-}
 a{ color:inherit; text-decoration:none; }
-a:hover{ opacity:1; }
-/* Ensure hover states are visible */
-a:not([aria-current="page"]):hover {
-  opacity: 1;
-  transition: all 0.2s ease-in-out;
-}
-button:hover,
-[role="button"]:hover {
-  opacity: 1;
-  transition: all 0.2s ease-in-out;
-}
-button:active,
-[role="button"]:active {
-  transform: scale(0.98);
-  transition: transform 0.1s ease-in-out;
-}
+a:hover{ opacity:.95; }
 p{ margin:0 0 var(--s-4); }
 h1,h2,h3{ margin:0 0 var(--s-4); line-height:1.12; }
 h1{ font-size: var(--text-3xl); }

@@ -22,7 +22,14 @@ interface CreateAssessmentModalProps {
   vendors: Vendor[];
   frameworks: Framework[];
   onClose: () => void;
-  onSuccess: (assessmentData: { vendorId: string; frameworkId: string; dueDate: string; instructions?: string }) => void;
+  onSuccess: (assessmentData: { 
+    vendorId: string; 
+    frameworkId: string; 
+    dueDate: string; 
+    instructions?: string;
+    contactEmail?: string;
+    sendImmediately?: boolean;
+  }) => void;
 }
 
 const CreateAssessmentModal: React.FC<CreateAssessmentModalProps> = ({
@@ -52,7 +59,9 @@ const CreateAssessmentModal: React.FC<CreateAssessmentModalProps> = ({
         vendorId: formData.vendorId,
         frameworkId: formData.frameworkId,
         dueDate: formData.dueDate,
-        instructions: formData.message || undefined
+        instructions: formData.message || undefined,
+        contactEmail: formData.contactEmail,
+        sendImmediately: formData.sendReminders && formData.vendorId && formData.frameworkId && formData.contactEmail && formData.dueDate
       };
       
       onSuccess(assessmentData);
@@ -149,6 +158,24 @@ const CreateAssessmentModal: React.FC<CreateAssessmentModalProps> = ({
                   </div>
                 ))}
               </div>
+              
+              {/* CyberCertitude mention when CMMC framework is selected */}
+              {selectedFramework && selectedFramework.name.toLowerCase().includes('cmmc') && (
+                <div className="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-700">
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    <strong className="text-gray-700 dark:text-gray-300">Tip:</strong> Consider sharing{' '}
+                    <a 
+                      href="https://cybercertitude.com" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                    >
+                      CyberCertitude™
+                    </a>
+                    {' '}with your vendor to help them prepare for this CMMC assessment.
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Assessment Details */}
@@ -255,7 +282,7 @@ const CreateAssessmentModal: React.FC<CreateAssessmentModalProps> = ({
               ) : (
                 <Send className="h-4 w-4 mr-2" />
               )}
-              Send Assessment
+              {formData.sendReminders ? 'Create & Send to Portal' : 'Create Assessment'}
             </Button>
           </div>
         </form>

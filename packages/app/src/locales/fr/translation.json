@@ -803,6 +803,11 @@
     }
   },
   "vendorPortal": {
+    "cmmcPreparation": {
+      "title": "Besoin d'Aide pour Préparer le CMMC?",
+      "description": "CyberCertitude™ fournit des outils de préparation CMMC pour vous aider à vous préparer aux évaluations. Utilisez-le pour effectuer des auto-évaluations, générer des Plans de Sécurité Système (SSP), et suivre votre Plan d'Action et Jalons (POA&M) avant de compléter cette évaluation fournisseur.",
+      "linkText": "En savoir plus sur CyberCertitude"
+    }
   },
   "vendorIQ": {
     "title": "VendorIQ - Évaluation Intelligente des Fournisseurs",
@@ -900,7 +905,8 @@
         "description": "Modèles d'évaluation CMMC Niveau 1 et 2 pré-construits avec notation automatisée et collecte de preuves.",
         "feature1": "Ensembles de questions alignés DoD",
         "feature2": "Notation automatisée de la conformité",
-        "feature3": "Portail de collecte de preuves"
+        "feature3": "Portail de collecte de preuves",
+        "cybercertitudeTip": "Astuce : Aidez vos fournisseurs à se préparer avec CyberCertitude™ — une boîte à outils de préparation CMMC pour les auto-évaluations et la documentation."
       },
       "vendorPortal": {
         "title": "Portail Fournisseur",

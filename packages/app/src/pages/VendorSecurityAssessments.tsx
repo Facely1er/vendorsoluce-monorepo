@@ -16,7 +16,9 @@ import {
   Search,
   Download,
   BarChart3,
-  Crown
+  Crown,
+  Copy,
+  ExternalLink
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useVendors } from '../hooks/useVendors.mock';
@@ -25,6 +27,14 @@ import CreateAssessmentModal from '../components/vendor-assessments/CreateAssess
 import AssessmentProgressTracker from '../components/vendor-assessments/AssessmentProgressTracker';
 import BackToDashboardLink from '../components/common/BackToDashboardLink';
 import { logger } from '../utils/logger';
+import { 
+  createAssessmentWithPortal, 
+  sendExistingAssessmentToPortal,
+  getAssessmentPortalLink,
+  copyPortalLinkToClipboard 
+} from '../services/assessmentService';
+import { useAuth } from '../context/AuthContext';
+import { useAppStore } from '../stores/appStore';
 
 // Component to handle progress bar fill without inline styles
 const ProgressBarFill: React.FC<{ progress: number }> = ({ progress }) => {
@@ -46,6 +56,8 @@ const ProgressBarFill: React.FC<{ progress: number }> = ({ progress }) => {
 
 const VendorSecurityAssessments: React.FC = () => {
   const { t } = useTranslation();
+  const { user } = useAuth();
+  const addNotification = useAppStore((state) => state.addNotification);
   const { vendors, loading: vendorsLoading } = useVendors();
   const { 
     assessments, 
@@ -56,6 +68,7 @@ const VendorSecurityAssessments: React.FC = () => {
     sendAssessment,
     deleteAssessment,
     getAssessmentProgress,
+    refetch,
   } = useVendorAssessments();
   
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -91,21 +104,120 @@ const VendorSecurityAssessments: React.FC = () => {
     return matchesSearch && matchesStatus;
   });
 
-  const handleCreateSuccess = async (assessmentData: { vendorId: string; frameworkId: string; dueDate: string; instructions?: string }) => {
+  const handleCreateSuccess = async (assessmentData: { 
+    vendorId: string; 
+    frameworkId: string; 
+    dueDate: string; 
+    instructions?: string;
+    contactEmail?: string;
+    sendImmediately?: boolean;
+  }) => {
+    if (!user) {
+      addNotification({
+        title: 'Error',
+        message: 'You must be logged in to create assessments',
+        type: 'error',
+      });
+      return;
+    }
+
     try {
-      await createAssessment(assessmentData);
+      // Use the new assessment service for portal integration
+      const result = await createAssessmentWithPortal(
+        {
+          ...assessmentData,
+          sendImmediately: assessmentData.sendImmediately || false,
+        },
+        user.id,
+        user.user_metadata?.organization_name || 'Your Organization'
+      );
+
+      // Refresh assessments list
+      await refetch();
+
       setShowCreateModal(false);
+
+      if (assessmentData.sendImmediately) {
+        addNotification({
+          title: 'Assessment Sent',
+          message: `Assessment sent to vendor portal. Portal link: ${result.portalLink}`,
+          type: 'success',
+          duration: 5000,
+        });
+      } else {
+        addNotification({
+          title: 'Assessment Created',
+          message: `Assessment created. Portal link: ${result.portalLink}`,
+          type: 'success',
+          duration: 5000,
+        });
+      }
     } catch (error) {
       logger.error('Failed to create assessment:', error);
+      addNotification({
+        title: 'Error',
+        message: error instanceof Error ? error.message : 'Failed to create assessment',
+        type: 'error',
+      });
     }
   };
 
   const handleSendAssessment = async (assessmentId: string) => {
+    if (!user) {
+      addNotification({
+        title: 'Error',
+        message: 'You must be logged in to send assessments',
+        type: 'error',
+      });
+      return;
+    }
+
     try {
-      await sendAssessment(assessmentId);
-      // Show success message or notification
+      const result = await sendExistingAssessmentToPortal(
+        assessmentId,
+        user.id,
+        user.user_metadata?.organization_name || 'Your Organization'
+      );
+
+      // Refresh assessments list
+      await refetch();
+
+      addNotification({
+        title: 'Assessment Sent',
+        message: `Assessment sent to vendor portal. Portal link: ${result.portalLink}`,
+        type: 'success',
+        duration: 5000,
+      });
     } catch (error) {
       logger.error('Failed to send assessment:', error);
+      addNotification({
+        title: 'Error',
+        message: error instanceof Error ? error.message : 'Failed to send assessment',
+        type: 'error',
+      });
+    }
+  };
+
+  const handleCopyPortalLink = async (assessmentId: string) => {
+    try {
+      const portalLink = getAssessmentPortalLink(assessmentId);
+      const copied = await copyPortalLinkToClipboard(portalLink);
+      
+      if (copied) {
+        addNotification({
+          title: 'Link Copied',
+          message: 'Portal link copied to clipboard',
+          type: 'success',
+        });
+      } else {
+        addNotification({
+          title: 'Error',
+          message: 'Failed to copy link. Please copy manually.',
+          type: 'error',
+        });
+      }
+    } catch (error) {
+      logger.error('Failed to copy portal link:', error);
     }
   };
 
@@ -199,11 +311,26 @@ const VendorSecurityAssessments: React.FC = () => {
             <p className="text-gray-600 dark:text-gray-300 mb-4">
               {t('vendorAssessments.features.cmmcAssessments.description')}
             </p>
-            <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+            <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1 mb-4">
               <li>• {t('vendorAssessments.features.cmmcAssessments.feature1')}</li>
               <li>• {t('vendorAssessments.features.cmmcAssessments.feature2')}</li>
               <li>• {t('vendorAssessments.features.cmmcAssessments.feature3')}</li>
             </ul>
+            {/* CyberCertitude mention for vendor preparation */}
+            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                <strong className="text-gray-700 dark:text-gray-300">Tip:</strong> Help your vendors prepare with{' '}
+                <a 
+                  href="https://cybercertitude.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                >
+                  CyberCertitude™
+                </a>
+                {' '}— a CMMC readiness toolkit for self-assessments and documentation.
+              </p>
+            </div>
           </CardContent>
         </Card>
 
@@ -432,7 +559,7 @@ const VendorSecurityAssessments: React.FC = () => {
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <div className="flex justify-end space-x-2">
                             <Link to={`/vendor-assessments/${assessment.id}`}>
-                              <Button variant="ghost" size="sm">
+                              <Button variant="ghost" size="sm" title="View Assessment">
                                 <Eye className="h-4 w-4" />
                               </Button>
                             </Link>
@@ -441,10 +568,33 @@ const VendorSecurityAssessments: React.FC = () => {
                                 variant="ghost" 
                                 size="sm"
                                 onClick={() => handleSendAssessment(assessment.id)}
-                                title="Send Assessment"
+                                title="Send to Vendor Portal"
                               >
                                 <Send className="h-4 w-4" />
                               </Button>
+                            )}
+                            {(assessment.status === 'sent' || assessment.status === 'in_progress' || assessment.status === 'completed') && (
+                              <>
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm"
+                                  onClick={() => handleCopyPortalLink(assessment.id)}
+                                  title="Copy Portal Link"
+                                  className="text-blue-500 hover:text-blue-700"
+                                >
+                                  <Copy className="h-4 w-4" />
+                                </Button>
+                                <a
+                                  href={getAssessmentPortalLink(assessment.id)}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  title="Open in Vendor Portal"
+                                >
+                                  <Button variant="ghost" size="sm" className="text-orange-500 hover:text-orange-700">
+                                    <ExternalLink className="h-4 w-4" />
+                                  </Button>
+                                </a>
+                              </>
                             )}
                             <Button 
                               variant="ghost" 

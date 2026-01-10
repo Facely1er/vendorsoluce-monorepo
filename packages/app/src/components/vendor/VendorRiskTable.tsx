@@ -1,9 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { VendorRisk } from '../../types';
 import RiskBadge from '../ui/RiskBadge';
 import { useTranslation } from 'react-i18next';
-import { Edit, Trash2, Eye } from 'lucide-react';
+import { Edit, Trash2, Eye, Radar, Shield, ExternalLink } from 'lucide-react';
 import { Button } from '../ui/Button';
 import BulkDataOperations from '../data/BulkDataOperations';
 
@@ -23,7 +24,15 @@ const VendorRiskTable: React.FC<VendorRiskTableProps> = ({
   onRefresh
 }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [selectedVendors, setSelectedVendors] = useState<string[]>([]);
+  
+  // Mock portal status - in real app, this would come from props or API
+  const getPortalStatus = (vendorId: string) => {
+    // This would be replaced with actual portal assessment data
+    const statuses = ['pending', 'in_progress', 'completed', null];
+    return statuses[Math.floor(Math.random() * statuses.length)];
+  };
   
   const handleSelectAll = (checked: boolean) => {
     setSelectedVendors(checked ? vendors.map(v => v.id) : []);
@@ -101,6 +110,12 @@ const VendorRiskTable: React.FC<VendorRiskTableProps> = ({
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
               {t('vendorRisk.table.lastAssessment')}
             </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              Portal Status
+            </th>
+            <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              Quick Actions
+            </th>
             {(onEdit || onDelete || onView) && (
               <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Actions
@@ -159,6 +174,52 @@ const VendorRiskTable: React.FC<VendorRiskTableProps> = ({
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                 {formatDate(vendor.lastAssessment)}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                {(() => {
+                  const portalStatus = getPortalStatus(vendor.id);
+                  if (!portalStatus) {
+                    return (
+                      <span className="text-xs text-gray-400 dark:text-gray-500">No assessment</span>
+                    );
+                  }
+                  const statusConfig = {
+                    pending: { label: 'Pending', color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400', icon: '⏳' },
+                    in_progress: { label: 'In Progress', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400', icon: '🔄' },
+                    completed: { label: 'Completed', color: 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400', icon: '✓' },
+                  };
+                  const config = statusConfig[portalStatus as keyof typeof statusConfig] || statusConfig.pending;
+                  return (
+                    <div className="flex items-center gap-2">
+                      <span className={`px-2 py-1 text-xs rounded-full ${config.color} flex items-center gap-1`}>
+                        <span>{config.icon}</span>
+                        {config.label}
+                      </span>
+                    </div>
+                  );
+                })()}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="flex items-center justify-center gap-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => navigate(`/tools/vendor-risk-radar?vendor=${vendor.id}`)}
+                    className="text-purple-500 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-200"
+                    title="View in Radar"
+                  >
+                    <Radar className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => window.open(import.meta.env.VITE_VENDOR_PORTAL_URL || 'https://vendortal.com', '_blank')}
+                    className="text-orange-500 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-200"
+                    title="View Portal"
+                  >
+                    <Shield className="h-4 w-4" />
+                  </Button>
+                </div>
               </td>
               {(onEdit || onDelete || onView) && (
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

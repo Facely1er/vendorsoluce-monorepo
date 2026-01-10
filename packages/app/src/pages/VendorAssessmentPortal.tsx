@@ -8,7 +8,8 @@ import {
   AlertTriangle,
   FileText,
   Lock,
-  Download
+  Download,
+  Shield
 } from 'lucide-react';
 import { uploadAssessmentEvidence } from '../utils/supabaseStorage';
 import { logger } from '../utils/logger';
@@ -585,37 +586,66 @@ const VendorAssessmentPortal: React.FC = () => {
               <CardContent>
                 {/* Vendor Information Section (only show on first section) */}
                 {currentSection === 0 && (
-                  <div className="mb-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                    <h3 className="font-medium text-blue-900 dark:text-blue-300 mb-3">
-                      Company Information
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-blue-800 dark:text-blue-300 mb-1">
-                          Company Name
-                        </label>
-                        <input
-                          type="text"
-                          value={vendorInfo.companyName}
-                          onChange={(e) => setVendorInfo(prev => ({ ...prev, companyName: e.target.value }))}
-                          className="w-full p-2 border border-blue-300 dark:border-blue-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-                          placeholder="Your Company Name"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-blue-800 dark:text-blue-300 mb-1">
-                          Primary Contact
-                        </label>
-                        <input
-                          type="text"
-                          value={vendorInfo.contactName}
-                          onChange={(e) => setVendorInfo(prev => ({ ...prev, contactName: e.target.value }))}
-                          className="w-full p-2 border border-blue-300 dark:border-blue-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-                          placeholder="Contact Name"
-                        />
+                  <>
+                    <div className="mb-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                      <h3 className="font-medium text-blue-900 dark:text-blue-300 mb-3">
+                        Company Information
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-blue-800 dark:text-blue-300 mb-1">
+                            Company Name
+                          </label>
+                          <input
+                            type="text"
+                            value={vendorInfo.companyName}
+                            onChange={(e) => setVendorInfo(prev => ({ ...prev, companyName: e.target.value }))}
+                            className="w-full p-2 border border-blue-300 dark:border-blue-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                            placeholder="Your Company Name"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-blue-800 dark:text-blue-300 mb-1">
+                            Primary Contact
+                          </label>
+                          <input
+                            type="text"
+                            value={vendorInfo.contactName}
+                            onChange={(e) => setVendorInfo(prev => ({ ...prev, contactName: e.target.value }))}
+                            className="w-full p-2 border border-blue-300 dark:border-blue-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                            placeholder="Contact Name"
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
+                    
+                    {/* CyberCertitude CMMC Preparation Help Section */}
+                    {assessment.frameworkName.toLowerCase().includes('cmmc') && (
+                      <div className="mb-8 p-4 bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-lg border border-yellow-200 dark:border-yellow-700">
+                        <div className="flex items-start">
+                          <Shield className="h-5 w-5 text-yellow-600 dark:text-yellow-400 mr-3 mt-0.5 flex-shrink-0" />
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                              Need Help Preparing for CMMC?
+                            </h3>
+                            <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
+                              <strong>CyberCertitude™</strong> provides CMMC readiness tools to help you prepare for assessments. 
+                              Use it to conduct self-assessments, generate System Security Plans (SSP), and track 
+                              your Plan of Action & Milestones (POA&M) before completing this vendor assessment.
+                            </p>
+                            <a 
+                              href="https://cybercertitude.com" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center text-sm font-semibold text-yellow-600 dark:text-yellow-400 hover:text-yellow-700 dark:hover:text-yellow-300 transition-colors"
+                            >
+                              Learn more about CyberCertitude →
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </>
                 )}
                 
                 {/* Questions */}

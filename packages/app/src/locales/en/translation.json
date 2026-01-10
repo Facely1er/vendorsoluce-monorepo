@@ -880,6 +880,11 @@
     }
   },
   "vendorPortal": {
+    "cmmcPreparation": {
+      "title": "Need Help Preparing for CMMC?",
+      "description": "CyberCertitude™ provides CMMC readiness tools to help you prepare for assessments. Use it to conduct self-assessments, generate System Security Plans (SSP), and track your Plan of Action & Milestones (POA&M) before completing this vendor assessment.",
+      "linkText": "Learn more about CyberCertitude"
+    }
   },
   "vendorAssessments": {
     "title": "Vendor Security Assessments",
@@ -900,7 +905,8 @@
         "description": "Pre-built CMMC Level 1 & 2 assessment templates with automated scoring and evidence collection.",
         "feature1": "DoD-aligned question sets",
         "feature2": "Automated compliance scoring",
-        "feature3": "Evidence collection portal"
+        "feature3": "Evidence collection portal",
+        "cybercertitudeTip": "Tip: Help your vendors prepare with CyberCertitude™ — a CMMC readiness toolkit for self-assessments and documentation."
       },
       "vendorPortal": {
         "title": "Vendor Portal",
