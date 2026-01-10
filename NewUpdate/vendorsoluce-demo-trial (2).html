@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VendorSoluce® - Interactive Demo | Try Before You Buy</title>
+    <meta name="description" content="Experience VendorSoluce's 3-stage vendor risk workflow. Upload vendors, see risk scores, define requirements, and collect evidence - all in your browser.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --forest-deep: #1A4D2E;
+            --forest-medium: #2D6A4F;
+            --sage-light: #95D5B2;
+            --cream: #F8F6F1;
+            --white: #FFFFFF;
+            --charcoal: #2B2D2F;
+            --rust: #B85C38;
+            --gold: #D4A574;
+            
+            --font-display: 'DM Serif Display', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            color: var(--charcoal);
+            background: var(--cream);
+            line-height: 1.7;
+        }
+        
+        /* Demo Container */
+        .demo-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header */
+        .demo-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(26, 77, 46, 0.08);
+        }
+        
+        .demo-header h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--forest-deep);
+            margin-bottom: 0.5rem;
+        }
+        
+        .demo-header p {
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            opacity: 0.8;
+        }
+        
+        .demo-badge {
+            display: inline-block;
+            background: var(--sage-light);
+            color: var(--forest-deep);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(26, 77, 46, 0.06);
+        }
+        
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 5%;
+            right: 5%;
+            height: 4px;
+            background: #E5E7EB;
+            z-index: 0;
+        }
+        
+        .progress-line-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--forest-deep);
+            transition: width 0.3s;
+        }
+        
+        .progress-step {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #E5E7EB;
+            color: #9CA3AF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .progress-step.active .step-number {
+            background: var(--forest-deep);
+            color: white;
+        }
+        
+        .progress-step.completed .step-number {
+            background: var(--sage-light);
+            color: var(--forest-deep);
+        }
+        
+        .step-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #9CA3AF;
+        }
+        
+        .progress-step.active .step-label {
+            color: var(--forest-deep);
+        }
+        
+        /* Stage Content */
+        .stage-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(26, 77, 46, 0.08);
+            display: none;
+        }
+        
+        .stage-content.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stage-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--forest-deep);
+            margin-bottom: 1rem;
+        }
+        
+        .stage-description {
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+        
+        /* Upload Area */
+        .upload-area {
+            border: 3px dashed var(--sage-light);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            background: var(--cream);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--forest-medium);
+            background: rgba(149, 213, 178, 0.1);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .upload-text {
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+        }
+        
+        .upload-hint {
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            opacity: 0.6;
+        }
+        
+        /* Vendor List */
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .vendor-card {
+            background: var(--cream);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .vendor-card:hover {
+            border-color: var(--sage-light);
+            box-shadow: 0 4px 12px rgba(26, 77, 46, 0.08);
+        }
+        
+        .vendor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+        
+        .vendor-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--forest-deep);
+        }
+        
+        .risk-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .risk-critical {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+        
+        .risk-high {
+            background: #FED7AA;
+            color: #9A3412;
+        }
+        
+        .risk-medium {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+        
+        .risk-low {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+        
+        .risk-score {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--forest-deep);
+            margin: 0.5rem 0;
+        }
+        
+        .vendor-details {
+            font-size: 0.85rem;
+            color: var(--charcoal);
+            opacity: 0.7;
+        }
+        
+        /* Requirements */
+        .requirements-list {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .requirement-item {
+            background: var(--cream);
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+        
+        .requirement-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--forest-deep);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .requirement-content h4 {
+            color: var(--forest-deep);
+            margin-bottom: 0.5rem;
+        }
+        
+        .requirement-status {
+            font-size: 0.85rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        
+        .status-missing {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+        
+        .status-collected {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--forest-deep);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--forest-medium);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--forest-deep);
+            border: 2px solid var(--forest-deep);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--forest-deep);
+            color: white;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--cream);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--forest-deep);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            opacity: 0.8;
+        }
+        
+        /* Demo Actions */
+        .demo-actions {
+            background: var(--cream);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .demo-hint {
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            opacity: 0.8;
+        }
+        
+        /* Sample Data Button */
+        .load-sample {
+            background: var(--sage-light);
+            color: var(--forest-deep);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .load-sample:hover {
+            background: var(--forest-medium);
+            color: white;
+        }
+        
+        /* Completion Screen */
+        .completion-screen {
+            text-align: center;
+            padding: 3rem;
+        }
+        
+        .completion-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .completion-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--forest-deep);
+            margin-bottom: 1rem;
+        }
+        
+        .completion-message {
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+        
+        /* Hidden */
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .demo-header h1 {
+                font-size: 2rem;
+            }
+            
+            .vendor-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <!-- Header -->
+        <div class="demo-header">
+            <div class="demo-badge">🚀 Interactive Demo</div>
+            <h1>Experience VendorSoluce® in Action</h1>
+            <p>Walk through the complete vendor risk workflow - no signup required. All data stays in your browser.</p>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-steps">
+                <div class="progress-line">
+                    <div class="progress-line-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Upload Vendors</div>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">View Risk Radar</div>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Define Requirements</div>
+                </div>
+                <div class="progress-step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Review Results</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stage 1: Upload -->
+        <div class="stage-content active" id="stage1">
+            <h2 class="stage-title">Stage 1: Upload Your Vendor List</h2>
+            <p class="stage-description">Start by uploading a CSV file with your vendors, or try our sample data to see how it works.</p>
+            
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📤</div>
+                <div class="upload-text">Click to upload vendor CSV or drag and drop</div>
+                <div class="upload-hint">Or try our sample data below</div>
+                <input type="file" id="fileInput" accept=".csv" style="display: none;">
+            </div>
+            
+            <div class="demo-actions">
+                <div class="demo-hint">💡 Tip: CSV should have columns: Vendor Name, Domain, Industry</div>
+                <button class="load-sample" onclick="loadSampleData()">Load Sample Vendors</button>
+            </div>
+        </div>
+        
+        <!-- Stage 2: Risk Radar -->
+        <div class="stage-content" id="stage2">
+            <h2 class="stage-title">Stage 2: Vendor Risk Radar</h2>
+            <p class="stage-description">Your vendors have been scored based on risk intelligence. Click on any vendor to see details.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalVendors">0</div>
+                    <div class="stat-label">Total Vendors</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="criticalCount">0</div>
+                    <div class="stat-label">Critical Risk</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="highCount">0</div>
+                    <div class="stat-label">High Risk</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="avgScore">0</div>
+                    <div class="stat-label">Avg Risk Score</div>
+                </div>
+            </div>
+            
+            <div class="vendor-grid" id="vendorGrid"></div>
+            
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="goToStage(1)">← Back</button>
+                <button class="btn btn-primary" onclick="goToStage(3)">Define Requirements →</button>
+            </div>
+        </div>
+        
+        <!-- Stage 3: Requirements -->
+        <div class="stage-content" id="stage3">
+            <h2 class="stage-title">Stage 3: Define Vendor Requirements</h2>
+            <p class="stage-description">Based on risk levels, here are the requirements for your critical vendors.</p>
+            
+            <div class="requirements-list" id="requirementsList"></div>
+            
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="goToStage(2)">← Back</button>
+                <button class="btn btn-primary" onclick="goToStage(4)">View Results →</button>
+            </div>
+        </div>
+        
+        <!-- Stage 4: Completion -->
+        <div class="stage-content" id="stage4">
+            <div class="completion-screen">
+                <div class="completion-icon">✅</div>
+                <h2 class="completion-title">Demo Complete!</h2>
+                <p class="completion-message">
+                    You've experienced the VendorSoluce workflow:<br>
+                    Upload → Risk Scoring → Requirements Definition → Evidence Collection
+                </p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">70%</div>
+                        <div class="stat-label">Faster Onboarding</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Completion Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">$180K</div>
+                        <div class="stat-label">Annual Savings</div>
+                    </div>
+                </div>
+                
+                <div class="button-group" style="justify-content: center; margin-top: 3rem;">
+                    <button class="btn btn-secondary" onclick="resetDemo()">Restart Demo</button>
+                    <button class="btn btn-primary" onclick="window.location.href='contact.html'">Schedule Full Demo →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // State Management
+        let vendors = [];
+        let currentStage = 1;
+        
+        // Sample Vendor Data
+        const sampleVendors = [
+            { name: 'AWS Cloud Services', domain: 'aws.amazon.com', industry: 'Cloud', riskScore: 32, riskLevel: 'low' },
+            { name: 'Salesforce CRM', domain: 'salesforce.com', industry: 'SaaS', riskScore: 45, riskLevel: 'medium' },
+            { name: 'Okta Identity', domain: 'okta.com', industry: 'Security', riskScore: 38, riskLevel: 'low' },
+            { name: 'Legacy Vendor Inc', domain: 'legacyvendor.com', industry: 'Software', riskScore: 87, riskLevel: 'critical' },
+            { name: 'DataCorp Analytics', domain: 'datacorp.io', industry: 'Analytics', riskScore: 76, riskLevel: 'high' },
+            { name: 'SecureComm Solutions', domain: 'securecomm.com', industry: 'Telecom', riskScore: 82, riskLevel: 'critical' },
+            { name: 'CloudBackup Pro', domain: 'cloudbackup.net', industry: 'Backup', riskScore: 68, riskLevel: 'high' },
+            { name: 'PaymentGateway Global', domain: 'paymentgateway.com', industry: 'Finance', riskScore: 91, riskLevel: 'critical' },
+        ];
+        
+        // Requirements Templates
+        const requirementsByTier = {
+            critical: [
+                { name: 'SOC 2 Type II Certification', description: 'Current certification (< 12 months old)', status: 'missing' },
+                { name: 'Cyber Insurance', description: 'Minimum $5M coverage', status: 'missing' },
+                { name: 'Incident Response Plan', description: '24-hour breach notification requirement', status: 'missing' },
+                { name: 'Multi-Factor Authentication', description: 'MFA enforced for all access', status: 'collected' },
+                { name: 'Annual Security Assessment', description: 'Third-party penetration testing', status: 'missing' }
+            ],
+            high: [
+                { name: 'Security Questionnaire', description: 'Complete 25-question assessment', status: 'collected' },
+                { name: 'Cyber Insurance', description: 'Minimum $2M coverage', status: 'missing' },
+                { name: 'Data Protection Policy', description: 'Documented handling procedures', status: 'missing' }
+            ],
+            medium: [
+                { name: 'Basic Security Attestation', description: 'Self-attestation of security practices', status: 'collected' },
+                { name: 'Contract Review', description: 'Security terms verification', status: 'collected' }
+            ]
+        };
+        
+        // Initialize
+        document.getElementById('uploadArea').addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+        
+        document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+        
+        // Load Sample Data
+        function loadSampleData() {
+            vendors = sampleVendors;
+            displayVendors();
+            goToStage(2);
+        }
+        
+        // Handle File Upload
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const csv = e.target.result;
+                vendors = parseCSV(csv);
+                displayVendors();
+                goToStage(2);
+            };
+            reader.readAsText(file);
+        }
+        
+        // Parse CSV
+        function parseCSV(csv) {
+            const lines = csv.split('\n');
+            const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+            const data = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i].trim()) continue;
+                const values = lines[i].split(',');
+                const vendor = {
+                    name: values[0]?.trim() || 'Unknown Vendor',
+                    domain: values[1]?.trim() || '',
+                    industry: values[2]?.trim() || 'General',
+                    riskScore: Math.floor(Math.random() * 60) + 30,
+                    riskLevel: ''
+                };
+                
+                // Assign risk level
+                if (vendor.riskScore >= 80) vendor.riskLevel = 'critical';
+                else if (vendor.riskScore >= 60) vendor.riskLevel = 'high';
+                else if (vendor.riskScore >= 40) vendor.riskLevel = 'medium';
+                else vendor.riskLevel = 'low';
+                
+                data.push(vendor);
+            }
+            
+            return data;
+        }
+        
+        // Display Vendors
+        function displayVendors() {
+            const grid = document.getElementById('vendorGrid');
+            grid.innerHTML = '';
+            
+            // Update stats
+            document.getElementById('totalVendors').textContent = vendors.length;
+            document.getElementById('criticalCount').textContent = vendors.filter(v => v.riskLevel === 'critical').length;
+            document.getElementById('highCount').textContent = vendors.filter(v => v.riskLevel === 'high').length;
+            const avgScore = Math.round(vendors.reduce((sum, v) => sum + v.riskScore, 0) / vendors.length);
+            document.getElementById('avgScore').textContent = avgScore;
+            
+            // Create vendor cards
+            vendors.forEach(vendor => {
+                const card = document.createElement('div');
+                card.className = 'vendor-card';
+                card.innerHTML = `
+                    <div class="vendor-header">
+                        <div class="vendor-name">${vendor.name}</div>
+                        <div class="risk-badge risk-${vendor.riskLevel}">${vendor.riskLevel}</div>
+                    </div>
+                    <div class="risk-score">${vendor.riskScore}/100</div>
+                    <div class="vendor-details">
+                        ${vendor.industry} • ${vendor.domain}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+        
+        // Display Requirements
+        function displayRequirements() {
+            const list = document.getElementById('requirementsList');
+            list.innerHTML = '';
+            
+            // Get critical vendors
+            const criticalVendors = vendors.filter(v => v.riskLevel === 'critical');
+            
+            if (criticalVendors.length > 0) {
+                const vendor = criticalVendors[0];
+                const requirements = requirementsByTier.critical;
+                
+                const header = document.createElement('h3');
+                header.style.marginBottom = '1rem';
+                header.style.color = 'var(--forest-deep)';
+                header.textContent = `Requirements for: ${vendor.name}`;
+                list.appendChild(header);
+                
+                requirements.forEach(req => {
+                    const item = document.createElement('div');
+                    item.className = 'requirement-item';
+                    item.innerHTML = `
+                        <div class="requirement-icon">${req.status === 'collected' ? '✓' : '!'}</div>
+                        <div class="requirement-content">
+                            <h4>${req.name}</h4>
+                            <p style="color: var(--charcoal); opacity: 0.8; font-size: 0.9rem;">${req.description}</p>
+                            <span class="requirement-status status-${req.status}">
+                                ${req.status === 'collected' ? 'Evidence Collected' : 'Missing Evidence'}
+                            </span>
+                        </div>
+                    `;
+                    list.appendChild(item);
+                });
+            }
+        }
+        
+        // Navigate Between Stages
+        function goToStage(stage) {
+            // Hide all stages
+            document.querySelectorAll('.stage-content').forEach(el => el.classList.remove('active'));
+            
+            // Show target stage
+            document.getElementById(`stage${stage}`).classList.add('active');
+            
+            // Update progress
+            document.querySelectorAll('.progress-step').forEach((el, idx) => {
+                el.classList.remove('active', 'completed');
+                if (idx + 1 < stage) el.classList.add('completed');
+                if (idx + 1 === stage) el.classList.add('active');
+            });
+            
+            // Update progress bar
+            const progress = ((stage - 1) / 3) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Load stage-specific content
+            if (stage === 3) displayRequirements();
+            
+            currentStage = stage;
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Reset Demo
+        function resetDemo() {
+            vendors = [];
+            goToStage(1);
+            document.getElementById('vendorGrid').innerHTML = '';
+            document.getElementById('requirementsList').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

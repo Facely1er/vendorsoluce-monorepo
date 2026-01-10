@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VendorSoluce® - From Risk Exposure to Audit-Ready Evidence in 6 Weeks</title>
+    <meta name="description" content="Discover which vendors are risky (Day 1), define what you need (Week 1), collect the proof (Week 2-6). 70% faster vendor onboarding with evidence-based governance.">
+    
+    <!-- Fonts: Distinctive pairing -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Brand Colors - Organic, trustworthy greens */
+            --forest-deep: #1A4D2E;
+            --forest-medium: #2D6A4F;
+            --sage-light: #95D5B2;
+            --cream: #F8F6F1;
+            --white: #FFFFFF;
+            --charcoal: #2B2D2F;
+            --rust: #B85C38;
+            --gold: #D4A574;
+            
+            /* Typography */
+            --font-display: 'DM Serif Display', serif;
+            --font-body: 'Inter', sans-serif;
+            
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+            
+            /* Effects */
+            --shadow-soft: 0 8px 32px rgba(26, 77, 46, 0.08);
+            --shadow-strong: 0 20px 60px rgba(26, 77, 46, 0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            color: var(--charcoal);
+            background: var(--cream);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(248, 246, 241, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(26, 77, 46, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            color: var(--forest-deep);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-symbol {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--forest-deep), var(--forest-medium));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--charcoal);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--forest-deep);
+        }
+        
+        .btn-nav {
+            background: var(--forest-deep);
+            color: white;
+            padding: 0.75rem 1.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-nav:hover {
+            background: var(--forest-medium);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: var(--space-xl) 2rem;
+            background: 
+                linear-gradient(135deg, rgba(149, 213, 178, 0.15) 0%, rgba(248, 246, 241, 0) 100%),
+                var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(149, 213, 178, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-50px, 30px) scale(1.1); }
+        }
+        
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            max-width: 720px;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--forest-deep);
+            border: 2px solid var(--sage-light);
+            margin-bottom: 2rem;
+            animation: slideDown 0.6s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 4.5rem;
+            line-height: 1.1;
+            color: var(--forest-deep);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-highlight {
+            color: var(--rust);
+            font-style: italic;
+        }
+        
+        .hero-description {
+            font-size: 1.35rem;
+            line-height: 1.8;
+            color: var(--charcoal);
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+        
+        .stats-row {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+        
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2.75rem;
+            color: var(--forest-deep);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            opacity: 0.8;
+        }
+        
+        .cta-group {
+            display: flex;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+        
+        .btn-primary {
+            background: var(--forest-deep);
+            color: white;
+            padding: 1.25rem 2.5rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s;
+            border: 2px solid var(--forest-deep);
+        }
+        
+        .btn-primary:hover {
+            background: var(--forest-medium);
+            border-color: var(--forest-medium);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-strong);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--forest-deep);
+            padding: 1.25rem 2.5rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            border: 2px solid var(--forest-deep);
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--forest-deep);
+            color: white;
+        }
+        
+        /* Journey Section */
+        .journey {
+            padding: var(--space-xl) 2rem;
+            background: white;
+        }
+        
+        .journey-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .section-label {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--forest-medium);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            color: var(--forest-deep);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .section-description {
+            font-size: 1.25rem;
+            color: var(--charcoal);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+        
+        /* Journey Stages */
+        .stages {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin-top: var(--space-lg);
+        }
+        
+        .stage {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.4s;
+            border: 2px solid transparent;
+        }
+        
+        .stage:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-strong);
+            border-color: var(--sage-light);
+        }
+        
+        .stage-number {
+            position: absolute;
+            top: -20px;
+            left: 2.5rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--forest-deep), var(--forest-medium));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .stage-timeline {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--rust);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .stage h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--forest-deep);
+            margin-bottom: 0.75rem;
+        }
+        
+        .stage-subtitle {
+            font-size: 1rem;
+            color: var(--forest-medium);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stage-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--charcoal);
+            margin-bottom: 2rem;
+            opacity: 0.85;
+        }
+        
+        .stage-outcome {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--forest-deep);
+            margin-bottom: 1.5rem;
+        }
+        
+        .outcome-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--forest-medium);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .outcome-text {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: var(--forest-deep);
+            line-height: 1.4;
+        }
+        
+        .stage-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        .metric {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            color: var(--forest-deep);
+            margin-bottom: 0.25rem;
+        }
+        
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--charcoal);
+            opacity: 0.7;
+        }
+        
+        /* Problem Section */
+        .problem {
+            padding: var(--space-xl) 2rem;
+            background: var(--forest-deep);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .problem::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(149, 213, 178, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .problem-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .problem .section-label {
+            color: var(--sage-light);
+        }
+        
+        .problem .section-title {
+            color: white;
+        }
+        
+        .problem .section-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: var(--space-lg);
+        }
+        
+        .problem-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .problem-stat {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            color: var(--rust);
+            margin-bottom: 1rem;
+        }
+        
+        .problem-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .problem-card p {
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+        
+        /* Comparison Section */
+        .comparison {
+            padding: var(--space-xl) 2rem;
+            background: var(--cream);
+        }
+        
+        .comparison-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .comparison-table {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            margin-top: var(--space-md);
+        }
+        
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            border-bottom: 1px solid rgba(26, 77, 46, 0.1);
+        }
+        
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+        
+        .comparison-header {
+            background: var(--forest-deep);
+            color: white;
+        }
+        
+        .comparison-cell {
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .comparison-header .comparison-cell {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .comparison-cell:nth-child(2),
+        .comparison-cell:nth-child(3) {
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .check {
+            color: var(--forest-deep);
+            font-size: 1.5rem;
+        }
+        
+        .cross {
+            color: var(--rust);
+            font-size: 1.5rem;
+            opacity: 0.4;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: var(--space-xl) 2rem;
+            background: 
+                linear-gradient(135deg, var(--forest-deep) 0%, var(--forest-medium) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .cta-section h2 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .cta-section p {
+            font-size: 1.35rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            line-height: 1.7;
+        }
+        
+        .btn-cta-white {
+            background: white;
+            color: var(--forest-deep);
+            padding: 1.35rem 3rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            border: 2px solid white;
+        }
+        
+        .btn-cta-white:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 3rem 2rem 2rem;
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 1.25rem;
+            font-size: 1.1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--sage-light);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stages {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.75rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-description {
+                font-size: 1.15rem;
+            }
+            
+            .stats-row {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.25rem;
+            }
+            
+            .comparison-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-cell:nth-child(2),
+            .comparison-cell:nth-child(3) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-symbol">🌿</div>
+                <span>VendorSoluce®</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#journey">How It Works</a></li>
+                <li><a href="#problem">The Problem</a></li>
+                <li><a href="#comparison">Why VendorSoluce</a></li>
+                <li><a href="#cta" class="btn-nav">Start Free Assessment</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="badge">
+                    <span>🚀</span>
+                    <span>From Risk Exposure to Audit-Ready in 6 Weeks</span>
+                </div>
+                
+                <h1>
+                    Know which vendors are risky. <span class="hero-highlight">Prove</span> they're secure.
+                </h1>
+                
+                <p class="hero-description">
+                    Discover hidden vendor exposure (Day 1), define evidence requirements (Week 1), collect audit-ready proof (Week 2-6). No more spreadsheet hell.
+                </p>
+                
+                <div class="stats-row">
+                    <div class="stat">
+                        <div class="stat-number">70%</div>
+                        <div class="stat-label">Faster Onboarding</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Evidence Completion</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">61%</div>
+                        <div class="stat-label">Breaches Involve Vendors</div>
+                    </div>
+                </div>
+                
+                <div class="cta-group">
+                    <a href="#journey" class="btn-primary">
+                        <span>See How It Works</span>
+                        <span>→</span>
+                    </a>
+                    <a href="#cta" class="btn-secondary">
+                        <span>Start Free Assessment</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Section -->
+    <section class="journey" id="journey">
+        <div class="journey-container">
+            <div class="section-header">
+                <div class="section-label">The VendorSoluce Journey</div>
+                <h2 class="section-title">Three Stages. Three Outcomes.</h2>
+                <p class="section-description">
+                    From "I don't know which vendors are risky" to "I have audit-ready evidence for all 147 vendors" in 6 weeks.
+                </p>
+            </div>
+            
+            <div class="stages">
+                <!-- Stage 1: Radar -->
+                <div class="stage">
+                    <div class="stage-number">1</div>
+                    <div class="stage-timeline">Day 1</div>
+                    <h3>Vendor Risk Radar</h3>
+                    <div class="stage-subtitle">Discover Your Exposure</div>
+                    <p class="stage-description">
+                        Upload your vendor list. Our automated radar instantly scores 147 vendors based on real-time intelligence: breaches, vulnerabilities, incidents.
+                    </p>
+                    
+                    <div class="stage-outcome">
+                        <div class="outcome-label">Outcome Delivered</div>
+                        <div class="outcome-text">"I know exactly which 8 vendors pose critical risk"</div>
+                    </div>
+                    
+                    <div class="stage-metrics">
+                        <div class="metric">
+                            <div class="metric-value">5 min</div>
+                            <div class="metric-label">To Upload</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">2 hrs</div>
+                            <div class="metric-label">To Analyze</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Stage 2: Assessment -->
+                <div class="stage">
+                    <div class="stage-number">2</div>
+                    <div class="stage-timeline">Week 1</div>
+                    <h3>Gap Analysis</h3>
+                    <div class="stage-subtitle">Know What You Need</div>
+                    <p class="stage-description">
+                        NIST SP 800-161 based assessment defines risk-based requirements per vendor tier. Critical vendors get SOC 2. Low-risk gets basic attestation.
+                    </p>
+                    
+                    <div class="stage-outcome">
+                        <div class="outcome-label">Outcome Delivered</div>
+                        <div class="outcome-text">"I know exactly what controls each vendor needs"</div>
+                    </div>
+                    
+                    <div class="stage-metrics">
+                        <div class="metric">
+                            <div class="metric-value">3 Gaps</div>
+                            <div class="metric-label">Per Critical Vendor</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">5 Docs</div>
+                            <div class="metric-label">Required Evidence</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Stage 3: Portal -->
+                <div class="stage">
+                    <div class="stage-number">3</div>
+                    <div class="stage-timeline">Week 2-6</div>
+                    <h3>Vendor Portal</h3>
+                    <div class="stage-subtitle">Collect the Proof</div>
+                    <p class="stage-description">
+                        Automated vendor invitations. Self-service compliance portal. Vendors upload evidence. You get real-time notifications. Always audit-ready.
+                    </p>
+                    
+                    <div class="stage-outcome">
+                        <div class="outcome-label">Outcome Delivered</div>
+                        <div class="outcome-text">"I have evidence-based proof of vendor compliance"</div>
+                    </div>
+                    
+                    <div class="stage-metrics">
+                        <div class="metric">
+                            <div class="metric-value">12 Days</div>
+                            <div class="metric-label">Avg Onboarding</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">95%</div>
+                            <div class="metric-label">Completion Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem" id="problem">
+        <div class="problem-container">
+            <div class="section-header">
+                <div class="section-label">The Vendor Risk Crisis</div>
+                <h2 class="section-title">The numbers don't lie</h2>
+                <p class="section-description">
+                    Traditional vendor risk management is broken. Email-based questionnaires. Spreadsheet tracking. Audit panic mode.
+                </p>
+            </div>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-stat">61%</div>
+                    <h3>Breaches Involve Third Parties</h3>
+                    <p>Your vendors are your biggest attack surface. But which ones? And what are you doing about it?</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-stat">6 weeks</div>
+                    <h3>Traditional Vendor Onboarding</h3>
+                    <p>Send questionnaire. Wait. Follow up. Wait. Get incomplete answers. Give up. Hope for the best.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-stat">40%</div>
+                    <h3>Incomplete Assessments</h3>
+                    <p>Vendors ignore your emails. Documents expire. Evidence is scattered. You're not actually managing risk.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-stat">$12M</div>
+                    <h3>Average Vendor Breach Cost</h3>
+                    <p>Direct breach costs plus third-party premium plus regulatory fines plus reputation damage.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison" id="comparison">
+        <div class="comparison-container">
+            <div class="section-header">
+                <div class="section-label">The VendorSoluce Difference</div>
+                <h2 class="section-title">Outcome-driven, not feature-focused</h2>
+                <p class="section-description">
+                    Other platforms give you tools. VendorSoluce gives you results.
+                </p>
+            </div>
+            
+            <div class="comparison-table">
+                <div class="comparison-row comparison-header">
+                    <div class="comparison-cell">Capability</div>
+                    <div class="comparison-cell">Traditional TPRM</div>
+                    <div class="comparison-cell">VendorSoluce</div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="comparison-cell">Real-time vendor risk visibility</div>
+                    <div class="comparison-cell"><span class="cross">✗</span></div>
+                    <div class="comparison-cell"><span class="check">✓</span></div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="comparison-cell">Risk-based requirements (not generic)</div>
+                    <div class="comparison-cell"><span class="cross">✗</span></div>
+                    <div class="comparison-cell"><span class="check">✓</span></div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="comparison-cell">Vendor self-service portal</div>
+                    <div class="comparison-cell"><span class="cross">✗</span></div>
+                    <div class="comparison-cell"><span class="check">✓</span></div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="comparison-cell">Automated evidence collection</div>
+                    <div class="comparison-cell"><span class="cross">✗</span></div>
+                    <div class="comparison-cell"><span class="check">✓</span></div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="comparison-cell">Always audit-ready documentation</div>
+                    <div class="comparison-cell"><span class="cross">✗</span></div>
+                    <div class="comparison-cell"><span class="check">✓</span></div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="comparison-cell">Privacy-first architecture</div>
+                    <div class="comparison-cell"><span class="cross">✗</span></div>
+                    <div class="comparison-cell"><span class="check">✓</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="cta">
+        <div class="cta-section-container">
+            <h2>Ready to transform vendor risk?</h2>
+            <p>
+                See your vendor risk landscape in 48 hours. Get evidence-based proof of compliance in 6 weeks. Stop drowning in spreadsheets.
+            </p>
+            <a href="https://www.application.vendorsoluce.com" class="btn-cta-white">Start Free Vendor Assessment</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="#journey">How It Works</a></li>
+                    <li><a href="#problem">The Problem</a></li>
+                    <li><a href="#comparison">Why VendorSoluce</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Solutions</h4>
+                <ul>
+                    <li><a href="#journey">Vendor Risk Radar</a></li>
+                    <li><a href="#journey">Gap Analysis</a></li>
+                    <li><a href="#journey">Vendor Portal</a></li>
+                    <li><a href="#">Industry Solutions</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Case Studies</a></li>
+                    <li><a href="#">White Papers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About ERMITS</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Security</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2025 ERMITS Corporation. VendorSoluce® is a registered trademark. Privacy-First Vendor Risk Management.</p>
+        </div>
+    </footer>
+</body>
+</html>

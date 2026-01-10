@@ -6,13 +6,20 @@ This monorepo contains the VendorSoluce marketing website and main application p
 
 ```
 vendorsoluce-monorepo/
-├── packages/
+├── packages/             # Main code packages
 │   ├── website/          # Marketing website (vendorsoluce.com)
 │   ├── app/              # Main application (app.vendorsoluce.com)
 │   └── shared/           # Shared configurations and utilities
+├── docs/                 # Active documentation
+├── archive/              # Archived files (see archive/README.md)
+│   ├── setup/            # Git setup scripts and docs
+│   ├── migrations/       # Migration documentation
+│   ├── integrations/     # Integration documentation
+│   └── backups/          # Backup archive files
+├── NewUpdate/            # Active updates and strategies
 ├── package.json          # Root workspace configuration
 ├── turbo.json            # Turborepo build configuration
-└── README.md
+└── README.md             # This file
 ```
 
 ## Packages
@@ -61,10 +68,12 @@ To set up the Git repository and connect to a remote:
 
 **Quick Setup:**
 ```bash
-.\setup-git-repo.ps1
+.\archive\setup\setup-git-repo.ps1
 ```
 
-**Or see:** [QUICK_GIT_SETUP.md](./QUICK_GIT_SETUP.md) for detailed instructions.
+**Or see:** [QUICK_GIT_SETUP.md](./archive/setup/QUICK_GIT_SETUP.md) for detailed instructions.
+
+**Note:** Git setup scripts have been moved to `archive/setup/` directory.
 
 ### Installation
 
@@ -139,6 +148,15 @@ See individual package READMEs for deployment instructions.
 2. Test locally using `npm run dev`
 3. Build and verify with `npm run build`
 4. Commit changes following conventional commits
+
+## Documentation
+
+- **Current Setup**: See this README and `docs/` directory
+- **Archived Docs**: See `archive/` directory for historical documentation
+  - Setup scripts: `archive/setup/`
+  - Migration docs: `archive/migrations/`
+  - Integration docs: `archive/integrations/`
+- **Active Updates**: See `NewUpdate/` directory for current strategies and journey documentation
 
 ## License
 
