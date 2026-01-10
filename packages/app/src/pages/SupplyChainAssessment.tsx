@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { AlertTriangle, CheckCircle, Circle, Info, ArrowLeft, ArrowRight, Clipboard, FileText, Shield } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Circle, Info, ArrowLeft, ArrowRight, Clipboard, FileText, Shield, ExternalLink } from 'lucide-react';
 import { RotateCcw } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +11,7 @@ import DataImportExport from '../components/data/DataImportExport';
 import BackToDashboardLink from '../components/common/BackToDashboardLink';
 import { Card as UICard } from '../components/ui/Card';
 import { logger } from '../utils/logger';
+import JourneyProgress from '../components/journey/JourneyProgress';
 
 const SupplyChainAssessment = () => {
   const { t } = useTranslation();
@@ -442,6 +443,32 @@ const SupplyChainAssessment = () => {
   const StartScreen = () => (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <BackToDashboardLink />
+      
+      {/* Journey Progress */}
+      <JourneyProgress 
+        currentStage={2} 
+        stage1Complete={true}
+        showNavigation={true}
+      />
+      
+      {/* Stage 2 Header */}
+      <div className="mb-6 p-4 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10 rounded-lg border border-vendorsoluce-green/30">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xs font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green uppercase tracking-wide">
+            Stage 2 of 3
+          </span>
+          <span className="text-xs text-gray-500 dark:text-gray-400">•</span>
+          <span className="text-xs font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green">
+            Understand Your Gaps
+          </span>
+        </div>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+          Outcome: "I know exactly what controls I need from each vendor"
+        </h2>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Based on your vendor risk analysis from Stage 1, define specific security requirements using NIST SP 800-161.
+        </p>
+      </div>
 
       <Card className="border-vendortal-navy dark:border-trust-blue border-l-4">
         <CardHeader className="text-center pb-0">
@@ -591,6 +618,32 @@ const SupplyChainAssessment = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <BackToDashboardLink />
+      
+      {/* Journey Progress */}
+      <JourneyProgress 
+        currentStage={2} 
+        stage1Complete={true}
+        showNavigation={true}
+      />
+      
+      {/* Stage 2 Header */}
+      <div className="mb-6 p-4 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10 rounded-lg border border-vendorsoluce-green/30">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xs font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green uppercase tracking-wide">
+            Stage 2 of 3
+          </span>
+          <span className="text-xs text-gray-500 dark:text-gray-400">•</span>
+          <span className="text-xs font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green">
+            Understand Your Gaps
+          </span>
+        </div>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+          Outcome: "I know exactly what controls I need from each vendor"
+        </h2>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Based on your vendor risk analysis from Stage 1, define specific security requirements using NIST SP 800-161.
+        </p>
+      </div>
       
       {/* Enhanced Navigation Header */}
       <div className="mb-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
@@ -786,17 +839,64 @@ const SupplyChainAssessment = () => {
               {t('assessment.nextSection')}
             </Button>
           ) : (
-            <Button
-              variant="primary"
-              onClick={handleViewResults}
-              disabled={!hasCompletedMinimumSections()}
-              className="flex items-center gap-2"
-            >
-              {t('assessment.viewResults')}
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+            <div className="flex flex-col gap-3">
+              <Button
+                variant="primary"
+                onClick={handleViewResults}
+                disabled={!hasCompletedMinimumSections()}
+                className="flex items-center gap-2"
+              >
+                {t('assessment.viewResults')}
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+              {hasCompletedMinimumSections() && (
+                <div className="mt-4 p-4 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10 rounded-lg border border-vendorsoluce-green/30">
+                  <div className="flex items-center gap-2 mb-2">
+                    <CheckCircle className="w-5 h-5 text-vendorsoluce-green" />
+                    <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                      Stage 2 Complete: You Understand Your Gaps
+                    </h3>
+                  </div>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
+                    You know what controls you need from each vendor. Continue to Stage 3 to collect evidence.
+                  </p>
+                  <Link to="/vendor-assessments">
+                    <Button variant="primary" size="sm" className="flex items-center gap-2">
+                      Continue to Stage 3: Collect Evidence
+                      <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </div>
           )}
         </div>
+        
+        {/* Cross-Project Links */}
+        <Card className="mt-6">
+          <CardContent className="p-4">
+            <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
+              <span className="text-gray-500 dark:text-gray-400">Also try:</span>
+              <Link to="/demo" className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1">
+                <ExternalLink className="w-3 h-3" />
+                Interactive Demo
+              </Link>
+              <Link to="/tools/vendor-risk-radar" className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1">
+                <ArrowLeft className="w-3 h-3" />
+                Back to Stage 1
+              </Link>
+              <a 
+                href="https://vendorsoluce.com/how-it-works.html" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1"
+              >
+                <ExternalLink className="w-3 h-3" />
+                Learn More
+              </a>
+            </div>
+          </CardContent>
+        </Card>
       </Card>
     </div>
   );

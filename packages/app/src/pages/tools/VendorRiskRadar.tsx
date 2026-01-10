@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Radar, Plus, RefreshCw, AlertCircle } from 'lucide-react';
+import { Radar, Plus, RefreshCw, AlertCircle, ArrowRight, ExternalLink } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import { Card, CardContent } from '../../components/ui/Card';
 import BackToDashboardLink from '../../components/common/BackToDashboardLink';
+import JourneyProgress from '../../components/journey/JourneyProgress';
 import { useVendorPortfolio } from './VendorRiskRadar/hooks/useVendorPortfolio';
 import VendorDashboard from './VendorRiskRadar/components/VendorDashboard';
 import VendorCatalog from './VendorRiskRadar/components/VendorCatalog';
@@ -121,15 +122,40 @@ const VendorRiskRadar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <BackToDashboardLink />
         
-        {/* Header */}
+        {/* Journey Progress */}
+        <JourneyProgress 
+          currentStage={1} 
+          stage1Complete={vendors.length > 0}
+          showNavigation={true}
+        />
+        
+        {/* Stage 1 Header */}
         <div className="mb-6">
+          <div className="mb-4 p-4 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10 rounded-lg border border-vendorsoluce-green/30">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-xs font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green uppercase tracking-wide">
+                Stage 1 of 3
+              </span>
+              <span className="text-xs text-gray-500 dark:text-gray-400">•</span>
+              <span className="text-xs font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green">
+                Discover Your Exposure
+              </span>
+            </div>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+              Outcome: "I know exactly which vendors pose the greatest risk"
+            </h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Upload your vendor list and instantly see which vendors pose the greatest risk to your organization.
+            </p>
+          </div>
+          
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-2 gap-4">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
                 <Radar className="w-8 h-8 text-vendorsoluce-green flex-shrink-0" />
                 <div className="min-w-0">
                   <div className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
-                    VENDORSOLUCE • DEMO MODE
+                    VENDORSOLUCE • STAGE 1
                   </div>
                   <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">
                     Vendor Risk Radar
@@ -442,6 +468,63 @@ const VendorRiskRadar: React.FC = () => {
           onFilterChange={setFilters}
           onVendorSelect={setSelectedVendor}
         />
+
+        {/* Stage 1 Complete - Continue to Stage 2 */}
+        {vendors.length > 0 && (
+          <Card className="mb-6 border-vendorsoluce-green/30 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10">
+            <CardContent className="p-6">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-vendorsoluce-green flex items-center justify-center">
+                      <span className="text-white font-bold text-sm">✓</span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      Stage 1 Complete: You've Discovered Your Exposure
+                    </h3>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 ml-10">
+                    You know which vendors pose the greatest risk. Now define specific requirements for your critical vendors.
+                  </p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Link to="/supply-chain-assessment">
+                    <Button variant="primary" className="flex items-center gap-2">
+                      Continue to Stage 2: Define Requirements
+                      <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Cross-Project Links */}
+        <Card className="mb-6">
+          <CardContent className="p-4">
+            <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
+              <span className="text-gray-500 dark:text-gray-400">Also try:</span>
+              <Link to="/demo" className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1">
+                <ExternalLink className="w-3 h-3" />
+                Interactive Demo
+              </Link>
+              <Link to="/trial" className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1">
+                <ExternalLink className="w-3 h-3" />
+                Free Trial
+              </Link>
+              <a 
+                href="https://vendorsoluce.com/demo.html" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1"
+              >
+                <ExternalLink className="w-3 h-3" />
+                Website Demo
+              </a>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Vendor Detail Modal (simplified - can be expanded) */}
         {selectedVendor && (

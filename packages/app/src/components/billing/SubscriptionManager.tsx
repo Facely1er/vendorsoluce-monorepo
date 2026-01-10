@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { CreditCard, Calendar, AlertCircle, CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { CreditCard, Calendar, AlertCircle, CheckCircle, XCircle, Loader2, AlertTriangle } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../lib/supabase';
-import { PRODUCTS } from '../../config/stripe';
+import { PRODUCTS, USAGE_PRICING } from '../../config/stripe';
 import { logger } from '../../utils/logger';
+import { Link } from 'react-router-dom';
+import { UsageService } from '../../services/usageService';
 
 interface Subscription {
   id: string;
@@ -23,7 +25,9 @@ export const SubscriptionManager: React.FC = () => {
   const [actionLoading, setActionLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [usageSummary, setUsageSummary] = useState<any[]>([]);
   const { user } = useAuth();
+  const usageService = new UsageService();
 
   const fetchSubscription = useCallback(async () => {
     if (!user) return;
@@ -41,13 +45,19 @@ export const SubscriptionManager: React.FC = () => {
       }
 
       setSubscription(data);
+
+      // Fetch usage summary
+      if (data) {
+        const summary = await usageService.getUsageSummary(user.id);
+        setUsageSummary(summary);
+      }
     } catch (err: unknown) {
       logger.error('Error fetching subscription:', err);
       setError('Failed to load subscription details');
     } finally {
       setLoading(false);
     }
-  }, [user]);
+  }, [user, usageService]);
 
   useEffect(() => {
     fetchSubscription();
@@ -304,31 +314,113 @@ export const SubscriptionManager: React.FC = () => {
           <CardTitle>Usage This Month</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
-            <div className="flex justify-between">
-              <span className="text-sm text-gray-600 dark:text-gray-400">SBOM Scans</span>
-              <span className="text-sm font-medium">
-                3 / {product.limits.sbom_scans === -1 ? '∞' : product.limits.sbom_scans}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-sm text-gray-600 dark:text-gray-400">Vendors</span>
-              <span className="text-sm font-medium">
-                2 / {product.limits.vendors === -1 ? '∞' : product.limits.vendors}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-sm text-gray-600 dark:text-gray-400">Assessments</span>
-              <span className="text-sm font-medium">
-                1 / {product.limits.assessments === -1 ? '∞' : product.limits.assessments}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-sm text-gray-600 dark:text-gray-400">API Calls</span>
-              <span className="text-sm font-medium">
-                0 / {product.limits.api_calls === -1 ? '∞' : product.limits.api_calls}
-              </span>
-            </div>
+          <div className="space-y-4">
+            {usageSummary.length > 0 ? (
+              usageSummary.map((item: any) => {
+                const tier = (subscription?.tier || 'free') as keyof typeof PRODUCTS;
+                const limit = item.limit === -1 ? Infinity : item.limit;
+                const used = item.used || 0;
+                const percentage = limit === Infinity ? 0 : Math.min(100, (used / limit) * 100);
+                const isNearLimit = percentage >= 80 && percentage < 100;
+                const isOverLimit = used > limit;
+                const overage = isOverLimit ? used - limit : 0;
+                
+                // Get overage pricing
+                const featureKey = item.feature === 'vendor_assessments' ? 'vendor_assessments' : 
+                                  item.feature === 'sbom_scans' ? 'sbom_scans' : 
+                                  item.feature === 'api_calls' ? 'api_calls' : null;
+                const overagePrice = featureKey && USAGE_PRICING[featureKey] 
+                  ? (USAGE_PRICING[featureKey] as Record<string, number>)[tier] || 0 
+                  : 0;
+                const estimatedOverageCost = overage * overagePrice;
+
+                return (
+                  <div key={item.feature} className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600 dark:text-gray-400 capitalize">
+                        {item.feature.replace('_', ' ')}
+                      </span>
+                      <span className={`text-sm font-medium ${isOverLimit ? 'text-red-600 dark:text-red-400' : isNearLimit ? 'text-yellow-600 dark:text-yellow-400' : ''}`}>
+                        {used} / {limit === Infinity ? '∞' : limit}
+                      </span>
+                    </div>
+                    
+                    {/* Progress bar */}
+                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                      <div 
+                        className={`h-2 rounded-full transition-all ${
+                          isOverLimit ? 'bg-red-500' : 
+                          isNearLimit ? 'bg-yellow-500' : 
+                          'bg-vendorsoluce-teal'
+                        }`}
+                        style={{ width: `${Math.min(percentage, 100)}%` }}
+                      />
+                    </div>
+
+                    {/* Overage warning */}
+                    {isOverLimit && overagePrice > 0 && (
+                      <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-3">
+                        <div className="flex items-start gap-2">
+                          <AlertTriangle className="h-4 w-4 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                          <div className="flex-1">
+                            <p className="text-xs font-medium text-red-800 dark:text-red-200">
+                              Overage: {overage} {item.feature.replace('_', ' ')}
+                            </p>
+                            <p className="text-xs text-red-700 dark:text-red-300 mt-1">
+                              Estimated cost: ${estimatedOverageCost.toFixed(2)} (${overagePrice} per {item.feature.replace('_', ' ').slice(0, -1)})
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Near limit warning */}
+                    {isNearLimit && !isOverLimit && overagePrice > 0 && (
+                      <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-md p-2">
+                        <div className="flex items-start gap-2">
+                          <AlertCircle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 mt-0.5 flex-shrink-0" />
+                          <div className="flex-1">
+                            <p className="text-xs text-yellow-800 dark:text-yellow-200">
+                              Approaching limit. Additional {item.feature.replace('_', ' ')} will be charged at ${overagePrice} each.
+                            </p>
+                            <Link to="/pricing" className="text-xs text-yellow-700 dark:text-yellow-300 underline mt-1 inline-block">
+                              Upgrade to avoid overage fees
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })
+            ) : (
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">SBOM Scans</span>
+                  <span className="text-sm font-medium">
+                    0 / {product.limits.sbom_scans === -1 ? '∞' : product.limits.sbom_scans}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Vendors</span>
+                  <span className="text-sm font-medium">
+                    0 / {product.limits.vendors === -1 ? '∞' : product.limits.vendors}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Assessments</span>
+                  <span className="text-sm font-medium">
+                    0 / {product.limits.assessments === -1 ? '∞' : product.limits.assessments}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">API Calls</span>
+                  <span className="text-sm font-medium">
+                    0 / {product.limits.api_calls === -1 ? '∞' : product.limits.api_calls}
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>

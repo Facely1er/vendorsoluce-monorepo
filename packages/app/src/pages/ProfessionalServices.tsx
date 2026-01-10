@@ -5,79 +5,80 @@
 
 import React from 'react';
 import { Check, Shield, Zap, Building2, ArrowRight, Clock, Users, Code, HeadphonesIcon } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const ProfessionalServices: React.FC = () => {
 
   const services = [
     {
-      id: 'quick-start',
-      name: 'Quick Start Package',
-      price: 5000,
-      duration: '2-4 weeks',
-      description: 'Get up and running quickly with expert setup and training',
+      id: 'premium-reports',
+      name: 'Premium Reports',
+      price: 49,
+      duration: 'Per Report',
+      description: 'Professional PDF reports with executive summaries and detailed analytics',
       features: [
-        'Platform setup and configuration',
-        'Team training (up to 10 users)',
-        'Initial vendor assessment setup',
-        'Best practices implementation',
-        '30 days of priority support',
-        'Documentation review',
-      ],
-      icon: <Zap className="w-6 h-6" />,
-      color: 'blue',
-      popular: false,
-    },
-    {
-      id: 'nist-audit',
-      name: 'NIST Compliance Audit',
-      price: 10000,
-      duration: '4-6 weeks',
-      description: 'Comprehensive NIST SP 800-161 compliance assessment',
-      features: [
-        'Gap analysis against NIST SP 800-161',
-        'Compliance roadmap development',
-        'Risk assessment and scoring',
-        'Documentation review and recommendations',
-        'Remediation planning',
-        'Executive summary report',
+        'Custom branded PDF reports',
+        'Executive summary dashboard',
+        'Detailed vulnerability analysis',
+        'Compliance gap analysis',
+        'Remediation recommendations',
+        'Shareable with stakeholders',
       ],
       icon: <Shield className="w-6 h-6" />,
       color: 'green',
       popular: true,
     },
     {
-      id: 'custom-integration',
-      name: 'Custom Integration',
-      price: 15000,
-      duration: '6-12 weeks',
-      description: 'Custom integrations with your existing tools and workflows',
+      id: 'priority-support',
+      name: 'Priority Support',
+      price: 49,
+      duration: 'Monthly',
+      description: 'Faster response times and priority access to support',
       features: [
-        'SIEM/SOAR integration (Splunk, QRadar, etc.)',
-        'Custom API development',
-        'Third-party tool integration',
-        'White-label customization',
-        'Workflow automation',
-        'Ongoing maintenance (3 months)',
+        'Response within 4 hours (vs 24 hours)',
+        'Priority email support',
+        'Direct access to technical team',
+        'Feature request prioritization',
+        'Monthly check-in calls',
+        'Dedicated support channel',
+      ],
+      icon: <HeadphonesIcon className="w-6 h-6" />,
+      color: 'blue',
+      popular: false,
+    },
+    {
+      id: 'white-label',
+      name: 'White-Label Branding',
+      price: 99,
+      duration: 'Monthly',
+      description: 'Remove VendorSoluce branding and add your own logo',
+      features: [
+        'Custom logo and branding',
+        'Remove VendorSoluce branding',
+        'Custom color scheme',
+        'Branded email templates',
+        'Custom domain support (Enterprise)',
+        'Branded PDF reports',
       ],
       icon: <Code className="w-6 h-6" />,
       color: 'purple',
       popular: false,
     },
     {
-      id: 'managed-services',
-      name: 'Managed Services',
-      price: null, // Percentage of subscription
-      duration: 'Ongoing',
-      description: 'Ongoing compliance monitoring and management',
+      id: 'additional-storage',
+      name: 'Additional Storage',
+      price: 10,
+      duration: 'Monthly per 10GB',
+      description: 'Add more storage for documents and evidence',
       features: [
-        'Monthly compliance reviews',
-        'Regular risk assessments',
-        'Dedicated account manager',
-        'Proactive threat intelligence',
-        'Quarterly executive briefings',
-        '24/7 support escalation',
+        '10GB additional storage',
+        'Unlimited file uploads',
+        'Long-term evidence retention',
+        'Document versioning',
+        'Secure cloud storage',
+        'Easy file management',
       ],
-      icon: <HeadphonesIcon className="w-6 h-6" />,
+      icon: <Zap className="w-6 h-6" />,
       color: 'orange',
       popular: false,
     },
@@ -129,10 +130,10 @@ const ProfessionalServices: React.FC = () => {
             <Building2 className="w-8 h-8 text-blue-600 dark:text-blue-400" />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Professional Services
+            Premium Add-Ons
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Expert implementation, compliance audits, and ongoing support to maximize your VendorSoluce investment.
+            Enhance your VendorSoluce experience with premium features and priority support.
           </p>
         </div>
 
@@ -164,18 +165,19 @@ const ProfessionalServices: React.FC = () => {
                 </h3>
                 <div className="flex items-center gap-4 mb-4">
                   {service.price ? (
-                    <div className="text-3xl font-bold text-gray-900 dark:text-white">
-                      ${service.price.toLocaleString()}
+                    <div>
+                      <div className="text-3xl font-bold text-gray-900 dark:text-white">
+                        ${service.price}
+                      </div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        {service.duration}
+                      </div>
                     </div>
                   ) : (
                     <div className="text-lg font-semibold text-gray-600 dark:text-gray-400">
-                      25% of subscription monthly
+                      Contact for pricing
                     </div>
                   )}
-                  <div className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
-                    <Clock className="w-4 h-4" />
-                    <span>{service.duration}</span>
-                  </div>
                 </div>
                 <p className="text-gray-600 dark:text-gray-400 mb-6">
                   {service.description}
@@ -194,7 +196,7 @@ const ProfessionalServices: React.FC = () => {
                   onClick={() => handleContactSales(service.id)}
                   className={`w-full py-3 px-4 ${colors.button} text-white rounded-lg font-medium transition-colors flex items-center justify-center gap-2`}
                 >
-                  Contact Sales
+                  {service.id === 'premium-reports' ? 'Purchase Report' : 'Add to Plan'}
                   <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
@@ -205,40 +207,40 @@ const ProfessionalServices: React.FC = () => {
         {/* Additional Info */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-12">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Why Choose Our Professional Services?
+            Why Add Premium Features?
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                <Shield className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 <h3 className="font-semibold text-gray-900 dark:text-white">
-                  Expert Team
+                  Professional Reports
                 </h3>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Certified professionals with deep NIST and supply chain security expertise.
+                Impress stakeholders with branded, executive-ready compliance reports.
               </p>
             </div>
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <Zap className="w-6 h-6 text-green-600 dark:text-green-400" />
+                <HeadphonesIcon className="w-6 h-6 text-green-600 dark:text-green-400" />
                 <h3 className="font-semibold text-gray-900 dark:text-white">
-                  Faster Implementation
+                  Faster Support
                 </h3>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Get up and running in weeks, not months, with proven methodologies.
+                Get help when you need it with priority support and faster response times.
               </p>
             </div>
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <Shield className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                <Code className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                 <h3 className="font-semibold text-gray-900 dark:text-white">
-                  Ongoing Support
+                  Custom Branding
                 </h3>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Continuous monitoring and support to ensure compliance and security.
+                White-label the platform with your own branding and logo.
               </p>
             </div>
           </div>
@@ -247,15 +249,14 @@ const ProfessionalServices: React.FC = () => {
         {/* CTA */}
         <div className="text-center">
           <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">
-            Need a custom solution? Let's discuss your specific requirements.
+            All add-ons can be purchased directly or added to your existing subscription.
           </p>
-          <button
-            onClick={() => window.location.href = 'mailto:sales@ermits.com?subject=Custom Professional Services Inquiry'}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-gray-700 text-white rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors"
-          >
-            Contact Sales Team
-            <ArrowRight className="w-5 h-5" />
-          </button>
+          <Link to="/pricing">
+            <button className="inline-flex items-center gap-2 px-6 py-3 bg-vendorsoluce-teal hover:bg-vendorsoluce-teal/90 text-white rounded-lg font-medium transition-colors">
+              View All Plans
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          </Link>
         </div>
       </div>
     </div>

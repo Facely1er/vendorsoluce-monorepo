@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowLeft, Mail, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SBOMUploader from '../../components/sbom/SBOMUploader';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
+import { Button } from '../../components/ui/Button';
 import { useTranslation } from 'react-i18next';
 import { useSBOMAnalyses } from '../../hooks/useSBOMAnalyses';
 import { useAuth } from '../../context/AuthContext';
 import { logger } from '../../utils/logger';
+import { supabase } from '../../lib/supabase';
 
 const SBOMQuickScan: React.FC = () => {
   const { t } = useTranslation();
@@ -20,9 +22,47 @@ const SBOMQuickScan: React.FC = () => {
     vulnerabilities: number;
   }>({ components: 0, licenses: 0, vulnerabilities: 0 });
   const [error, setError] = useState<string | null>(null);
+  const [showEmailCapture, setShowEmailCapture] = useState(false);
+  const [email, setEmail] = useState('');
+  const [emailSubmitting, setEmailSubmitting] = useState(false);
+  const [anonymousScans, setAnonymousScans] = useState<{ count: number; date: string }>(() => {
+    const stored = localStorage.getItem('vs_anonymous_sbom_scans');
+    if (stored) {
+      const data = JSON.parse(stored);
+      // Reset if it's a new month
+      const today = new Date().toISOString().split('T')[0];
+      if (data.date !== today) {
+        return { count: 0, date: today };
+      }
+      return data;
+    }
+    return { count: 0, date: new Date().toISOString().split('T')[0] };
+  });
+
+  const FREE_SCAN_LIMIT = 3;
   
+  // Check if user can perform scan
+  const canPerformScan = (): boolean => {
+    if (isAuthenticated) return true; // Authenticated users have their own limits
+    
+    const today = new Date().toISOString().split('T')[0];
+    if (anonymousScans.date !== today) {
+      // New day, reset count
+      setAnonymousScans({ count: 0, date: today });
+      return true;
+    }
+    
+    return anonymousScans.count < FREE_SCAN_LIMIT;
+  };
+
   // Function to handle SBOM upload and quick scan
   const handleSBOMUpload = async (file: File) => {
+    // Check if anonymous user has reached limit
+    if (!isAuthenticated && !canPerformScan()) {
+      setShowEmailCapture(true);
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
     
@@ -43,6 +83,13 @@ const SBOMQuickScan: React.FC = () => {
           risk_score: calculateRiskScore(vulnerabilities, components),
           analysis_data: { components, licenses, vulnerabilities }
         });
+      } else {
+        // Track anonymous scan
+        const today = new Date().toISOString().split('T')[0];
+        const newCount = anonymousScans.date === today ? anonymousScans.count + 1 : 1;
+        const newData = { count: newCount, date: today };
+        setAnonymousScans(newData);
+        localStorage.setItem('vs_anonymous_sbom_scans', JSON.stringify(newData));
       }
       
       // Update state with scan results
@@ -53,6 +100,59 @@ const SBOMQuickScan: React.FC = () => {
       setError(err instanceof Error ? err.message : 'Failed to scan SBOM file');
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // Handle email capture submission
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setEmailSubmitting(true);
+    
+    try {
+      // Save to database
+      const { error: dbError } = await supabase.from('contact_submissions').insert({
+        email,
+        source: 'sbom_quick_scan',
+        metadata: { 
+          tool: 'sbom_quick_scan', 
+          scans_used: anonymousScans.count,
+          limit_reached: true
+        }
+      });
+
+      if (dbError) {
+        logger.error('Error saving email:', dbError);
+      }
+
+      // Send to marketing automation (if you have this)
+      try {
+        await supabase.functions.invoke('add-to-nurture', {
+          body: { 
+            email, 
+            campaign: 'freemium_sbom',
+            metadata: { scans_used: anonymousScans.count }
+          }
+        });
+      } catch (err) {
+        logger.warn('Marketing automation not available:', err);
+      }
+
+      // Show success and allow scan
+      setShowEmailCapture(false);
+      setEmail('');
+      
+      // Grant 5 more scans for email submission
+      const today = new Date().toISOString().split('T')[0];
+      setAnonymousScans({ count: 0, date: today }); // Reset to allow more scans
+      localStorage.setItem('vs_anonymous_sbom_scans', JSON.stringify({ count: 0, date: today }));
+      
+      // Show success message
+      alert('Thank you! You now have 5 more free scans. Check your email for your detailed report.');
+    } catch (err) {
+      logger.error('Error submitting email:', err);
+      setError('Failed to submit email. Please try again.');
+    } finally {
+      setEmailSubmitting(false);
     }
   };
   
@@ -189,11 +289,40 @@ const SBOMQuickScan: React.FC = () => {
               <CardTitle>{t('sbom.upload.title')}</CardTitle>
             </CardHeader>
             <CardContent>
+              {!isAuthenticated && (
+                <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md">
+                  <p className="text-sm text-blue-800 dark:text-blue-200 font-medium">
+                    {anonymousScans.count < FREE_SCAN_LIMIT 
+                      ? `Free scans remaining: ${FREE_SCAN_LIMIT - anonymousScans.count} of ${FREE_SCAN_LIMIT}`
+                      : 'Free scan limit reached'
+                    }
+                  </p>
+                  {anonymousScans.count >= FREE_SCAN_LIMIT && (
+                    <p className="text-xs text-blue-600 dark:text-blue-300 mt-1">
+                      Enter your email to get 5 more free scans + detailed PDF report
+                    </p>
+                  )}
+                </div>
+              )}
+              
               <SBOMUploader onUpload={handleSBOMUpload} isLoading={isLoading} />
               
               {error && (
                 <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 rounded-md">
                   {error}
+                </div>
+              )}
+
+              {!isAuthenticated && (
+                <div className="mt-4 text-center">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                    Want unlimited scans?
+                  </p>
+                  <Link to="/signup">
+                    <Button className="w-full">
+                      Sign Up Free
+                    </Button>
+                  </Link>
                 </div>
               )}
             </CardContent>
@@ -276,6 +405,66 @@ const SBOMQuickScan: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Email Capture Modal */}
+      {showEmailCapture && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <Card className="max-w-md w-full">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-2">
+                  <Mail className="h-5 w-5 text-vendorsoluce-teal" />
+                  Get Your Full Report
+                </CardTitle>
+                <button
+                  onClick={() => setShowEmailCapture(false)}
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                You've used your {FREE_SCAN_LIMIT} free scans for today. Enter your email to:
+              </p>
+              <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 mb-6 space-y-1">
+                <li>Get a detailed PDF report of your scan</li>
+                <li>Unlock 5 more free scans</li>
+                <li>Receive vulnerability alerts and tips</li>
+              </ul>
+              <form onSubmit={handleEmailSubmit}>
+                <div className="space-y-4">
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-vendorsoluce-teal focus:border-transparent"
+                      placeholder="your@email.com"
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    disabled={emailSubmitting}
+                    className="w-full bg-vendorsoluce-teal hover:bg-vendorsoluce-teal/90"
+                  >
+                    {emailSubmitting ? 'Submitting...' : 'Get Report + 5 More Scans'}
+                  </Button>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                    We'll never spam you. Unsubscribe anytime.
+                  </p>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   );
 };

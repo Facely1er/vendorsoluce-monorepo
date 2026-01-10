@@ -123,6 +123,29 @@ const Pricing: React.FC = () => {
 
   return (
     <main className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      {/* Annual Prepay Promotion Banner */}
+      {!isAnnual && (
+        <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg shadow-lg p-6 mb-8 text-white">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <Crown className="h-8 w-8" />
+              <div>
+                <h3 className="text-xl font-bold mb-1">🎉 Save 20% with Annual Billing</h3>
+                <p className="text-green-50">
+                  Switch to annual billing and save up to {formatCurrency(calculateAnnualSavings('enterprise') * 100)} per year on Enterprise plans
+                </p>
+              </div>
+            </div>
+            <Button
+              onClick={() => setIsAnnual(true)}
+              className="bg-white text-green-600 hover:bg-green-50 font-semibold px-6 py-3 whitespace-nowrap"
+            >
+              View Annual Plans →
+            </Button>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="text-center mb-12">
         <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-sm font-medium mb-6">

@@ -9,10 +9,14 @@ import {
   FileText,
   Lock,
   Download,
-  Shield
+  Shield,
+  ArrowLeft,
+  ExternalLink,
+  Trophy
 } from 'lucide-react';
 import { uploadAssessmentEvidence } from '../utils/supabaseStorage';
 import { logger } from '../utils/logger';
+import JourneyProgress from '../components/journey/JourneyProgress';
 
 interface AssessmentQuestion {
   id: string;
@@ -507,6 +511,33 @@ const VendorAssessmentPortal: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Journey Progress */}
+        <JourneyProgress 
+          currentStage={3} 
+          stage1Complete={true}
+          stage2Complete={true}
+          showNavigation={true}
+        />
+        
+        {/* Stage 3 Header */}
+        <div className="mb-6 p-4 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10 rounded-lg border border-vendorsoluce-green/30">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-xs font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green uppercase tracking-wide">
+              Stage 3 of 3
+            </span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">•</span>
+            <span className="text-xs font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green">
+              Close the Gaps
+            </span>
+          </div>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+            Outcome: "I have evidence-based proof of vendor compliance"
+          </h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Collecting evidence for vendors identified in Stage 1 and requirements defined in Stage 2. Get evidence-based proof of vendor compliance without drowning in email.
+          </p>
+        </div>
+        
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar */}
           <div className="lg:col-span-1">
@@ -683,6 +714,89 @@ const VendorAssessmentPortal: React.FC = () => {
                       Submit Assessment
                     </Button>
                   )}
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Journey Completion Celebration */}
+            {progressPercentage === 100 && (
+              <Card className="mt-6 border-vendorsoluce-green/30 bg-gradient-to-r from-vendorsoluce-pale-green to-green-50 dark:from-vendorsoluce-green/20 dark:to-green-900/20">
+                <CardContent className="p-6">
+                  <div className="text-center">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-vendorsoluce-green mb-4">
+                      <Trophy className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                      🎉 Journey Complete!
+                    </h3>
+                    <p className="text-base text-gray-600 dark:text-gray-400 mb-4">
+                      You've completed all 3 stages and have evidence-based proof of vendor compliance.
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                        <div className="text-2xl font-bold text-vendorsoluce-green mb-1">Stage 1</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">Exposure Discovered</div>
+                      </div>
+                      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                        <div className="text-2xl font-bold text-vendorsoluce-green mb-1">Stage 2</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">Gaps Understood</div>
+                      </div>
+                      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                        <div className="text-2xl font-bold text-vendorsoluce-green mb-1">Stage 3</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">Gaps Closed</div>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap justify-center gap-3">
+                      <Link to="/tools/vendor-risk-radar">
+                        <Button variant="outline" className="flex items-center gap-2">
+                          <ArrowLeft className="w-4 h-4" />
+                          Back to Stage 1
+                        </Button>
+                      </Link>
+                      <Link to="/supply-chain-assessment">
+                        <Button variant="outline" className="flex items-center gap-2">
+                          <ArrowLeft className="w-4 h-4" />
+                          Back to Stage 2
+                        </Button>
+                      </Link>
+                      <Link to="/demo">
+                        <Button variant="outline" className="flex items-center gap-2">
+                          <ExternalLink className="w-4 h-4" />
+                          See Demo
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+            
+            {/* Cross-Project Links */}
+            <Card className="mt-6">
+              <CardContent className="p-4">
+                <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
+                  <span className="text-gray-500 dark:text-gray-400">Also try:</span>
+                  <Link to="/demo" className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1">
+                    <ExternalLink className="w-3 h-3" />
+                    Interactive Demo
+                  </Link>
+                  <Link to="/tools/vendor-risk-radar" className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1">
+                    <ArrowLeft className="w-3 h-3" />
+                    Back to Stage 1
+                  </Link>
+                  <Link to="/supply-chain-assessment" className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1">
+                    <ArrowLeft className="w-3 h-3" />
+                    Back to Stage 2
+                  </Link>
+                  <a 
+                    href="https://vendorsoluce.com/how-it-works.html" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1"
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                    Learn More
+                  </a>
                 </div>
               </CardContent>
             </Card>
