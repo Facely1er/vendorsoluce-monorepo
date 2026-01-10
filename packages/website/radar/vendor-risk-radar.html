@@ -1646,10 +1646,6 @@ Start Free Trial
         <button id="vsBtnWizard" onclick="VSUI.open('vsWizardBackdrop')" class="px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600" title="Onboarding Wizard">Wizard</button>
         <button class="px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600" onclick="exportVendors()" title="Export Vendors to CSV">Export</button>
         <button class="px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600" onclick="generateReport()" title="Generate Report">Report</button>
-        <button class="px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600" id="themeToggle" onclick="VSTheme.toggle()" title="Toggle light/dark theme">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon w-4 h-4 dark:hidden"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun w-4 h-4 hidden dark:block"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
-        </button>
       </div>
     </div>
   </div>
@@ -2735,6 +2731,10 @@ function hashStringToRange(str, min, max){
             updateVendorLists();
         }
 
+        // Track focused blip for keyboard navigation
+        let focusedBlipIndex = -1;
+        let currentBlips = [];
+        
         function updateRadarBlips(vendors) {
             const screen = document.getElementById('radarScreen');
             if (!screen) {
@@ -2744,14 +2744,20 @@ function hashStringToRange(str, min, max){
             
             // Remove old blips
             document.querySelectorAll('.radar-blip').forEach(b => b.remove());
+            currentBlips = vendors;
+            focusedBlipIndex = -1;
             
             // Add new blips
             vendors.forEach((vendor, index) => {
                 const blip = document.createElement('div');
                 blip.className = `radar-blip ${vendor.riskLevel}`;
+                blip.setAttribute('tabindex', '0');
+                blip.setAttribute('role', 'button');
+                blip.setAttribute('aria-label', `${vendor.name} - ${vendor.riskLevel} risk`);
+                blip.dataset.vendorIndex = index;
                 
                 // Position based on risk (closer to center = higher risk)
-                const angle = (index / vendors.length) * 360;
+                const angle = (index / Math.max(vendors.length, 1)) * 360;
                 const distance = (100 - vendor.residualRisk) * 0.45;
                 
                 const x = 50 + distance * Math.cos(angle * Math.PI / 180);
@@ -2760,30 +2766,117 @@ function hashStringToRange(str, min, max){
                 blip.style.left = x + '%';
                 blip.style.top = y + '%';
                 
-                blip.addEventListener('mouseenter', (e) => showTooltip(e, vendor));
-                blip.addEventListener('mouseleave', hideTooltip);
+                // Enhanced hover effects
+                blip.addEventListener('mouseenter', (e) => {
+                    showTooltip(e, vendor);
+                    blip.style.transform = 'scale(1.3)';
+                    blip.style.zIndex = '1000';
+                });
+                blip.addEventListener('mouseleave', () => {
+                    hideTooltip();
+                    if (blip !== document.activeElement) {
+                        blip.style.transform = 'scale(1)';
+                        blip.style.zIndex = '';
+                    }
+                });
                 blip.addEventListener('mousemove', (e) => moveTooltip(e));
-                blip.addEventListener('click', () => openDrawer(vendor));
+                blip.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openDrawer(vendor);
+                });
+                
+                // Keyboard navigation
+                blip.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openDrawer(vendor);
+                    } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        focusNextBlip();
+                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        focusPrevBlip();
+                    }
+                });
+                
+                blip.addEventListener('focus', () => {
+                    focusedBlipIndex = index;
+                    blip.style.transform = 'scale(1.3)';
+                    blip.style.zIndex = '1000';
+                    showTooltip({ pageX: blip.getBoundingClientRect().left, pageY: blip.getBoundingClientRect().top }, vendor);
+                });
+                
+                blip.addEventListener('blur', () => {
+                    blip.style.transform = 'scale(1)';
+                    blip.style.zIndex = '';
+                    hideTooltip();
+                });
                 
                 screen.appendChild(blip);
             });
+        }
+        
+        function focusNextBlip() {
+            if (currentBlips.length === 0) return;
+            focusedBlipIndex = (focusedBlipIndex + 1) % currentBlips.length;
+            const blips = document.querySelectorAll('.radar-blip');
+            if (blips[focusedBlipIndex]) {
+                blips[focusedBlipIndex].focus();
+            }
+        }
+        
+        function focusPrevBlip() {
+            if (currentBlips.length === 0) return;
+            focusedBlipIndex = focusedBlipIndex <= 0 ? currentBlips.length - 1 : focusedBlipIndex - 1;
+            const blips = document.querySelectorAll('.radar-blip');
+            if (blips[focusedBlipIndex]) {
+                blips[focusedBlipIndex].focus();
+            }
         }
 
         function showTooltip(e, vendor) {
             const tooltip = document.getElementById('tooltip');
             const categoryName = VENDOR_CATEGORIES[vendor.category]?.name || vendor.category;
+            const sbom = vendor.sbomProfile || {};
+            const sbomStatus = sbom.providesSoftware 
+                ? (sbom.sbomAvailable ? `✓ SBOM Available (${sbom.sbomFormat || 'Unknown'})` : '⚠ SBOM Missing (EO 14028 gap)')
+                : 'N/A (Non-software vendor)';
+            const locationInfo = vendor.location || 'Unknown';
+            const contactInfo = vendor.contact ? `<a href="mailto:${vendor.contact}" style="color: var(--brand); text-decoration: underline;">${vendor.contact}</a>` : 'Not provided';
+            const notesPreview = vendor.notes ? (vendor.notes.length > 60 ? vendor.notes.substring(0, 60) + '...' : vendor.notes) : 'No notes';
             
             document.getElementById('tooltipTitle').textContent = vendor.name;
             document.getElementById('tooltipContent').innerHTML = `
                 <div class="tooltip-row"><span>Category:</span><strong>${categoryName}</strong></div>
+                <div class="tooltip-row"><span>Risk Level:</span><strong style="color: ${getRiskColor(vendor.riskLevel)}">${vendor.riskLevel.toUpperCase()}</strong></div>
                 <div class="tooltip-row"><span>Inherent Risk:</span><strong>${vendor.inherentRisk}/100</strong></div>
                 <div class="tooltip-row"><span>Residual Risk:</span><strong>${vendor.residualRisk}/100</strong></div>
-                <div class="tooltip-row"><span>Risk Level:</span><strong>${vendor.riskLevel.toUpperCase()}</strong></div>
-                <div class="tooltip-row"><span>Sector:</span><strong>${vendor.sector}</strong></div>
-                <div class="tooltip-row"><span>Data Types:</span><strong>${vendor.dataTypes.join(', ')}</strong></div>
+                <div class="tooltip-row"><span>Sector:</span><strong>${vendor.sector || 'Unknown'}</strong></div>
+                <div class="tooltip-row"><span>Location:</span><strong>${locationInfo}</strong></div>
+                <div class="tooltip-row"><span>Contact:</span><strong>${contactInfo}</strong></div>
+                <div class="tooltip-row"><span>Data Types:</span><strong>${(vendor.dataTypes || []).join(', ') || 'None'}</strong></div>
+                <div class="tooltip-row"><span>SBOM Status:</span><strong style="font-size: 0.9em;">${sbomStatus}</strong></div>
+                ${notesPreview !== 'No notes' ? `<div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-size: 0.85em; color: var(--muted);"><strong>Notes:</strong> ${escapeHtml(notesPreview)}</div>` : ''}
+                <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-size: 0.75em; color: var(--muted); opacity: 0.8;">Click to view full details</div>
             `;
             tooltip.classList.add('show');
             moveTooltip(e);
+        }
+        
+        function getRiskColor(riskLevel) {
+            const colors = {
+                'critical': '#ff0000',
+                'high': '#ff6600',
+                'medium': '#ffaa00',
+                'low': '#00ff41'
+            };
+            return colors[riskLevel] || '#00ff41';
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
         function hideTooltip() {
@@ -2824,25 +2917,40 @@ function hashStringToRange(str, min, max){
             ).join('');
             
             const riskBadgeClass = vendor.riskLevel || 'low';
+            const sbom = vendor.sbomProfile || {};
+            const sbomIndicator = sbom.providesSoftware 
+                ? (sbom.sbomAvailable 
+                    ? '<span style="color: #00ff41; font-size: 0.7rem;">✓ SBOM</span>' 
+                    : '<span style="color: #ff6600; font-size: 0.7rem;">⚠ No SBOM</span>')
+                : '';
+            const contactInfo = vendor.contact ? `<div style="font-size: 0.75rem; opacity: 0.7; margin-top: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>${vendor.contact}</div>` : '';
             
             return `
-                <div class="vendor-item ${vendor.riskLevel}" onclick="openDrawer(${JSON.stringify(vendor).replace(/"/g, '&quot;')})">
+                <div class="vendor-item ${vendor.riskLevel}" onclick="openDrawer(${JSON.stringify(vendor).replace(/"/g, '&quot;')})" style="cursor: pointer; transition: all 0.2s ease; position: relative;" onmouseenter="this.style.transform='translateX(4px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)'" onmouseleave="this.style.transform='translateX(0)'; this.style.boxShadow=''">
                     <div class="vendor-header">
-                        <div class="vendor-name">${vendor.name}</div>
+                        <div class="vendor-name" style="display: flex; align-items: center; gap: 8px;">
+                            ${vendor.name}
+                            ${sbomIndicator}
+                        </div>
                         <div class="vendor-badges">
                             <span class="badge category">${categoryName}</span>
                             <span class="badge ${riskBadgeClass}">${vendor.residualRisk || 0}/100</span>
                         </div>
                     </div>
                     <div class="vendor-details">
-                        <div style="margin-bottom: 8px;">
-                            <strong>${vendor.sector || 'Unknown'}</strong> • ${vendor.location || 'Unknown'}
+                        <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                            <strong>${vendor.sector || 'Unknown'}</strong>
+                            <span style="opacity: 0.5;">•</span>
+                            <span style="font-size: 0.9em;">${vendor.location || 'Unknown'}</span>
                         </div>
-                        <div style="font-size: 0.85rem; opacity: 0.85;">
-                            Inherent: <strong>${vendor.inherentRisk || 0}/100</strong> | Residual: <strong>${vendor.residualRisk || 0}/100</strong>
+                        <div style="font-size: 0.85rem; opacity: 0.85; display: flex; gap: 12px; flex-wrap: wrap;">
+                            <span>Inherent: <strong>${vendor.inherentRisk || 0}/100</strong></span>
+                            <span>Residual: <strong>${vendor.residualRisk || 0}/100</strong></span>
                         </div>
+                        ${contactInfo}
                     </div>
                     ${dataTypeTags ? `<div class="vendor-tags" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px;">${dataTypeTags}</div>` : ''}
+                    ${vendor.notes ? `<div style="margin-top: 8px; font-size: 0.75rem; opacity: 0.7; font-style: italic; max-height: 2.4em; overflow: hidden; text-overflow: ellipsis;">${escapeHtml(vendor.notes.length > 80 ? vendor.notes.substring(0, 80) + '...' : vendor.notes)}</div>` : ''}
                 </div>
             `;
         }
@@ -2877,6 +2985,24 @@ function hashStringToRange(str, min, max){
                         legend: {
                             position: 'bottom',
                             labels: { color: '#00ff41', padding: 15 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                footer: (items) => {
+                                    return 'Click to filter by this category';
+                                }
+                            }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const categories = ['critical', 'strategic', 'tactical', 'commodity'];
+                            const selectedCategory = categories[index];
+                            document.getElementById('categoryFilter').value = selectedCategory === 'critical' ? 'critical' : 
+                                selectedCategory === 'strategic' ? 'strategic' : 
+                                selectedCategory === 'tactical' ? 'tactical' : 'all';
+                            updateRadar();
                         }
                     }
                 }
@@ -2906,7 +3032,28 @@ function hashStringToRange(str, min, max){
                 options: {
                     responsive: true,
                     maintainAspectRatio: true,
-                    plugins: { legend: { display: false } },
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                footer: (items) => {
+                                    return 'Click to view vendors with this data type';
+                                }
+                            }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const selectedDataType = dataTypes[index];
+                            // Filter vendors by data type
+                            const filtered = vendorData.filter(v => (v.dataTypes || []).includes(selectedDataType));
+                            updateRadarBlips(filtered);
+                            updateVendorLists();
+                            // Show notification
+                            showNotification(`Showing ${filtered.length} vendor(s) with ${selectedDataType} data`, 'info');
+                        }
+                    },
                     scales: {
                         y: {
                             beginAtZero: true,
