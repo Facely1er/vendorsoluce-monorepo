@@ -165,6 +165,8 @@
         gap: 12px;
       }
       .toolbar-group{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+      .filter-group{display:flex; flex-direction:column; gap:4px}
+      .filter-label{font-size:0.75rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em}
 
       button{
         background: var(--vs-green);
@@ -1099,6 +1101,134 @@ html.dark .vs-kpi{background:rgba(255,255,255,.06);}
 
 .toolbar button.secondary{border:1px solid var(--border); background:var(--surface-2);}
 html.dark .toolbar button.secondary{background:rgba(255,255,255,.06);}
+
+/* Breadcrumb Navigation */
+.breadcrumb-nav{
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 0;
+  margin-bottom: 16px;
+}
+
+/* Help Panel */
+.help-panel{
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 400px;
+  max-width: 90vw;
+  height: 100vh;
+  background: var(--card);
+  border-left: 1px solid var(--border);
+  box-shadow: -4px 0 20px rgba(0,0,0,.15);
+  z-index: 10000;
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.help-panel.show{
+  right: 0;
+}
+.help-panel-header{
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--panel);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.help-panel-header h3{
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.help-panel-close{
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  color: var(--muted);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.help-panel-close:hover{
+  background: var(--surface-2);
+  color: var(--text);
+}
+.help-panel-content{
+  padding: 20px;
+  flex: 1;
+}
+.help-section{
+  margin-bottom: 24px;
+}
+.help-section h4{
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 12px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.help-section ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.help-section li{
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+.help-section li::before{
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--vs-green);
+  font-weight: 700;
+}
+.help-section kbd{
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: monospace;
+  font-size: 0.85em;
+  color: var(--text);
+  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+html.dark .help-section kbd{
+  background: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.2);
+}
+
+/* Help Panel Backdrop */
+.help-panel-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.help-panel-backdrop.show{
+  opacity: 1;
+  pointer-events: all;
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <meta content="Vendor risk radar demo aligned with NIST SP 800-161. Import vendors (CSV/Excel), prioritize critical risk, and surface SBOM gaps." name="description"/>
@@ -1631,6 +1761,19 @@ Start Free Trial
 </div>
 </div>
 </section>
+<!-- Breadcrumb Navigation -->
+<nav aria-label="Breadcrumb" class="breadcrumb-nav" style="background: var(--card); border-bottom: 1px solid var(--border); padding: 8px 0;">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center space-x-2 text-sm">
+      <a class="flex items-center text-gray-600 dark:text-gray-400 hover:text-vendorsoluce-green dark:hover:text-vendorsoluce-light-green transition-colors" href="../index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home w-4 h-4 mr-1"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        Home
+      </a>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right text-gray-400"><path d="m9 18 6-6-6-6"></path></svg>
+      <span class="font-medium text-vendorsoluce-green dark:text-vendorsoluce-light-green">Vendor Risk Radar</span>
+    </div>
+  </div>
+</nav>
 <main class="vs-shell">
 <div class="loading-overlay" id="loadingOverlay">
 <div class="loading-radar"></div>
@@ -1640,37 +1783,77 @@ Start Free Trial
 <!-- Toolbar -->
 <div class="toolbar">
 <div class="toolbar-group">
-<button id="scanBtn" onclick="scanVendors()">Scan Vendors</button>
-<button class="primary" onclick="openAddVendor()">Add Vendor</button>
+<button id="scanBtn" onclick="scanVendors()" title="Scan and analyze all vendors">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path><circle cx="12" cy="12" r="2"></circle></svg>
+Scan Vendors
+</button>
+<button class="primary" onclick="openAddVendor()" title="Add a new vendor to the risk assessment">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+Add Vendor
+</button>
 <label for="importFile">
-<button onclick="document.getElementById('importFile').click()">Import CSV</button>
+<button onclick="document.getElementById('importFile').click()" title="Import vendors from CSV or Excel file">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+Import CSV
+</button>
 </label>
 <input accept=".csv,.xlsx,.xls" id="importFile" onchange="importVendors(event)" type="file"/>
 </div>
 <div class="toolbar-group">
-<select id="categoryFilter" onchange="updateRadar()" title="Filter by vendor category" aria-label="Filter by vendor category">
+<div class="filter-group">
+<label for="categoryFilter" class="filter-label">Category</label>
+<select id="categoryFilter" onchange="updateRadar()" title="Filter vendors by business criticality category" aria-label="Filter by vendor category">
 <option value="all">All Categories</option>
 <option value="critical">Critical Only</option>
 <option value="strategic">Strategic+</option>
 <option value="tactical">Tactical+</option>
 </select>
-<select id="riskFilter" onchange="updateRadar()" title="Filter by risk level" aria-label="Filter by risk level">
+</div>
+<div class="filter-group">
+<label for="riskFilter" class="filter-label">Risk Level</label>
+<select id="riskFilter" onchange="updateRadar()" title="Filter vendors by residual risk score" aria-label="Filter by risk level">
 <option value="all">All Risk Levels</option>
-<option value="critical">Critical Risk</option>
-<option value="high">High Risk+</option>
-<option value="medium">Medium Risk+</option>
+<option value="critical">Critical Risk (90-100)</option>
+<option value="high">High Risk+ (70+)</option>
+<option value="medium">Medium Risk+ (40+)</option>
 </select>
 </div>
-<div class="toolbar-group">
-<button class="secondary" id="expandAllBtn" onclick="VSCollapse.expandAll()" title="Expand dashboard sections">Expand</button>
-<button class="secondary" id="collapseAllBtn" onclick="VSCollapse.collapseAll()" title="Collapse dashboard sections">Collapse</button>
 </div>
 <div class="toolbar-group">
-<button id="vsBtnTemplate" onclick="VSUI.downloadTemplate()" title="Download CSV Template">CSV Template</button>
-<button id="vsBtnCatalog" onclick="VSUI.open('vsCatalogBackdrop')" title="Browse Vendor Catalog">Catalog</button>
-<button id="vsBtnWizard" onclick="VSUI.open('vsWizardBackdrop')" title="Onboarding Wizard">Wizard</button>
-<button onclick="exportVendors()" title="Export Vendors to CSV">Export</button>
-<button onclick="generateReport()" title="Generate Report">Report</button>
+<button class="secondary" id="expandAllBtn" onclick="VSCollapse.expandAll()" title="Expand all dashboard sections">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-down"><path d="m7 6 5 5 5-5"></path><path d="m7 13 5 5 5-5"></path></svg>
+Expand
+</button>
+<button class="secondary" id="collapseAllBtn" onclick="VSCollapse.collapseAll()" title="Collapse all dashboard sections">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-up"><path d="m17 18-5-5-5 5"></path><path d="m17 6-5-5-5 5"></path></svg>
+Collapse
+</button>
+</div>
+<div class="toolbar-group">
+<button id="vsBtnTemplate" onclick="VSUI.downloadTemplate()" title="Download CSV template for vendor import" class="secondary">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+Template
+</button>
+<button id="vsBtnCatalog" onclick="VSUI.open('vsCatalogBackdrop')" title="Browse pre-configured vendor catalog" class="secondary">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+Catalog
+</button>
+<button id="vsBtnWizard" onclick="VSUI.open('vsWizardBackdrop')" title="Use onboarding wizard to quickly add vendors" class="secondary">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
+Wizard
+</button>
+<button onclick="exportVendors()" title="Export vendor data to CSV file" class="secondary">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+Export
+</button>
+<button onclick="generateReport()" title="Generate comprehensive PDF risk assessment report" class="secondary">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+Report
+</button>
+<button onclick="showHelpPanel()" title="Show help, tips, and keyboard shortcuts" class="secondary" id="helpBtn">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+Help
+</button>
 </div>
 </div>
 <!-- Alert Banner -->
@@ -4405,6 +4588,116 @@ function showGuidance(sectionId){
     guidanceEl.style.display = isVisible ? 'none' : 'block';
   }
 }
+
+// Help Panel Functions
+function showHelpPanel() {
+  let helpPanel = document.getElementById('helpPanel');
+  if (!helpPanel) {
+    // Create help panel if it doesn't exist
+    const panel = document.createElement('div');
+    panel.id = 'helpPanel';
+    panel.className = 'help-panel';
+    panel.innerHTML = `
+      <div class="help-panel-header">
+        <h3>Help & Guidance</h3>
+        <button onclick="closeHelpPanel()" class="help-panel-close" aria-label="Close help panel">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        </button>
+      </div>
+      <div class="help-panel-content">
+        <div class="help-section">
+          <h4>Quick Start</h4>
+          <ul>
+            <li><strong>Scan Vendors:</strong> Click to analyze all vendors and calculate risk scores</li>
+            <li><strong>Add Vendor:</strong> Manually add a new vendor to your assessment</li>
+            <li><strong>Import CSV:</strong> Bulk import vendors from a spreadsheet</li>
+            <li><strong>Filters:</strong> Use category and risk filters to focus on specific vendor groups</li>
+            <li><strong>Catalog:</strong> Browse pre-configured enterprise vendors</li>
+            <li><strong>Wizard:</strong> Use onboarding wizard for quick vendor setup</li>
+          </ul>
+        </div>
+        <div class="help-section">
+          <h4>Keyboard Shortcuts</h4>
+          <ul>
+            <li><kbd>Arrow Keys</kbd> - Navigate between radar blips</li>
+            <li><kbd>Enter</kbd> or <kbd>Space</kbd> - Open vendor details drawer</li>
+            <li><kbd>Esc</kbd> - Close modals, drawers, or help panels</li>
+            <li><kbd>Click Charts</kbd> - Filter vendors by clicking chart segments</li>
+            <li><kbd>Hover Blips</kbd> - View quick vendor tooltips</li>
+          </ul>
+        </div>
+        <div class="help-section">
+          <h4>Understanding Risk Scores</h4>
+          <ul>
+            <li><strong>Critical (90-100):</strong> Immediate attention required, develop remediation plans</li>
+            <li><strong>High (70-89):</strong> Enhanced monitoring recommended, review controls</li>
+            <li><strong>Medium (40-69):</strong> Standard monitoring, periodic reviews</li>
+            <li><strong>Low (0-39):</strong> Minimal risk, routine oversight</li>
+          </ul>
+        </div>
+        <div class="help-section">
+          <h4>Vendor Categories</h4>
+          <ul>
+            <li><strong>Critical:</strong> Mission-essential, single point of failure, requires exit plans</li>
+            <li><strong>Strategic:</strong> High-value, significant business impact</li>
+            <li><strong>Tactical:</strong> Operational support, moderate impact</li>
+            <li><strong>Commodity:</strong> Easily replaceable, low impact</li>
+          </ul>
+        </div>
+        <div class="help-section">
+          <h4>SBOM & EO 14028</h4>
+          <ul>
+            <li>Software vendors must provide SBOMs per Executive Order 14028</li>
+            <li>Vendors with SBOM gaps are flagged for procurement follow-up</li>
+            <li>Click vendor cards to see detailed SBOM compliance status</li>
+            <li>SBOM format (SPDX/CycloneDX) is tracked for compliance</li>
+          </ul>
+        </div>
+        <div class="help-section">
+          <h4>Tips & Best Practices</h4>
+          <ul>
+            <li>Hover over radar blips to see quick vendor details</li>
+            <li>Click any vendor card or blip to view full risk analysis</li>
+            <li>Use the Catalog to quickly add common enterprise vendors</li>
+            <li>Export data for compliance documentation</li>
+            <li>Generate PDF reports for executive presentations</li>
+            <li>Use filters to focus on high-priority vendor groups</li>
+            <li>Review SBOM gaps regularly for EO 14028 compliance</li>
+          </ul>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(panel);
+    // Add backdrop
+    const backdrop = document.createElement('div');
+    backdrop.className = 'help-panel-backdrop';
+    backdrop.onclick = closeHelpPanel;
+    document.body.appendChild(backdrop);
+    setTimeout(() => {
+      panel.classList.add('show');
+      backdrop.classList.add('show');
+    }, 10);
+  } else {
+    helpPanel.classList.toggle('show');
+    const backdrop = document.querySelector('.help-panel-backdrop');
+    if (backdrop) backdrop.classList.toggle('show');
+  }
+}
+
+function closeHelpPanel() {
+  const helpPanel = document.getElementById('helpPanel');
+  const backdrop = document.querySelector('.help-panel-backdrop');
+  if (helpPanel) {
+    helpPanel.classList.remove('show');
+  }
+  if (backdrop) {
+    backdrop.classList.remove('show');
+  }
+}
+
+// Make functions globally accessible
+window.showHelpPanel = showHelpPanel;
+window.closeHelpPanel = closeHelpPanel;
 
 // Mobile Menu Script
 (function() {
