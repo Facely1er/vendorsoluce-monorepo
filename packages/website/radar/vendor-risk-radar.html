@@ -1095,63 +1095,89 @@ html.dark .toolbar button.secondary{background:rgba(255,255,255,.06);}
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <meta content="Vendor risk radar demo aligned with NIST SP 800-161. Import vendors (CSV/Excel), prioritize critical risk, and surface SBOM gaps." name="description"/>
 <script>
-/* VendorSoluce dual-theme (light/dark)
-   - Respects system preference by default
-   - Persists only when user explicitly toggles
-   - Drives both: html.classList ('dark') AND data-theme attribute for CSS hooks
-*/
-(function () {
-  const STORAGE_KEY = 'vs_theme'; // avoid collisions
-
-  const systemTheme = () =>
-    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-
-  const getTheme = () => localStorage.getItem(STORAGE_KEY) || systemTheme();
-
-  const setDomTheme = (theme) => {
-    const root = document.documentElement;
-    root.dataset.theme = theme;
-    root.classList.toggle('dark', theme === 'dark');
-    // update buttons (may exist multiple times)
-    document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
-      const sun = btn.querySelector('.lucide-sun');
-      const moon = btn.querySelector('.lucide-moon');
-      if (sun) sun.style.display = theme === 'dark' ? 'block' : 'none';
-      if (moon) moon.style.display = theme === 'dark' ? 'none' : 'block';
-      btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+// Theme toggle functionality - must run immediately to prevent flash
+(function() {
+  // Get theme from localStorage or default to light
+  const getTheme = () => {
+    const stored = localStorage.getItem('theme');
+    if (stored) return stored;
+    // Check system preference
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+  
+  // Apply theme
+  const applyTheme = (theme) => {
+    const html = document.documentElement;
+    if (theme === 'dark') {
+      html.classList.add('dark');
+    } else {
+      html.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+    
+    // Update theme toggle button icons (only if DOM is ready)
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        updateThemeIcons(theme);
+      });
+    } else {
+      updateThemeIcons(theme);
+    }
+  };
+  
+  // Update theme toggle button icons
+  const updateThemeIcons = (theme) => {
+    const themeButtons = document.querySelectorAll('[data-theme-toggle]');
+    themeButtons.forEach(btn => {
+      const sunIcon = btn.querySelector('.lucide-sun');
+      const moonIcon = btn.querySelector('.lucide-moon');
+      if (theme === 'dark') {
+        if (sunIcon) {
+          sunIcon.style.display = 'block';
+          sunIcon.style.visibility = 'visible';
+        }
+        if (moonIcon) {
+          moonIcon.style.display = 'none';
+          moonIcon.style.visibility = 'hidden';
+        }
+        btn.setAttribute('aria-label', 'Switch to light mode');
+      } else {
+        if (sunIcon) {
+          sunIcon.style.display = 'none';
+          sunIcon.style.visibility = 'hidden';
+        }
+        if (moonIcon) {
+          moonIcon.style.display = 'block';
+          moonIcon.style.visibility = 'visible';
+        }
+        btn.setAttribute('aria-label', 'Switch to dark mode');
+      }
     });
   };
-
-  const apply = (theme, { persist } = { persist: false }) => {
-    if (persist) localStorage.setItem(STORAGE_KEY, theme);
-    setDomTheme(theme);
-  };
-
-  // Apply ASAP (no persistence unless user already chose)
-  const stored = localStorage.getItem(STORAGE_KEY);
-  apply(stored || systemTheme(), { persist: !!stored });
-
+  
+  // Apply theme immediately to prevent flash
+  applyTheme(getTheme());
+  
+  // Set up event listeners after DOM is ready
   document.addEventListener('DOMContentLoaded', () => {
-    // Wire toggles
-    document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
+    // Re-apply theme to ensure icons are updated
+    applyTheme(getTheme());
+    
+    // Add click handlers to theme toggle buttons
+    document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
       btn.addEventListener('click', () => {
-        const current = getTheme();
-        const next = current === 'dark' ? 'light' : 'dark';
-        apply(next, { persist: true });
+        const currentTheme = getTheme();
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        applyTheme(newTheme);
       });
     });
-
-    // System changes (only if user hasn't pinned a theme)
-    if (window.matchMedia) {
-      const mq = window.matchMedia('(prefers-color-scheme: dark)');
-      const onChange = (e) => {
-        if (!localStorage.getItem(STORAGE_KEY)) {
-          apply(e.matches ? 'dark' : 'light', { persist: false });
-        }
-      };
-      if (typeof mq.addEventListener === 'function') mq.addEventListener('change', onChange);
-      else if (typeof mq.addListener === 'function') mq.addListener(onChange);
-    }
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches ? 'dark' : 'light');
+      }
+    });
   });
 })();
 </script>
@@ -1222,7 +1248,7 @@ html.dark .toolbar button.secondary{background:rgba(255,255,255,.06);}
           <span class="ml-1.5 text-xs">How It Works</span>
         </a>
         <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="Features" href="../features.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star flex-shrink-0"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles flex-shrink-0"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
           <span class="ml-1.5 text-xs">Features</span>
         </a>
         <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="Pricing" href="../pricing.html">
