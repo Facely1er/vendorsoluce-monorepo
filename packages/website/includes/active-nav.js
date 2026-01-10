@@ -104,6 +104,7 @@
     });
   }
 
+  // Always wait for DOM to be fully loaded to ensure mobile menu panel exists
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       markActiveNavigationLinks();
@@ -111,7 +112,8 @@
     });
   } else {
     markActiveNavigationLinks();
-    initMobileMenu();
+    // Use setTimeout to ensure DOM is fully parsed even if readyState is 'complete'
+    setTimeout(initMobileMenu, 0);
   }
 })();
 

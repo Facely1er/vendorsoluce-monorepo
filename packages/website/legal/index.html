@@ -178,10 +178,12 @@
         });
     }
 
+    // Always wait for DOM to be fully loaded to ensure mobile menu panel exists
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initMobileMenu);
     } else {
-        initMobileMenu();
+        // Use setTimeout to ensure DOM is fully parsed even if readyState is 'complete'
+        setTimeout(initMobileMenu, 0);
     }
     
     // Set active navigation link based on current page
@@ -364,6 +366,24 @@
 }
 .dark .brand-attribution {
   color: #94A3B8;
+}
+
+/* Make footer borders extremely subtle - match background colors */
+footer.bg-white,
+footer[class*="bg-white"],
+footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+}
+html.dark footer.bg-gray-800,
+html.dark footer[class*="bg-gray-800"],
+html.dark footer {
+  border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
+}
+footer > div > div:last-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+}
+html.dark footer > div > div:last-child {
+  border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
 }
 </style>
 <footer class="border-t border-gray-200 dark:border-gray-800/60 bg-white dark:bg-gray-800 backdrop-blur-sm">

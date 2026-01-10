@@ -10,75 +10,88 @@ interface StatsOverviewProps {
 const StatsOverview: React.FC<StatsOverviewProps> = ({ stats }) => {
   const statCards = [
     {
-      label: 'Total Vendors',
-      value: stats.total,
+      label: 'TOTAL VENDORS',
+      value: stats.total > 0 ? stats.total : '--',
       icon: Database,
-      color: 'text-blue-600'
+      color: 'text-blue-600',
+      barColor: 'bg-blue-500',
+      showBar: stats.total > 0
     },
     {
-      label: 'Critical Category',
-      value: stats.criticalCategory,
+      label: 'CRITICAL CATEGORY',
+      value: stats.criticalCategory > 0 ? stats.criticalCategory : '--',
       icon: Target,
-      color: 'text-red-600'
+      color: 'text-red-600',
+      barColor: 'bg-red-500',
+      showBar: stats.criticalCategory > 0
     },
     {
-      label: 'Critical Risk',
-      value: stats.criticalRisk,
+      label: 'CRITICAL RISK',
+      value: stats.criticalRisk > 0 ? stats.criticalRisk : '--',
       icon: AlertTriangle,
-      color: 'text-red-600'
+      color: 'text-red-600',
+      barColor: 'bg-red-500',
+      showBar: stats.criticalRisk > 0
     },
     {
-      label: 'High Risk',
-      value: stats.highRisk,
+      label: 'HIGH RISK',
+      value: stats.highRisk > 0 ? stats.highRisk : '--',
       icon: TrendingUp,
-      color: 'text-orange-600'
+      color: 'text-orange-600',
+      barColor: 'bg-orange-500',
+      showBar: stats.highRisk > 0
     },
     {
-      label: 'With PII/PHI',
-      value: stats.sensitiveData,
+      label: 'WITH PII/PHI',
+      value: stats.sensitiveData > 0 ? stats.sensitiveData : '--',
       icon: Shield,
-      color: 'text-purple-600'
+      color: 'text-purple-600',
+      barColor: 'bg-orange-500',
+      showBar: stats.sensitiveData > 0
     },
     {
-      label: 'Avg Inherent Risk',
-      value: `${stats.avgInherentRisk}`,
+      label: 'AVG INHERENT RISK',
+      value: stats.avgInherentRisk > 0 ? `${stats.avgInherentRisk}` : '--',
       icon: TrendingUp,
-      color: 'text-gray-600'
-    },
-    {
-      label: 'SBOM Gaps',
-      value: stats.sbomGaps,
-      icon: FileX,
-      color: 'text-yellow-600'
-    },
-    {
-      label: 'Max Risk',
-      value: stats.maxRisk,
-      icon: AlertTriangle,
-      color: stats.maxRisk >= 80 ? 'text-red-600' : 'text-orange-600'
+      color: 'text-gray-600',
+      barColor: 'bg-gray-500',
+      showBar: stats.avgInherentRisk > 0
     }
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      {statCards.map((stat, index) => {
-        const Icon = stat.icon;
-        return (
-          <Card key={index} className="hover:shadow-md transition-shadow">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-2">
-                <Icon className={`w-5 h-5 ${stat.color}`} />
-                <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {stat.value}
-                </span>
-              </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                {stat.label}
-              </p>
-            </CardContent>
-          </Card>
-        );
-      })}
+    <div className="mb-8">
+      <div className="flex items-center gap-2 mb-4">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Quick Stats Overview</h2>
+        <span className="text-gray-500 dark:text-gray-400 cursor-help" title="Quick statistics overview">
+          ℹ️
+        </span>
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        {statCards.map((stat, index) => {
+          const Icon = stat.icon;
+          return (
+            <Card key={index} className="hover:shadow-md transition-shadow">
+              <CardContent className="p-4">
+                <div className="mb-2">
+                  <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
+                    {stat.label}
+                  </p>
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                    {stat.value}
+                  </div>
+                </div>
+                {stat.showBar && (
+                  <div className={`h-1 ${stat.barColor} rounded-full`} style={{ width: '100%' }}></div>
+                )}
+                {!stat.showBar && (
+                  <div className="h-1 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                )}
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -64,10 +64,12 @@ const mobileMenuScript = `
         });
     }
 
+    // Always wait for DOM to be fully loaded to ensure mobile menu panel exists
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initMobileMenu);
     } else {
-        initMobileMenu();
+        // Use setTimeout to ensure DOM is fully parsed even if readyState is 'complete'
+        setTimeout(initMobileMenu, 0);
     }
     
     // Set active navigation link based on current page

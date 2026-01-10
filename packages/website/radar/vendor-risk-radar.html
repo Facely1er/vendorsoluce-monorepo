@@ -166,7 +166,9 @@
       }
       .toolbar-group{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
       .filter-group{display:flex; flex-direction:column; gap:4px}
-      .filter-label{font-size:0.75rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em}
+      .filter-label{font-size:0.75rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; display:flex; align-items:center; gap:4px}
+      .filter-hint{font-size:0.7rem; opacity:0.6; cursor:help; font-style:normal}
+      .help-shortcut-hint{animation:pulse 2s infinite}
 
       button{
         background: var(--vs-green);
@@ -1801,17 +1803,23 @@ Import CSV
 </div>
 <div class="toolbar-group">
 <div class="filter-group">
-<label for="categoryFilter" class="filter-label">Category</label>
-<select id="categoryFilter" onchange="updateRadar()" title="Filter vendors by business criticality category" aria-label="Filter by vendor category">
+<label for="categoryFilter" class="filter-label">
+  Category
+  <span class="filter-hint" title="Filter by business criticality: Critical (mission-essential), Strategic (high-value), Tactical (operational), Commodity (replaceable)">ℹ️</span>
+</label>
+<select id="categoryFilter" onchange="updateRadar()" title="Filter vendors by business criticality category. Critical = mission-essential, Strategic = high-value, Tactical = operational, Commodity = easily replaceable" aria-label="Filter by vendor category">
 <option value="all">All Categories</option>
-<option value="critical">Critical Only</option>
-<option value="strategic">Strategic+</option>
-<option value="tactical">Tactical+</option>
+<option value="critical">Critical Only (Mission-essential)</option>
+<option value="strategic">Strategic+ (High-value & Critical)</option>
+<option value="tactical">Tactical+ (Operational & above)</option>
 </select>
 </div>
 <div class="filter-group">
-<label for="riskFilter" class="filter-label">Risk Level</label>
-<select id="riskFilter" onchange="updateRadar()" title="Filter vendors by residual risk score" aria-label="Filter by risk level">
+<label for="riskFilter" class="filter-label">
+  Risk Level
+  <span class="filter-hint" title="Filter by residual risk score after controls">ℹ️</span>
+</label>
+<select id="riskFilter" onchange="updateRadar()" title="Filter vendors by residual risk score after controls. Critical = 90-100, High = 70-89, Medium = 40-69, Low = 0-39" aria-label="Filter by risk level">
 <option value="all">All Risk Levels</option>
 <option value="critical">Critical Risk (90-100)</option>
 <option value="high">High Risk+ (70+)</option>
@@ -1850,9 +1858,10 @@ Export
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
 Report
 </button>
-<button onclick="showHelpPanel()" title="Show help, tips, and keyboard shortcuts" class="secondary" id="helpBtn">
+<button onclick="showHelpPanel()" title="Show help, tips, and keyboard shortcuts (Press ? or H)" class="secondary" id="helpBtn" style="position: relative;">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
 Help
+<span class="help-shortcut-hint" style="position: absolute; top: -6px; right: -6px; background: var(--vs-green); color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; box-shadow: 0 2px 4px rgba(0,0,0,.2);">?</span>
 </button>
 </div>
 </div>
@@ -4699,6 +4708,27 @@ function closeHelpPanel() {
 window.showHelpPanel = showHelpPanel;
 window.closeHelpPanel = closeHelpPanel;
 
+// Keyboard shortcuts for help panel
+document.addEventListener('keydown', function(e) {
+  // Press '?' or 'H' to open help panel (when not typing in input fields)
+  if ((e.key === '?' || e.key === 'h' || e.key === 'H') && 
+      !e.target.matches('input, textarea, select') && 
+      !e.ctrlKey && !e.metaKey) {
+    e.preventDefault();
+    const helpPanel = document.getElementById('helpPanel');
+    if (helpPanel && !helpPanel.classList.contains('show')) {
+      showHelpPanel();
+    }
+  }
+  // Press Escape to close help panel
+  if (e.key === 'Escape') {
+    const helpPanel = document.getElementById('helpPanel');
+    if (helpPanel && helpPanel.classList.contains('show')) {
+      closeHelpPanel();
+    }
+  }
+});
+
 // Mobile Menu Script
 (function() {
     function initMobileMenu() {
@@ -4761,14 +4791,18 @@ window.closeHelpPanel = closeHelpPanel;
         });
     }
 
+    // Always wait for DOM to be fully loaded to ensure mobile menu panel exists
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
             initMobileMenu();
             initThemeToggle();
         });
     } else {
-        initMobileMenu();
-        initThemeToggle();
+        // Use setTimeout to ensure DOM is fully parsed even if readyState is 'complete'
+        setTimeout(function() {
+            initMobileMenu();
+            initThemeToggle();
+        }, 0);
     }
 })();
 

@@ -323,7 +323,11 @@
 
             const currentPath = paths[pathIndex];
             
-            fetch(currentPath)
+            // Add cache-busting parameter to ensure fresh footer load
+            const cacheBuster = '?v=' + Date.now();
+            const pathWithCache = currentPath + cacheBuster;
+            
+            fetch(pathWithCache)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -339,6 +343,68 @@
                     html = adjustPathsForSubdirectory(html);
 
                     footerPlaceholder.outerHTML = html;
+                    
+                    // Inject CSS to make footer borders extremely subtle - use background-matching colors
+                    // Use setTimeout to ensure footer is fully rendered
+                    setTimeout(() => {
+                        // Remove any existing style and create new one
+                        const existingStyle = document.getElementById('footer-border-removal-style');
+                        if (existingStyle) {
+                            existingStyle.remove();
+                        }
+                        
+                        const style = document.createElement('style');
+                        style.id = 'footer-border-removal-style';
+                        style.textContent = `
+                            /* Override all possible border classes */
+                            footer.bg-white,
+                            footer.dark\\:bg-gray-800,
+                            footer[class*="border"],
+                            footer {
+                                border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+                                border-color: rgba(255, 255, 255, 0.02) !important;
+                            }
+                            html.dark footer.bg-white,
+                            html.dark footer.dark\\:bg-gray-800,
+                            html.dark footer[class*="border"],
+                            html.dark footer {
+                                border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
+                                border-color: rgba(31, 41, 55, 0.03) !important;
+                            }
+                            footer > div > div:last-child,
+                            footer > div > div[class*="border"] {
+                                border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+                                border-color: rgba(255, 255, 255, 0.02) !important;
+                            }
+                            html.dark footer > div > div:last-child,
+                            html.dark footer > div > div[class*="border"] {
+                                border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
+                                border-color: rgba(31, 41, 55, 0.03) !important;
+                            }
+                        `;
+                        document.head.appendChild(style);
+                        
+                        // Also apply directly to the footer element with inline styles
+                        const footer = document.querySelector('footer');
+                        if (footer) {
+                            footer.style.setProperty('border-top', '1px solid rgba(255, 255, 255, 0.02)', 'important');
+                            footer.style.setProperty('border-color', 'rgba(255, 255, 255, 0.02)', 'important');
+                            if (document.documentElement.classList.contains('dark')) {
+                                footer.style.setProperty('border-top', '1px solid rgba(31, 41, 55, 0.03)', 'important');
+                                footer.style.setProperty('border-color', 'rgba(31, 41, 55, 0.03)', 'important');
+                            }
+                            
+                            const bottomDiv = footer.querySelector('div > div:last-child');
+                            if (bottomDiv) {
+                                bottomDiv.style.setProperty('border-top', '1px solid rgba(255, 255, 255, 0.02)', 'important');
+                                bottomDiv.style.setProperty('border-color', 'rgba(255, 255, 255, 0.02)', 'important');
+                                if (document.documentElement.classList.contains('dark')) {
+                                    bottomDiv.style.setProperty('border-top', '1px solid rgba(31, 41, 55, 0.03)', 'important');
+                                    bottomDiv.style.setProperty('border-color', 'rgba(31, 41, 55, 0.03)', 'important');
+                                }
+                            }
+                        }
+                    }, 200);
                 })
                 .catch(err => {
                     // Failed to load from path, try next

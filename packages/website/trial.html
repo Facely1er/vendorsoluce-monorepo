@@ -129,6 +129,24 @@
                 opacity: 1;
             }
         }
+        
+        /* Make footer borders extremely subtle - match background colors */
+        footer.bg-white,
+        footer[class*="bg-white"],
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+        }
+        html.dark footer.bg-gray-800,
+        html.dark footer[class*="bg-gray-800"],
+        html.dark footer {
+            border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
+        }
+        footer > div > div:last-child {
+            border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+        }
+        html.dark footer > div > div:last-child {
+            border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900">
@@ -143,8 +161,12 @@
                 <div class="inline-block mb-4">
                     <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-vendorsoluce-green/10 text-vendorsoluce-green border border-vendorsoluce-green/30">Free Trial</span>
                 </div>
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 text-gray-900 dark:text-white bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Discover Your Vendor Risk in 60 Seconds</h1>
-                <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8 leading-relaxed">Upload your vendor list. Get instant risk radar. No signup required.</p>
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 text-gray-900 dark:text-white bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Stage 1: Discover Your Exposure</h1>
+                <div class="mb-6 p-4 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10 rounded-lg border border-vendorsoluce-green/30 max-w-2xl mx-auto">
+                    <div class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green mb-2">🎯 OUTCOME</div>
+                    <p class="text-base font-medium text-gray-900 dark:text-white">"I know exactly which vendors pose the greatest risk"</p>
+                </div>
+                <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8 leading-relaxed">Upload your vendor list and get instant risk analysis. See which vendors pose the greatest risk to your organization. No signup required.</p>
             </div>
             
             <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-8 md:p-12 mb-8 text-center" style="box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);">
@@ -168,8 +190,13 @@
         <div id="results-stage" class="results-container">
             <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-8 mb-8" style="box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);">
                 <div class="text-center mb-8">
+                    <div class="mb-6 p-4 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10 rounded-lg border border-vendorsoluce-green/30 max-w-2xl mx-auto">
+                        <div class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green mb-2">✅ STAGE 1 COMPLETE</div>
+                        <p class="text-base font-medium text-gray-900 dark:text-white">"I know exactly which vendors pose the greatest risk"</p>
+                    </div>
                     <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-gray-900 dark:text-white bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">YOUR Vendor Risk Radar</h2>
                     <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">Analysis of <span id="vendorCount">0</span> vendors in YOUR portfolio</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Continue to Stage 2 to define specific requirements for your critical vendors</p>
                 </div>
                 
                 <!-- Summary Stats -->
@@ -204,11 +231,18 @@
                     <ul id="recommendationsList" class="space-y-2 text-gray-700 dark:text-gray-300"></ul>
                 </div>
                 
-                <!-- CTA to Radar -->
-                <div class="text-center">
-                    <a href="radar/vendor-risk-radar.html" class="inline-block px-6 py-3 md:px-8 md:py-4 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors text-base md:text-lg">
-                        View Full Interactive Radar →
-                    </a>
+                <!-- CTAs -->
+                <div class="text-center space-y-4">
+                    <div>
+                        <a href="https://www.application.vendorsoluce.com/tools/vendor-risk-radar" class="inline-block px-6 py-3 md:px-8 md:py-4 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors text-base md:text-lg">
+                            Continue to Stage 2: Define Requirements →
+                        </a>
+                    </div>
+                    <div>
+                        <a href="radar/vendor-risk-radar.html" class="inline-block px-4 py-2 text-vendorsoluce-green dark:text-vendorsoluce-light-green hover:underline text-sm">
+                            View Full Interactive Radar
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -226,6 +226,24 @@
     transform: none !important;
     box-shadow: none !important;
   }
+  
+  /* Make footer borders extremely subtle - match background colors */
+  footer.bg-white,
+  footer[class*="bg-white"],
+  footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+  }
+  html.dark footer.bg-gray-800,
+  html.dark footer[class*="bg-gray-800"],
+  html.dark footer {
+    border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
+  }
+  footer > div > div:last-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+  }
+  html.dark footer > div > div:last-child {
+    border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
+  }
 </style>
 <nav class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-[100] w-full">
   <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 w-full">
@@ -654,10 +672,12 @@
         });
     }
 
+    // Always wait for DOM to be fully loaded to ensure mobile menu panel exists
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initMobileMenu);
     } else {
-        initMobileMenu();
+        // Use setTimeout to ensure DOM is fully parsed even if readyState is 'complete'
+        setTimeout(initMobileMenu, 0);
     }
 })();
 </script>

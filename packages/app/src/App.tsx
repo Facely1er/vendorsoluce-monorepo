@@ -48,6 +48,8 @@ const SBOMQuickScan = lazyWithRetry(() => import('./pages/tools/SBOMQuickScan'))
 const VendorRiskRadar = lazyWithRetry(() => import('./pages/tools/VendorRiskRadar'));
 const VendorRiskCalculator = lazyWithRetry(() => import('./pages/tools/VendorRiskCalculator'));
 const VendorIQ = lazyWithRetry(() => import('./pages/tools/VendorIQ'));
+const DemoPage = lazyWithRetry(() => import('./pages/DemoPage'));
+const TrialPage = lazyWithRetry(() => import('./pages/TrialPage'));
 const VendorSecurityAssessments = lazyWithRetry(() => import('./pages/VendorSecurityAssessments'));
 const VendorAssessmentPortal = lazyWithRetry(() => import('./pages/VendorAssessmentPortal'));
 const VendorPortalLandingPage = lazyWithRetry(() => import('./pages/VendorPortalLandingPage'));
@@ -133,6 +135,8 @@ function App() {
                   <Route path="/how-it-works" element={<HowItWorks />} />
                   <Route path="/api-docs" element={<APIDocumentation />} />
                   <Route path="/integration-guides" element={<IntegrationGuides />} />
+                  <Route path="/demo" element={<DemoPage />} />
+                  <Route path="/trial" element={<TrialPage />} />
 
                   {/* Tools - can be public or protected based on requirements */}
                   <Route path="/tools/nist-checklist" element={<NISTChecklist />} />
