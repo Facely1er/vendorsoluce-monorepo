@@ -526,13 +526,14 @@
         width: 16px;
         height: 16px;
         border-radius: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%) scale(1);
         cursor:pointer;
-        transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
         border: 2.5px solid rgba(255,255,255,.9);
         animation: blip-pulse 2.5s ease-in-out infinite;
         z-index: 20;
         box-shadow: 0 2px 8px rgba(0,0,0,.2);
+        outline: none;
       }
       .radar-blip::before{
         content: '';
@@ -540,15 +541,22 @@
         inset: -4px;
         border-radius: 50%;
         opacity: 0;
-        transition: opacity 0.2s ease;
+        transition: opacity 0.3s ease;
       }
-      .radar-blip:hover{
+      .radar-blip:hover,
+      .radar-blip:focus{
         transform: translate(-50%, -50%) scale(1.8);
         z-index: 50;
-        box-shadow: 0 4px 16px rgba(0,0,0,.3);
+        box-shadow: 0 4px 20px rgba(0,0,0,.4);
       }
-      .radar-blip:hover::before{
+      .radar-blip:hover::before,
+      .radar-blip:focus::before{
         opacity: 1;
+      }
+      .radar-blip:focus-visible{
+        outline: 2px solid var(--vs-green);
+        outline-offset: 4px;
+        border-radius: 50%;
       }
       .radar-blip.critical{
         background: linear-gradient(135deg, #DC2626, #B91C1C);
@@ -2888,6 +2896,47 @@ function hashStringToRange(str, min, max){
             tooltip.style.left = (e.pageX + 15) + 'px';
             tooltip.style.top = (e.pageY + 15) + 'px';
         }
+        
+        function showNotification(message, type = 'info') {
+            // Create or get notification element
+            let notification = document.getElementById('chartNotification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.id = 'chartNotification';
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 80px;
+                    right: 20px;
+                    background: linear-gradient(135deg, rgba(2,6,23,.95), rgba(2,6,23,.92));
+                    border: 1.5px solid rgba(51,105,30,.4);
+                    border-radius: 12px;
+                    padding: 12px 16px;
+                    box-shadow: 0 12px 32px rgba(0,0,0,.3);
+                    z-index: 10001;
+                    max-width: 300px;
+                    opacity: 0;
+                    transform: translateX(100%);
+                    transition: all 0.3s ease;
+                    color: var(--text);
+                    font-size: 0.9rem;
+                `;
+                document.body.appendChild(notification);
+            }
+            
+            notification.textContent = message;
+            notification.style.opacity = '1';
+            notification.style.transform = 'translateX(0)';
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
 
         function updateVendorLists() {
             // High Risk Vendors
@@ -3097,6 +3146,29 @@ function hashStringToRange(str, min, max){
                         legend: {
                             position: 'bottom',
                             labels: { color: '#00ff41', padding: 10 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                footer: (items) => {
+                                    return 'Click to filter by this risk level';
+                                }
+                            }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const riskRanges = [
+                                { min: 90, max: 100, label: 'Critical' },
+                                { min: 70, max: 89, label: 'High' },
+                                { min: 40, max: 69, label: 'Medium' },
+                                { min: 0, max: 39, label: 'Low' }
+                            ];
+                            const selectedRange = riskRanges[index];
+                            document.getElementById('riskFilter').value = selectedRange.label === 'Critical' ? 'critical' :
+                                selectedRange.label === 'High' ? 'high' :
+                                selectedRange.label === 'Medium' ? 'medium' : 'all';
+                            updateRadar();
                         }
                     }
                 }
@@ -3126,7 +3198,27 @@ function hashStringToRange(str, min, max){
                 options: {
                     responsive: true,
                     maintainAspectRatio: true,
-                    plugins: { legend: { display: false } },
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                footer: (items) => {
+                                    return 'Click to filter by this sector';
+                                }
+                            }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const sectorNames = Object.keys(sectors);
+                            const selectedSector = sectorNames[index];
+                            const filtered = vendorData.filter(v => v.sector === selectedSector);
+                            updateRadarBlips(filtered);
+                            updateVendorLists();
+                            showNotification(`Showing ${filtered.length} vendor(s) in ${selectedSector} sector`, 'info');
+                        }
+                    },
                     scales: {
                         y: {
                             beginAtZero: true,
@@ -3168,6 +3260,24 @@ function hashStringToRange(str, min, max){
                         legend: {
                             position: 'bottom',
                             labels: { color: '#00ff41', padding: 10 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                footer: (items) => {
+                                    return 'Click to filter by this location';
+                                }
+                            }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const locationNames = Object.keys(locations);
+                            const selectedLocation = locationNames[index];
+                            const filtered = vendorData.filter(v => v.location === selectedLocation);
+                            updateRadarBlips(filtered);
+                            updateVendorLists();
+                            showNotification(`Showing ${filtered.length} vendor(s) in ${selectedLocation}`, 'info');
                         }
                     }
                 }
