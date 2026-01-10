@@ -70,6 +70,28 @@ const DashboardDemoPage: React.FC = () => {
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 py-8 px-4 sm:px-6 lg:px-8">
+      {/* Demo Mode Banner - Sticky Top */}
+      <div className="sticky top-16 z-50 mb-6 bg-yellow-50 dark:bg-yellow-900/20 border-b border-yellow-200 dark:border-yellow-800 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-2">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Eye className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />
+            <span className="text-sm font-semibold text-yellow-800 dark:text-yellow-300">
+              DEMO MODE - Sample data shown
+            </span>
+          </div>
+          <div className="flex items-center gap-3">
+            <Link to="/trial" className="text-sm text-yellow-700 dark:text-yellow-400 hover:underline font-medium">
+              Try with your data →
+            </Link>
+            <Link to="/signin">
+              <Button variant="outline" size="sm" className="border-yellow-300 dark:border-yellow-700 text-yellow-800 dark:text-yellow-300 hover:bg-yellow-100 dark:hover:bg-yellow-900/30">
+                Sign In
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+      
       <div className="max-w-7xl mx-auto">
         {/* Demo Banner */}
         <div className="mb-8 bg-gradient-to-r from-vendorsoluce-navy to-vendorsoluce-teal text-white rounded-lg p-6">
@@ -77,28 +99,33 @@ const DashboardDemoPage: React.FC = () => {
             <div className="mb-4 md:mb-0">
               <div className="flex items-center mb-2">
                 <Eye className="h-6 w-6 mr-2" />
-                <span className="text-lg font-semibold">Dashboard Preview</span>
+                <span className="text-lg font-semibold bg-white/20 px-3 py-1 rounded-full">DEMO MODE</span>
               </div>
               <h1 className="text-3xl font-bold mb-2">Supply Chain Risk Management Dashboard</h1>
               <p className="text-xl text-gray-100">
-                Explore VendorRiskRadar's capabilities with a 14-day free trial. No credit card required.
+                Explore VendorSoluce's capabilities with sample data. No signup required to view.
               </p>
               <p className="text-sm text-gray-200 mt-2">
-                <strong>Trial includes:</strong> Full dashboard access, Supply Chain Risk Assessment, SBOM Analysis, 
-                Vendor Risk Monitoring, and all Professional tier features. Start your free trial today.
+                <strong>Demo includes:</strong> Sample vendor data, risk metrics, activity feed, and dashboard preview. 
+                Sign up for full access to manage your own vendors and assessments.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link to="/checkout?plan=professional">
+              <Link to="/trial">
                 <Button variant="secondary" size="lg" className="bg-white text-vendorsoluce-navy hover:bg-gray-100">
                   <User className="h-5 w-5 mr-2" />
-                  Start Free Trial
+                  Try With Your Data
                 </Button>
               </Link>
               <Link to="/signin">
                 <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/20">
                   <Lock className="h-5 w-5 mr-2" />
                   Sign In
+                </Button>
+              </Link>
+              <Link to="/checkout?plan=professional">
+                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/20">
+                  Start Free Trial
                 </Button>
               </Link>
             </div>
@@ -175,23 +202,41 @@ const DashboardDemoPage: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {quickActions.map((action, index) => (
-                    <div key={index} className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg opacity-75 cursor-not-allowed">
-                      <div className="flex items-center">
-                        <div className={`w-10 h-10 ${action.color} rounded-lg flex items-center justify-center text-white mr-3`}>
-                          {action.icon}
+                  {quickActions.map((action, index) => {
+                    const actionRoutes: Record<string, string> = {
+                      'Add Vendor': '/tools/vendor-risk-radar',
+                      'Run Assessment': '/supply-chain-assessment',
+                      'Analyze SBOM': '/sbom-analyzer',
+                      'View Reports': '/vendor-assessments'
+                    };
+                    const route = actionRoutes[action.title];
+                    
+                    return (
+                      <div key={index} className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-vendorsoluce-green dark:hover:border-vendorsoluce-green transition-colors">
+                        <div className="flex items-center mb-2">
+                          <div className={`w-10 h-10 ${action.color} rounded-lg flex items-center justify-center text-white mr-3`}>
+                            {action.icon}
+                          </div>
+                          <div>
+                            <h3 className="font-medium text-gray-900 dark:text-white">{action.title}</h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{action.description}</p>
+                          </div>
                         </div>
-                        <div>
-                          <h3 className="font-medium text-gray-500 dark:text-gray-400">{action.title}</h3>
-                          <p className="text-sm text-gray-400 dark:text-gray-500">{action.description}</p>
-                        </div>
+                        {route ? (
+                          <Link to={route}>
+                            <div className="mt-2 flex items-center text-vendorsoluce-green hover:text-vendorsoluce-dark-green text-sm font-medium cursor-pointer">
+                              Try in Demo Mode →
+                            </div>
+                          </Link>
+                        ) : (
+                          <div className="mt-2 flex items-center text-gray-500 dark:text-gray-400 text-sm">
+                            <Lock className="h-3 w-3 mr-1" />
+                            Sign in required
+                          </div>
+                        )}
                       </div>
-                      <div className="mt-2 flex items-center text-vendorsoluce-blue text-sm">
-                        <Lock className="h-3 w-3 mr-1" />
-                        Sign in required
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
@@ -233,8 +278,8 @@ const DashboardDemoPage: React.FC = () => {
                 <CardTitle className="flex items-center">
                   <Activity className="h-5 w-5 mr-2 text-vendorsoluce-teal" />
                   Recent Activity
-                  <span className="ml-2 text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-full text-gray-500 dark:text-gray-400">
-                    Demo
+                  <span className="ml-2 text-xs bg-yellow-100 dark:bg-yellow-900/30 px-2 py-1 rounded-full text-yellow-800 dark:text-yellow-300 font-semibold">
+                    DEMO
                   </span>
                 </CardTitle>
               </CardHeader>
