@@ -110,14 +110,25 @@
       border-width: 1px;
       border-color: rgb(229 231 235); /* border-gray-200 */
       background-color: rgb(255 255 255);
-      box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); /* shadow-sm */
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
       transition: all 0.3s ease;
     }
     
     .dark .modern-card {
-      border-color: rgb(55 65 81); /* border-gray-700 */
-      background-color: rgb(31 41 55); /* bg-gray-800 */
+      border-color: rgb(55 65 81) !important; /* border-gray-700 */
+      background-color: rgb(31 41 55) !important; /* bg-gray-800 */
     }
+    
+    .bg-gray-50 .modern-card {
+      background-color: rgb(255 255 255);
+      border-color: rgb(243 244 246); /* border-gray-100 for better contrast on gray-50 */
+    }
+    
+    .dark .bg-gray-50 .modern-card {
+      background-color: rgb(31 41 55) !important; /* bg-gray-800 */
+      border-color: rgb(55 65 81) !important; /* border-gray-700 */
+    }
+    
     
     .modern-card:hover {
       box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-lg */
@@ -142,30 +153,6 @@
     nav a[aria-current="page"].cursor-default:hover {
       transform: none !important;
       box-shadow: none !important;
-    }
-    
-    /* Unified Modern Card System - Refined Design */
-    .modern-card {
-      border-radius: 0.75rem; /* rounded-xl */
-      border-width: 1px;
-      border-color: rgb(229 231 235); /* border-gray-200 */
-      background-color: rgb(255 255 255);
-      box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); /* shadow-sm */
-      transition: all 0.3s ease;
-    }
-    
-    .dark .modern-card {
-      border-color: rgb(55 65 81); /* border-gray-700 */
-      background-color: rgb(31 41 55); /* bg-gray-800 */
-    }
-    
-    .modern-card:hover {
-      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-lg */
-      transform: translateY(-2px) scale(1.01);
-    }
-    
-    .dark .modern-card:hover {
-      box-shadow: 0 0 0 0;
     }
     </style>
   <script>
@@ -269,7 +256,7 @@
           <span class="ml-1.5 sm:ml-2 min-w-0 pointer-events-none">
             <div class="flex items-center gap-1.5">
               <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">VendorSoluce™</span>
-              <span class="px-1 py-0.5 text-[8px] sm:text-[9px] font-semibold uppercase tracking-wide bg-vendorsoluce-green/10 text-vendorsoluce-green dark:text-white dark:bg-vendorsoluce-green/20 rounded border border-vendorsoluce-green/20 dark:border-vendorsoluce-green/30">Beta</span>
+              <span class="px-1 py-0.5 text-[8px] sm:text-[9px] font-semibold tracking-wide bg-vendorsoluce-green/10 text-vendorsoluce-green dark:text-vendorsoluce-light-green dark:bg-vendorsoluce-green/20 rounded border border-vendorsoluce-green/20 dark:border-vendorsoluce-green/30">beta</span>
             </div>
             <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter" style="letter-spacing: -0.02em; margin-top: -3px;">Supply Chain Assurance</span>
             <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
@@ -665,35 +652,32 @@
     </nav>
     
     <!-- Features Grid - Organized by Workflow Hierarchy -->
-    <section class="py-16 md:py-24 px-6 sm:px-8 lg:px-12 bg-white dark:bg-gray-900">
+    <section class="py-16 md:py-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-gray-900">
         <div class="max-w-7xl mx-auto">
             
             <!-- Section 1: Assessment & Analysis Tools -->
             <div class="mb-16">
                 <div class="text-center mb-12">
-                    <div class="inline-block mb-4">
-                        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-vendorsoluce-green/10 text-vendorsoluce-green border border-vendorsoluce-green/30">Assessment Tools</span>
-                    </div>
                     <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Assessment & Analysis Tools</h2>
                     <p class="text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">Structured assessments and vulnerability analysis for vendor risk evaluation.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
                     <div class="modern-card p-6 md:p-8">
-                        <div class="w-12 h-12 bg-vendorsoluce-green/10 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green">
+                        <div class="w-12 h-12 bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20 rounded-xl flex items-center justify-center mb-4 mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green dark:text-vendorsoluce-light-green">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
                                 <path d="m9 12 2 2 4-4"></path>
                             </svg>
                         </div>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">Supply Chain Risk Assessment</h3>
-                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-base text-center">
+                        <p class="text-gray-600 dark:text-gray-100 leading-relaxed text-base text-center">
                             NIST SP 800-161 aligned assessments with 24 questions across 6 domains. Real-time scoring and recommendations.
                         </p>
                     </div>
                     
                     <div class="modern-card p-6 md:p-8">
-                        <div class="w-12 h-12 bg-vendorsoluce-green/10 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green">
+                        <div class="w-12 h-12 bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20 rounded-xl flex items-center justify-center mb-4 mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green dark:text-vendorsoluce-light-green">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                                 <polyline points="14 2 14 8 20 8"></polyline>
                                 <line x1="16" x2="8" y1="13" y2="13"></line>
@@ -701,32 +685,32 @@
                             </svg>
                         </div>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">SBOM Analysis</h3>
-                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-base text-center">
+                        <p class="text-gray-600 dark:text-gray-100 leading-relaxed text-base text-center">
                             Real-time vulnerability analysis via OSV Database. Supports CycloneDX and SPDX formats. Component-level risk assessment with CVE mapping.
                         </p>
                     </div>
                     
                     <div class="modern-card p-6 md:p-8">
-                        <div class="w-12 h-12 bg-vendorsoluce-green/10 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green">
+                        <div class="w-12 h-12 bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20 rounded-xl flex items-center justify-center mb-4 mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green dark:text-vendorsoluce-light-green">
                                 <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                             </svg>
                         </div>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">Vendor Risk Calculator</h3>
-                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-base text-center">
+                        <p class="text-gray-600 dark:text-gray-100 leading-relaxed text-base text-center">
                             Evaluates 5 weighted factors to calculate real-time risk scores (0-100) with automatic classification and recommendations.
                         </p>
                     </div>
                     
                     <div class="modern-card p-6 md:p-8">
-                        <div class="w-12 h-12 bg-vendorsoluce-green/10 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green">
+                        <div class="w-12 h-12 bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20 rounded-xl flex items-center justify-center mb-4 mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green dark:text-vendorsoluce-light-green">
                                 <path d="M9 11l3 3L22 4"></path>
                                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
                             </svg>
                         </div>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">NIST Checklist Tool</h3>
-                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-base text-center">
+                        <p class="text-gray-600 dark:text-gray-100 leading-relaxed text-base text-center">
                             10 NIST C-SCRM controls across 5 categories. Interactive checklist with progress tracking and exportable reports.
                         </p>
                     </div>
@@ -734,18 +718,15 @@
             </div>
 
             <!-- Section 2: Vendor Management & Organization -->
-            <div class="mb-16 pt-16 border-t border-gray-200 dark:border-gray-700">
+            <div class="mb-16">
                 <div class="text-center mb-12">
-                    <div class="inline-block mb-4">
-                        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-vendorsoluce-green/10 text-vendorsoluce-green border border-vendorsoluce-green/30">Vendor Management</span>
-                    </div>
                     <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Vendor Management & Organization</h2>
                     <p class="text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">Centralized vendor inventory and evidence collection.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
                     <div class="modern-card p-6 md:p-8">
-                        <div class="w-12 h-12 bg-vendorsoluce-green/10 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green">
+                        <div class="w-12 h-12 bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20 rounded-xl flex items-center justify-center mb-4 mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green dark:text-vendorsoluce-light-green">
                                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
                                 <circle cx="9" cy="7" r="4"></circle>
                                 <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -753,14 +734,14 @@
                             </svg>
                         </div>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">Vendor Risk Management</h3>
-                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-base text-center">
+                        <p class="text-gray-600 dark:text-gray-100 leading-relaxed text-base text-center">
                             Centralized vendor inventory with risk profiles and automated classification. Track compliance status and link to assessments.
                         </p>
                     </div>
                     
                     <div class="modern-card p-6 md:p-8">
-                        <div class="w-12 h-12 bg-vendorsoluce-green/10 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green">
+                        <div class="w-12 h-12 bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20 rounded-xl flex items-center justify-center mb-4 mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green dark:text-vendorsoluce-light-green">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                                 <polyline points="14 2 14 8 20 8"></polyline>
                                 <line x1="16" x2="8" y1="13" y2="13"></line>
@@ -768,7 +749,7 @@
                             </svg>
                         </div>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">Evidence Vault</h3>
-                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-base text-center">
+                        <p class="text-gray-600 dark:text-gray-100 leading-relaxed text-base text-center">
                             Centralized document management with version control and audit trails. Link evidence to assessment questions and compliance controls.
                         </p>
                     </div>
@@ -776,38 +757,35 @@
             </div>
 
             <!-- Section 3: Visualization & Scoring -->
-            <div class="mb-16 pt-16 border-t border-gray-200 dark:border-gray-700">
+            <div class="mb-16">
                 <div class="text-center mb-12">
-                    <div class="inline-block mb-4">
-                        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-vendorsoluce-green/10 text-vendorsoluce-green border border-vendorsoluce-green/30">Visualization</span>
-                    </div>
                     <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Visualization & Scoring</h2>
                     <p class="text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">Risk visualization and automated compliance scoring.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
                     <div class="modern-card p-6 md:p-8">
-                        <div class="w-12 h-12 bg-vendorsoluce-green/10 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green">
+                        <div class="w-12 h-12 bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20 rounded-xl flex items-center justify-center mb-4 mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green dark:text-vendorsoluce-light-green">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z"></path>
                                 <path d="M2 12h20"></path>
                             </svg>
                         </div>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">Vendor Risk Radar</h3>
-                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-base text-center">
+                        <p class="text-gray-600 dark:text-gray-100 leading-relaxed text-base text-center">
                             Interactive radar charts for privacy-focused risk visualization. Maps to GDPR, CCPA, HIPAA with category-specific templates.
                         </p>
                     </div>
                     
                     <div class="modern-card p-6 md:p-8">
-                        <div class="w-12 h-12 bg-vendorsoluce-green/10 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green">
+                        <div class="w-12 h-12 bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20 rounded-xl flex items-center justify-center mb-4 mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green dark:text-vendorsoluce-light-green">
                                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
                             </svg>
                         </div>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">NIST Compliance Scoring</h3>
-                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-base text-center">
+                        <p class="text-gray-600 dark:text-gray-100 leading-relaxed text-base text-center">
                             Automated compliance scoring across 5 categories with weighted percentages. Generates actionable recommendations based on compliance levels.
                         </p>
                     </div>
@@ -815,32 +793,29 @@
             </div>
 
             <!-- Section 4: Workflow & Integration -->
-            <div class="mb-16 pt-16 border-t border-gray-200 dark:border-gray-700">
+            <div class="mb-16">
                 <div class="text-center mb-12">
-                    <div class="inline-block mb-4">
-                        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-vendorsoluce-green/10 text-vendorsoluce-green border border-vendorsoluce-green/30">Workflow</span>
-                    </div>
                     <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Workflow & Integration</h2>
                     <p class="text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">Vendor collaboration tools and audit reporting.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
                     <div class="modern-card p-6 md:p-8">
-                        <div class="w-12 h-12 bg-vendorsoluce-green/10 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green">
+                        <div class="w-12 h-12 bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20 rounded-xl flex items-center justify-center mb-4 mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green dark:text-vendorsoluce-light-green">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
                                 <path d="M12 8v4"></path>
                                 <path d="M12 16h.01"></path>
                             </svg>
                         </div>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">Vendor Portal (VendorTal)</h3>
-                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-base text-center">
+                        <p class="text-gray-600 dark:text-gray-100 leading-relaxed text-base text-center">
                             Self-service portal for vendor assessments. Vendors complete questionnaires independently; responses sync to your dashboard.
                         </p>
                     </div>
                     
                     <div class="modern-card p-6 md:p-8">
-                        <div class="w-12 h-12 bg-vendorsoluce-green/10 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green">
+                        <div class="w-12 h-12 bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20 rounded-xl flex items-center justify-center mb-4 mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-vendorsoluce-green dark:text-vendorsoluce-light-green">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                                 <polyline points="14 2 14 8 20 8"></polyline>
                                 <line x1="16" x2="8" y1="13" y2="13"></line>
@@ -848,7 +823,7 @@
                             </svg>
                         </div>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">Reporting & Export</h3>
-                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-base text-center">
+                        <p class="text-gray-600 dark:text-gray-100 leading-relaxed text-base text-center">
                             Audit reports for NIST SP 800-161, CMMC 2.0, and other frameworks. Export PDF and JSON formats with summaries, gap analysis, recommendations, and evidence inventories.
                         </p>
                     </div>
@@ -860,7 +835,7 @@
         <!-- CTA Section -->
         <section class="py-16 md:py-24 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-gray-900">
             <div class="max-w-4xl mx-auto">
-                <div class="modern-card p-8 md:p-12 bg-vendorsoluce-green/5 text-center">
+                <div class="modern-card p-8 md:p-12 bg-vendorsoluce-green/5 dark:bg-vendorsoluce-green/10 text-center">
                     <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-gray-900 dark:text-white bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Get Started</h2>
                     <p class="text-base text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
                         14-day free trial. No credit card required.
