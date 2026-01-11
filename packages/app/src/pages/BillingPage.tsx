@@ -1,7 +1,9 @@
-import React from 'react';
-import { CreditCard, Package, TrendingUp, FileText } from 'lucide-react';
+import React, { useState } from 'react';
+import { CreditCard, Package, TrendingUp, FileText, DollarSign } from 'lucide-react';
 import { SubscriptionManager } from '../components/billing/SubscriptionManager';
 import { InvoiceList } from '../components/billing/InvoiceList';
+import { RefundRequestList } from '../components/billing/RefundRequestList';
+import { RefundRequestModal } from '../components/billing/RefundRequestModal';
 import { UsageIndicator } from '../components/billing/FeatureGate';
 import { useSubscription } from '../hooks/useSubscription';
 import { PRODUCTS } from '../config/stripe';
@@ -12,6 +14,7 @@ import { Link } from 'react-router-dom';
 const BillingPage: React.FC = () => {
   const { tier, loading } = useSubscription();
   const product = PRODUCTS[tier as keyof typeof PRODUCTS];
+  const [showRefundModal, setShowRefundModal] = useState(false);
 
   if (loading) {
     return (
@@ -37,6 +40,7 @@ const BillingPage: React.FC = () => {
         <div className="lg:col-span-2 space-y-6">
           <SubscriptionManager />
           <InvoiceList />
+          <RefundRequestList />
         </div>
 
         {/* Sidebar with quick actions and info */}
@@ -70,6 +74,14 @@ const BillingPage: React.FC = () => {
                   Payment Support
                 </Button>
               </Link>
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => setShowRefundModal(true)}
+              >
+                <DollarSign className="w-4 h-4 mr-2" />
+                Request Refund
+              </Button>
             </CardContent>
           </Card>
 
@@ -174,6 +186,16 @@ const BillingPage: React.FC = () => {
           </Card>
         </div>
       </div>
+
+      {showRefundModal && (
+        <RefundRequestModal
+          onClose={() => setShowRefundModal(false)}
+          onSuccess={() => {
+            // Refresh refund requests list if needed
+            window.location.reload();
+          }}
+        />
+      )}
     </div>
   );
 };

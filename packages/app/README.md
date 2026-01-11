@@ -1,6 +1,6 @@
 # VendorSoluce Application
 
-Full-stack React application for vendor risk management, deployed to `app.vendorsoluce.com`.
+Full-stack React application for vendor risk management, deployed to `application.vendorsoluce.com`.
 
 ## Overview
 

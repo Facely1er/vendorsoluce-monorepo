@@ -8,7 +8,7 @@ This monorepo contains the VendorSoluce marketing website and main application p
 vendorsoluce-monorepo/
 ├── packages/             # Main code packages
 │   ├── website/          # Marketing website (vendorsoluce.com)
-│   ├── app/              # Main application (app.vendorsoluce.com)
+│   ├── app/              # Main application (application.vendorsoluce.com)
 │   └── shared/           # Shared configurations and utilities
 ├── docs/                 # Active documentation
 ├── archive/              # Archived files (see archive/README.md)
@@ -30,7 +30,7 @@ Static HTML marketing website deployed to `vendorsoluce.com`. Contains landing p
 **Tech Stack**: HTML, Tailwind CSS, JavaScript
 
 ### `packages/app`
-Full-stack React application for vendor risk and supply chain assurance workflow platform. The main platform deployed to `app.vendorsoluce.com`.
+Full-stack React application for vendor risk and supply chain assurance workflow platform. The main platform deployed to `application.vendorsoluce.com`.
 
 **Core Features:**
 - Vendor risk management and assessment

@@ -7,7 +7,7 @@ This document outlines the unified integration of the VendorSoluce ecosystem: La
 
 ### Components
 1. **Landing Site** (`vendorsoluce.com`) - Marketing website
-2. **Platform** (`app.vendorsoluce.com`) - Main application
+2. **Platform** (`application.vendorsoluce.com`) - Main application
    - Dashboard (`/dashboard`)
    - Vendor Risk Dashboard (`/vendors`) - **UNIFIED HUB**
    - Vendor Management (`/admin/vendors`)
@@ -95,7 +95,7 @@ Add to `index.html` solution section:
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                    PLATFORM                                  │
-│         (app.vendorsoluce.com)                              │
+│         (application.vendorsoluce.com)                              │
 │                                                              │
 │  ┌────────────────────────────────────────────────────┐   │
 │  │     UNIFIED VENDOR MANAGEMENT DASHBOARD             │   │

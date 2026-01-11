@@ -9,4 +9,5 @@
 /legal/terms /legal/terms.html 200
 /legal/aup /legal/acceptable-use-policy.html 200
 /legal/cookies /legal/cookie-policy.html 200
-/app/* https://app.vendorsoluce.com/:splat 301
+/best-practices /index.html 301
+/app/* https://application.vendorsoluce.com/:splat 301

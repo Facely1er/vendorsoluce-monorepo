@@ -745,8 +745,8 @@ describe('Stripe Integration', () => {
     const session = await stripeService.createCheckoutSession(
       'price_test_123',
       'test@example.com',
-      'https://app.vendorsoluce.com/success',
-      'https://app.vendorsoluce.com/cancel'
+      'https://application.vendorsoluce.com/success',
+      'https://application.vendorsoluce.com/cancel'
     );
 
     expect(session.id).toBeDefined();

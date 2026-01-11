@@ -16,7 +16,7 @@
 vendorsoluce-monorepo/
 ├── packages/
 │   ├── website/          # Marketing site (vendorsoluce.com)
-│   ├── app/              # Customer dashboard (app.vendorsoluce.com)
+│   ├── app/              # Customer dashboard (application.vendorsoluce.com)
 │   ├── shared/           # Common utilities
 │   └── portal/           # 🚨 MISSING - Vendor portal
 ```
@@ -100,7 +100,7 @@ packages/website/
 
 ## ⚛️ WHAT SHOULD BE REACT (Interactive)
 
-### **Package: app/ → app.vendorsoluce.com**
+### **Package: app/ → application.vendorsoluce.com**
 
 **Rationale:** Customer dashboards need:
 - Real-time data updates
@@ -312,7 +312,7 @@ Commands:
   Update: Edit HTML, commit, push
 ```
 
-### **App (React) → app.vendorsoluce.com**
+### **App (React) → application.vendorsoluce.com**
 
 ```yaml
 Deployment: Vercel/Netlify

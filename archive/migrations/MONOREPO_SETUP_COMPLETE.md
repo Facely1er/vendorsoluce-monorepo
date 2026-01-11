@@ -39,7 +39,7 @@ vendorsoluce-monorepo/
 │   │   ├── tailwind.config.js
 │   │   ├── index.html
 │   │   └── ...
-│   ├── app/              # Main application (app.vendorsoluce.com)
+│   ├── app/              # Main application (application.vendorsoluce.com)
 │   │   ├── package.json
 │   │   ├── vite.config.ts
 │   │   ├── src/

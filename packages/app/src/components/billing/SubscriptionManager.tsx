@@ -8,6 +8,7 @@ import { PRODUCTS, USAGE_PRICING } from '../../config/stripe';
 import { logger } from '../../utils/logger';
 import { Link } from 'react-router-dom';
 import { UsageService } from '../../services/usageService';
+import { CancelSubscriptionModal } from './CancelSubscriptionModal';
 
 interface Subscription {
   id: string;
@@ -26,6 +27,7 @@ export const SubscriptionManager: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [usageSummary, setUsageSummary] = useState<any[]>([]);
+  const [showCancelModal, setShowCancelModal] = useState(false);
   const { user } = useAuth();
   const usageService = new UsageService();
 
@@ -91,14 +93,8 @@ export const SubscriptionManager: React.FC = () => {
     }
   };
 
-  const handleCancelSubscription = async () => {
+  const handleCancelSubscription = async (reason?: string, feedback?: string) => {
     if (!subscription?.stripe_subscription_id) return;
-
-    const confirmed = window.confirm(
-      'Are you sure you want to cancel your subscription? You will retain access until the end of your billing period.'
-    );
-
-    if (!confirmed) return;
 
     try {
       setActionLoading(true);
@@ -108,6 +104,8 @@ export const SubscriptionManager: React.FC = () => {
         body: {
           subscriptionId: subscription.stripe_subscription_id,
           userId: user?.id,
+          cancellationReason: reason,
+          cancellationFeedback: feedback,
         },
       });
 
@@ -119,10 +117,12 @@ export const SubscriptionManager: React.FC = () => {
         day: 'numeric' 
       });
       setSuccessMessage(`Your subscription has been cancelled. You will retain access until ${cancelDate} (end of your billing period).`);
+      setShowCancelModal(false);
       await fetchSubscription();
     } catch (err: unknown) {
       logger.error('Error cancelling subscription:', err);
       setError(err instanceof Error ? err.message : 'Failed to cancel subscription');
+      throw err;
     } finally {
       setActionLoading(false);
     }
@@ -279,7 +279,7 @@ export const SubscriptionManager: React.FC = () => {
                   ) : subscription.tier !== 'free' && (
                     <Button
                       variant="outline"
-                      onClick={handleCancelSubscription}
+                      onClick={() => setShowCancelModal(true)}
                       disabled={actionLoading}
                       className="flex-1 text-red-600 hover:text-red-700 border-red-300 hover:border-red-400"
                     >
@@ -424,6 +424,19 @@ export const SubscriptionManager: React.FC = () => {
           </div>
         </CardContent>
       </Card>
+
+      {showCancelModal && subscription && (
+        <CancelSubscriptionModal
+          onClose={() => setShowCancelModal(false)}
+          onConfirm={handleCancelSubscription}
+          cancellationDate={new Date(subscription.current_period_end).toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          })}
+          planName={product?.name || subscription.tier}
+        />
+      )}
     </div>
   );
 };

@@ -238,8 +238,8 @@ Content-Type: application/json
 {
   "priceId": "price_1234567890",
   "customerEmail": "customer@example.com",
-  "successUrl": "https://app.vendorsoluce.com/success",
-  "cancelUrl": "https://app.vendorsoluce.com/cancel"
+  "successUrl": "https://application.vendorsoluce.com/success",
+  "cancelUrl": "https://application.vendorsoluce.com/cancel"
 }
 ```
 
@@ -251,7 +251,7 @@ Content-Type: application/json
 
 {
   "customerId": "cus_1234567890",
-  "returnUrl": "https://app.vendorsoluce.com/billing"
+  "returnUrl": "https://application.vendorsoluce.com/billing"
 }
 ```
 

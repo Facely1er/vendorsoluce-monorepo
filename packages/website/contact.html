@@ -107,7 +107,8 @@
     [class*="dark"] span[class*="text-vendorsoluce-green/80"] {
       color: var(--vendorsoluce-light-green) !important;
     }
-    
+    .vs-badge{display:inline-flex;align-items:center;border-radius:999px;padding:2px 6px;font-size:0.65em;background:rgba(51,105,30,.12);color:var(--vendorsoluce-green);font-weight:600;vertical-align:middle;border:none}
+    html.dark .vs-badge{background:rgba(102,187,106,.18);color:var(--vendorsoluce-light-green)}
     </style>
   <script>
 // Theme toggle functionality - must run immediately to prevent flash
@@ -208,8 +209,10 @@
           <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 flex-shrink-0 transition-transform group-hover:scale-105 pointer-events-none">
           <span class="ml-1.5 sm:ml-2 min-w-0 pointer-events-none">
             <div class="flex items-center gap-1.5">
-              <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">VendorSoluce™</span>
-              <span class="px-1 py-0.5 text-[8px] sm:text-[9px] font-semibold uppercase tracking-wide bg-vendorsoluce-green/10 text-vendorsoluce-green dark:text-white dark:bg-vendorsoluce-green/20 rounded border border-vendorsoluce-green/20 dark:border-vendorsoluce-green/30">Beta</span>
+              <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">
+                VendorSoluce™
+                <span class="vs-badge ml-1.5">beta</span>
+              </span>
             </div>
             <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter" style="letter-spacing: -0.02em; margin-top: -3px;">Supply Chain Assurance</span>
             <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
@@ -520,8 +523,8 @@
     <!-- Hero Section -->
     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 md:p-12 mb-12 bg-gradient-to-br from-vendorsoluce-green/10 via-vendorsoluce-pale-green/5 to-gray-50 dark:from-gray-800 dark:via-gray-800 dark:to-gray-900 text-center">
         <div class="flex items-center justify-center mb-6">
-            <div class="p-4 rounded-2xl bg-vendorsoluce-green/10 border border-vendorsoluce-green/20">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-12 h-12 text-vendorsoluce-green">
+            <div class="p-4 rounded-2xl bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20 border border-vendorsoluce-green/20 dark:border-vendorsoluce-green/30">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-12 h-12 text-vendorsoluce-green dark:text-vendorsoluce-light-green">
                     <rect width="20" height="16" x="2" y="4" rx="2"></rect>
                     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                 </svg>

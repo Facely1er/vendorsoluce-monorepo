@@ -32,7 +32,7 @@ serve(async (req) => {
   }
 
   try {
-    const { subscriptionId, userId } = await req.json();
+    const { subscriptionId, userId, cancellationReason, cancellationFeedback } = await req.json();
 
     if (!subscriptionId || !userId) {
       return new Response(
@@ -95,7 +95,7 @@ serve(async (req) => {
     const gracePeriodDays = isTrial ? 7 : 30;
     gracePeriodEnd.setDate(gracePeriodEnd.getDate() + gracePeriodDays);
 
-    // Update subscription in database with grace period tracking
+    // Update subscription in database with grace period tracking and cancellation reason
     const { error: updateError } = await supabase
       .from('vs_subscriptions')
       .update({
@@ -104,6 +104,12 @@ serve(async (req) => {
         grace_period_start: gracePeriodStart.toISOString(),
         grace_period_end: gracePeriodEnd.toISOString(),
         is_read_only: false, // Will be set to true when cancellation takes effect
+        metadata: {
+          ...(subscription.metadata || {}),
+          cancellation_reason: cancellationReason || null,
+          cancellation_feedback: cancellationFeedback || null,
+          cancellation_date: new Date().toISOString(),
+        },
         updated_at: new Date().toISOString()
       })
       .eq('stripe_subscription_id', subscriptionId);
