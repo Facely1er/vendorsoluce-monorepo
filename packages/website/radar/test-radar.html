@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Risk Radar - Test Suite</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .test-item {
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 4px solid #ddd;
+            background: #f9f9f9;
+        }
+        .test-item.pass {
+            border-left-color: #4caf50;
+            background: #e8f5e9;
+        }
+        .test-item.fail {
+            border-left-color: #f44336;
+            background: #ffebee;
+        }
+        .test-item.warning {
+            border-left-color: #ff9800;
+            background: #fff3e0;
+        }
+        .test-label {
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        .test-result {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .summary {
+            background: #2196f3;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        button {
+            background: #33691e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #2e5a1a;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Vendor Risk Radar - Test Suite</h1>
+    <div class="summary" id="summary">Running tests...</div>
+    
+    <div class="test-container">
+        <div class="test-header">1. File Structure Tests</div>
+        <div id="structure-tests"></div>
+    </div>
+    
+    <div class="test-container">
+        <div class="test-header">2. Function Definitions</div>
+        <div id="function-tests"></div>
+    </div>
+    
+    <div class="test-container">
+        <div class="test-header">3. Dependencies</div>
+        <div id="dependency-tests"></div>
+    </div>
+    
+    <div class="test-container">
+        <div class="test-header">4. DOM Elements</div>
+        <div id="dom-tests"></div>
+    </div>
+    
+    <div class="test-container">
+        <div class="test-header">5. Button Connections</div>
+        <div id="button-tests"></div>
+    </div>
+    
+    <button onclick="runTests()">🔄 Re-run Tests</button>
+    <button onclick="window.open('vendor-risk-radar.html', '_blank')">📄 Open Radar File</button>
+
+    <script>
+        const tests = {
+            passed: 0,
+            failed: 0,
+            warnings: 0
+        };
+
+        function addTest(container, label, passed, message, isWarning = false) {
+            const div = document.createElement('div');
+            div.className = `test-item ${passed ? 'pass' : (isWarning ? 'warning' : 'fail')}`;
+            div.innerHTML = `
+                <span class="test-label">${passed ? '✓' : (isWarning ? '⚠' : '✗')} ${label}:</span>
+                <span class="test-result">${message}</span>
+            `;
+            container.appendChild(div);
+            
+            if (passed) tests.passed++;
+            else if (isWarning) tests.warnings++;
+            else tests.failed++;
+        }
+
+        async function testFileStructure() {
+            const container = document.getElementById('structure-tests');
+            container.innerHTML = '';
+            
+            try {
+                const response = await fetch('vendor-risk-radar.html');
+                if (response.ok) {
+                    const text = await response.text();
+                    
+                    // Check for DOCTYPE
+                    addTest(container, 'DOCTYPE declaration', 
+                        text.includes('<!DOCTYPE html>'), 
+                        text.includes('<!DOCTYPE html>') ? 'Found' : 'Missing');
+                    
+                    // Check for HTML structure
+                    addTest(container, 'HTML structure', 
+                        text.includes('<html') && text.includes('</html>'), 
+                        'Valid HTML structure');
+                    
+                    // Check for head and body
+                    addTest(container, 'Head and Body tags', 
+                        text.includes('<head>') && text.includes('<body>'), 
+                        'Found head and body sections');
+                    
+                    // Check file size (should be reasonable)
+                    const sizeKB = (text.length / 1024).toFixed(2);
+                    addTest(container, 'File size', 
+                        text.length > 10000 && text.length < 1000000, 
+                        `${sizeKB} KB`, text.length < 10000 || text.length > 1000000);
+                    
+                } else {
+                    addTest(container, 'File accessibility', false, 'Cannot access file');
+                }
+            } catch (error) {
+                addTest(container, 'File accessibility', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function testFunctions() {
+            const container = document.getElementById('function-tests');
+            container.innerHTML = '';
+            
+            try {
+                const response = await fetch('vendor-risk-radar.html');
+                const text = await response.text();
+                
+                const requiredFunctions = [
+                    'importVendors',
+                    'exportVendors',
+                    'openAddVendor',
+                    'editVendor',
+                    'deleteVendor',
+                    'clearAllVendors',
+                    'resetVendorData',
+                    'updateRadar',
+                    'updateCharts',
+                    'updateStats',
+                    'updateAllDisplays',
+                    'updateVendorLists',
+                    'updateRadarBlips',
+                    'generateReport',
+                    'scanVendors'
+                ];
+                
+                requiredFunctions.forEach(func => {
+                    const hasFunction = text.includes(`function ${func}(`) || text.includes(`function ${func} (`);
+                    const hasWindowExport = text.includes(`window.${func} =`) || text.includes(`window.${func}=`);
+                    addTest(container, func, 
+                        hasFunction, 
+                        hasFunction ? (hasWindowExport ? 'Defined & exported' : 'Defined (not exported)') : 'Missing',
+                        hasFunction && !hasWindowExport);
+                });
+            } catch (error) {
+                addTest(container, 'Function check', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function testDependencies() {
+            const container = document.getElementById('dependency-tests');
+            container.innerHTML = '';
+            
+            try {
+                const response = await fetch('vendor-risk-radar.html');
+                const text = await response.text();
+                
+                // Check for Chart.js
+                const hasChartJS = text.includes('chart.js') || text.includes('Chart.js');
+                addTest(container, 'Chart.js library', hasChartJS, 
+                    hasChartJS ? 'CDN link found' : 'Missing');
+                
+                // Check for XLSX
+                const hasXLSX = text.includes('xlsx') || text.includes('XLSX');
+                addTest(container, 'XLSX library', hasXLSX, 
+                    hasXLSX ? 'CDN link found' : 'Missing');
+                
+                // Check for jsPDF
+                const hasJsPDF = text.includes('jspdf') || text.includes('jsPDF');
+                addTest(container, 'jsPDF library', hasJsPDF, 
+                    hasJsPDF ? 'CDN link found' : 'Missing');
+                
+                // Check for helper scripts
+                const hasDataStrategy = text.includes('data-management-strategy.js');
+                addTest(container, 'data-management-strategy.js', hasDataStrategy, 
+                    hasDataStrategy ? 'Found' : 'Missing', !hasDataStrategy);
+                
+                const hasCatalog = text.includes('vendor-catalog-enhanced.js');
+                addTest(container, 'vendor-catalog-enhanced.js', hasCatalog, 
+                    hasCatalog ? 'Found' : 'Missing', !hasCatalog);
+                
+            } catch (error) {
+                addTest(container, 'Dependency check', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function testDOMElements() {
+            const container = document.getElementById('dom-tests');
+            container.innerHTML = '';
+            
+            try {
+                const response = await fetch('vendor-risk-radar.html');
+                const text = await response.text();
+                
+                const requiredElements = [
+                    { id: 'vendorModal', desc: 'Vendor modal' },
+                    { id: 'vendorForm', desc: 'Vendor form' },
+                    { id: 'importFile', desc: 'File input' },
+                    { id: 'radarScreen', desc: 'Radar screen' },
+                    { id: 'totalVendors', desc: 'Total vendors counter' },
+                    { id: 'categoryChart', desc: 'Category chart canvas' },
+                    { id: 'scanBtn', desc: 'Scan button' },
+                    { id: 'resetBtn', desc: 'Reset button' },
+                    { id: 'clearBtn', desc: 'Clear button' }
+                ];
+                
+                requiredElements.forEach(el => {
+                    const hasElement = text.includes(`id="${el.id}"`) || text.includes(`id='${el.id}'`);
+                    addTest(container, el.desc, hasElement, 
+                        hasElement ? `Found (id="${el.id}")` : `Missing (id="${el.id}")`);
+                });
+            } catch (error) {
+                addTest(container, 'DOM check', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function testButtons() {
+            const container = document.getElementById('button-tests');
+            container.innerHTML = '';
+            
+            try {
+                const response = await fetch('vendor-risk-radar.html');
+                const text = await response.text();
+                
+                const buttonTests = [
+                    { onclick: 'scanVendors()', desc: 'Scan button' },
+                    { onclick: 'resetVendorData()', desc: 'Reset button' },
+                    { onclick: 'clearAllVendors()', desc: 'Clear button' },
+                    { onclick: 'openAddVendor()', desc: 'Add vendor button' },
+                    { onclick: 'exportVendors()', desc: 'Export button' },
+                    { onclick: 'generateReport()', desc: 'Report button' },
+                    { onclick: 'importVendors(event)', desc: 'Import file handler' }
+                ];
+                
+                buttonTests.forEach(test => {
+                    const hasOnclick = text.includes(`onclick="${test.onclick}"`) || 
+                                      text.includes(`onclick='${test.onclick}'`) ||
+                                      text.includes(`onclick="${test.onclick.replace('()', '')}"`);
+                    addTest(container, test.desc, hasOnclick, 
+                        hasOnclick ? `Connected to ${test.onclick}` : `Not connected`);
+                });
+            } catch (error) {
+                addTest(container, 'Button check', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function runTests() {
+            tests.passed = 0;
+            tests.failed = 0;
+            tests.warnings = 0;
+            
+            await testFileStructure();
+            await testFunctions();
+            await testDependencies();
+            await testDOMElements();
+            await testButtons();
+            
+            const summary = document.getElementById('summary');
+            const total = tests.passed + tests.failed + tests.warnings;
+            const passRate = ((tests.passed / total) * 100).toFixed(1);
+            
+            summary.innerHTML = `
+                ✅ Passed: ${tests.passed} | 
+                ❌ Failed: ${tests.failed} | 
+                ⚠️ Warnings: ${tests.warnings} | 
+                📊 Pass Rate: ${passRate}%
+            `;
+            
+            if (tests.failed === 0 && tests.warnings === 0) {
+                summary.style.background = '#4caf50';
+            } else if (tests.failed === 0) {
+                summary.style.background = '#ff9800';
+            } else {
+                summary.style.background = '#f44336';
+            }
+        }
+
+        // Run tests on load
+        runTests();
+    </script>
+</body>
+</html>

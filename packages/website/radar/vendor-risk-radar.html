@@ -206,6 +206,11 @@
         gap: 6px;
         min-width: 160px;
       }
+      .filter-group select{
+        width: 100%;
+        min-height: 38px;
+        padding: 10px 20px;
+      }
       .filter-label{font-size:0.75rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; display:flex; align-items:center; gap:4px}
       .filter-hint{font-size:0.7rem; opacity:0.6; cursor:help; font-style:normal}
       .help-shortcut-hint{animation:pulse 2s infinite}
@@ -214,7 +219,7 @@
         background: var(--vs-green);
         color:#fff;
         border: 1px solid rgba(0,0,0,.06);
-        padding: 10px 16px;
+        padding: 10px 32px !important;
         border-radius: 10px;
         cursor:pointer;
         font-family: inherit;
@@ -279,13 +284,38 @@
 
       select{
         background: var(--card);
-        color: var(--text);
+        color: var(--text) !important;
         border: 1px solid var(--border);
-        padding: 10px 12px;
-        border-radius: 12px;
+        padding: 10px 20px;
+        border-radius: 10px;
         font-family: inherit;
         cursor:pointer;
         font-weight: 600;
+        font-size: 0.875rem;
+        min-height: 38px;
+        display: inline-flex;
+        align-items: center;
+        transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      }
+      html.dark select{
+        background: rgba(255,255,255,.06);
+        color: rgba(248,250,252,.95) !important;
+      }
+      html:not(.dark) select{
+        background: #fff;
+        color: #0F172A !important;
+      }
+      select option{
+        background: var(--card);
+        color: var(--text) !important;
+      }
+      html.dark select option{
+        background: rgba(15,23,42,.95);
+        color: rgba(248,250,252,.95) !important;
+      }
+      html:not(.dark) select option{
+        background: #fff;
+        color: #0F172A !important;
       }
       select:focus{outline:none; box-shadow: var(--ring); border-color: rgba(51,105,30,.45)}
       input[type="file"]{display:none}
@@ -296,25 +326,61 @@
         box-shadow: var(--ring);
       }
 
-      /* Active navigation link styles */
-      nav a.active,
-      nav a[aria-current="page"] {
-        color: var(--vs-green);
-        background: rgba(51,105,30,.08);
-        font-weight: 700;
+      /* Active navigation link styles - only target navigation menu links (have title attribute), exclude brand logo */
+      nav a[title].active,
+      nav a[title][aria-current="page"] {
+        color: #33691E !important;
+        background: rgba(51,105,30,.08) !important;
+        font-weight: 700 !important;
       }
-      html.dark nav a.active,
-      html.dark nav a[aria-current="page"] {
-        color: var(--vs-green-light);
-        background: rgba(102,187,106,.12);
+      html.dark nav a[title].active,
+      html.dark nav a[title][aria-current="page"] {
+        color: #66BB6A !important;
+        background: rgba(102,187,106,.12) !important;
       }
-      nav a.active:hover,
-      nav a[aria-current="page"]:hover {
-        background: rgba(51,105,30,.12);
+      nav a[title].active:hover,
+      nav a[title][aria-current="page"]:hover {
+        background: rgba(51,105,30,.12) !important;
       }
-      html.dark nav a.active:hover,
-      html.dark nav a[aria-current="page"]:hover {
-        background: rgba(102,187,106,.18);
+      html.dark nav a[title].active:hover,
+      html.dark nav a[title][aria-current="page"]:hover {
+        background: rgba(102,187,106,.18) !important;
+      }
+      /* Ensure brand logo link is never affected by active/hover nav styles */
+      nav [data-tour="main-nav"] a,
+      nav [data-tour="main-nav"] a:hover,
+      nav [data-tour="main-nav"] a.active,
+      nav [data-tour="main-nav"] a[aria-current="page"],
+      nav [data-tour="main-nav"] a:focus {
+        color: inherit !important;
+        background: transparent !important;
+        font-weight: inherit !important;
+      }
+      /* Ensure action button icons are visible */
+      nav button svg,
+      nav [data-tour="user-menu"] svg,
+      nav [data-tour="theme-toggle"] svg {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        flex-shrink: 0 !important;
+      }
+      /* Ensure icons inherit button text color properly */
+      nav [data-tour="user-menu"] button svg,
+      nav [data-tour="theme-toggle"] button svg {
+        stroke: currentColor !important;
+        color: inherit !important;
+      }
+      /* Dark mode icon colors */
+      html.dark nav [data-tour="user-menu"] button svg.lucide-user,
+      html.dark nav [data-tour="theme-toggle"] button svg.lucide-moon {
+        stroke: #D1D5DB !important; /* gray-300 */
+        color: #D1D5DB !important;
+      }
+      html:not(.dark) nav [data-tour="user-menu"] button svg.lucide-user,
+      html:not(.dark) nav [data-tour="theme-toggle"] button svg.lucide-moon {
+        stroke: #374151 !important; /* gray-700 */
+        color: #374151 !important;
       }
       /* Prevent hover effects on active Vendor Radar button */
       nav a[aria-current="page"][style*="pointer-events: none"],
@@ -540,6 +606,7 @@
         height:100%;
         transform: translate(-50%, -50%);
         z-index: 2;
+        pointer-events: none;
       }
       .radar-circle{
         position:absolute;
@@ -549,6 +616,7 @@
         left:50%;
         transform: translate(-50%, -50%);
         box-shadow: inset 0 0 20px rgba(51,105,30,.05);
+        pointer-events: none;
       }
       html.dark .radar-circle{
         border-color: rgba(102,187,106,.22);
@@ -586,6 +654,7 @@
         left:50%;
         transform-origin: center bottom;
         box-shadow: 0 0 4px rgba(51,105,30,.1);
+        pointer-events: none;
       }
       html.dark .radar-line{
         background: linear-gradient(180deg, 
@@ -941,7 +1010,7 @@
 
       .vs-actions{ margin-left:auto; display:flex; gap:10px; align-items:center; }
 
-      .btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:12px; border:1px solid var(--line); background: var(--panel); color:var(--text); cursor:pointer; }
+      .btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 32px !important; border-radius:12px; border:1px solid var(--line); background: var(--panel); color:var(--text); cursor:pointer; }
       .btn:hover{ border-color: var(--brand); border-color: color-mix(in srgb, var(--brand) 30%, var(--line)); }
       .btn-ghost{ background: transparent; }
       .btn__icon{ font-size:14px; }
@@ -1199,7 +1268,7 @@ html.dark .panel-guidance{
 .vs-kpi{border:1px solid var(--border); background:var(--surface); box-shadow: var(--shadow);}
 html.dark .vs-kpi{background:rgba(255,255,255,.06);}
 
-.toolbar button.secondary{border:1px solid var(--border); background:var(--surface-2);}
+.toolbar button.secondary{border:1px solid var(--border); background:var(--surface-2); padding-left: 32px !important; padding-right: 32px !important;}
 html.dark .toolbar button.secondary{background:rgba(255,255,255,.06);}
 
 /* Breadcrumb Navigation */
@@ -1368,6 +1437,18 @@ html.dark .help-section kbd{
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <meta content="Vendor risk radar demo aligned with NIST SP 800-161. Import vendors (CSV/Excel), prioritize critical risk, and surface SBOM gaps." name="description"/>
 <script>
+// Production-safe logging utility
+(function() {
+  const DEBUG = false; // Set to false in production
+  window.log = DEBUG ? console.log.bind(console) : function() {};
+  window.logError = function(...args) {
+    // Always log errors, but could send to error tracking service
+    console.error(...args);
+    // TODO: Send to error tracking service (e.g., Sentry) in production
+  };
+  window.logWarn = DEBUG ? console.warn.bind(console) : function() {};
+})();
+
 // Theme toggle functionality - must run immediately to prevent flash
 (function() {
   // Get theme from localStorage or default to light
@@ -1504,61 +1585,75 @@ html.dark .help-section kbd{
         <a class="flex items-center min-w-0 group" href="../index.html">
           <img src="../homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 flex-shrink-0 transition-transform group-hover:scale-105 pointer-events-none">
           <span class="ml-1.5 sm:ml-2 min-w-0 pointer-events-none">
-            <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">
-              VendorSoluce™
-              <span class="vs-badge ml-1.5">beta</span>
-            </span>
+            <div class="flex items-center gap-1.5">
+              <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">
+                VendorSoluce™
+                <span class="vs-badge ml-1.5">beta</span>
+              </span>
+            </div>
             <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter" style="letter-spacing: -0.02em; margin-top: -3px;">Supply Chain Assurance</span>
             <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
           </span>
         </a>
       </div>
 
-      <!-- Desktop Navigation -->
-      <div class="hidden md:flex md:items-center md:space-x-0.5">
-        <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="Home" href="../index.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home flex-shrink-0"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-          <span class="ml-1.5 text-xs">Home</span>
+      <!-- Desktop Navigation - Streamlined -->
+      <div class="hidden md:flex md:items-center md:space-x-1">
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Home" href="../index.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home w-4 h-4 mr-1.5">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          Home
         </a>
-        <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="How It Works" href="../how-it-works.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers flex-shrink-0"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>
-          <span class="ml-1.5 text-xs">How It Works</span>
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="How It Works" href="../how-it-works.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers w-4 h-4 mr-1.5">
+            <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path>
+            <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path>
+            <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path>
+          </svg>
+          How It Works
         </a>
-        <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="Features" href="../features.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles flex-shrink-0"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
-          <span class="ml-1.5 text-xs">Features</span>
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Features" href="../features.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-4 h-4 mr-1.5">
+            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
+            <path d="M5 3v4"></path>
+            <path d="M19 17v4"></path>
+            <path d="M3 5h4"></path>
+            <path d="M17 19h4"></path>
+          </svg>
+          Features
         </a>
-        <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="Pricing" href="../pricing.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign flex-shrink-0"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-          <span class="ml-1.5 text-xs">Pricing</span>
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Pricing" href="../pricing.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-4 h-4 mr-1.5">
+            <line x1="12" x2="12" y1="2" y2="22"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          Pricing
         </a>
-        <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="Trust" href="../trust.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield flex-shrink-0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path></svg>
-          <span class="ml-1.5 text-xs">Trust</span>
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Trust" href="../trust.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-4 h-4 mr-1.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+          </svg>
+          Trust
         </a>
-        <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="FAQ" href="../faq.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle flex-shrink-0"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
-          <span class="ml-1.5 text-xs">FAQ</span>
-        </a>
-        <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="Contact" href="../contact.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail flex-shrink-0"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
-          <span class="ml-1.5 text-xs">Contact</span>
-        </a>
+        <div class="ml-2 border-l border-gray-300 dark:border-gray-600 pl-3">
+          <a href="vendor-risk-radar.html" aria-current="page" class="inline-flex items-center px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-vendorsoluce-green text-white hover:bg-vendorsoluce-dark-green font-semibold text-sm opacity-90 cursor-default" title="Vendor Radar" style="pointer-events: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-4 h-4 mr-1.5">
+              <path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+            Try It Free
+          </a>
+        </div>
       </div>
 
       <!-- Action Buttons (Desktop) -->
       <div class="hidden md:flex items-center space-x-1.5 sm:space-x-2 flex-shrink-0">
-        <a href="vendor-risk-radar.html" aria-current="page" class="flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-vendorsoluce-green text-white hover:bg-vendorsoluce-dark-green font-medium opacity-90 cursor-default" title="Vendor Radar" style="pointer-events: none;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-5 h-5 flex-shrink-0">
-            <path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path>
-            <circle cx="12" cy="12" r="2"></circle>
-          </svg>
-          <span class="text-sm font-medium whitespace-nowrap">Vendor Radar</span>
-        </a>
         <div data-tour="user-menu">
           <a href="https://www.application.vendorsoluce.com">
             <button type="button" class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="User Account">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user w-5 h-5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user w-5 h-5">
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
               </svg>
@@ -1567,7 +1662,7 @@ html.dark .help-section kbd{
         </div>
         <div data-tour="theme-toggle">
           <button type="button" data-theme-toggle class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="Switch theme">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun w-5 h-5 text-amber-500" style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun w-5 h-5 text-amber-500" style="display: none;">
               <circle cx="12" cy="12" r="4"></circle>
               <path d="M12 2v2"></path>
               <path d="M12 20v2"></path>
@@ -1578,7 +1673,7 @@ html.dark .help-section kbd{
               <path d="m6.34 17.66-1.41 1.41"></path>
               <path d="m19.07 4.93-1.41 1.41"></path>
             </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon w-5 h-5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon w-5 h-5">
               <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
             </svg>
           </button>
@@ -1589,12 +1684,12 @@ html.dark .help-section kbd{
       <div class="flex items-center md:hidden flex-shrink-0 ml-auto gap-1.5">
         <div data-tour="theme-toggle">
           <button type="button" data-theme-toggle class="font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-transparent text-vendorsoluce-green hover:bg-vendorsoluce-pale-green focus:ring-vendorsoluce-green/30 dark:text-vendorsoluce-light-green dark:hover:bg-vendorsoluce-green/20 px-3 py-1.5 text-sm cursor-pointer p-2" aria-label="Switch to light mode">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun h-5 w-5 text-gray-300" style="display: none;"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon h-5 w-5 text-gray-300"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun h-5 w-5 text-vendorsoluce-green dark:text-vendorsoluce-light-green" style="display: none;"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon h-5 w-5 text-vendorsoluce-green dark:text-vendorsoluce-light-green"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
           </button>
         </div>
         <button data-mobile-menu-button="true" class="inline-flex items-center justify-center p-1.5 rounded-md text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none flex-shrink-0 w-9 h-9" aria-label="Open menu" aria-expanded="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu text-gray-700 dark:text-gray-300">
             <line x1="4" x2="20" y1="12" y2="12"></line>
             <line x1="4" x2="20" y1="6" y2="6"></line>
             <line x1="4" x2="20" y1="18" y2="18"></line>
@@ -1605,39 +1700,67 @@ html.dark .help-section kbd{
   </div>
 </nav>
 
-<!-- Mobile Menu Panel -->
+<!-- Mobile Menu Panel - Streamlined -->
 <div data-mobile-menu="true" class="md:hidden fixed left-0 right-0 z-50 hidden" style="top: 64px;">
   <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-lg">
     <div class="max-w-7xl mx-auto px-4 py-3">
-      <div class="grid grid-cols-2 gap-2">
-        <a href="../index.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <div class="space-y-2">
+        <a href="../index.html" class="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home w-4 h-4 mr-2">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
           Home
         </a>
-        <a href="../how-it-works.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>
+        <a href="../how-it-works.html" class="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers w-4 h-4 mr-2">
+            <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path>
+            <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path>
+            <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path>
+          </svg>
           How It Works
         </a>
-        <a href="../features.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        <a href="../features.html" class="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-4 h-4 mr-2">
+            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
+            <path d="M5 3v4"></path>
+            <path d="M19 17v4"></path>
+            <path d="M3 5h4"></path>
+            <path d="M17 19h4"></path>
+          </svg>
           Features
         </a>
-        <a href="../pricing.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        <a href="../pricing.html" class="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-4 h-4 mr-2">
+            <line x1="12" x2="12" y1="2" y2="22"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
           Pricing
         </a>
-        <a href="../trust.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path></svg>
+        <a href="../trust.html" class="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-4 h-4 mr-2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+          </svg>
           Trust
         </a>
-        <a href="../faq.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
-          FAQ
-        </a>
-        <a href="../contact.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
-          Contact
-        </a>
+        <div class="pt-2 border-t border-gray-200 dark:border-gray-700">
+          <a href="vendor-risk-radar.html" aria-current="page" class="flex items-center justify-center gap-2 w-full px-4 py-2 rounded-lg text-sm font-semibold text-center text-white bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green transition-colors opacity-90 cursor-default" style="pointer-events: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-4 h-4">
+              <path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+            Try It Free
+          </a>
+        </div>
+        <!-- Secondary links in footer section -->
+        <div class="pt-2 border-t border-gray-200 dark:border-gray-700 space-y-2">
+          <a href="../faq.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+            FAQ
+          </a>
+          <a href="../contact.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+            Contact
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -1797,7 +1920,7 @@ html.dark .tooltip{
   </div>
 </nav>
 <!-- Header -->
-<!-- Page Header + Executive KPIs -->
+<!-- Dashboard Overview + Executive KPIs -->
 <section class="vs-hero collapsible-section collapsed" id="radar">
 <div class="section-header" data-section="hero-header" style="margin-bottom: 0;">
 <div class="section-header-content">
@@ -1950,15 +2073,19 @@ Scan Vendors
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-refresh-cw"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
 Reset
 </button>
+<button id="clearBtn" onclick="clearAllVendors()" title="Clear all vendors (cannot be undone)" class="secondary" style="color: var(--danger, #dc2626);">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" x2="10" y1="11" y2="17"></line><line x1="14" x2="14" y1="11" y2="17"></line></svg>
+Clear
+</button>
 <button class="primary" onclick="openAddVendor()" title="Add a new vendor to the risk assessment">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
 Add Vendor
 </button>
-<button type="button" onclick="event.preventDefault(); event.stopPropagation(); const fileInput = document.getElementById('importFile'); if (fileInput) fileInput.click(); return false;" title="Import vendors from CSV or Excel file">
+<button type="button" class="secondary" onclick="const fileInput = document.getElementById('importFile'); if (fileInput) { fileInput.click(); }" title="Import vendors from CSV or Excel file">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
 Import CSV
 </button>
-<input accept=".csv,.xlsx,.xls" id="importFile" onchange="importVendors(event)" type="file" style="display: none;"/>
+<input accept=".csv,.xlsx,.xls" id="importFile" onchange="if (this.files && this.files.length > 0) { importVendors({ target: this }); }" type="file" style="display: none;"/>
 </div>
 <div class="toolbar-group">
 <div class="filter-group">
@@ -2988,6 +3115,9 @@ Help
                 }
             }
         }
+        
+        // Make scanVendors globally accessible
+        window.scanVendors = scanVendors;
 
         
 function hashStringToRange(str, min, max){
@@ -3072,10 +3202,10 @@ function hashStringToRange(str, min, max){
 
 
         function updateAllDisplays() {
-            console.log('updateAllDisplays called - vendorData:', typeof vendorData !== 'undefined' ? `${vendorData.length} vendors` : 'UNDEFINED');
+            log('updateAllDisplays called - vendorData:', typeof vendorData !== 'undefined' ? `${vendorData.length} vendors` : 'UNDEFINED');
             
             if (!vendorData || vendorData.length === 0) {
-                console.log('updateAllDisplays: No vendor data, clearing displays');
+                log('updateAllDisplays: No vendor data, clearing displays');
                 // Clear displays if no data
                 const totalVendors = safeGetElement('totalVendors', 'updateStats');
                 if (totalVendors) totalVendors.textContent = '0';
@@ -3098,23 +3228,23 @@ function hashStringToRange(str, min, max){
                 return;
             }
             
-            console.log('updateAllDisplays: Updating displays with', vendorData.length, 'vendors');
+            log('updateAllDisplays: Updating displays with', vendorData.length, 'vendors');
             try {
                 updateStats();
                 updateAlertBanner();
                 updateRadar();
                 updateCharts();
-                console.log('updateAllDisplays: All display functions called successfully');
+                log('updateAllDisplays: All display functions called successfully');
             } catch (err) {
-                console.error('Error in updateAllDisplays:', err);
+                logError('Error in updateAllDisplays:', err);
             }
         }
 
         function updateStats() {
-            console.log('updateStats called - vendorData:', typeof vendorData !== 'undefined' ? `${vendorData.length} vendors` : 'UNDEFINED');
+            log('updateStats called - vendorData:', typeof vendorData !== 'undefined' ? `${vendorData.length} vendors` : 'UNDEFINED');
             
             if (!vendorData || vendorData.length === 0) {
-                console.log('updateStats: No vendor data, setting all to 0');
+                log('updateStats: No vendor data, setting all to 0');
                 const totalEl = document.getElementById('totalVendors');
                 if (totalEl) totalEl.textContent = '0';
                 const criticalCatEl = document.getElementById('criticalCategoryCount');
@@ -3245,12 +3375,26 @@ function hashStringToRange(str, min, max){
                 return;
             }
             
+            // Ensure radar visuals are always visible
+            const gridLines = screen.querySelector('.radar-grid-lines');
+            if (gridLines) {
+                gridLines.style.display = '';
+            }
+            const sweep = screen.querySelector('.radar-sweep');
+            if (sweep) {
+                sweep.style.display = '';
+            }
+            
             // Remove old blips
             document.querySelectorAll('.radar-blip').forEach(b => b.remove());
-            currentBlips = vendors;
+            currentBlips = vendors || [];
             focusedBlipIndex = -1;
             
-            // Add new blips
+            // Add new blips only if vendors exist
+            if (!vendors || vendors.length === 0) {
+                return;
+            }
+            
             vendors.forEach((vendor, index) => {
                 const blip = document.createElement('div');
                 blip.className = `radar-blip ${vendor.riskLevel}`;
@@ -3399,11 +3543,18 @@ function hashStringToRange(str, min, max){
         }
         
         function showNotification(message, type = 'info') {
+            if (!message || typeof message !== 'string') {
+                logWarn('showNotification called with invalid message:', message);
+                return;
+            }
+            
             // Create or get notification element
             let notification = document.getElementById('chartNotification');
             if (!notification) {
                 notification = document.createElement('div');
                 notification.id = 'chartNotification';
+                notification.setAttribute('role', 'alert');
+                notification.setAttribute('aria-live', 'polite');
                 notification.style.cssText = `
                     position: fixed;
                     top: 80px;
@@ -3420,14 +3571,25 @@ function hashStringToRange(str, min, max){
                     transition: all 0.3s ease;
                     color: var(--text);
                     font-size: 0.9rem;
+                    pointer-events: none;
                 `;
                 document.body.appendChild(notification);
             }
             
+            // Set type-specific styling
+            const typeColors = {
+                success: 'rgba(34,197,94,.4)',
+                error: 'rgba(239,68,68,.4)',
+                warning: 'rgba(234,179,8,.4)',
+                info: 'rgba(51,105,30,.4)'
+            };
+            notification.style.borderColor = typeColors[type] || typeColors.info;
             notification.textContent = message;
             notification.style.opacity = '1';
             notification.style.transform = 'translateX(0)';
             
+            // Auto-dismiss after 4 seconds (longer for errors)
+            const duration = type === 'error' ? 6000 : 4000;
             setTimeout(() => {
                 notification.style.opacity = '0';
                 notification.style.transform = 'translateX(100%)';
@@ -3436,14 +3598,17 @@ function hashStringToRange(str, min, max){
                         notification.parentNode.removeChild(notification);
                     }
                 }, 300);
-            }, 3000);
+            }, duration);
         }
+        
+        // Make showNotification globally accessible
+        window.showNotification = showNotification;
 
         function updateVendorLists() {
-            console.log('updateVendorLists called - vendorData:', typeof vendorData !== 'undefined' ? `${vendorData.length} vendors` : 'UNDEFINED');
+            log('updateVendorLists called - vendorData:', typeof vendorData !== 'undefined' ? `${vendorData.length} vendors` : 'UNDEFINED');
             
             if (!vendorData || vendorData.length === 0) {
-                console.log('updateVendorLists: No vendor data, clearing lists');
+                log('updateVendorLists: No vendor data, clearing lists');
                 const highRiskList = document.getElementById('highRiskList');
                 if (highRiskList) {
                     highRiskList.innerHTML = '<div style="text-align: center; padding: 40px; opacity: 0.7;">No vendors loaded</div>';
@@ -3852,6 +4017,9 @@ function hashStringToRange(str, min, max){
             const vendorModal = safeGetElement('vendorModal', 'openAddVendor');
             if (vendorModal) vendorModal.classList.add('active');
         }
+        
+        // Make vendor management functions globally accessible
+        window.openAddVendor = openAddVendor;
 
         function closeVendorModal() {
             const vendorModal = safeGetElement('vendorModal', 'closeVendorModal');
@@ -3860,6 +4028,100 @@ function hashStringToRange(str, min, max){
             }
             editingVendorId = null;
         }
+
+        // Edit vendor function
+        function editVendor(vendorId) {
+            const vendor = vendorData.find(v => v.id === vendorId);
+            if (!vendor) {
+                if (typeof showNotification === 'function') {
+                    showNotification('Vendor not found.', 'error');
+                } else {
+                    alert('Vendor not found.');
+                }
+                return;
+            }
+            
+            editingVendorId = vendorId;
+            const modalTitle = safeGetElement('modalTitle', 'editVendor');
+            if (modalTitle) modalTitle.textContent = 'EDIT VENDOR';
+            
+            const vendorForm = safeGetElement('vendorForm', 'editVendor');
+            if (vendorForm) {
+                // Populate form fields
+                const nameEl = document.getElementById('vendorName');
+                if (nameEl) nameEl.value = vendor.name || '';
+                
+                const categoryEl = document.getElementById('vendorCategory');
+                if (categoryEl) categoryEl.value = vendor.category || 'tactical';
+                
+                const sectorEl = document.getElementById('vendorSector');
+                if (sectorEl) sectorEl.value = vendor.sector || 'Other';
+                
+                const locationEl = document.getElementById('vendorLocation');
+                if (locationEl) locationEl.value = vendor.location || 'Unknown';
+                
+                const contactEl = document.getElementById('vendorContact');
+                if (contactEl) contactEl.value = vendor.contact || '';
+                
+                const notesEl = document.getElementById('vendorNotes');
+                if (notesEl) notesEl.value = vendor.notes || '';
+                
+                // Clear and set data type checkboxes
+                document.querySelectorAll('input[name="dataType"]').forEach(cb => {
+                    cb.checked = (vendor.dataTypes || []).includes(cb.value);
+                });
+            }
+            
+            const vendorModal = safeGetElement('vendorModal', 'editVendor');
+            if (vendorModal) vendorModal.classList.add('active');
+        }
+
+        // Delete vendor function
+        function deleteVendor(vendorId) {
+            if (!confirm('Are you sure you want to delete this vendor? This cannot be undone.')) {
+                return;
+            }
+            
+            const index = vendorData.findIndex(v => v.id === vendorId);
+            if (index === -1) {
+                alert('Vendor not found.');
+                return;
+            }
+            
+            vendorData.splice(index, 1);
+            
+            // Save to storage
+            const mode = (typeof detectMode === 'function') ? detectMode() : 'demo';
+            const config = (typeof MODE_CONFIG !== 'undefined' && MODE_CONFIG[mode]) 
+                ? MODE_CONFIG[mode] 
+                : { dataSource: 'catalog', persistence: 'session', maxVendors: 25, name: 'Demo' };
+            const storageKey = config.dataSource === 'catalog' 
+                ? 'vendorsoluce_demo_data' 
+                : 'vendorsoluce_user_data';
+            const storage = config.persistence === 'session' ? sessionStorage : localStorage;
+            storage.setItem(storageKey, JSON.stringify(vendorData));
+            
+            // Update displays
+            if (typeof updateAllDisplays === 'function') {
+                updateAllDisplays();
+            } else {
+                if (typeof updateStats === 'function') updateStats();
+                if (typeof updateRadar === 'function') updateRadar();
+                if (typeof updateCharts === 'function') updateCharts();
+                if (typeof updateVendorLists === 'function') updateVendorLists();
+            }
+            
+            // Show notification
+            if (typeof showNotification === 'function') {
+                showNotification('Vendor deleted successfully.', 'success');
+            } else {
+                alert('Vendor deleted successfully.');
+            }
+        }
+        
+        // Make edit and delete functions globally accessible
+        window.editVendor = editVendor;
+        window.deleteVendor = deleteVendor;
 
         const vendorForm = safeGetElement('vendorForm', 'form submission');
         if (vendorForm) {
@@ -3871,7 +4133,11 @@ function hashStringToRange(str, min, max){
                 const vendorName = vendorNameEl ? vendorNameEl.value.trim() : '';
                 
                 if (!vendorName) {
-                    alert('Vendor name is required.');
+                    if (typeof showNotification === 'function') {
+                        showNotification('Vendor name is required.', 'error');
+                    } else {
+                        alert('Vendor name is required.');
+                    }
                     if (vendorNameEl) vendorNameEl.focus();
                     return;
                 }
@@ -3905,7 +4171,7 @@ function hashStringToRange(str, min, max){
                         ...calculateVendorRisk(formData)
                     };
                 } catch (riskErr) {
-                    console.error('Error calculating risk:', riskErr);
+                    logError('Error calculating risk:', riskErr);
                     // Use default risk values if calculation fails
                     vendorWithRisk = {
                         ...formData,
@@ -3947,7 +4213,7 @@ function hashStringToRange(str, min, max){
                             ...calculateVendorRisk(vendor)
                         };
                     } catch (err) {
-                        console.error('Error recalculating risk for vendor:', vendor, err);
+                        logError('Error recalculating risk for vendor:', vendor, err);
                         return vendor; // Keep original if recalculation fails
                     }
                 });
@@ -3965,20 +4231,30 @@ function hashStringToRange(str, min, max){
                 try {
                     storage.setItem(storageKey, JSON.stringify(vendorData));
                 } catch (storageErr) {
-                    console.error('Error saving vendor data:', storageErr);
-                    alert('Warning: Vendor added but could not be saved to storage. ' + storageErr.message);
+                    logError('Error saving vendor data:', storageErr);
+                    const errorMsg = 'Warning: Vendor added but could not be saved to storage. ' + storageErr.message;
+                    if (typeof showNotification === 'function') {
+                        showNotification(errorMsg, 'warning');
+                    } else {
+                        alert(errorMsg);
+                    }
                 }
                 
                 if (typeof updateAllDisplays === 'function') {
                     updateAllDisplays();
                 } else {
-                    console.warn('updateAllDisplays function not available');
+                    logWarn('updateAllDisplays function not available');
                 }
                 
                 closeVendorModal();
             } catch (error) {
-                console.error('Error submitting vendor form:', error);
-                alert('Error saving vendor: ' + (error.message || 'Unknown error'));
+                logError('Error submitting vendor form:', error);
+                const errorMsg = 'Error saving vendor: ' + (error.message || 'Unknown error');
+                if (typeof showNotification === 'function') {
+                    showNotification(errorMsg, 'error');
+                } else {
+                    alert(errorMsg);
+                }
             }
         });
         } else {
@@ -4036,15 +4312,23 @@ function normalizeHeader(h){
         function importVendors(event) {
             try {
                 if (!event || !event.target) {
-                    console.error('Invalid event object in importVendors');
-                    alert('Error: Invalid file input event. Please try again.');
+                    logError('Invalid event object in importVendors');
+                    if (typeof showNotification === 'function') {
+                        showNotification('Error: Invalid file input event. Please try again.', 'error');
+                    } else {
+                        alert('Error: Invalid file input event. Please try again.');
+                    }
                     return;
                 }
                 
                 const file = event.target.files && event.target.files[0];
                 if (!file) {
-                    console.warn('No file selected for import');
-                    alert('No file selected. Please select a CSV or Excel file.');
+                    logWarn('No file selected for import');
+                    if (typeof showNotification === 'function') {
+                        showNotification('No file selected. Please select a CSV or Excel file.', 'warning');
+                    } else {
+                        alert('No file selected. Please select a CSV or Excel file.');
+                    }
                     return;
                 }
                 
@@ -4081,7 +4365,7 @@ function normalizeHeader(h){
             const isCsv = hasCsvExt || (isCsvMime && !hasXlsxExt);
             
             // Log file info for debugging
-            console.log('File import attempt:', {
+            log('File import attempt:', {
                 name: file.name,
                 type: file.type,
                 size: file.size,
@@ -4090,29 +4374,34 @@ function normalizeHeader(h){
                 detectedAsCsv: isCsv
             });
 
+            // Get file input reference for resetting
+            const fileInput = event.target;
+            
             // Define finishImport first (used by helper functions)
             const finishImport = (vendors) => {
                 console.log('finishImport called with vendors:', vendors);
                 
                 if (!Array.isArray(vendors)) {
-                    console.error('finishImport: vendors is not an array', vendors);
-                    alert('Error processing file: Invalid data format.');
-                    event.target.value = '';
+                    logError('finishImport: vendors is not an array', vendors);
                     if (typeof showNotification === 'function') {
                         showNotification('Error: Invalid data format in file.', 'error');
+                    } else {
+                        alert('Error processing file: Invalid data format.');
                     }
+                    if (fileInput) fileInput.value = '';
                     return;
                 }
 
                 const cleaned = vendors.filter(v => v && v.name && typeof v.name === 'string' && v.name.trim().length > 0);
-                console.log(`Cleaned vendors: ${cleaned.length} out of ${vendors.length} total`);
+                log(`Cleaned vendors: ${cleaned.length} out of ${vendors.length} total`);
                 
                 if (cleaned.length === 0) {
-                    alert('No valid vendors found in file. Please check the format and ensure vendor names are provided.');
-                    event.target.value = '';
                     if (typeof showNotification === 'function') {
-                        showNotification('No valid vendors found. Check file format.', 'error');
+                        showNotification('No valid vendors found. Please check the format and ensure vendor names are provided.', 'error');
+                    } else {
+                        alert('No valid vendors found in file. Please check the format and ensure vendor names are provided.');
                     }
+                    if (fileInput) fileInput.value = '';
                     return;
                 }
                 
@@ -4158,15 +4447,17 @@ function normalizeHeader(h){
                     const excess = vendorData.length - config.maxVendors;
                     vendorData = vendorData.slice(0, config.maxVendors);
                     const message = `Successfully imported ${cleaned.length} vendor(s)! However, ${excess} vendor(s) were removed due to the ${config.maxVendors} vendor limit in ${config.name || 'demo'} mode.`;
-                    alert(message);
                     if (typeof showNotification === 'function') {
                         showNotification(message, 'warning');
+                    } else {
+                        alert(message);
                     }
                 } else {
                     const message = `Successfully imported ${cleaned.length} vendor(s)!`;
-                    alert(message);
                     if (typeof showNotification === 'function') {
                         showNotification(message, 'success');
+                    } else {
+                        alert(message);
                     }
                 }
                 
@@ -4175,56 +4466,84 @@ function normalizeHeader(h){
                     console.log('Vendor data saved to storage, key:', storageKey);
                     console.log('Verifying storage - saved count:', JSON.parse(storage.getItem(storageKey) || '[]').length);
                 } catch (err) {
-                    console.error('Error saving vendor data:', err);
-                    alert('Warning: Data imported but could not be saved to storage. ' + err.message);
+                    logError('Error saving vendor data:', err);
+                    const errorMsg = 'Warning: Data imported but could not be saved to storage. ' + err.message;
+                    if (typeof showNotification === 'function') {
+                        showNotification(errorMsg, 'warning');
+                    } else {
+                        alert(errorMsg);
+                    }
                 }
+                
+                // Reset file input
+                if (fileInput) fileInput.value = '';
                 
                 // Verify vendorData is accessible before updating displays
                 console.log('Before updateAllDisplays - vendorData length:', typeof vendorData !== 'undefined' ? vendorData.length : 'UNDEFINED');
                 
-                // Force update all displays with a small delay to ensure DOM is ready
-                setTimeout(() => {
-                    console.log('Calling updateAllDisplays...');
-                    console.log('vendorData at update time:', typeof vendorData !== 'undefined' ? vendorData.length : 'UNDEFINED');
-                    
-                    if (typeof updateAllDisplays === 'function') {
-                        updateAllDisplays();
-                        console.log('updateAllDisplays called successfully');
-                        
-                        // Double-check that displays were updated
-                        setTimeout(() => {
-                            const totalEl = document.getElementById('totalVendors');
-                            if (totalEl) {
-                                console.log('Total vendors display shows:', totalEl.textContent);
-                            }
-                        }, 100);
-                    } else {
-                        console.error('updateAllDisplays function not available!');
-                        // Fallback: manually update key displays
-                        if (typeof updateStats === 'function') {
-                            console.log('Calling updateStats...');
-                            updateStats();
-                        }
-                        if (typeof updateRadar === 'function') {
-                            console.log('Calling updateRadar...');
-                            updateRadar();
-                        }
-                        if (typeof updateCharts === 'function') {
-                            console.log('Calling updateCharts...');
-                            updateCharts();
-                        }
-                        if (typeof updateVendorLists === 'function') {
-                            console.log('Calling updateVendorLists...');
-                            updateVendorLists();
-                        }
-                    }
-                }, 50);
+                // Force update all displays immediately
+                console.log('Calling updateAllDisplays immediately...');
+                console.log('vendorData at update time:', typeof vendorData !== 'undefined' ? vendorData.length : 'UNDEFINED');
                 
-                event.target.value = '';
+                // Update displays immediately
+                if (typeof updateAllDisplays === 'function') {
+                    updateAllDisplays();
+                    console.log('updateAllDisplays called successfully');
+                } else {
+                    console.error('updateAllDisplays function not available!');
+                    // Fallback: manually update key displays
+                    if (typeof updateStats === 'function') {
+                        updateStats();
+                    }
+                    if (typeof updateRadar === 'function') {
+                        updateRadar();
+                    }
+                    if (typeof updateRadarBlips === 'function') {
+                        updateRadarBlips(vendorData || []);
+                    }
+                    if (typeof updateCharts === 'function') {
+                        updateCharts();
+                    }
+                    console.log('Fallback display updates called');
+                }
+                
+                // Ensure radar updates even if updateAllDisplays doesn't call it
+                setTimeout(() => {
+                    if (typeof updateRadar === 'function') {
+                        updateRadar();
+                        console.log('updateRadar called in setTimeout');
+                    }
+                    if (typeof updateRadarBlips === 'function' && vendorData && vendorData.length > 0) {
+                        // Get filtered vendors if filters are active
+                        let vendorsToShow = vendorData;
+                        try {
+                            const categoryFilter = document.getElementById('categoryFilter')?.value || 'all';
+                            const riskFilter = document.getElementById('riskFilter')?.value || 'all';
+                            
+                            if (categoryFilter !== 'all' || riskFilter !== 'all') {
+                                vendorsToShow = vendorData.filter(v => {
+                                    if (categoryFilter !== 'all') {
+                                        const categoryMap = { critical: ['critical'], strategic: ['critical', 'strategic'], tactical: ['critical', 'strategic', 'tactical'] };
+                                        if (!categoryMap[categoryFilter]?.includes(v.category)) return false;
+                                    }
+                                    if (riskFilter !== 'all') {
+                                        const riskMap = { critical: ['critical'], high: ['critical', 'high'], medium: ['critical', 'high', 'medium'] };
+                                        if (!riskMap[riskFilter]?.includes(v.riskLevel)) return false;
+                                    }
+                                    return true;
+                                });
+                            }
+                        } catch (e) {
+                            console.warn('Error filtering vendors for radar:', e);
+                        }
+                        updateRadarBlips(vendorsToShow);
+                        console.log('updateRadarBlips called directly with', vendorsToShow.length, 'vendors');
+                    }
+                }, 100);
             };
             
             // Helper functions to process files
-            const processExcelFile = (file, event) => {
+            const processExcelFile = (file) => {
                 console.log('Processing Excel file:', file.name, 'Size:', file.size);
                 
                 // Show loading indicator
@@ -4234,7 +4553,7 @@ function normalizeHeader(h){
                 
                 if (!window.XLSX) {
                     alert('Excel import requires XLSX library. Please use CSV format or ensure XLSX library is loaded.');
-                    event.target.value = '';
+                    if (fileInput) fileInput.value = '';
                     if (typeof showNotification === 'function') {
                         showNotification('XLSX library not loaded. Please refresh the page.', 'error');
                     }
@@ -4292,23 +4611,32 @@ function normalizeHeader(h){
                             throw new Error('No valid vendors found in Excel file. Please check the format.');
                         }
 
-                        console.log(`Successfully parsed ${vendors.length} vendor(s) from Excel`);
+                        log(`Successfully parsed ${vendors.length} vendor(s) from Excel`);
                         finishImport(vendors);
                     }catch(err){
-                        console.error('Excel import error:', err);
-                        alert('Error importing Excel file: ' + (err.message || 'Unknown error'));
-                        event.target.value = '';
+                        logError('Excel import error:', err);
+                        const errorMsg = 'Error importing Excel file: ' + (err.message || 'Unknown error');
+                        if (typeof showNotification === 'function') {
+                            showNotification(errorMsg, 'error');
+                        } else {
+                            alert(errorMsg);
+                        }
+                        if (fileInput) fileInput.value = '';
                     }
                 };
                 reader.onerror = function(err) {
-                    console.error('FileReader error:', err);
-                    alert('Error reading Excel file. Please try again.');
-                    event.target.value = '';
+                    logError('FileReader error:', err);
+                    if (typeof showNotification === 'function') {
+                        showNotification('Error reading Excel file. Please try again.', 'error');
+                    } else {
+                        alert('Error reading Excel file. Please try again.');
+                    }
+                    if (fileInput) fileInput.value = '';
                 };
                 reader.readAsArrayBuffer(file);
             };
             
-            const processCsvFile = (file, event) => {
+            const processCsvFile = (file) => {
                 console.log('Processing CSV file:', file.name, 'Size:', file.size);
                 
                 // Show loading indicator
@@ -4321,59 +4649,69 @@ function normalizeHeader(h){
                     try {
                         // Use reader.result or e.target.result - more reliable
                         const csv = (this.result || e.target?.result || reader.result || '');
-                        console.log('File content read successfully!');
-                        console.log('Content length:', csv.length);
-                        console.log('First 200 chars:', csv.substring(0, 200));
+                        log('File content read successfully!');
+                        log('Content length:', csv.length);
+                        log('First 200 chars:', csv.substring(0, 200));
                         
                         if (!csv || csv.trim().length === 0) {
-                            alert('File is empty.');
-                            event.target.value = '';
+                            if (typeof showNotification === 'function') {
+                                showNotification('File is empty.', 'error');
+                            } else {
+                                alert('File is empty.');
+                            }
+                            if (fileInput) fileInput.value = '';
                             return;
                         }
                         
                         const lines = csv.split(/\r?\n/).filter(line => line.trim());
-                        console.log('CSV lines parsed:', lines.length);
+                        log('CSV lines parsed:', lines.length);
                         if (lines.length < 2) {
-                            alert('CSV file must have at least a header row and one data row.');
-                            event.target.value = '';
+                            if (typeof showNotification === 'function') {
+                                showNotification('CSV file must have at least a header row and one data row.', 'error');
+                            } else {
+                                alert('CSV file must have at least a header row and one data row.');
+                            }
+                            if (fileInput) fileInput.value = '';
                             return;
                         }
 
-                        // Use the parseCSVLine function that's already defined in the file
-                        // If it's not available, define a local version
-                        const parseCSVLineLocal = (typeof parseCSVLine === 'function') 
-                            ? parseCSVLine 
-                            : function(line) {
-                                const result = [];
-                                let current = '';
-                                let inQuotes = false;
+                        // Simplified CSV parsing - try simple split first, then fallback to quote handling
+                        const parseCSVLine = (line) => {
+                            // Try simple split first (most common case)
+                            const simpleSplit = line.split(',');
+                            // If no quotes found, use simple split
+                            if (!line.includes('"')) {
+                                return simpleSplit.map(v => v.trim());
+                            }
+                            
+                            // Otherwise handle quotes properly
+                            const result = [];
+                            let current = '';
+                            let inQuotes = false;
+                            
+                            for (let i = 0; i < line.length; i++) {
+                                const char = line[i];
+                                const nextChar = line[i + 1];
                                 
-                                for (let i = 0; i < line.length; i++) {
-                                    const char = line[i];
-                                    const nextChar = line[i + 1];
-                                    
-                                    if (char === '"') {
-                                        if (inQuotes && nextChar === '"') {
-                                            // Escaped quote
-                                            current += '"';
-                                            i++; // Skip next quote
-                                        } else {
-                                            // Toggle quote state
-                                            inQuotes = !inQuotes;
-                                        }
-                                    } else if (char === ',' && !inQuotes) {
-                                        // Field separator
-                                        result.push(current.trim());
-                                        current = '';
+                                if (char === '"') {
+                                    if (inQuotes && nextChar === '"') {
+                                        current += '"';
+                                        i++;
                                     } else {
-                                        current += char;
+                                        inQuotes = !inQuotes;
                                     }
+                                } else if (char === ',' && !inQuotes) {
+                                    result.push(current.trim());
+                                    current = '';
+                                } else {
+                                    current += char;
                                 }
-                                result.push(current.trim()); // Add last field
-                                return result;
-                            };
+                            }
+                            result.push(current.trim());
+                            return result;
+                        };
 
-                        const headers = parseCSVLineLocal(lines[0]).map(h => normalizeHeader(h.trim()));
+                        const headers = parseCSVLine(lines[0]).map(h => normalizeHeader(h.trim()));
                         if (headers.length === 0) {
                             throw new Error('Could not parse CSV headers');
                         }
@@ -4382,7 +4720,9 @@ function normalizeHeader(h){
 
                         for (let i = 1; i < lines.length; i++) {
                             try {
-                                const values = parseCSVLineLocal(lines[i]);
+                                if (!lines[i].trim()) continue;
+                                
+                                const values = parseCSVLine(lines[i]);
                                 if (values.length === 0) continue;
                                 
                                 const row = {};
@@ -4403,17 +4743,19 @@ function normalizeHeader(h){
                                     });
                                 }
                             } catch (rowErr) {
-                                console.warn(`Error processing CSV row ${i + 1}:`, rowErr);
+                                logWarn(`Error processing CSV row ${i + 1}:`, rowErr);
                                 // Continue processing other rows
                             }
                         }
 
                         if (vendors.length === 0) {
-                            alert('No valid vendors found in file. Please check the format and ensure vendor names are provided.');
-                            event.target.value = '';
+                            const errorMsg = 'No valid vendors found in file. Please check the format and ensure vendor names are provided.';
                             if (typeof showNotification === 'function') {
-                                showNotification('No vendors found in file. Please check the format.', 'error');
+                                showNotification(errorMsg, 'error');
+                            } else {
+                                alert(errorMsg);
                             }
+                            if (fileInput) fileInput.value = '';
                             return;
                         }
 
@@ -4422,22 +4764,22 @@ function normalizeHeader(h){
                     } catch (error) {
                         console.error('CSV import error:', error);
                         alert('Error importing CSV file: ' + (error.message || 'Unknown error'));
-                        event.target.value = '';
+                        if (fileInput) fileInput.value = '';
                     }
                 };
                 reader.onerror = function(err) {
                     console.error('FileReader error:', err);
                     alert('Error reading CSV file. Please try again.');
-                    event.target.value = '';
+                    if (fileInput) fileInput.value = '';
                 };
                 reader.readAsText(file, 'UTF-8');
             };
 
             // Process the file using helper functions
             if (isXlsx) {
-                processExcelFile(file, event);
+                processExcelFile(file);
             } else if (isCsv) {
-                processCsvFile(file, event);
+                processCsvFile(file);
             } else {
                 // Last resort: try to detect by reading first bytes (magic number detection)
                 // Read more bytes (512) for better detection
@@ -4459,7 +4801,7 @@ function normalizeHeader(h){
                         
                         if (isExcelMagic) {
                             console.log('File detected as Excel by magic bytes');
-                            processExcelFile(file, event);
+                            processExcelFile(file);
                         } else {
                             // Check if it looks like text (CSV)
                             let isText = true;
@@ -4480,7 +4822,7 @@ function normalizeHeader(h){
                             
                             if (isText && (hasCommaOrTab || firstBytes.length > 0)) {
                                 console.log('File detected as CSV by content analysis');
-                                processCsvFile(file, event);
+                                processCsvFile(file);
                             } else {
                                 // Try to get text representation for better error message
                                 try {
@@ -4488,11 +4830,11 @@ function normalizeHeader(h){
                                     console.warn('File type could not be determined. Attempting CSV processing as fallback.');
                                     console.log('File preview:', text.substring(0, 50));
                                     // Default to CSV processing - it's more forgiving
-                                    processCsvFile(file, event);
+                                    processCsvFile(file);
                                 } catch (textErr) {
                                     console.error('Error analyzing file content:', textErr);
                                     alert('Could not determine file type. Please ensure the file is a valid CSV (.csv) or Excel (.xlsx, .xls) file.\n\nFile details:\n- Name: ' + file.name + '\n- Type: ' + (file.type || 'unknown') + '\n- Size: ' + file.size + ' bytes\n\nTip: Make sure the file has the correct extension (.csv, .xlsx, or .xls).');
-                                    event.target.value = '';
+                                    if (fileInput) fileInput.value = '';
                                 }
                             }
                         }
@@ -4500,25 +4842,25 @@ function normalizeHeader(h){
                         console.error('Error in magic byte detection:', err);
                         // Default to CSV as it's more forgiving
                         console.log('Error in detection, defaulting to CSV processing');
-                        processCsvFile(file, event);
+                        processCsvFile(file);
                     }
                 };
                 reader.onerror = function(err) {
                     console.error('FileReader error in magic byte detection:', err);
                     // Default to CSV processing as fallback
                     console.log('FileReader error, defaulting to CSV processing');
-                    processCsvFile(file, event);
+                    processCsvFile(file);
                 };
                 reader.readAsArrayBuffer(file.slice(0, bytesToRead));
             }
-            } catch (err) {
-                console.error('Fatal error in importVendors:', err);
-                alert('An error occurred while processing the file. Please try again or contact support if the problem persists.');
-                if (event && event.target) {
-                    event.target.value = '';
-                }
+        } catch (err) {
+            console.error('Fatal error in importVendors:', err);
+            alert('An error occurred while processing the file. Please try again or contact support if the problem persists.');
+            if (event && event.target) {
+                event.target.value = '';
             }
         }
+    }
         
         // Make importVendors globally accessible
         window.importVendors = importVendors;
@@ -4665,6 +5007,55 @@ function normalizeHeader(h){
         
         // Make resetVendorData globally accessible
         window.resetVendorData = resetVendorData;
+
+        // Clear all vendors (without reloading demo data)
+        function clearAllVendors() {
+            if (!confirm('Are you sure you want to clear all vendors? This cannot be undone.')) {
+                return;
+            }
+            
+            try {
+                // Clear current data
+                vendorData = [];
+                
+                // Clear storage
+                const mode = (typeof detectMode === 'function') ? detectMode() : 'demo';
+                const config = (typeof MODE_CONFIG !== 'undefined' && MODE_CONFIG[mode]) 
+                    ? MODE_CONFIG[mode] 
+                    : { dataSource: 'catalog', persistence: 'session', maxVendors: 25, name: 'Demo' };
+                const storageKey = config.dataSource === 'catalog' 
+                    ? 'vendorsoluce_demo_data' 
+                    : 'vendorsoluce_user_data';
+                const storage = config.persistence === 'session' ? sessionStorage : localStorage;
+                storage.removeItem(storageKey);
+                
+                // Update all displays
+                if (typeof updateAllDisplays === 'function') {
+                    updateAllDisplays();
+                } else {
+                    // Fallback: manually update key displays
+                    if (typeof updateStats === 'function') updateStats();
+                    if (typeof updateRadar === 'function') updateRadar();
+                    if (typeof updateCharts === 'function') updateCharts();
+                    if (typeof updateVendorLists === 'function') updateVendorLists();
+                }
+                
+                // Show success notification
+                if (typeof showNotification === 'function') {
+                    showNotification('All vendors cleared successfully.', 'success');
+                } else {
+                    alert('All vendors cleared successfully.');
+                }
+                
+                console.log('All vendors cleared');
+            } catch (error) {
+                console.error('Error clearing vendors:', error);
+                alert('Error clearing vendors: ' + (error.message || 'Unknown error'));
+            }
+        }
+        
+        // Make clearAllVendors globally accessible
+        window.clearAllVendors = clearAllVendors;
 
         function generateReport() {
             // Check for vendor data
@@ -6455,6 +6846,14 @@ document.addEventListener("DOMContentLoaded", ()=>{
       });
     }
   });
+  
+  // Ensure all button functions are globally accessible
+  if (typeof scanVendors !== 'undefined') window.scanVendors = scanVendors;
+  if (typeof openAddVendor !== 'undefined') window.openAddVendor = openAddVendor;
+  if (typeof clearAllVendors !== 'undefined') window.clearAllVendors = clearAllVendors;
+  if (typeof closeVendorModal !== 'undefined') window.closeVendorModal = closeVendorModal;
+  if (typeof editVendor !== 'undefined') window.editVendor = editVendor;
+  if (typeof deleteVendor !== 'undefined') window.deleteVendor = deleteVendor;
 })();
 </script>
 <!-- Shared Footer for VendorSoluce -->
