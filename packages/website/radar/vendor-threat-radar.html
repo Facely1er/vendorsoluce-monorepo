@@ -718,6 +718,103 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        /* Guidance Section */
+        .guidance-section {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .guidance-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+        
+        html.dark .guidance-card {
+            background: #1f2937;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            border-color: #374151;
+        }
+        
+        .guidance-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--vendorsoluce-green);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        html.dark .guidance-title {
+            color: var(--vendorsoluce-light-green);
+        }
+        
+        .guidance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .guidance-item {
+            padding: 16px;
+            border-radius: 8px;
+            background: #f9fafb;
+            border-left: 3px solid var(--vendorsoluce-green);
+        }
+        
+        html.dark .guidance-item {
+            background: #374151;
+            border-left-color: var(--vendorsoluce-light-green);
+        }
+        
+        .guidance-item-title {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        html.dark .guidance-item-title {
+            color: #f3f4f6;
+        }
+        
+        .guidance-item-text {
+            font-size: 0.875rem;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+        
+        html.dark .guidance-item-text {
+            color: #9ca3af;
+        }
+        
+        .guidance-icon {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .guidance-item-icon {
+            width: 18px;
+            height: 18px;
+        }
+        
+        @media (max-width: 768px) {
+            .guidance-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .guidance-card {
+                padding: 16px;
+            }
         }
         
         .chart-card {
@@ -1625,8 +1722,87 @@
 <div class="chart-container">
 <canvas id="geoChart"></canvas>
 </div>
+    </div>
 </div>
 </div>
+<!-- Guidance Section -->
+<div class="guidance-section">
+    <div class="guidance-card">
+        <div class="guidance-title">
+            <svg fill="none" stroke="currentColor" viewbox="0 0 24 24" class="guidance-icon">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+            Risk Management Guidance
+        </div>
+        <div class="guidance-grid">
+            <div class="guidance-item">
+                <div class="guidance-item-title">
+                    <svg fill="none" stroke="currentColor" viewbox="0 0 24 24" class="guidance-item-icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Critical Risk Vendors
+                </div>
+                <div class="guidance-item-text">
+                    Vendors with critical risk scores require immediate attention. Conduct thorough security assessments, review compliance documentation, and establish enhanced monitoring protocols. Consider implementing additional security controls or contingency plans.
+                </div>
+            </div>
+            <div class="guidance-item">
+                <div class="guidance-item-title">
+                    <svg fill="none" stroke="currentColor" viewbox="0 0 24 24" class="guidance-item-icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                    High Risk Vendors
+                </div>
+                <div class="guidance-item-text">
+                    High-risk vendors need regular monitoring and periodic reviews. Schedule quarterly assessments, verify security controls are functioning, and maintain up-to-date vendor questionnaires. Document all risk mitigation efforts.
+                </div>
+            </div>
+            <div class="guidance-item">
+                <div class="guidance-item-title">
+                    <svg fill="none" stroke="currentColor" viewbox="0 0 24 24" class="guidance-item-icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                    Compliance Gaps
+                </div>
+                <div class="guidance-item-text">
+                    Address identified compliance gaps promptly. Work with vendors to remediate issues, request updated certifications, and verify alignment with regulatory requirements (GDPR, CCPA, PCI DSS, HIPAA, etc.). Maintain audit trails.
+                </div>
+            </div>
+            <div class="guidance-item">
+                <div class="guidance-item-title">
+                    <svg fill="none" stroke="currentColor" viewbox="0 0 24 24" class="guidance-item-icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Regular Reviews
+                </div>
+                <div class="guidance-item-text">
+                    Schedule regular vendor risk reviews based on risk level: Critical (monthly), High (quarterly), Medium (semi-annually), Low (annually). Update risk scores, review security incidents, and reassess data processing activities.
+                </div>
+            </div>
+            <div class="guidance-item">
+                <div class="guidance-item-title">
+                    <svg fill="none" stroke="currentColor" viewbox="0 0 24 24" class="guidance-item-icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    Risk Scoring
+                </div>
+                <div class="guidance-item-text">
+                    Risk scores are calculated based on data types processed, compliance posture, security controls, geographic location, and threat intelligence. Inherent risk reflects baseline exposure; residual risk accounts for existing controls.
+                </div>
+            </div>
+            <div class="guidance-item">
+                <div class="guidance-item-title">
+                    <svg fill="none" stroke="currentColor" viewbox="0 0 24 24" class="guidance-item-icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    Predictive Alerts
+                </div>
+                <div class="guidance-item-text">
+                    Predictive scores identify vendors likely to experience security issues based on industry trends, geographic risks, and supply chain dependencies. Proactively engage with high-predictive-score vendors to strengthen security posture.
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Add/Edit Vendor Modal -->
 <div class="modal" id="vendorModal">
