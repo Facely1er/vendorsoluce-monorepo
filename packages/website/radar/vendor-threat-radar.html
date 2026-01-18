@@ -98,10 +98,10 @@
         /* Header */
         .radar-header {
             text-align: center;
-            padding: 32px;
+            padding: 16px 24px;
             background: white;
             border-radius: 12px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             border-left: 4px solid var(--vendorsoluce-green);
         }
@@ -112,10 +112,10 @@
         }
         
         .radar-header h1 {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--vendorsoluce-green);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         
         html.dark .radar-header h1 {
@@ -123,7 +123,7 @@
         }
         
         .radar-status {
-            font-size: 1rem;
+            font-size: 0.875rem;
             color: #6b7280;
             font-weight: 500;
         }
@@ -134,19 +134,34 @@
         
         .hero-items {
             display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 12px;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 6px;
         }
         
         .hero-items > div {
-            font-size: 1rem;
+            font-size: 0.875rem;
             font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        .hero-items > div:not(:last-child)::after {
+            content: "•";
+            margin-left: 12px;
+            color: #9ca3af;
+            font-weight: normal;
+        }
+        
+        html.dark .hero-items > div:not(:last-child)::after {
+            color: #6b7280;
         }
         
         .timestamp {
-            margin-top: 8px;
-            font-size: 0.875rem;
+            margin-top: 6px;
+            font-size: 0.75rem;
             color: #9ca3af;
         }
         
@@ -925,8 +940,32 @@
         
         /* Responsive */
         @media (max-width: 768px) {
+            .radar-header {
+                padding: 12px 16px;
+            }
+            
             .radar-header h1 {
-                font-size: 1.5rem;
+                font-size: 1.25rem;
+                margin-bottom: 4px;
+            }
+            
+            .hero-items {
+                flex-direction: column;
+                gap: 4px;
+                margin-top: 4px;
+            }
+            
+            .hero-items > div {
+                font-size: 0.8125rem;
+            }
+            
+            .hero-items > div:not(:last-child)::after {
+                display: none;
+            }
+            
+            .timestamp {
+                margin-top: 4px;
+                font-size: 0.6875rem;
             }
             
             .stats-grid {
