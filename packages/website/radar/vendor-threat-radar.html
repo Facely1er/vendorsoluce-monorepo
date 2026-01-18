@@ -972,7 +972,7 @@
                 </button>
             </div>
             <div class="toolbar-group">
-                <select id="riskFilter" onchange="filterVendors()">
+                <select id="riskFilter" onchange="filterVendors()" title="Filter vendors by risk level" aria-label="Filter vendors by risk level">
                     <option value="all">All Risk Levels</option>
                     <option value="critical">Critical</option>
                     <option value="high">High</option>
@@ -1229,7 +1229,6 @@
         </svg>
     </button>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script>
         // Global state
         let vendorData = [];
@@ -2710,6 +2709,20 @@
                 });
             });
         })();
+        
+        // Ensure all functions are globally accessible for onclick handlers
+        window.openAddVendor = openAddVendor;
+        window.closeVendorModal = closeVendorModal;
+        window.editVendor = editVendor;
+        window.deleteVendor = deleteVendor;
+        window.scanVendors = scanVendors;
+        window.clearAllVendors = clearAllVendors;
+        window.exportVendors = exportVendors;
+        window.importVendors = importVendors;
+        window.generateComprehensiveReport = generateComprehensiveReport;
+        window.filterVendors = filterVendors;
+        window.viewVendorDetails = viewVendorDetails;
+        window.toggleDarkMode = toggleDarkMode;
     </script>
 
 <!-- Footer -->
