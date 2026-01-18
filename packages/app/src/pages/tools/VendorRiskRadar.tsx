@@ -522,6 +522,15 @@ const VendorRiskRadar: React.FC = () => {
                 <ExternalLink className="w-3 h-3" />
                 Website Demo
               </a>
+              <a 
+                href="https://vendorsoluce.com/radar/vendor-risk-radar.html" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1"
+              >
+                <ExternalLink className="w-3 h-3" />
+                HTML Radar Version
+              </a>
             </div>
           </CardContent>
         </Card>

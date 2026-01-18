@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VendorSoluce - Vendor Risk Made Defensible</title>
+    <meta name="description" content="Transform unclear third-party risk into prioritized decisions, evidence-backed approvals, and continuous oversight with VendorSoluce.">
+    <meta name="keywords" content="vendor risk management, third-party risk, cybersecurity, compliance, NIST SP 800-161, risk assessment">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #64748b;
+            --accent-color: #059669;
+            --warning-color: #dc2626;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --text-dark: #1e293b;
+            --text-medium: #475569;
+            --text-light: #64748b;
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .container-wide {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-white);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-medium);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-cta {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-white) 100%);
+            padding: 4rem 0;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle-large {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--warning-color);
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-medium);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--primary-color);
+            padding: 1rem 2rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: var(--bg-white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            box-shadow: var(--shadow-sm);
+            font-weight: 500;
+            color: var(--text-medium);
+            border: 1px solid var(--border-light);
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 5rem 0;
+            background: var(--bg-light);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .problem-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .problem-card h3 {
+            color: var(--warning-color);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .problem-card p {
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        .solution-statement {
+            text-align: center;
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--primary-color);
+        }
+
+        .solution-statement h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Process Flow Section */
+        .process-section {
+            padding: 5rem 0;
+            background: var(--bg-white);
+        }
+
+        .process-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            top: 2rem;
+            right: -1rem;
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .process-number {
+            width: 4rem;
+            height: 4rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .process-step h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .process-step p {
+            color: var(--text-medium);
+        }
+
+        /* Value Journey Section */
+        .value-section {
+            padding: 5rem 0;
+            background: var(--bg-light);
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            background: var(--bg-white);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .value-number {
+            background: var(--accent-color);
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .value-delivered {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .value-delivered h4 {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .value-delivered ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .value-delivered li {
+            color: var(--text-medium);
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .value-delivered li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .value-change {
+            border-top: 2px solid var(--border-light);
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .value-change h4 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .value-cta {
+            margin-top: 2rem;
+        }
+
+        .btn-value {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            display: inline-block;
+        }
+
+        .btn-value:hover {
+            background: #047857;
+        }
+
+        /* Proof Section */
+        .proof-section {
+            padding: 5rem 0;
+            background: var(--bg-white);
+        }
+
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .proof-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-light);
+            border-radius: 1rem;
+        }
+
+        .proof-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .proof-item h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        /* Roles Section */
+        .roles-section {
+            padding: 5rem 0;
+            background: var(--bg-light);
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .role-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+
+        .role-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .role-benefit {
+            color: var(--text-medium);
+            font-weight: 500;
+        }
+
+        /* Packages Section */
+        .packages-section {
+            padding: 5rem 0;
+            background: var(--bg-white);
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .package-card {
+            background: var(--bg-white);
+            border: 2px solid var(--border-light);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .package-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .package-popular {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .package-popular::before {
+            content: 'Most Common';
+            position: absolute;
+            top: -0.75rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .package-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .package-subtitle {
+            color: var(--text-medium);
+            margin-bottom: 2rem;
+        }
+
+        .package-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .package-features li {
+            color: var(--text-medium);
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .package-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .package-cta {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .package-cta:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 2rem;
+            text-align: center;
+            color: #94a3b8;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.25rem;
+            }
+
+            .hero-subtitle-large {
+                font-size: 1.5rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+
+            .process-step::after {
+                content: '↓';
+                top: auto;
+                bottom: -1rem;
+                right: 50%;
+                transform: translateX(50%);
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="nav-logo">VendorSoluce</a>
+                <ul class="nav-links">
+                    <li><a href="#process" class="nav-link">How It Works</a></li>
+                    <li><a href="#value" class="nav-link">Value</a></li>
+                    <li><a href="#packages" class="nav-link">Packages</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <a href="#contact" class="nav-cta">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1 class="hero-title">Which of Your Vendors Should You Worry About First?</h1>
+                <h2 class="hero-subtitle-large">The Hidden Vendor Risk Problem</h2>
+                <p class="hero-subtitle">
+                    Make defensible vendor decisions — before risk becomes a breach.<br>
+                    VendorSoluce transforms unclear third-party risk into prioritized decisions, evidence-backed approvals, and continuous oversight.
+                </p>
+                <div class="hero-cta">
+                    <a href="#value" class="btn-primary">Reveal Vendor Risk Exposure</a>
+                    <a href="#process" class="btn-secondary">See How It Works</a>
+                </div>
+                <div class="hero-badges">
+                    <span class="badge">NIST SP 800-161 aligned</span>
+                    <span class="badge">Evidence-ready decisions</span>
+                    <span class="badge">Continuous monitoring loop</span>
+                    <span class="badge">Built for audit defense</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="container">
+            <h2 class="section-title fade-in">The cost of not knowing</h2>
+            <p style="text-align: center; font-size: 1.125rem; color: var(--text-medium); margin-bottom: 3rem;" class="fade-in">
+                Most organizations don't fail vendor risk because they lack tools. They fail because activity doesn't translate into defensible outcomes.
+            </p>
+            
+            <div class="problem-grid">
+                <div class="problem-card fade-in">
+                    <h3>Assessments without defensibility</h3>
+                    <p>Vendors are "reviewed," but approvals can't be justified under audit, incident response, or executive scrutiny.</p>
+                </div>
+                <div class="problem-card fade-in">
+                    <h3>Evidence without accountability</h3>
+                    <p>Documents exist, but they aren't connected to decisions, owners, and explicit risk acceptance.</p>
+                </div>
+                <div class="problem-card fade-in">
+                    <h3>Monitoring without action</h3>
+                    <p>Signals appear, but they don't trigger reassessment. Drift becomes surprise.</p>
+                </div>
+            </div>
+
+            <div class="solution-statement fade-in">
+                <h3>Vendor risk isn't a questionnaire. It's a decision system.</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Flow Section -->
+    <section id="process" class="process-section">
+        <div class="container">
+            <h2 class="section-title fade-in">The 3-stage operating lifecycle</h2>
+            <p style="text-align: center; font-size: 1.125rem; color: var(--text-medium); margin-bottom: 1rem;" class="fade-in">
+                Visibility → Assessment → Due Diligence
+            </p>
+            <p style="text-align: center; font-size: 1rem; color: var(--primary-color); font-weight: 600; margin-bottom: 2rem;" class="fade-in">
+                <i class="fas fa-sync-alt"></i> Continuous radar-driven monitoring throughout the lifecycle
+            </p>
+            
+            <div class="process-flow">
+                <div class="process-step fade-in">
+                    <div class="process-number">1</div>
+                    <h3>Risk Radar</h3>
+                    <p>Find where exposure concentrates and continuously track risk signals.</p>
+                </div>
+                <div class="process-step fade-in">
+                    <div class="process-number">2</div>
+                    <h3>Assessment</h3>
+                    <p>Turn risk into explicit requirements with radar-informed prioritization.</p>
+                </div>
+                <div class="process-step fade-in">
+                    <div class="process-number">3</div>
+                    <h3>Due Diligence</h3>
+                    <p>Link evidence to decisions with ongoing radar validation.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: var(--bg-light); border-radius: 1rem;" class="fade-in">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+                    <i class="fas fa-radar" style="font-size: 2rem; color: var(--primary-color);"></i>
+                    <h3 style="color: var(--primary-color); margin: 0;">Continuous Radar Monitoring</h3>
+                </div>
+                <p style="color: var(--text-medium); margin: 0;">
+                    The radar continuously monitors risk signals and triggers stage reassessment when changes occur — 
+                    turning the 3-stage process into a living, responsive vendor risk lifecycle.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Journey Section -->
+    <section id="value" class="value-section">
+        <div class="container">
+            <h2 class="section-title fade-in">The Value Journey</h2>
+            <p style="text-align: center; font-size: 1.125rem; color: var(--text-medium); margin-bottom: 1rem;" class="fade-in">
+                Each step delivers a change in decision quality — not a list of features.
+            </p>
+            
+            <div class="value-grid">
+                <div class="value-card fade-in">
+                    <div class="value-number">1</div>
+                    <h3>Risk Radar → Clarity + Continuous Monitoring</h3>
+                    <p>Know where vendor exposure concentrates, what to prioritize first, and maintain continuous oversight.</p>
+                    
+                    <div class="value-delivered">
+                        <h4>Value delivered</h4>
+                        <ul>
+                            <li>Exposure-based prioritization (not intuition)</li>
+                            <li>Clear risk drivers by vendor category</li>
+                            <li>Continuous risk signal monitoring</li>
+                            <li>Automated drift detection and alerts</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="value-change">
+                        <h4>What changes</h4>
+                        <p>From treating all vendors equally → focused risk attention with living oversight.</p>
+                    </div>
+                    
+                    <div class="value-cta">
+                        <a href="#" class="btn-value">Run the Risk Radar</a>
+                    </div>
+                </div>
+
+                <div class="value-card fade-in">
+                    <div class="value-number">2</div>
+                    <h3>Assessment → Confidence</h3>
+                    <p>Turn radar insights into explicit requirements and actionable gaps with ongoing validation.</p>
+                    
+                    <div class="value-delivered">
+                        <h4>Value delivered</h4>
+                        <ul>
+                            <li>Risk-aligned requirements (NIST SP 800-161 directionally)</li>
+                            <li>Gap clarity that drives remediation planning</li>
+                            <li>Radar-triggered reassessment when risk changes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="value-change">
+                        <h4>What changes</h4>
+                        <p>From generic questionnaires → explicit, monitored control expectations.</p>
+                    </div>
+                    
+                    <div class="value-cta">
+                        <a href="#" class="btn-value">Start Assessment</a>
+                    </div>
+                </div>
+
+                <div class="value-card fade-in">
+                    <div class="value-number">3</div>
+                    <h3>Due Diligence → Defensible Control</h3>
+                    <p>Link evidence to decisions with continuous radar validation and automated reassessment triggers.</p>
+                    
+                    <div class="value-delivered">
+                        <h4>Value delivered</h4>
+                        <ul>
+                            <li>Evidence-backed decisions with ownership</li>
+                            <li>Explicit exceptions and risk acceptance trails</li>
+                            <li>Change-driven reviews (not calendar-only)</li>
+                            <li>Continuous posture validation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="value-change">
+                        <h4>What changes</h4>
+                        <p>From compliance theater → audit-ready decisions with living oversight.</p>
+                    </div>
+                    
+                    <div class="value-cta">
+                        <a href="#" class="btn-value">Open Vendor Portal</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: var(--accent-color); color: white; border-radius: 1rem;" class="fade-in">
+                <h3 style="margin-bottom: 1rem;"><i class="fas fa-infinity"></i> The Continuous Lifecycle Advantage</h3>
+                <p style="margin: 0; font-size: 1.125rem; opacity: 0.95;">
+                    The radar doesn't just start the process — it powers the entire lifecycle. 
+                    Risk signals automatically trigger the right stage reassessment, 
+                    creating a living system that adapts to changing vendor landscapes.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proof Section -->
+    <section class="proof-section">
+        <div class="container">
+            <h2 class="section-title fade-in">What you can now prove</h2>
+            <p style="text-align: center; font-size: 1.125rem; color: var(--text-medium); margin-bottom: 1rem;" class="fade-in">
+                VendorSoluce is built for governance: the difference between "we assessed vendors" and "we can defend our vendor decisions."
+            </p>
+            
+            <div class="proof-grid">
+                <div class="proof-item fade-in">
+                    <div class="proof-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3>Decision trail</h3>
+                    <p>Who approved what, when, and on what basis.</p>
+                </div>
+                
+                <div class="proof-item fade-in">
+                    <div class="proof-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3>Evidence lineage</h3>
+                    <p>What was collected, validated, and used in decisions.</p>
+                </div>
+                
+                <div class="proof-item fade-in">
+                    <div class="proof-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Control expectations</h3>
+                    <p>Clear requirements aligned to risk and vendor type.</p>
+                </div>
+                
+                <div class="proof-item fade-in">
+                    <div class="proof-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Drift control</h3>
+                    <p>What changed since last review — and what action was triggered.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roles Section -->
+    <section class="roles-section">
+        <div class="container">
+            <h2 class="section-title fade-in">Built for the people accountable</h2>
+            <p style="text-align: center; font-size: 1.125rem; color: var(--text-medium); margin-bottom: 1rem;" class="fade-in">
+                Outcomes mapped to roles that have to answer hard questions.
+            </p>
+            
+            <div class="roles-grid">
+                <div class="role-card fade-in">
+                    <div class="role-title">CISOs</div>
+                    <div class="role-benefit">Defensible posture</div>
+                </div>
+                
+                <div class="role-card fade-in">
+                    <div class="role-title">GRC</div>
+                    <div class="role-benefit">Evidence without chaos</div>
+                </div>
+                
+                <div class="role-card fade-in">
+                    <div class="role-title">Procurement</div>
+                    <div class="role-benefit">Risk-informed sourcing</div>
+                </div>
+                
+                <div class="role-card fade-in">
+                    <div class="role-title">Executives</div>
+                    <div class="role-benefit">Fewer surprises</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section id="packages" class="packages-section">
+        <div class="container">
+            <h2 class="section-title fade-in">Value-based packages</h2>
+            <p style="text-align: center; font-size: 1.125rem; color: var(--text-medium); margin-bottom: 1rem;" class="fade-in">
+                Choose outcomes, not feature bundles.
+            </p>
+            
+            <div class="packages-grid">
+                <div class="package-card fade-in">
+                    <div class="package-title">Visibility + Monitoring</div>
+                    <div class="package-subtitle">Know where risk is and track changes</div>
+                    <ul class="package-features">
+                        <li>Inherent risk visibility</li>
+                        <li>Exposure drivers & prioritization</li>
+                        <li>Continuous radar monitoring</li>
+                        <li>Risk signal alerts</li>
+                    </ul>
+                    <a href="#" class="package-cta">Start with Radar</a>
+                </div>
+
+                <div class="package-card package-popular fade-in">
+                    <div class="package-title">Assurance + Lifecycle</div>
+                    <div class="package-subtitle">Know what's required with ongoing validation</div>
+                    <ul class="package-features">
+                        <li>Requirements baseline</li>
+                        <li>Gap visibility & plans</li>
+                        <li>Assessment outputs ready to use</li>
+                        <li>Radar-triggered reassessment</li>
+                    </ul>
+                    <a href="#" class="package-cta">Start Assessment</a>
+                </div>
+
+                <div class="package-card fade-in">
+                    <div class="package-title">Defense + Control</div>
+                    <div class="package-subtitle">Prove decisions with living oversight</div>
+                    <ul class="package-features">
+                        <li>Evidence-linked approvals</li>
+                        <li>Exceptions & acceptance trails</li>
+                        <li>Defensible audit posture</li>
+                        <li>Continuous posture validation</li>
+                    </ul>
+                    <a href="#" class="package-cta">Open Portal</a>
+                </div>
+
+                <div class="package-card fade-in">
+                    <div class="package-title">Enterprise Ecosystem</div>
+                    <div class="package-subtitle">Complete lifecycle management</div>
+                    <ul class="package-features">
+                        <li>Multi-team governance</li>
+                        <li>Advanced integrations</li>
+                        <li>Comprehensive reporting</li>
+                        <li>Full radar-driven lifecycle</li>
+                    </ul>
+                    <a href="#" class="package-cta">Enable Full Ecosystem</a>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;" class="fade-in">
+                <p style="color: var(--text-medium); font-style: italic;">
+                    All packages include radar-driven monitoring throughout the vendor risk lifecycle.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>VendorSoluce</h3>
+                    <p>Transform unclear third-party risk into prioritized decisions, evidence-backed approvals, and continuous oversight.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <ul>
+                        <li><a href="#process">How It Works</a></li>
+                        <li><a href="#value">Value Journey</a></li>
+                        <li><a href="#packages">Packages</a></li>
+                        <li><a href="#">Documentation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">System Status</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 VendorSoluce. All rights reserved. Part of the ERMITS Ecosystem.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with fade-in class
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add visible class to hero content immediately
+        document.querySelector('.hero .fade-in').classList.add('visible');
+    </script>
+</body>
+</html>

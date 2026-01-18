@@ -21,16 +21,16 @@ const HeroSection: React.FC = () => {
   ];
   
   return (
-    <section className="relative text-white py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="relative text-white py-16 px-4 sm:px-6 lg:px-8 overflow-hidden min-h-screen">
       {/* Background Image */}
       <div className="absolute inset-0 z-0 min-h-screen hero-background"></div>
       
       {/* Dynamic Theme Overlay */}
-      <div className="absolute inset-0 z-1 min-h-screen hero-overlay"></div>
+      <div className="absolute inset-0 z-10 min-h-screen hero-overlay"></div>
       
       {/* Content */}
-      <div className="max-w-7xl mx-auto">
-        <div className="relative z-20">
+      <div className="max-w-7xl mx-auto relative z-20">
+        <div className="relative">
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 opacity-0 animate-fade-in-up animate-delay-100">
               {t('home.hero.title_line1')} <br />

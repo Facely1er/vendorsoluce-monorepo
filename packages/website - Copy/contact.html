@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact — VendorSoluce</title>
+  <meta name="description" content="Contact VendorSoluce / ERMITS." />
+  <!-- Tailwind CSS (compiled) -->
+  <link href="assets/css/tailwind.css" rel="stylesheet"/>
+  <style>
+    /* Active navigation link styles - only target navigation menu links (have title attribute), exclude brand logo */
+    nav a[title].active,
+    nav a[title][aria-current="page"] {
+      color: #33691E !important;
+      background: rgba(51,105,30,.08) !important;
+      font-weight: 700 !important;
+    }
+    html.dark nav a[title].active,
+    html.dark nav a[title][aria-current="page"] {
+      color: #66BB6A !important;
+      background: rgba(102,187,106,.12) !important;
+    }
+    nav a[title].active:hover,
+    nav a[title][aria-current="page"]:hover {
+      background: rgba(51,105,30,.12) !important;
+    }
+    html.dark nav a[title].active:hover,
+    html.dark nav a[title][aria-current="page"]:hover {
+      background: rgba(102,187,106,.18) !important;
+    }
+    /* Ensure brand logo link is never affected by active/hover nav styles */
+    nav [data-tour="main-nav"] a,
+    nav [data-tour="main-nav"] a:hover,
+    nav [data-tour="main-nav"] a.active,
+    nav [data-tour="main-nav"] a[aria-current="page"],
+    nav [data-tour="main-nav"] a:focus {
+      color: inherit !important;
+      background: transparent !important;
+      font-weight: inherit !important;
+    }
+    /* Prevent hover effects on active Vendor Radar button */
+    nav a[aria-current="page"][style*="pointer-events: none"],
+    nav a[aria-current="page"].cursor-default {
+      pointer-events: none !important;
+      opacity: 0.9;
+    }
+    nav a[aria-current="page"][style*="pointer-events: none"]:hover,
+    nav a[aria-current="page"].cursor-default:hover {
+      transform: none !important;
+      box-shadow: none !important;
+    }
+    :root {
+      --vendorsoluce-green: #33691E;
+      --vendorsoluce-light-green: #66BB6A;
+      --vendorsoluce-dark-green: #2E5A1A;
+      --vendorsoluce-pale-green: #E8F5E8;
+    }
+    
+    
+    
+
+    .bg-vendorsoluce-green { background-color: var(--vendorsoluce-green); }
+    
+    /* Fallback for browsers that don't support :not() with complex selectors */
+    .text-vendorsoluce-green {
+      color: var(--vendorsoluce-green) !important;
+    }
+    
+    /* Ensure text-vendorsoluce-green is visible in light theme */
+    html:not(.dark) .text-vendorsoluce-green,
+    :not(.dark) .text-vendorsoluce-green {
+      color: var(--vendorsoluce-green) !important;
+    }
+    
+    /* Fix second line branding - use gray-700 in light theme instead of green/80 */
+    html:not(.dark) span[class*="text-vendorsoluce-green/80"],
+    :not(.dark) span[class*="text-vendorsoluce-green/80"] {
+      color: #374151 !important; /* gray-700 */
+    }
+    
+    /* Dark mode - let Tailwind's dark:text-white handle it, but ensure it works */
+    
+    
+    
+    
+    /* Dark mode - let Tailwind's dark:text-white handle it, but ensure it works */
+    
+    html.dark .text-vendorsoluce-light-green,
+    .dark .text-vendorsoluce-light-green {
+      color: var(--vendorsoluce-light-green) !important;
+    }
+    /* CRITICAL: Dark mode branding - must be at the end for highest priority */
+    html.dark .text-vendorsoluce-green,
+    .dark .text-vendorsoluce-green,
+    html[class*="dark"] .text-vendorsoluce-green,
+    [class*="dark"] .text-vendorsoluce-green {
+      color: white !important;
+    }
+    html.dark .text-vendorsoluce-light-green,
+    .dark .text-vendorsoluce-light-green {
+      color: var(--vendorsoluce-light-green) !important;
+    }
+    /* Ensure second line branding uses green in dark mode - override opacity variant */
+    html.dark span[class*="text-vendorsoluce-green/80"],
+    .dark span[class*="text-vendorsoluce-green/80"],
+    html[class*="dark"] span[class*="text-vendorsoluce-green/80"],
+    [class*="dark"] span[class*="text-vendorsoluce-green/80"] {
+      color: var(--vendorsoluce-light-green) !important;
+    }
+    .vs-badge{display:inline-flex;align-items:center;border-radius:999px;padding:2px 6px;font-size:0.65em;background:rgba(51,105,30,.12);color:var(--vendorsoluce-green);font-weight:600;vertical-align:middle;border:none}
+    html.dark .vs-badge{background:rgba(102,187,106,.18);color:var(--vendorsoluce-light-green)}
+    </style>
+  <script>
+// Theme toggle functionality - must run immediately to prevent flash
+(function() {
+  // Get theme from localStorage or default to light
+  const getTheme = () => {
+    const stored = localStorage.getItem('theme');
+    if (stored) return stored;
+    // Check system preference
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+  
+  // Apply theme
+  const applyTheme = (theme) => {
+    const html = document.documentElement;
+    if (theme === 'dark') {
+      html.classList.add('dark');
+    } else {
+      html.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+    
+    // Update theme toggle button icons (only if DOM is ready)
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        updateThemeIcons(theme);
+      });
+    } else {
+      updateThemeIcons(theme);
+    }
+  };
+  
+  // Update theme toggle button icons
+  const updateThemeIcons = (theme) => {
+    const themeButtons = document.querySelectorAll('[data-theme-toggle]');
+    themeButtons.forEach(btn => {
+      const sunIcon = btn.querySelector('.lucide-sun');
+      const moonIcon = btn.querySelector('.lucide-moon');
+      if (theme === 'dark') {
+        if (sunIcon) {
+          sunIcon.style.display = 'block';
+          sunIcon.style.visibility = 'visible';
+        }
+        if (moonIcon) {
+          moonIcon.style.display = 'none';
+          moonIcon.style.visibility = 'hidden';
+        }
+        btn.setAttribute('aria-label', 'Switch to light mode');
+      } else {
+        if (sunIcon) {
+          sunIcon.style.display = 'none';
+          sunIcon.style.visibility = 'hidden';
+        }
+        if (moonIcon) {
+          moonIcon.style.display = 'block';
+          moonIcon.style.visibility = 'visible';
+        }
+        btn.setAttribute('aria-label', 'Switch to dark mode');
+      }
+    });
+  };
+  
+  // Apply theme immediately to prevent flash
+  applyTheme(getTheme());
+  
+  // Set up event listeners after DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    // Re-apply theme to ensure icons are updated
+    applyTheme(getTheme());
+    
+    // Add click handlers to theme toggle buttons
+    document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const currentTheme = getTheme();
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        applyTheme(newTheme);
+      });
+    });
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches ? 'dark' : 'light');
+      }
+    });
+  });
+})();
+</script>
+    </head>
+<body>
+    <div id="root"><div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col"><!-- Shared Header Navigation for VendorSoluce -->
+<nav class="bg-gray-700 dark:bg-gray-800 shadow-sm sticky top-0 z-[100] w-full">
+  <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 w-full">
+    <div class="flex items-center justify-between h-16 w-full">
+      <!-- Brand -->
+      <div class="flex items-center flex-shrink-0 min-w-0 md:max-w-none max-w-[calc(100%-60px)]" data-tour="main-nav">
+        <a class="flex items-center min-w-0 group" href="index.html">
+          <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 flex-shrink-0 transition-transform group-hover:scale-105 pointer-events-none">
+          <span class="ml-1.5 sm:ml-2 min-w-0 pointer-events-none">
+            <div class="flex items-center gap-1.5">
+              <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">
+                VendorSoluce™
+                <span class="vs-badge ml-1.5">beta</span>
+              </span>
+            </div>
+            <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter" style="letter-spacing: -0.02em; margin-top: -3px;">Supply Chain Assurance</span>
+            <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
+          </span>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation - Streamlined -->
+      <div class="hidden md:flex md:items-center md:space-x-1">
+        <a class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Home" href="index.html">
+          Home
+        </a>
+        <a class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="How It Works" href="how-it-works.html">
+          How It Works
+        </a>
+        <a class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Features" href="features.html">
+          Features
+        </a>
+        <a class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Pricing" href="pricing.html">
+          Pricing
+        </a>
+        <a class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Trust" href="trust.html">
+          Trust
+        </a>
+        <div class="ml-2 border-l border-gray-500 dark:border-gray-500 pl-3">
+          <a href="radar/vendor-risk-radar.html" class="inline-flex items-center px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-vendorsoluce-green text-white hover:bg-vendorsoluce-dark-green font-semibold text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-4 h-4 mr-1.5">
+              <path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+            Vendor Radar
+          </a>
+        </div>
+      </div>
+
+      <!-- Action Buttons (Desktop) -->
+      <div class="hidden md:flex items-center space-x-1.5 sm:space-x-2 flex-shrink-0">
+        <div data-tour="user-menu">
+          <a href="https://www.application.vendorsoluce.com">
+            <button type="button" class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-600 dark:bg-gray-700 text-white hover:bg-gray-500 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="User Account">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user w-5 h-5">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </button>
+          </a>
+        </div>
+        <div data-tour="theme-toggle">
+          <button type="button" data-theme-toggle class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-600 dark:bg-gray-700 text-yellow-400 hover:bg-gray-500 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="Switch theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun w-5 h-5 text-amber-500" style="display: none;">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon w-5 h-5">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="flex items-center md:hidden flex-shrink-0 ml-auto gap-1.5">
+        <div data-tour="theme-toggle">
+          <button type="button" data-theme-toggle class="font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-transparent text-vendorsoluce-green hover:bg-vendorsoluce-pale-green focus:ring-vendorsoluce-green/30 dark:text-vendorsoluce-light-green dark:hover:bg-vendorsoluce-green/20 px-3 py-1.5 text-sm cursor-pointer p-2" aria-label="Switch to light mode">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun h-5 w-5 text-gray-300" style="display: none;"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon h-5 w-5 text-gray-300"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+          </button>
+        </div>
+        <button data-mobile-menu-button="true" class="inline-flex items-center justify-center p-1.5 rounded-md text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none flex-shrink-0 w-9 h-9" aria-label="Open menu" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu">
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+<script>
+(function() {
+    function initMobileMenu() {
+        const menuButton = document.querySelector('[data-mobile-menu-button]');
+        if (!menuButton) return;
+
+        menuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+            const mobileMenu = document.querySelector('[data-mobile-menu]');
+            
+            if (mobileMenu) {
+                if (isExpanded) {
+                    mobileMenu.classList.add('hidden');
+                    menuButton.setAttribute('aria-expanded', 'false');
+                    menuButton.setAttribute('aria-label', 'Open menu');
+                } else {
+                    mobileMenu.classList.remove('hidden');
+                    menuButton.setAttribute('aria-expanded', 'true');
+                    menuButton.setAttribute('aria-label', 'Close menu');
+                }
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const mobileMenu = document.querySelector('[data-mobile-menu]');
+            if (mobileMenu && !mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    menuButton.setAttribute('aria-expanded', 'false');
+                    menuButton.setAttribute('aria-label', 'Open menu');
+                }
+            }
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const mobileMenu = document.querySelector('[data-mobile-menu]');
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    menuButton.setAttribute('aria-expanded', 'false');
+                    menuButton.setAttribute('aria-label', 'Open menu');
+                }
+            }
+        });
+    }
+
+    // Always wait for DOM to be fully loaded to ensure mobile menu panel exists
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobileMenu);
+    } else {
+        // Use setTimeout to ensure DOM is fully parsed even if readyState is 'complete'
+        setTimeout(initMobileMenu, 0);
+    }
+    
+    // Set active navigation link based on current page
+    function setActiveNavLink() {
+        const currentPath = window.location.pathname;
+        const currentFile = currentPath.split('/').pop() || 'index.html';
+        const normalizedCurrentFile = currentFile.split('?')[0].split('#')[0];
+        
+        // Find only navigation menu links (exclude branding and action buttons)
+        // Only target links in the desktop navigation menu container (not action buttons area)
+        const desktopNavMenu = document.querySelector('nav > div.hidden.md\\:flex.md\\:items-center');
+        const desktopNavLinks = desktopNavMenu ? desktopNavMenu.querySelectorAll('a[title][href]') : [];
+        const mobileNavLinks = document.querySelectorAll('[data-mobile-menu] a[href]');
+        const navLinks = [...desktopNavLinks, ...mobileNavLinks];
+        
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href || href.startsWith('http') || href.startsWith('#')) return;
+            
+            // Double-check: skip branding link (inside data-tour="main-nav")
+            if (link.closest('[data-tour="main-nav"]')) {
+                return;
+            }
+            
+            // Skip Vendor Radar button (has title="Vendor Radar" or radar icon)
+            if (link.getAttribute('title') === 'Vendor Radar' || 
+                link.querySelector('svg.lucide-radar') ||
+                link.textContent.trim().includes('Vendor Radar')) {
+                return;
+            }
+            
+            // Skip action buttons area (links in the right-side action buttons container)
+            const parentContainer = link.parentElement;
+            if (parentContainer && (
+                parentContainer.querySelector('[data-tour="user-menu"]') || 
+                parentContainer.querySelector('[data-tour="theme-toggle"]') ||
+                parentContainer.classList.contains('flex-shrink-0')
+            )) {
+                const hasActionButtons = parentContainer.querySelector('[data-tour="user-menu"]') || 
+                                        parentContainer.querySelector('[data-tour="theme-toggle"]');
+                if (hasActionButtons) {
+                    return;
+                }
+            }
+            
+            // Extract filename from href (handle relative paths)
+            let linkFile = href.replace(/^\.\.?\//, '').split('/').pop() || '';
+            linkFile = linkFile.split('?')[0].split('#')[0];
+            
+            // Check if this link matches the current page
+            const isCurrentPage = 
+                linkFile === normalizedCurrentFile || 
+                (normalizedCurrentFile === '' && linkFile === 'index.html') ||
+                (normalizedCurrentFile === 'index.html' && linkFile === 'index.html');
+            
+            if (isCurrentPage) {
+                // Get current classes and replace to make it active
+                let classes = link.getAttribute('class') || '';
+                
+                // Remove inactive classes
+                classes = classes
+                    .replace(/\btext-gray-700\b/g, '')
+                    .replace(/\bdark:text-gray-300\b/g, '')
+                    .replace(/\bhover:bg-gray-50\b/g, '')
+                    .replace(/\bdark:hover:bg-gray-700\b/g, '')
+                    .replace(/\bhover:text-vendorsoluce-green\b/g, '')
+                    .replace(/\bdark:hover:text-white\b/g, '');
+                
+                // Add active classes
+                classes += ' text-vendorsoluce-green dark:text-white bg-vendorsoluce-green/20 dark:bg-vendorsoluce-green/30 border border-vendorsoluce-green/30 dark:border-vendorsoluce-green/40 hover:bg-vendorsoluce-green/30 dark:hover:bg-vendorsoluce-green/40';
+                
+                // Clean up extra spaces
+                classes = classes.replace(/\s+/g, ' ').trim();
+                link.setAttribute('class', classes);
+            }
+        });
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setActiveNavLink);
+    } else {
+        setActiveNavLink();
+    }
+})();
+</script>
+
+<!-- Mobile Menu Panel -->
+<div data-mobile-menu="true" class="md:hidden fixed left-0 right-0 z-50 hidden" style="top: 64px;">
+  <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <div class="space-y-2">
+        <a href="index.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+          Home
+        </a>
+        <a href="how-it-works.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+          How It Works
+        </a>
+        <a href="features.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+          Features
+        </a>
+        <a href="pricing.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+          Pricing
+        </a>
+        <a href="trust.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+          Trust
+        </a>
+        <div class="pt-2 border-t border-gray-200 dark:border-gray-700">
+          <a href="radar/vendor-risk-radar.html" class="block w-full px-4 py-2 rounded-lg text-sm font-semibold text-center text-white bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green transition-colors">
+            Vendor Radar
+          </a>
+        </div>
+        <!-- Secondary links in footer section -->
+        <div class="pt-2 border-t border-gray-200 dark:border-gray-700 space-y-2">
+          <a href="faq.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+            FAQ
+          </a>
+          <a href="contact.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+            Contact
+          </a>
+        </div>
+      </div>
+      <div class="px-4 py-2 border-t border-gray-200 dark:border-gray-700 mt-2 pt-2">
+        <div class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Legal</div>
+        <div class="space-y-1">
+          <a href="legal/privacy-policy.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            Privacy Policy
+          </a>
+          <a href="legal/cookie-policy.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>
+            Cookie Policy
+          </a>
+          <a href="legal/terms.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>
+            Terms of Service
+          </a>
+          <a href="legal/acceptable-use-policy.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path></svg>
+            Acceptable Use Policy
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="flex-1 pt-[var(--nav-height,64px)]">
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="Breadcrumb" class="sticky z-40 w-full h-10 sm:h-11 text-sm border-b border-gray-200 dark:border-gray-700 transition-colors px-4 sm:px-6 lg:px-8 flex items-center backdrop-blur-sm bg-white/95 dark:bg-gray-900/95" style="top: var(--nav-height, 64px);">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-1">
+                    <div class="flex items-center">
+                        <a class="transition-colors flex items-center text-gray-600 dark:text-gray-400 hover:text-vendorsoluce-green" href="index.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home h-4 w-4 mr-1"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>Home</a>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right h-4 w-4 flex-shrink-0 text-gray-400"><path d="m9 18 6-6-6-6"></path></svg>
+                    <div class="flex items-center">
+                        <span class="font-medium flex items-center text-vendorsoluce-green">Contact</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+<div class="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <!-- Hero Section -->
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 md:p-12 mb-12 bg-gradient-to-br from-vendorsoluce-green/10 via-vendorsoluce-pale-green/5 to-gray-50 dark:from-gray-800 dark:via-gray-800 dark:to-gray-900 text-center">
+        <div class="flex items-center justify-center mb-6">
+            <div class="p-4 rounded-2xl bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20 border border-vendorsoluce-green/20 dark:border-vendorsoluce-green/30">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-12 h-12 text-vendorsoluce-green dark:text-vendorsoluce-light-green">
+                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+            </div>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Contact Us</h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8 leading-relaxed">
+            Talk to ERMITS about VendorSoluce. Send your vendor program context. We'll respond with procurement-ready guidance.
+        </p>
+        <div class="flex flex-wrap justify-center gap-2 mb-6">
+            <span class="px-4 py-2 bg-white dark:bg-gray-700 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">Demo request</span>
+            <span class="px-4 py-2 bg-white dark:bg-gray-700 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">Procurement questions</span>
+            <span class="px-4 py-2 bg-white dark:bg-gray-700 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">Deployment options</span>
+            <span class="px-4 py-2 bg-white dark:bg-gray-700 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">Pricing</span>
+        </div>
+        <div class="bg-white dark:bg-gray-700 rounded-xl p-6 max-w-2xl mx-auto border border-gray-200 dark:border-gray-600 text-left">
+            <div class="flex items-center mb-3">
+                <div class="p-2 rounded-lg bg-vendorsoluce-green/10 mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap w-5 h-5 text-vendorsoluce-green">
+                        <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Fast Path</h3>
+            </div>
+            <p class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">If you're evaluating tools:</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Include vendor volume, criticality tiers, and what evidence you currently collect.</p>
+        </div>
+    </div>
+
+    <!-- Contact Form Section -->
+    <section class="mb-16">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Send a Message</h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300">Works with Netlify Forms (no backend required).</p>
+        </div>
+        
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-md max-w-4xl mx-auto">
+            <form name="contact" method="post" data-netlify="true">
+                <input type="hidden" name="form-name" value="contact" />
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+                        <input 
+                            id="name" 
+                            name="name" 
+                            type="text"
+                            required 
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:border-transparent transition-colors"
+                            placeholder="Your name"
+                        />
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+                        <input 
+                            id="email" 
+                            type="email" 
+                            name="email" 
+                            required 
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:border-transparent transition-colors"
+                            placeholder="your.email@example.com"
+                        />
+                    </div>
+                    <div>
+                        <label for="company" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Company</label>
+                        <input 
+                            id="company" 
+                            name="company" 
+                            type="text"
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:border-transparent transition-colors"
+                            placeholder="Company name"
+                        />
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message</label>
+                    <textarea 
+                        id="message" 
+                        name="message" 
+                        rows="6" 
+                        required 
+                        class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:border-transparent transition-colors resize-y"
+                        placeholder="Tell us about your vendor program context, questions, or requirements..."
+                    ></textarea>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 mb-4">
+                    <button 
+                        type="submit" 
+                        class="group inline-flex items-center justify-center px-8 py-4 bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green text-white font-bold text-lg rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send w-5 h-5 mr-2">
+                            <path d="m22 2-7 20-4-9-9-4Z"></path>
+                            <path d="M22 2 11 13"></path>
+                        </svg>
+                        Send Message
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-5 h-5 ml-2 transition-transform group-hover:translate-x-1">
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
+                        </svg>
+                    </button>
+                    <a 
+                        href="faq.html" 
+                        class="group inline-flex items-center justify-center px-8 py-4 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-bold text-lg rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 border border-gray-200 dark:border-gray-600"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-5 h-5 mr-2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <path d="M12 17h.01"></path>
+                        </svg>
+                        Read FAQ
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-5 h-5 ml-2 transition-transform group-hover:translate-x-1">
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+                
+                <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
+                    Avoid including sensitive vendor data. Use categories and high-level context.
+                </p>
+            </form>
+        </div>
+    </section>
+</div>
+</main><style>
+/* Footer branding styles */
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+.brand-name {
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--vendorsoluce-green);
+  margin-bottom: 2px;
+}
+.dark .brand-name {
+  color: white;
+}
+.brand-tagline {
+  font-size: 13px;
+  color: #6B7280;
+  margin-bottom: 1px;
+}
+.dark .brand-tagline {
+  color: #94A3B8;
+}
+.brand-attribution {
+  font-size: 11px;
+  color: #6B7280;
+}
+.dark .brand-attribution {
+  color: #94A3B8;
+}
+
+/* Make footer borders extremely subtle - match background colors */
+footer.bg-white,
+footer[class*="bg-white"],
+footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+}
+html.dark footer.bg-gray-800,
+html.dark footer[class*="bg-gray-800"],
+html.dark footer {
+  border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
+}
+footer > div > div:last-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+}
+html.dark footer > div > div:last-child {
+  border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
+}
+</style>
+<footer class="bg-white dark:bg-gray-800 backdrop-blur-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
+    <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 mb-2">
+      <div class="flex items-start space-x-1 flex-shrink-0">
+        <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-16 w-16 sm:h-20 sm:w-20 transition-transform duration-300 hover:scale-110 flex-shrink-0 block opacity-100" loading="eager">
+        <div class="brand-text">
+          <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">VendorSoluce&trade;</span>
+          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter" style="letter-spacing: -0.02em; margin-top: -3px;">Supply Chain Assurance</span>
+          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
+          <div class="text-sm mt-2 text-gray-700 dark:text-gray-300 leading-tight">
+            <div>VendorSoluce&trade; Supply Chain Assurance &mdash;</div>
+            <div>Privacy-First</div>
+            <div>Comprehensive supply chain risk management platform</div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 flex-1 md:ml-8 lg:ml-12">
+        <div class="flex-1">
+          <h3 class="font-medium mb-3 text-sm text-gray-700 dark:text-gray-300">Quick Links</h3>
+          <ul class="space-y-1 leading-tight">
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="how-it-works.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers w-3.5 h-3.5 text-current inline-block"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>How It Works</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="features.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-3.5 h-3.5 text-current inline-block"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>Features</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="pricing.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-3.5 h-3.5 text-current inline-block"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>Pricing</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="trust.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-3.5 h-3.5 text-current inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>Trust</a></li>
+          </ul>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-medium mb-3 text-sm text-gray-700 dark:text-gray-300">Resources</h3>
+          <ul class="space-y-1 leading-tight">
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="radar/vendor-risk-radar.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-3.5 h-3.5 text-current inline-block"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path><circle cx="12" cy="12" r="2"></circle></svg>Vendor Radar</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="index.html#best-practices"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>Best Practices</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-3.5 h-3.5 text-current inline-block"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>Contact</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="faq.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>FAQ</a></li>
+          </ul>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-medium mb-3 text-sm text-gray-700 dark:text-gray-300">Legal</h3>
+          <ul class="space-y-1 leading-tight">
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/privacy-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock w-3.5 h-3.5 text-current inline-block"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Privacy Policy</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/cookie-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cookie w-3.5 h-3.5 text-current inline-block"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>Cookie Policy</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/terms.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scale w-3.5 h-3.5 text-current inline-block"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>Terms of Service</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/acceptable-use-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check w-3.5 h-3.5 text-current inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>Acceptable Use</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col lg:flex-row justify-between items-center gap-3 lg:gap-4 pt-1">
+      <div class="flex flex-col sm:flex-row items-center gap-3 flex-1 justify-center lg:justify-start">
+        <div class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-secure-green/10 border border-secure-green/30 status-badge-secure">
+          <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="w-3.5 h-3.5 block opacity-100" loading="eager">
+          <span class="text-[10px] sm:text-xs font-medium text-secure-green">Privacy-First • Local Storage</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle2 w-3.5 h-3.5 text-secure-green"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+          <span class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">Version 1.0</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-center lg:items-end space-y-0 leading-tight text-xs flex-shrink-0">
+        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">© 2025 ERMITS LLC</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<button class="fixed bottom-6 right-6 z-50 bg-vendorsoluce-green hover:bg-vendorsoluce-green/90 text-white rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-105 group" aria-label="Open chat support"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle h-4 w-4"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg><span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full h-3 w-3 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">!</span></button></div></div>
+  <script src="assets/js/main.js"></script>
+  <script src="includes/active-nav.js"></script>
+</body>
+</html>

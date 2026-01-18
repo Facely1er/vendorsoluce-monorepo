@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VendorSoluce® - Free Trial | Analyze Your Vendors</title>
+    <meta name="description" content="Upload your vendor list and get instant risk analysis. No signup required. See YOUR vendor risk in minutes.">
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="./homepage_files/vendorsoluce.png">
+    <link rel="stylesheet" href="assets/css/tailwind.css"/>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    
+    <style>
+        :root {
+            --vendorsoluce-green: #33691E;
+            --vendorsoluce-light-green: #66BB6A;
+            --vendorsoluce-dark-green: #2E5A1A;
+            --vendorsoluce-pale-green: #E8F5E8;
+        }
+        
+        .upload-zone {
+            border: 3px dashed var(--vendorsoluce-light-green);
+            border-radius: 0.75rem;
+            padding: 4rem;
+            text-align: center;
+            background: var(--vendorsoluce-pale-green);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-zone:hover {
+            border-color: var(--vendorsoluce-green);
+            background: rgba(102, 187, 106, 0.15);
+        }
+        
+        .upload-zone.dragover {
+            border-color: var(--vendorsoluce-green);
+            background: rgba(102, 187, 106, 0.2);
+        }
+        
+        .modern-card {
+            border-radius: 0.75rem;
+            border-width: 1px;
+            border-color: rgb(229 231 235);
+            background-color: rgb(255 255 255);
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .dark .modern-card {
+            border-color: rgb(55 65 81);
+            background-color: rgb(31 41 55);
+        }
+        
+        .modern-card:hover {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            transform: translateY(-2px) scale(1.01);
+        }
+        
+        .dark .modern-card:hover {
+            box-shadow: 0 0 0 0;
+        }
+        
+        .results-container {
+            display: none;
+        }
+        
+        .results-container.active {
+            display: block;
+        }
+        
+        .email-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .email-modal.active {
+            display: flex;
+        }
+        
+        .email-modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid rgb(229 231 235);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        
+        .dark .email-modal-content {
+            background: rgb(31 41 55);
+            border-color: rgb(55 65 81);
+        }
+        
+        .floating-cta {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--vendorsoluce-green);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(51, 105, 30, 0.3);
+            z-index: 999;
+            display: none;
+        }
+        
+        .floating-cta.active {
+            display: block;
+            animation: slideInUp 0.3s;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Make footer borders extremely subtle - match background colors */
+        footer.bg-white,
+        footer[class*="bg-white"],
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+        }
+        html.dark footer.bg-gray-800,
+        html.dark footer[class*="bg-gray-800"],
+        html.dark footer {
+            border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
+        }
+        footer > div > div:last-child {
+            border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+        }
+        html.dark footer > div > div:last-child {
+            border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900">
+    <!-- Include Header -->
+    <div id="header-placeholder"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Upload Stage -->
+        <div id="upload-stage">
+            <div class="text-center mb-12">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 text-gray-900 dark:text-white bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Stage 1: Discover Your Exposure</h1>
+                <div class="mb-6 p-4 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10 rounded-lg border border-vendorsoluce-green/30 max-w-2xl mx-auto">
+                    <div class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green mb-2">🎯 OUTCOME</div>
+                    <p class="text-base font-medium text-gray-900 dark:text-white">"I know exactly which vendors pose the greatest risk"</p>
+                </div>
+                <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8 leading-relaxed">Upload your vendor list and get instant risk analysis. See which vendors pose the greatest risk to your organization. No signup required.</p>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-8 md:p-12 mb-8 text-center" style="box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);">
+                
+                <div class="upload-zone" id="uploadZone">
+                    <div class="text-6xl mb-4">📤</div>
+                    <div class="text-2xl font-semibold mb-2 text-gray-900 dark:text-white">Drag CSV here or click to upload</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400 mb-4">CSV format: Vendor Name, Domain, Industry</div>
+                    <input type="file" id="csvInput" accept=".csv" style="display: none;">
+                </div>
+                
+                <div class="mt-6 flex flex-wrap justify-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                    <span class="flex items-center gap-2">✓ No email required for risk overview</span>
+                    <span class="flex items-center gap-2">✓ Client-side processing (data never uploaded)</span>
+                    <span class="flex items-center gap-2">✓ Instant results</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results Stage -->
+        <div id="results-stage" class="results-container">
+            <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-8 mb-8" style="box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);">
+                <div class="text-center mb-8">
+                    <div class="mb-6 p-4 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10 rounded-lg border border-vendorsoluce-green/30 max-w-2xl mx-auto">
+                        <div class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green mb-2">✅ STAGE 1 COMPLETE</div>
+                        <p class="text-base font-medium text-gray-900 dark:text-white">"I know exactly which vendors pose the greatest risk"</p>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-gray-900 dark:text-white bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">YOUR Vendor Risk Radar</h2>
+                    <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">Analysis of <span id="vendorCount">0</span> vendors in YOUR portfolio</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Continue to Stage 2 to define specific requirements for your critical vendors</p>
+                </div>
+                
+                <!-- Summary Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg text-center">
+                        <div class="text-3xl font-bold text-vendorsoluce-green mb-2" id="totalVendorsResult">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">YOUR Vendors</div>
+                    </div>
+                    <div class="bg-red-50 dark:bg-red-900/20 p-6 rounded-lg text-center">
+                        <div class="text-3xl font-bold text-red-600 mb-2" id="criticalCountResult">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">YOUR Critical Risk</div>
+                    </div>
+                    <div class="bg-orange-50 dark:bg-orange-900/20 p-6 rounded-lg text-center">
+                        <div class="text-3xl font-bold text-orange-600 mb-2" id="highCountResult">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">YOUR High Risk</div>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg text-center">
+                        <div class="text-3xl font-bold text-vendorsoluce-green mb-2" id="avgScoreResult">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Average Risk Score</div>
+                    </div>
+                </div>
+                
+                <!-- Top Risks -->
+                <div class="mb-8">
+                    <h3 class="text-xl md:text-2xl font-semibold mb-4 text-gray-900 dark:text-white">⚠️ YOUR Top 3 Riskiest Vendors:</h3>
+                    <div id="topRisksList" class="space-y-3"></div>
+                </div>
+                
+                <!-- Recommendations -->
+                <div class="bg-vendorsoluce-pale-green dark:bg-gray-700 p-6 rounded-lg mb-8 border border-gray-200 dark:border-gray-600">
+                    <h3 class="text-lg md:text-xl font-semibold mb-4 text-gray-900 dark:text-white">💡 Immediate Actions:</h3>
+                    <ul id="recommendationsList" class="space-y-2 text-gray-700 dark:text-gray-300"></ul>
+                </div>
+                
+                <!-- CTAs -->
+                <div class="text-center space-y-4">
+                    <div>
+                        <a href="https://www.application.vendorsoluce.com/supply-chain-assessment" class="inline-block px-6 py-3 md:px-8 md:py-4 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors text-base md:text-lg">
+                            Continue to Stage 2: Define Requirements →
+                        </a>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="https://www.application.vendorsoluce.com/tools/vendor-risk-radar" class="inline-block px-4 py-2 text-vendorsoluce-green dark:text-vendorsoluce-light-green hover:underline text-sm">
+                            View Full Interactive Radar
+                        </a>
+                        <a href="demo.html" class="inline-block px-4 py-2 text-vendorsoluce-green dark:text-vendorsoluce-light-green hover:underline text-sm">
+                            See Interactive Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Floating CTA for Detailed Report -->
+    <div class="floating-cta" id="floatingCta">
+        <div class="text-center">
+            <h3 class="font-bold text-lg mb-2">📧 Get Detailed Report</h3>
+            <p class="text-sm mb-4">Want vendor-by-vendor analysis with specific requirements?</p>
+            <button onclick="showEmailModal()" class="px-6 py-2 bg-white text-vendorsoluce-green rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                Get Complete Report
+            </button>
+        </div>
+    </div>
+    
+    <!-- Email Modal -->
+    <div class="email-modal" id="emailModal">
+        <div class="email-modal-content dark:bg-gray-800">
+            <h2 class="text-xl md:text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Get Your Complete Report</h2>
+            <p class="text-base text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">We'll send you:</p>
+            <ul class="list-disc list-inside mb-6 text-gray-700 dark:text-gray-300 space-y-2">
+                <li>Individual vendor scorecards</li>
+                <li>Specific requirements per vendor</li>
+                <li>90-day implementation roadmap</li>
+                <li>Policy templates</li>
+            </ul>
+            
+            <form onsubmit="captureEmail(event)" class="space-y-4">
+                <input type="email" id="emailInput" placeholder="Work email" required 
+                       class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
+                <div class="flex gap-4">
+                    <button type="button" onclick="hideEmailModal()" 
+                            class="flex-1 px-4 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                        Cancel
+                    </button>
+                    <button type="submit" 
+                            class="flex-1 px-4 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors">
+                        Send My Report
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Include Footer -->
+    <div id="footer-placeholder"></div>
+    
+    <script>
+        let vendors = [];
+        let vendorCount = 0;
+        
+        // Initialize upload zone
+        const uploadZone = document.getElementById('uploadZone');
+        const csvInput = document.getElementById('csvInput');
+        
+        uploadZone.addEventListener('click', () => csvInput.click());
+        
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+        
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('dragover');
+        });
+        
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.name.endsWith('.csv')) {
+                processCSV(file);
+            }
+        });
+        
+        csvInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                processCSV(file);
+            }
+        });
+        
+        function processCSV(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const csv = e.target.result;
+                vendors = parseCSV(csv);
+                vendorCount = vendors.length;
+                displayResults();
+                
+                // Show floating CTA after 30 seconds
+                setTimeout(() => {
+                    document.getElementById('floatingCta').classList.add('active');
+                }, 30000);
+            };
+            reader.readAsText(file);
+        }
+        
+        function parseCSV(csv) {
+            const lines = csv.split('\n').filter(line => line.trim());
+            const data = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',').map(v => v.trim());
+                if (values.length < 1 || !values[0]) continue;
+                
+                const vendor = {
+                    name: values[0],
+                    domain: values[1] || '',
+                    industry: values[2] || 'General',
+                    riskScore: Math.floor(Math.random() * 60) + 30,
+                    riskLevel: ''
+                };
+                
+                // Assign risk level
+                if (vendor.riskScore >= 80) vendor.riskLevel = 'critical';
+                else if (vendor.riskScore >= 60) vendor.riskLevel = 'high';
+                else if (vendor.riskScore >= 40) vendor.riskLevel = 'medium';
+                else vendor.riskLevel = 'low';
+                
+                data.push(vendor);
+            }
+            
+            return data;
+        }
+        
+        function displayResults() {
+            // Hide upload, show results
+            document.getElementById('upload-stage').style.display = 'none';
+            document.getElementById('results-stage').classList.add('active');
+            
+            // Update stats
+            document.getElementById('vendorCount').textContent = vendors.length;
+            document.getElementById('totalVendorsResult').textContent = vendors.length;
+            document.getElementById('criticalCountResult').textContent = vendors.filter(v => v.riskLevel === 'critical').length;
+            document.getElementById('highCountResult').textContent = vendors.filter(v => v.riskLevel === 'high').length;
+            const avgScore = Math.round(vendors.reduce((sum, v) => sum + v.riskScore, 0) / vendors.length);
+            document.getElementById('avgScoreResult').textContent = avgScore;
+            
+            // Show top 3 risks
+            const topRisks = vendors.sort((a, b) => b.riskScore - a.riskScore).slice(0, 3);
+            const topRisksList = document.getElementById('topRisksList');
+            topRisksList.innerHTML = '';
+            
+            topRisks.forEach((vendor, idx) => {
+                const item = document.createElement('div');
+                item.className = 'bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600';
+                item.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <div class="font-semibold text-lg text-gray-900 dark:text-white">${idx + 1}. ${vendor.name}</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">${vendor.industry} • ${vendor.domain}</div>
+                        </div>
+                        <div class="text-2xl font-bold text-red-600">${vendor.riskScore}/100</div>
+                    </div>
+                `;
+                topRisksList.appendChild(item);
+            });
+            
+            // Show recommendations
+            const criticalCount = vendors.filter(v => v.riskLevel === 'critical').length;
+            const recommendationsList = document.getElementById('recommendationsList');
+            recommendationsList.innerHTML = '';
+            
+            const recommendations = [
+                `Prioritize assessment of ${criticalCount} critical vendor${criticalCount !== 1 ? 's' : ''}`,
+                'Request SOC 2 certifications from high-risk vendors',
+                'Implement continuous monitoring for all vendors'
+            ];
+            
+            recommendations.forEach(rec => {
+                const li = document.createElement('li');
+                li.textContent = rec;
+                recommendationsList.appendChild(li);
+            });
+        }
+        
+        function showEmailModal() {
+            document.getElementById('emailModal').classList.add('active');
+        }
+        
+        function hideEmailModal() {
+            document.getElementById('emailModal').classList.remove('active');
+        }
+        
+        async function captureEmail(e) {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            
+            // Capture lead (summary only, no raw vendor data)
+            const summary = {
+                email: email,
+                vendorCount: vendors.length,
+                criticalCount: vendors.filter(v => v.riskLevel === 'critical').length,
+                avgScore: Math.round(vendors.reduce((sum, v) => sum + v.riskScore, 0) / vendors.length)
+            };
+            
+            // In production, send to API
+            console.log('Lead captured:', summary);
+            
+            // Show success
+            alert('Report will be sent to ' + email);
+            hideEmailModal();
+        }
+    </script>
+    
+    <script src="includes/active-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Chain Risk Assessment - VendorSoluce</title>
+    <meta name="description" content="Comprehensive NIST SP 800-161 aligned supply chain risk assessment. Evaluate your organization's security posture across 6 key domains.">
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="../homepage_files/vendorsoluce.png">
+    <link rel="stylesheet" href="../assets/css/tailwind.css"/>
+    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    
+    <!-- jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+      // Ensure jsPDF is available globally
+      if (window.jspdf && window.jspdf.jsPDF) {
+        window.jsPDF = window.jspdf.jsPDF;
+      }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div id="app">
+        <div class="max-w-4xl mx-auto px-4 py-8 text-center">
+            <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-yellow-800 dark:text-yellow-300 mb-2">Loading Assessment...</h2>
+                <p class="text-yellow-700 dark:text-yellow-400">Please wait while the assessment loads.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        (async () => {
+            try {
+                const { init } = await import('./assessment.js');
+                await init();
+            } catch (error) {
+                console.error('Failed to load assessment:', error);
+                const app = document.getElementById('app');
+                if (app) {
+                    app.innerHTML = `
+                        <div class="max-w-4xl mx-auto px-4 py-8">
+                            <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
+                                <h2 class="text-xl font-semibold text-red-800 dark:text-red-300 mb-2">Error Loading Assessment</h2>
+                                <p class="text-red-700 dark:text-red-400 mb-4">
+                                    This page requires a web server to run. ES6 modules cannot be loaded from the file:// protocol.
+                                </p>
+                                <div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-md">
+                                    <h3 class="font-semibold text-gray-900 dark:text-white mb-2">To run locally:</h3>
+                                    <ol class="list-decimal list-inside space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                                        <li>Open a terminal in the <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">packages/website</code> directory</li>
+                                        <li>Run: <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">npm run serve</code></li>
+                                        <li>Open <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">http://localhost:8080/assessment/</code> in your browser</li>
+                                    </ol>
+                                    <p class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                                        Or deploy to Vercel/Netlify for production use.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,590 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="VendorSoluce turns vendor risk into defensible decisions: visibility → assessment → due diligence → continuous monitoring." />
+  <title>VendorSoluce — Defensible Vendor Decisions</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/site.css" />
+</head>
+
+<body>
+  <!-- Skip link -->
+  <a class="skip" href="#hero">Skip to content</a>
+
+  <!-- Header -->
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a class="brand" href="#hero" aria-label="VendorSoluce Home">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__text">
+          <span class="brand__name">VendorSoluce</span>
+          <span class="brand__by">by ERMITS</span>
+        </span>
+      </a>
+
+      <!-- Mobile nav toggle (CSS-only) -->
+      <input class="nav__toggle" type="checkbox" id="nav-toggle" aria-label="Open menu" />
+      <label class="nav__burger" for="nav-toggle" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </label>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="#journey">Journey</a>
+        <a href="#trust">Trust</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#resources">Resources</a>
+        <a href="#contact" class="nav__link--soft">Contact</a>
+      </nav>
+
+      <div class="header__cta">
+        <a class="btn btn--ghost" href="#journey">See How It Works</a>
+        <a class="btn btn--primary" href="radar.html">Reveal Vendor Risk Exposure</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="hero" class="section hero">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow">Vendor risk, made defensible</p>
+          <h1>Make defensible vendor decisions — before risk becomes a breach.</h1>
+          <p class="lead">
+            VendorSoluce transforms unclear third-party risk into <strong>prioritized decisions</strong>,
+            <strong>evidence-backed approvals</strong>, and <strong>continuous oversight</strong>.
+          </p>
+
+          <ul class="bullets bullets--tight" aria-label="What changes immediately">
+            <li>You know <strong>which vendors matter most</strong> — and why</li>
+            <li>You can <strong>justify approvals, rejections, and risk acceptance</strong></li>
+            <li>You maintain <strong>continuous control</strong>, not point-in-time assessments</li>
+          </ul>
+
+          <div class="actions">
+            <a class="btn btn--primary" href="radar.html">Reveal Vendor Risk Exposure</a>
+            <a class="btn btn--ghost" href="#journey">See How It Works</a>
+          </div>
+
+          <div class="microproof" aria-label="Key assurances">
+            <span class="chip">NIST SP 800-161 aligned</span>
+            <span class="chip">Evidence-ready decisions</span>
+            <span class="chip">Continuous monitoring loop</span>
+            <span class="chip">Built for audit defense</span>
+          </div>
+        </div>
+
+        <aside class="hero__panel" aria-label="Journey overview">
+          <div class="panel">
+            <div class="panel__head">
+              <h2 class="panel__title">The 4-step operating flow</h2>
+              <p class="panel__sub">Visibility → Assessment → Due Diligence → Monitoring</p>
+            </div>
+
+            <ol class="flow" aria-label="Journey steps">
+              <li class="flow__item">
+                <span class="flow__num">1</span>
+                <div class="flow__text">
+                  <span class="flow__label">Risk Radar</span>
+                  <span class="flow__desc">Find where exposure concentrates.</span>
+                </div>
+              </li>
+              <li class="flow__item">
+                <span class="flow__num">2</span>
+                <div class="flow__text">
+                  <span class="flow__label">Assessment</span>
+                  <span class="flow__desc">Turn risk into explicit requirements.</span>
+                </div>
+              </li>
+              <li class="flow__item">
+                <span class="flow__num">3</span>
+                <div class="flow__text">
+                  <span class="flow__label">Due Diligence</span>
+                  <span class="flow__desc">Link evidence to decisions.</span>
+                </div>
+              </li>
+              <li class="flow__item">
+                <span class="flow__num">4</span>
+                <div class="flow__text">
+                  <span class="flow__label">Monitoring</span>
+                  <span class="flow__desc">Detect drift and trigger reassessment.</span>
+                </div>
+              </li>
+            </ol>
+
+            <div class="panel__foot">
+              <a class="link" href="#journey">See the value delivered →</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- PROBLEM (Value loss) -->
+    <section id="problem" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2>The cost of not knowing</h2>
+          <p class="muted">
+            Most organizations don’t fail vendor risk because they lack tools.
+            They fail because activity doesn’t translate into <strong>defensible outcomes</strong>.
+          </p>
+        </div>
+
+        <div class="cards cards--3">
+          <article class="card">
+            <h3>Assessments without defensibility</h3>
+            <p>Vendors are “reviewed,” but approvals can’t be justified under audit, incident response, or executive scrutiny.</p>
+          </article>
+          <article class="card">
+            <h3>Evidence without accountability</h3>
+            <p>Documents exist, but they aren’t connected to decisions, owners, and explicit risk acceptance.</p>
+          </article>
+          <article class="card">
+            <h3>Monitoring without action</h3>
+            <p>Signals appear, but they don’t trigger reassessment. Drift becomes surprise.</p>
+          </article>
+        </div>
+
+        <div class="callout">
+          <p><strong>Vendor risk isn’t a questionnaire.</strong> It’s a decision system.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOURNEY (Value-first) -->
+    <section id="journey" class="section section--alt">
+      <div class="container">
+        <div class="section__head">
+          <h2>The Value Journey</h2>
+          <p class="muted">Each step delivers a change in decision quality — not a list of features.</p>
+        </div>
+
+        <div class="journey">
+          <article class="journey__step">
+            <div class="journey__meta">
+              <span class="badge">Step 1</span>
+              <h3>Risk Visibility → <span class="accent">Clarity</span></h3>
+              <p class="muted">Know where vendor exposure concentrates, and what to prioritize first.</p>
+            </div>
+
+            <div class="journey__body">
+              <div class="journey__grid">
+                <div>
+                  <h4>Value delivered</h4>
+                  <ul class="bullets">
+                    <li>Exposure-based prioritization (not intuition)</li>
+                    <li>Clear risk drivers by vendor category</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>What changes</h4>
+                  <p>From treating all vendors equally → <strong>focused risk attention</strong>.</p>
+                </div>
+                <div class="journey__cta">
+                  <a class="btn btn--primary btn--small" href="radar.html">Run the Risk Radar</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="journey__step">
+            <div class="journey__meta">
+              <span class="badge">Step 2</span>
+              <h3>Assessment → <span class="accent">Confidence</span></h3>
+              <p class="muted">Turn risk into explicit requirements and actionable gaps.</p>
+            </div>
+
+            <div class="journey__body">
+              <div class="journey__grid">
+                <div>
+                  <h4>Value delivered</h4>
+                  <ul class="bullets">
+                    <li>Risk-aligned requirements (NIST SP 800-161 directionally)</li>
+                    <li>Gap clarity that drives remediation planning</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>What changes</h4>
+                  <p>From generic questionnaires → <strong>explicit control expectations</strong>.</p>
+                </div>
+                <div class="journey__cta">
+                  <a class="btn btn--ghost btn--small" href="assessment.html">Start Assessment</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="journey__step">
+            <div class="journey__meta">
+              <span class="badge">Step 3</span>
+              <h3>Due Diligence → <span class="accent">Defensibility</span></h3>
+              <p class="muted">Link evidence to approvals, rejections, and exceptions.</p>
+            </div>
+
+            <div class="journey__body">
+              <div class="journey__grid">
+                <div>
+                  <h4>Value delivered</h4>
+                  <ul class="bullets">
+                    <li>Evidence-backed decisions with ownership</li>
+                    <li>Explicit exceptions and risk acceptance trails</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>What changes</h4>
+                  <p>From compliance theater → <strong>audit-ready decisions</strong>.</p>
+                </div>
+                <div class="journey__cta">
+                  <a class="btn btn--ghost btn--small" href="portal.html">Open Vendor Portal</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="journey__step journey__step--loop">
+            <div class="journey__meta">
+              <span class="badge">Step 4</span>
+              <h3>Continuous Monitoring → <span class="accent">Control</span></h3>
+              <p class="muted">Detect drift and trigger reassessment when change happens.</p>
+            </div>
+
+            <div class="journey__body">
+              <div class="journey__grid">
+                <div>
+                  <h4>Value delivered</h4>
+                  <ul class="bullets">
+                    <li>Change-driven reviews (not calendar-only)</li>
+                    <li>Continuous posture, fewer surprises</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>What changes</h4>
+                  <p>From static snapshots → <strong>living oversight</strong>.</p>
+                  <p class="muted small">Monitoring feeds back into reassessment automatically.</p>
+                </div>
+                <div class="journey__cta">
+                  <a class="btn btn--ghost btn--small" href="monitoring.html">Enable Monitoring</a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST / PROOF -->
+    <section id="trust" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2>What you can now prove</h2>
+          <p class="muted">
+            VendorSoluce is built for governance: the difference between “we assessed vendors”
+            and “we can defend our vendor decisions.”
+          </p>
+        </div>
+
+        <div class="cards cards--4">
+          <article class="card card--tight">
+            <h3>Decision trail</h3>
+            <p>Who approved what, when, and on what basis.</p>
+          </article>
+          <article class="card card--tight">
+            <h3>Evidence lineage</h3>
+            <p>What was collected, validated, and used in decisions.</p>
+          </article>
+          <article class="card card--tight">
+            <h3>Control expectations</h3>
+            <p>Clear requirements aligned to risk and vendor type.</p>
+          </article>
+          <article class="card card--tight">
+            <h3>Drift control</h3>
+            <p>What changed since last review — and what action was triggered.</p>
+          </article>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="roles">
+          <div class="roles__item">
+            <h3>Built for the people accountable</h3>
+            <p class="muted">Outcomes mapped to roles that have to answer hard questions.</p>
+          </div>
+          <div class="roles__grid">
+            <div class="pill"><strong>CISOs</strong><span>Defensible posture</span></div>
+            <div class="pill"><strong>GRC</strong><span>Evidence without chaos</span></div>
+            <div class="pill"><strong>Procurement</strong><span>Risk-informed sourcing</span></div>
+            <div class="pill"><strong>Executives</strong><span>Fewer surprises</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- “SOLUTION” section kept as ID for your analytics/structure needs -->
+    <section id="solution" class="section section--alt">
+      <div class="container">
+        <div class="section__head">
+          <h2>How value is delivered</h2>
+          <p class="muted">Minimal mechanics — only what’s necessary to produce defensible outcomes.</p>
+        </div>
+
+        <div class="cards cards--3">
+          <article class="card">
+            <h3>Risk-aligned requirements</h3>
+            <p>Expectations scale to vendor type and exposure, not one-size-fits-all checklists.</p>
+          </article>
+          <article class="card">
+            <h3>Evidence-linked decisions</h3>
+            <p>Evidence connects directly to approvals, exceptions, and accountable owners.</p>
+          </article>
+          <article class="card">
+            <h3>Continuous reassessment logic</h3>
+            <p>When risk signals change, review is triggered. Drift becomes manageable.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES (kept for ID compatibility; framed as “outcomes” not features) -->
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2>Outcomes you get, consistently</h2>
+          <p class="muted">These are operational outputs you can use in governance and audits.</p>
+        </div>
+
+        <div class="listgrid">
+          <div class="listgrid__item">
+            <h3>Prioritized vendor focus</h3>
+            <p>Clear prioritization of who to assess first and why.</p>
+          </div>
+          <div class="listgrid__item">
+            <h3>Actionable gap plans</h3>
+            <p>Requirements and gaps translated into execution steps.</p>
+          </div>
+          <div class="listgrid__item">
+            <h3>Defensible approvals</h3>
+            <p>Evidence and decision trails that stand up under scrutiny.</p>
+          </div>
+          <div class="listgrid__item">
+            <h3>Reduced surprise risk</h3>
+            <p>Change-driven reassessment when the environment shifts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="section section--alt">
+      <div class="container">
+        <div class="section__head">
+          <h2>Value-based packages</h2>
+          <p class="muted">Choose outcomes, not feature bundles.</p>
+        </div>
+
+        <div class="pricing">
+          <article class="price">
+            <h3>Visibility</h3>
+            <p class="price__tag">Know where risk is</p>
+            <ul class="bullets bullets--tight">
+              <li>Inherent risk visibility</li>
+              <li>Exposure drivers & prioritization</li>
+              <li>Next-step guidance</li>
+            </ul>
+            <a class="btn btn--ghost btn--small" href="radar.html">Start with Radar</a>
+          </article>
+
+          <article class="price price--emph">
+            <div class="price__badge">Most common</div>
+            <h3>Assurance</h3>
+            <p class="price__tag">Know what’s required</p>
+            <ul class="bullets bullets--tight">
+              <li>Requirements baseline</li>
+              <li>Gap visibility & plans</li>
+              <li>Assessment outputs ready to use</li>
+            </ul>
+            <a class="btn btn--primary btn--small" href="assessment.html">Start Assessment</a>
+          </article>
+
+          <article class="price">
+            <h3>Defense</h3>
+            <p class="price__tag">Prove decisions</p>
+            <ul class="bullets bullets--tight">
+              <li>Evidence-linked approvals</li>
+              <li>Exceptions & acceptance trails</li>
+              <li>Defensible audit posture</li>
+            </ul>
+            <a class="btn btn--ghost btn--small" href="portal.html">Open Portal</a>
+          </article>
+
+          <article class="price">
+            <h3>Control</h3>
+            <p class="price__tag">Maintain posture over time</p>
+            <ul class="bullets bullets--tight">
+              <li>Drift detection</li>
+              <li>Change-driven reassessment</li>
+              <li>Continuous oversight loop</li>
+            </ul>
+            <a class="btn btn--ghost btn--small" href="monitoring.html">Enable Monitoring</a>
+          </article>
+        </div>
+
+        <p class="muted small center">
+          Enterprise options: multi-team governance, integrations, advanced reporting.
+        </p>
+      </div>
+    </section>
+
+    <!-- RESOURCES -->
+    <section id="resources" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2>Resources</h2>
+          <p class="muted">Practical assets that support decisions, not marketing.</p>
+        </div>
+
+        <div class="cards cards--3">
+          <article class="card">
+            <h3>Vendor risk playbook</h3>
+            <p>Operational guidance for running the journey end-to-end.</p>
+            <a class="link" href="#">Download →</a>
+          </article>
+          <article class="card">
+            <h3>Due diligence checklist</h3>
+            <p>Evidence expectations and validation prompts for vendors.</p>
+            <a class="link" href="#">Download →</a>
+          </article>
+          <article class="card">
+            <h3>Executive decision brief</h3>
+            <p>What leadership needs to see to approve risk acceptance.</p>
+            <a class="link" href="#">Download →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTION (kept for your required IDs) -->
+    <section id="action" class="section section--cta">
+      <div class="container cta">
+        <div class="cta__copy">
+          <h2>Choose clarity over guesswork.</h2>
+          <p class="muted">Start with visibility. Move to defensible decisions. Maintain control.</p>
+        </div>
+        <div class="cta__actions">
+          <a class="btn btn--primary" href="radar.html">Reveal Vendor Risk Exposure</a>
+          <a class="btn btn--ghost" href="#contact">Book a Guided Walkthrough</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2>Contact</h2>
+          <p class="muted">If you want this deployed into your environment, request a walkthrough.</p>
+        </div>
+
+        <div class="contact">
+          <div class="contact__card">
+            <h3>Book a walkthrough</h3>
+            <p class="muted">Bring one vendor list and one recent incident scenario. We’ll map the journey to your reality.</p>
+            <div class="actions">
+              <a class="btn btn--primary btn--small" href="#">Request Demo</a>
+              <a class="btn btn--ghost btn--small" href="mailto:contact@vendorsoluce.com">Email</a>
+            </div>
+            <p class="muted small">contact@vendorsoluce.com</p>
+          </div>
+
+          <div class="contact__card">
+            <h3>Deploy quickly</h3>
+            <p class="muted">Static landing + radar entry point. Expand into assessments and portal as you mature.</p>
+            <ul class="bullets bullets--tight">
+              <li>Netlify-ready structure</li>
+              <li>Clear section IDs for analytics</li>
+              <li>Journey-first navigation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white dark:bg-gray-800 backdrop-blur-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
+    <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 mb-2">
+      <div class="flex items-start space-x-1 flex-shrink-0">
+        <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-16 w-16 sm:h-20 sm:w-20 transition-transform duration-300 hover:scale-110 flex-shrink-0 block opacity-100" loading="eager">
+        <div class="brand-text">
+          <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">VendorSoluce&trade;</span>
+          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter" style="letter-spacing: -0.02em; margin-top: -3px;">Supply Chain Assurance</span>
+          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
+          <div class="text-sm mt-2 text-gray-700 dark:text-gray-300 leading-tight">
+            <div>VendorSoluce&trade; Supply Chain Assurance &mdash;</div>
+            <div>Privacy-First</div>
+            <div>Comprehensive supply chain risk management platform</div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 flex-1 md:ml-8 lg:ml-12">
+        <div class="flex-1">
+          <h3 class="font-medium mb-3 text-sm text-gray-700 dark:text-gray-300">Quick Links</h3>
+          <ul class="space-y-1 leading-tight">
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="how-it-works.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers w-3.5 h-3.5 text-current inline-block"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>How It Works</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="features.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-3.5 h-3.5 text-current inline-block"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>Features</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="pricing.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-3.5 h-3.5 text-current inline-block"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>Pricing</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="trust.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-3.5 h-3.5 text-current inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>Trust</a></li>
+          </ul>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-medium mb-3 text-sm text-gray-700 dark:text-gray-300">Resources</h3>
+          <ul class="space-y-1 leading-tight">
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="radar/vendor-risk-radar.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-3.5 h-3.5 text-current inline-block"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path><circle cx="12" cy="12" r="2"></circle></svg>Vendor Radar</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="index.html#best-practices"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>Best Practices</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-3.5 h-3.5 text-current inline-block"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>Contact</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="faq.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>FAQ</a></li>
+          </ul>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-medium mb-3 text-sm text-gray-700 dark:text-gray-300">Legal</h3>
+          <ul class="space-y-1 leading-tight">
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/privacy-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock w-3.5 h-3.5 text-current inline-block"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Privacy Policy</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/cookie-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cookie w-3.5 h-3.5 text-current inline-block"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>Cookie Policy</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/terms.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scale w-3.5 h-3.5 text-current inline-block"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>Terms of Service</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/acceptable-use-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check w-3.5 h-3.5 text-current inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>Acceptable Use</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col lg:flex-row justify-between items-center gap-3 lg:gap-4 pt-1">
+      <div class="flex flex-col sm:flex-row items-center gap-3 flex-1 justify-center lg:justify-start">
+        <div class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-secure-green/10 border border-secure-green/30 status-badge-secure">
+          <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="w-3.5 h-3.5 block opacity-100" loading="eager">
+          <span class="text-[10px] sm:text-xs font-medium text-secure-green">Privacy-First • Local Storage</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle2 w-3.5 h-3.5 text-secure-green"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+          <span class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">Version 1.0</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-center lg:items-end space-y-0 leading-tight text-xs flex-shrink-0">
+        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">© 2025 ERMITS LLC</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body>
+</html>

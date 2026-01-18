@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "build:css": "tailwindcss -i ./src/tailwind.css -o ./assets/css/tailwind.css --minify",
-    "watch:css": "tailwindcss -i ./src/tailwind.css -o ./assets/css/tailwind.css --watch"
+    "watch:css": "tailwindcss -i ./src/tailwind.css -o ./assets/css/tailwind.css --watch",
+    "serve": "npx http-server . -p 8080 -c-1 --cors",
+    "dev": "npx http-server . -p 8080 -c-1 --cors -o"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.18",

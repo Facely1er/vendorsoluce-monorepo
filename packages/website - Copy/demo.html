@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VendorSoluce® - Interactive Demo | Try Before You Buy</title>
+    <meta name="description" content="Experience VendorSoluce's 3-stage vendor risk workflow. Upload vendors, see risk scores, define requirements, and collect evidence - all in your browser.">
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="./homepage_files/vendorsoluce.png">
+    <link rel="stylesheet" href="assets/css/tailwind.css"/>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    
+    <style>
+        :root {
+            --vendorsoluce-green: #33691E;
+            --vendorsoluce-light-green: #66BB6A;
+            --vendorsoluce-dark-green: #2E5A1A;
+            --vendorsoluce-pale-green: #E8F5E8;
+        }
+        
+        .progress-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgb(229 231 235);
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        }
+        
+        .dark .progress-container {
+            background: rgb(31 41 55);
+            border-color: rgb(55 65 81);
+        }
+        
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 5%;
+            right: 5%;
+            height: 4px;
+            background: #E5E7EB;
+            z-index: 0;
+        }
+        
+        .progress-line-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--vendorsoluce-green);
+            transition: width 0.3s;
+        }
+        
+        .progress-step {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #E5E7EB;
+            color: #9CA3AF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .progress-step.active .step-number {
+            background: var(--vendorsoluce-green);
+            color: white;
+        }
+        
+        .progress-step.completed .step-number {
+            background: var(--vendorsoluce-light-green);
+            color: var(--vendorsoluce-green);
+        }
+        
+        .step-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #9CA3AF;
+        }
+        
+        .progress-step.active .step-label {
+            color: var(--vendorsoluce-green);
+        }
+        
+        .stage-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgb(229 231 235);
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            display: none;
+            transition: all 0.3s ease;
+        }
+        
+        .dark .stage-content {
+            background: rgb(31 41 55);
+            border-color: rgb(55 65 81);
+        }
+        
+        .stage-content:hover {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        
+        .stage-content.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .upload-area {
+            border: 3px dashed var(--vendorsoluce-light-green);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            background: var(--vendorsoluce-pale-green);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--vendorsoluce-green);
+            background: rgba(102, 187, 106, 0.1);
+        }
+        
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .vendor-card {
+            background: var(--vendorsoluce-pale-green);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgb(229 231 235);
+            transition: all 0.3s ease;
+        }
+        
+        .dark .vendor-card {
+            background: rgb(31 41 55);
+            border-color: rgb(55 65 81);
+        }
+        
+        .vendor-card:hover {
+            border-color: var(--vendorsoluce-light-green);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            transform: translateY(-2px) scale(1.01);
+        }
+        
+        .dark .vendor-card:hover {
+            box-shadow: 0 0 0 0;
+        }
+        
+        .risk-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .risk-critical { background: #FEE2E2; color: #991B1B; }
+        .risk-high { background: #FED7AA; color: #9A3412; }
+        .risk-medium { background: #FEF3C7; color: #92400E; }
+        .risk-low { background: #D1FAE5; color: #065F46; }
+        
+        .requirements-list {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .requirement-item {
+            background: var(--vendorsoluce-pale-green);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgb(229 231 235);
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark .requirement-item {
+            background: rgb(31 41 55);
+            border-color: rgb(55 65 81);
+        }
+        
+        .requirement-item:hover {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transform: translateY(-1px);
+        }
+        
+        .requirement-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--vendorsoluce-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .status-missing { background: #FEE2E2; color: #991B1B; }
+        .status-collected { background: #D1FAE5; color: #065F46; }
+        
+        /* Make footer borders extremely subtle - match background colors */
+        footer.bg-white,
+        footer[class*="bg-white"],
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+        }
+        html.dark footer.bg-gray-800,
+        html.dark footer[class*="bg-gray-800"],
+        html.dark footer {
+            border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
+        }
+        footer > div > div:last-child {
+            border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+        }
+        html.dark footer > div > div:last-child {
+            border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900">
+    <!-- Include Header -->
+    <div id="header-placeholder"></div>
+    
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 text-gray-900 dark:text-white bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Experience the 3-Stage Journey</h1>
+            <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">From exposure discovery to risk elimination - walk through the complete outcome-driven workflow. No signup required. All data stays in your browser.</p>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-steps">
+                <div class="progress-line">
+                    <div class="progress-line-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Discover Your Exposure</div>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Understand Your Gaps</div>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Close the Gaps</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stage 1: Discover Your Exposure -->
+        <div class="stage-content active" id="stage1">
+            <div class="mb-6 p-4 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10 rounded-lg border border-vendorsoluce-green/30">
+                <div class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green mb-2">🎯 STAGE 1 OUTCOME</div>
+                <p class="text-base font-medium text-gray-900 dark:text-white">"I know exactly which vendors pose the greatest risk"</p>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-gray-900 dark:text-white">Stage 1: Discover Your Exposure</h2>
+            <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">Upload your vendor list and instantly see which vendors pose the greatest risk. Start by uploading a CSV file, or try our sample data to see how it works.</p>
+            
+            <!-- Upload Area (shown when no vendors) -->
+            <div id="uploadSection">
+                <div class="upload-area" id="uploadArea">
+                    <div class="text-5xl mb-4">📤</div>
+                    <div class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Click to upload vendor CSV or drag and drop</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Or try our sample data below</div>
+                    <input type="file" id="fileInput" accept=".csv" style="display: none;">
+                </div>
+                
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6">
+                    <div class="text-sm text-gray-600 dark:text-gray-400">💡 Tip: CSV should have columns: Vendor Name, Domain, Industry</div>
+                    <button class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors" onclick="loadSampleData()">Load Sample Vendors</button>
+                </div>
+            </div>
+            
+            <!-- Vendor Results (shown when vendors loaded) -->
+            <div id="vendorResultsSection" style="display: none;">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-600">
+                        <div class="text-3xl font-bold text-vendorsoluce-green mb-2" id="totalVendors">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Total Vendors</div>
+                    </div>
+                    <div class="bg-red-50 dark:bg-red-900/20 p-6 rounded-lg text-center border border-red-200 dark:border-red-800/30">
+                        <div class="text-3xl font-bold text-red-600 mb-2" id="criticalCount">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Critical Risk</div>
+                    </div>
+                    <div class="bg-orange-50 dark:bg-orange-900/20 p-6 rounded-lg text-center border border-orange-200 dark:border-orange-800/30">
+                        <div class="text-3xl font-bold text-orange-600 mb-2" id="highCount">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">High Risk</div>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-600">
+                        <div class="text-3xl font-bold text-vendorsoluce-green mb-2" id="avgScore">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Avg Risk Score</div>
+                    </div>
+                </div>
+                
+                <div class="vendor-grid" id="vendorGrid"></div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 mt-8">
+                    <button class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" onclick="resetVendors()">← Upload Different List</button>
+                    <button class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors" onclick="goToStage(2)">Continue to Stage 2 →</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stage 2: Understand Your Gaps -->
+        <div class="stage-content" id="stage2">
+            <div class="mb-6 p-4 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10 rounded-lg border border-vendorsoluce-green/30">
+                <div class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green mb-2">🎯 STAGE 2 OUTCOME</div>
+                <p class="text-base font-medium text-gray-900 dark:text-white">"I know exactly what controls I need from each vendor"</p>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-gray-900 dark:text-white">Stage 2: Understand Your Gaps</h2>
+            <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">Based on risk levels, here are the specific requirements for your critical vendors. Each vendor tier has different evidence requirements.</p>
+            
+            <div class="requirements-list" id="requirementsList"></div>
+            
+            <div class="flex flex-col sm:flex-row gap-4 mt-8">
+                <button class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" onclick="goToStage(1)">← Back to Stage 1</button>
+                <button class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors" onclick="goToStage(3)">Continue to Stage 3 →</button>
+            </div>
+        </div>
+        
+        <!-- Stage 3: Close the Gaps -->
+        <div class="stage-content" id="stage3">
+            <div class="text-center py-12">
+                <div class="mb-6 p-4 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10 rounded-lg border border-vendorsoluce-green/30 max-w-2xl mx-auto">
+                    <div class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green mb-2">🎯 STAGE 3 OUTCOME</div>
+                    <p class="text-base font-medium text-gray-900 dark:text-white">"I have evidence-based proof of vendor compliance"</p>
+                </div>
+                <div class="text-6xl mb-4">✅</div>
+                <h2 class="text-3xl md:text-4xl font-semibold mb-4 text-gray-900 dark:text-white bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Stage 3: Close the Gaps - Demo Complete!</h2>
+                <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                    You've experienced the complete 3-stage VendorSoluce journey:<br>
+                    <strong>Stage 1:</strong> Discover Your Exposure → <strong>Stage 2:</strong> Understand Your Gaps → <strong>Stage 3:</strong> Close the Gaps
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-600">
+                        <div class="text-3xl font-bold text-vendorsoluce-green mb-2">70%</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Faster Onboarding</div>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-600">
+                        <div class="text-3xl font-bold text-vendorsoluce-green mb-2">95%</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Completion Rate</div>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg text-center border border-gray-200 dark:border-gray-600">
+                        <div class="text-3xl font-bold text-vendorsoluce-green mb-2">$180K</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Annual Savings</div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" onclick="resetDemo()">Restart Demo</button>
+                    <a href="trial.html" class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors inline-block text-center">Try Stage 1 With Your Data →</a>
+                    <a href="https://www.application.vendorsoluce.com/demo" class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors inline-block text-center">Continue to Interactive Demo →</a>
+                    <a href="https://www.application.vendorsoluce.com/tools/vendor-risk-radar" class="px-6 py-3 bg-white dark:bg-gray-700 text-vendorsoluce-green dark:text-vendorsoluce-light-green border border-vendorsoluce-green rounded-lg font-semibold hover:bg-vendorsoluce-pale-green dark:hover:bg-vendorsoluce-green/20 transition-colors inline-block text-center">Start Stage 1 in Platform →</a>
+                    <a href="contact.html" class="px-6 py-3 bg-white dark:bg-gray-700 text-vendorsoluce-green dark:text-vendorsoluce-light-green border border-vendorsoluce-green rounded-lg font-semibold hover:bg-vendorsoluce-pale-green dark:hover:bg-vendorsoluce-green/20 transition-colors inline-block text-center">Schedule Demo →</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Include Footer -->
+    <div id="footer-placeholder"></div>
+    
+    <script>
+        // State Management
+        let vendors = [];
+        let currentStage = 1;
+        
+        // Sample Vendor Data
+        const sampleVendors = [
+            { name: 'AWS Cloud Services', domain: 'aws.amazon.com', industry: 'Cloud', riskScore: 32, riskLevel: 'low' },
+            { name: 'Salesforce CRM', domain: 'salesforce.com', industry: 'SaaS', riskScore: 45, riskLevel: 'medium' },
+            { name: 'Okta Identity', domain: 'okta.com', industry: 'Security', riskScore: 38, riskLevel: 'low' },
+            { name: 'Legacy Vendor Inc', domain: 'legacyvendor.com', industry: 'Software', riskScore: 87, riskLevel: 'critical' },
+            { name: 'DataCorp Analytics', domain: 'datacorp.io', industry: 'Analytics', riskScore: 76, riskLevel: 'high' },
+            { name: 'SecureComm Solutions', domain: 'securecomm.com', industry: 'Telecom', riskScore: 82, riskLevel: 'critical' },
+            { name: 'CloudBackup Pro', domain: 'cloudbackup.net', industry: 'Backup', riskScore: 68, riskLevel: 'high' },
+            { name: 'PaymentGateway Global', domain: 'paymentgateway.com', industry: 'Finance', riskScore: 91, riskLevel: 'critical' },
+        ];
+        
+        // Requirements Templates
+        const requirementsByTier = {
+            critical: [
+                { name: 'SOC 2 Type II Certification', description: 'Current certification (< 12 months old)', status: 'missing' },
+                { name: 'Cyber Insurance', description: 'Minimum $5M coverage', status: 'missing' },
+                { name: 'Incident Response Plan', description: '24-hour breach notification requirement', status: 'missing' },
+                { name: 'Multi-Factor Authentication', description: 'MFA enforced for all access', status: 'collected' },
+                { name: 'Annual Security Assessment', description: 'Third-party penetration testing', status: 'missing' }
+            ],
+            high: [
+                { name: 'Security Questionnaire', description: 'Complete 25-question assessment', status: 'collected' },
+                { name: 'Cyber Insurance', description: 'Minimum $2M coverage', status: 'missing' },
+                { name: 'Data Protection Policy', description: 'Documented handling procedures', status: 'missing' }
+            ],
+            medium: [
+                { name: 'Basic Security Attestation', description: 'Self-attestation of security practices', status: 'collected' },
+                { name: 'Contract Review', description: 'Security terms verification', status: 'collected' }
+            ]
+        };
+        
+        // Initialize
+        document.getElementById('uploadArea').addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+        
+        document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+        
+        // Load Sample Data
+        function loadSampleData() {
+            vendors = sampleVendors;
+            displayVendors();
+            // Show Stage 1 with vendors displayed
+            goToStage(1);
+        }
+        
+        // Handle File Upload
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const csv = e.target.result;
+                vendors = parseCSV(csv);
+                displayVendors();
+                // Stay on Stage 1 to show vendors
+                goToStage(1);
+            };
+            reader.readAsText(file);
+        }
+        
+        // Parse CSV
+        function parseCSV(csv) {
+            const lines = csv.split('\n');
+            const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+            const data = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i].trim()) continue;
+                const values = lines[i].split(',');
+                const vendor = {
+                    name: values[0]?.trim() || 'Unknown Vendor',
+                    domain: values[1]?.trim() || '',
+                    industry: values[2]?.trim() || 'General',
+                    riskScore: Math.floor(Math.random() * 60) + 30,
+                    riskLevel: ''
+                };
+                
+                // Assign risk level
+                if (vendor.riskScore >= 80) vendor.riskLevel = 'critical';
+                else if (vendor.riskScore >= 60) vendor.riskLevel = 'high';
+                else if (vendor.riskScore >= 40) vendor.riskLevel = 'medium';
+                else vendor.riskLevel = 'low';
+                
+                data.push(vendor);
+            }
+            
+            return data;
+        }
+        
+        // Display Vendors
+        function displayVendors() {
+            const grid = document.getElementById('vendorGrid');
+            grid.innerHTML = '';
+            
+            // Update stats
+            document.getElementById('totalVendors').textContent = vendors.length;
+            document.getElementById('criticalCount').textContent = vendors.filter(v => v.riskLevel === 'critical').length;
+            document.getElementById('highCount').textContent = vendors.filter(v => v.riskLevel === 'high').length;
+            const avgScore = Math.round(vendors.reduce((sum, v) => sum + v.riskScore, 0) / vendors.length);
+            document.getElementById('avgScore').textContent = avgScore;
+            
+            // Create vendor cards
+            vendors.forEach(vendor => {
+                const card = document.createElement('div');
+                card.className = 'vendor-card';
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="font-bold text-lg text-gray-900 dark:text-white">${vendor.name}</div>
+                        <div class="risk-badge risk-${vendor.riskLevel}">${vendor.riskLevel}</div>
+                    </div>
+                    <div class="text-3xl font-bold text-vendorsoluce-green mb-2">${vendor.riskScore}/100</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">
+                        ${vendor.industry} • ${vendor.domain}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            
+            // Show vendor results section, hide upload section
+            document.getElementById('uploadSection').style.display = 'none';
+            document.getElementById('vendorResultsSection').style.display = 'block';
+        }
+        
+        // Reset Vendors (go back to upload)
+        function resetVendors() {
+            vendors = [];
+            document.getElementById('uploadSection').style.display = 'block';
+            document.getElementById('vendorResultsSection').style.display = 'none';
+            document.getElementById('vendorGrid').innerHTML = '';
+            document.getElementById('fileInput').value = '';
+        }
+        
+        // Display Requirements
+        function displayRequirements() {
+            const list = document.getElementById('requirementsList');
+            list.innerHTML = '';
+            
+            // Get critical vendors
+            const criticalVendors = vendors.filter(v => v.riskLevel === 'critical');
+            
+            if (criticalVendors.length > 0) {
+                const vendor = criticalVendors[0];
+                const requirements = requirementsByTier.critical;
+                
+                const header = document.createElement('h3');
+                header.className = 'text-xl md:text-2xl font-semibold mb-4 text-gray-900 dark:text-white';
+                header.textContent = `Requirements for: ${vendor.name}`;
+                list.appendChild(header);
+                
+                requirements.forEach(req => {
+                    const item = document.createElement('div');
+                    item.className = 'requirement-item';
+                    item.innerHTML = `
+                        <div class="requirement-icon">${req.status === 'collected' ? '✓' : '!'}</div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-base md:text-lg text-gray-900 dark:text-white mb-1">${req.name}</h4>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-2 leading-relaxed">${req.description}</p>
+                            <span class="requirement-status status-${req.status} px-3 py-1 rounded-full text-xs font-semibold">
+                                ${req.status === 'collected' ? 'Evidence Collected' : 'Missing Evidence'}
+                            </span>
+                        </div>
+                    `;
+                    list.appendChild(item);
+                });
+            }
+        }
+        
+        // Navigate Between Stages
+        function goToStage(stage) {
+            // Hide all stages
+            document.querySelectorAll('.stage-content').forEach(el => el.classList.remove('active'));
+            
+            // Map stages: 1 = Stage 1, 2 = Stage 2 (requirements), 3 = Stage 3 (completion)
+            let targetStageId;
+            if (stage === 1) {
+                targetStageId = 'stage1';
+                // If vendors are loaded, show them in Stage 1
+                if (vendors.length > 0) {
+                    displayVendors();
+                }
+            } else if (stage === 2) {
+                targetStageId = 'stage2'; // Requirements stage
+                displayRequirements();
+            } else if (stage === 3) {
+                targetStageId = 'stage3'; // Completion
+            }
+            
+            // Show target stage
+            if (targetStageId) {
+                document.getElementById(targetStageId).classList.add('active');
+            }
+            
+            // Update progress (3 stages total)
+            document.querySelectorAll('.progress-step').forEach((el, idx) => {
+                el.classList.remove('active', 'completed');
+                if (idx + 1 < stage) el.classList.add('completed');
+                if (idx + 1 === stage) el.classList.add('active');
+            });
+            
+            // Update progress bar (3 stages: 0%, 50%, 100%)
+            const progress = stage === 1 ? 0 : stage === 2 ? 50 : 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            currentStage = stage;
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Reset Demo
+        function resetDemo() {
+            vendors = [];
+            resetVendors();
+            goToStage(1);
+            document.getElementById('vendorGrid').innerHTML = '';
+            document.getElementById('requirementsList').innerHTML = '';
+        }
+    </script>
+    
+    <script src="includes/active-nav.js"></script>
+</body>
+</html>

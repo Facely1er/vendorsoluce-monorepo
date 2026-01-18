@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon System -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./homepage_files/vendorsoluce.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./homepage_files/vendorsoluce.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./homepage_files/vendorsoluce.png">
+    <link rel="shortcut icon" type="image/png" href="./homepage_files/vendorsoluce.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- SEO Meta Tags -->
+    <title>VendorSoluce® - Discover Hidden Vendor Risk in Hours | Supply Chain Risk Intelligence</title>
+    <meta name="description" content="Upload your vendor list and discover which of your 147 vendors pose the greatest risk in hours, not months. VendorSoluce® Vendor Risk Radar provides instant visibility into your supply chain exposure with NIST SP 800-161 aligned intelligence.">
+    <meta name="keywords" content="vendor risk radar, supply chain risk discovery, vendor risk assessment, NIST SP 800-161, third-party risk management, vendor security">
+    <meta name="author" content="ERMITS Corporation">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="VendorSoluce® - Discover Hidden Vendor Risk in Hours">
+    <meta property="og:description" content="Upload your vendor list and discover which vendors pose the greatest risk in hours. Vendor Risk Radar provides instant supply chain visibility.">
+    <meta property="og:image" content="https://vendorsoluce.com/social-preview.png">
+    <meta property="og:url" content="https://vendorsoluce.com">
+    <meta property="og:site_name" content="VendorSoluce by ERMITS">
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VendorSoluce® - Discover Hidden Vendor Risk">
+    <meta name="twitter:description" content="Upload your vendor list and discover risk exposure in hours with Vendor Risk Radar.">
+    <meta name="twitter:image" content="https://vendorsoluce.com/social-preview.png">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://vendorsoluce.com/">
+    
+    <style>
+        :root {
+            /* VendorSoluce Brand Colors */
+            --vendorsoluce-primary: #2D5A27;
+            --vendorsoluce-secondary: #3E7B36;
+            --vendorsoluce-accent: #7CB342;
+            --vendorsoluce-light: #A5D6A7;
+            --vendorsoluce-gold: #FFB300;
+            
+            /* Stage Colors */
+            --radar-blue: #1E88E5;
+            --assessment-orange: #FF8F00;
+            --portal-green: #43A047;
+            
+            /* Status Colors */
+            --critical-red: #E53E3E;
+            --high-orange: #FF8C00;
+            --medium-yellow: #F59E0B;
+            --low-green: #10B981;
+            
+            /* Neutrals */
+            --gray-50: #FAFAFA;
+            --gray-100: #F5F5F5;
+            --gray-200: #EEEEEE;
+            --gray-300: #E0E0E0;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            
+            /* Typography */
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            /* Effects */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            
+            /* Border Radius */
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--gray-800);
+            background: var(--gray-50);
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .logo-img {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .brand-text .brand-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--vendorsoluce-primary);
+            letter-spacing: -0.01em;
+        }
+        
+        .brand-text .brand-tagline {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+        
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            list-style: none;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--vendorsoluce-primary);
+        }
+        
+        .cta-button {
+            background: var(--vendorsoluce-primary);
+            color: white;
+            padding: 0.6rem 1.25rem;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .cta-button:hover {
+            background: var(--vendorsoluce-secondary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        /* Hero Section - Problem Focused */
+        .hero {
+            padding: 8rem 0 6rem;
+            background: linear-gradient(135deg, #FAFAFA 0%, #F0F7FF 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23E0E7FF" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .problem-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(229, 62, 62, 0.1);
+            color: var(--critical-red);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(229, 62, 62, 0.2);
+        }
+        
+        .hero-title {
+            font-size: clamp(2.25rem, 4vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--gray-900);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-600);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-question {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--critical-red);
+        }
+        
+        .hero-question .question-text {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            font-style: italic;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--radar-blue), #1565C0);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--gray-700);
+            padding: 1rem 2rem;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--gray-300);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--vendorsoluce-primary);
+            color: var(--vendorsoluce-primary);
+        }
+        
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--vendorsoluce-primary);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+        
+        .stat-description {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-top: 0.25rem;
+        }
+        
+        /* Three Stage Journey */
+        .journey {
+            padding: 6rem 0;
+            background: white;
+        }
+        
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: clamp(2rem, 3vw, 2.75rem);
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .section-description {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .journey-stages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .stage-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-100);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .stage-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .stage-number {
+            position: absolute;
+            top: -15px;
+            left: 2rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: white;
+        }
+        
+        .stage-1 .stage-number { background: var(--radar-blue); }
+        .stage-2 .stage-number { background: var(--assessment-orange); }
+        .stage-3 .stage-number { background: var(--portal-green); }
+        
+        .stage-1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--radar-blue);
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        }
+        
+        .stage-2::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--assessment-orange);
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        }
+        
+        .stage-3::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--portal-green);
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        }
+        
+        .stage-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .stage-subtitle {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .stage-1 .stage-subtitle { color: var(--radar-blue); }
+        .stage-2 .stage-subtitle { color: var(--assessment-orange); }
+        .stage-3 .stage-subtitle { color: var(--portal-green); }
+        
+        .stage-description {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .stage-outcome {
+            background: var(--gray-50);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            border-left: 4px solid;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stage-1 .stage-outcome { border-left-color: var(--radar-blue); }
+        .stage-2 .stage-outcome { border-left-color: var(--assessment-orange); }
+        .stage-3 .stage-outcome { border-left-color: var(--portal-green); }
+        
+        .outcome-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stage-1 .outcome-label { color: var(--radar-blue); }
+        .stage-2 .outcome-label { color: var(--assessment-orange); }
+        .stage-3 .outcome-label { color: var(--portal-green); }
+        
+        .outcome-text {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            font-style: italic;
+        }
+        
+        .stage-features {
+            list-style: none;
+        }
+        
+        .stage-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray-700);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stage-features li::before {
+            content: '✓';
+            font-weight: bold;
+        }
+        
+        .stage-1 .stage-features li::before { color: var(--radar-blue); }
+        .stage-2 .stage-features li::before { color: var(--assessment-orange); }
+        .stage-3 .stage-features li::before { color: var(--portal-green); }
+        
+        /* Value Props */
+        .value-props {
+            padding: 6rem 0;
+            background: var(--gray-50);
+        }
+        
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .value-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-lg);
+            font-size: 1.5rem;
+        }
+        
+        .value-before .value-icon {
+            background: rgba(229, 62, 62, 0.1);
+            color: var(--critical-red);
+        }
+        
+        .value-after .value-icon {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--low-green);
+        }
+        
+        .value-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .value-before .value-title { color: var(--critical-red); }
+        .value-after .value-title { color: var(--low-green); }
+        
+        .value-description {
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--gray-900);
+            color: var(--gray-300);
+            padding: 3rem 0 2rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .footer-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+        }
+        
+        .footer-brand-text h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+        
+        .footer-brand-text .tagline {
+            font-size: 0.75rem;
+            color: var(--vendorsoluce-accent);
+            margin-bottom: 0.25rem;
+        }
+        
+        .footer-brand-text .company {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-description {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--gray-300);
+        }
+        
+        .footer-section h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: var(--gray-300);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--vendorsoluce-accent);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid var(--gray-700);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .privacy-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(124, 179, 66, 0.1);
+            color: var(--vendorsoluce-accent);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(124, 179, 66, 0.3);
+        }
+        
+        .copyright {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .journey-stages {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-main {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav-container">
+            <a href="#" class="logo-section">
+                <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="logo-img">
+                <div class="brand-text">
+                    <div class="brand-name">VendorSoluce®</div>
+                    <div class="brand-tagline">Supply Chain Assurance</div>
+                </div>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#radar" class="nav-link">Vendor Radar</a></li>
+                <li><a href="#journey" class="nav-link">How It Works</a></li>
+                <li><a href="#value" class="nav-link">Results</a></li>
+                <li><a href="#demo" class="nav-link">Demo</a></li>
+            </ul>
+            
+            <a href="#upload-vendors" class="cta-button">Upload Vendor List</a>
+        </nav>
+    </header>
+    
+    <!-- Hero Section - Problem Focused -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="problem-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 9V11H14V9H12ZM12 17H14V13H12V17ZM12 2L21 6V12C21 18.5 17.5 22 12 22S3 18.5 3 12V6L12 2Z"/>
+                    </svg>
+                    The Hidden Vendor Risk Problem
+                </div>
+                
+                <h1 class="hero-title">
+                    Which of Your 147 Vendors<br>
+                    Should You <span style="color: var(--critical-red);">Worry About First?</span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Upload your vendor list and discover hidden supply chain risk exposure in hours, not months. 
+                    VendorSoluce® Vendor Risk Radar provides instant visibility into which vendors pose the greatest threat.
+                </p>
+                
+                <div class="hero-question">
+                    <div class="question-text">
+                        "I know I have vendor risk, but I don't know WHERE it is or HOW BAD it is."
+                    </div>
+                </div>
+                
+                <div class="hero-buttons">
+                    <a href="#radar" class="btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1V5"/>
+                            <path d="M12 19V23"/>
+                            <path d="M4.22 4.22L6.34 6.34"/>
+                            <path d="M17.66 17.66L19.78 19.78"/>
+                            <path d="M1 12H5"/>
+                            <path d="M19 12H23"/>
+                            <path d="M4.22 19.78L6.34 17.66"/>
+                            <path d="M17.66 6.34L19.78 4.22"/>
+                        </svg>
+                        Try Vendor Risk Radar
+                    </a>
+                    <a href="#demo" class="btn-secondary">Watch 2-Min Demo</a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <span class="stat-number">5 min</span>
+                        <span class="stat-label">Risk Discovery</span>
+                        <div class="stat-description">vs. 3 months traditional</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">147</span>
+                        <span class="stat-label">Vendors Scored</span>
+                        <div class="stat-description">Instant prioritization</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">Critical Found</span>
+                        <div class="stat-description">Clear action priority</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Three Stage Journey -->
+    <section class="journey" id="journey">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">From Risk Exposure to Risk Elimination</h2>
+                <p class="section-description">
+                    VendorSoluce transforms vendor risk management through a proven three-stage journey: 
+                    Discover your exposure, understand your gaps, and collect evidence-based proof of compliance.
+                </p>
+            </div>
+            
+            <div class="journey-stages">
+                <!-- Stage 1: Vendor Risk Radar -->
+                <div class="stage-card stage-1">
+                    <div class="stage-number">1</div>
+                    <h3 class="stage-title">Vendor Risk Radar</h3>
+                    <div class="stage-subtitle">Discover Your Hidden Exposure</div>
+                    <p class="stage-description">
+                        Upload your vendor list and get instant risk intelligence. Our Radar analyzes 
+                        public breach data, security incidents, and industry risk profiles to identify 
+                        which vendors pose the greatest threat to your organization.
+                    </p>
+                    
+                    <div class="stage-outcome">
+                        <div class="outcome-label">Outcome Achieved</div>
+                        <div class="outcome-text">"I know exactly which vendors pose the greatest risk"</div>
+                    </div>
+                    
+                    <ul class="stage-features">
+                        <li>147 vendors risk-scored in 5 minutes</li>
+                        <li>8 critical vendors flagged for immediate action</li>
+                        <li>$12M potential exposure quantified</li>
+                        <li>Executive-ready priority matrix</li>
+                        <li>Real-time threat intelligence correlation</li>
+                    </ul>
+                </div>
+                
+                <!-- Stage 2: NIST Supply Chain Assessment -->
+                <div class="stage-card stage-2">
+                    <div class="stage-number">2</div>
+                    <h3 class="stage-title">NIST Supply Chain Assessment</h3>
+                    <div class="stage-subtitle">Understand Your Control Gaps</div>
+                    <p class="stage-description">
+                        Automated gap analysis based on NIST SP 800-161 guidelines. Generate 
+                        vendor-specific requirements and evidence collection lists tailored to 
+                        each vendor's risk level and service criticality.
+                    </p>
+                    
+                    <div class="stage-outcome">
+                        <div class="outcome-label">Outcome Achieved</div>
+                        <div class="outcome-text">"I know exactly what controls I need from each vendor"</div>
+                    </div>
+                    
+                    <ul class="stage-features">
+                        <li>Risk-based requirements by vendor tier</li>
+                        <li>NIST SP 800-161 aligned control mapping</li>
+                        <li>Evidence-specific collection lists</li>
+                        <li>Automated questionnaire generation</li>
+                        <li>Compliance gap identification</li>
+                    </ul>
+                </div>
+                
+                <!-- Stage 3: Vendor Self-Service Portal -->
+                <div class="stage-card stage-3">
+                    <div class="stage-number">3</div>
+                    <h3 class="stage-title">Vendor Self-Service Portal</h3>
+                    <div class="stage-subtitle">Close the Gaps with Evidence</div>
+                    <p class="stage-description">
+                        Eliminate email chaos with a dedicated vendor portal. Vendors receive 
+                        personalized requirements, upload evidence directly, and track completion 
+                        status while you maintain real-time visibility into compliance progress.
+                    </p>
+                    
+                    <div class="stage-outcome">
+                        <div class="outcome-label">Outcome Achieved</div>
+                        <div class="outcome-text">"I have evidence-based proof of vendor compliance"</div>
+                    </div>
+                    
+                    <ul class="stage-features">
+                        <li>95% vendor completion rate</li>
+                        <li>70% faster evidence collection</li>
+                        <li>Real-time compliance dashboard</li>
+                        <li>Automated expiration alerts</li>
+                        <li>Always audit-ready documentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Value Proposition: Before vs After -->
+    <section class="value-props" id="value">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">From Months of Uncertainty to Hours of Clarity</h2>
+                <p class="section-description">
+                    See how organizations transform their vendor risk management from reactive guesswork 
+                    to proactive intelligence-driven decision making.
+                </p>
+            </div>
+            
+            <div class="value-grid">
+                <!-- Before State -->
+                <div class="value-card value-before">
+                    <div class="value-icon">⚠️</div>
+                    <h3 class="value-title">Before VendorSoluce</h3>
+                    <div class="value-description">
+                        <strong>"Unknown vendor risk"</strong><br>
+                        • "We think we have about 100-150 vendors"<br>
+                        • "Not sure which ones are highest risk"<br>
+                        • "Security assessments are 2+ years old"<br>
+                        • "No idea if vendors have been breached"<br>
+                        • Traditional approach: 240+ hours over 12+ months
+                    </div>
+                </div>
+                
+                <!-- After State -->
+                <div class="value-card value-after">
+                    <div class="value-icon">✅</div>
+                    <h3 class="value-title">After VendorSoluce</h3>
+                    <div class="value-description">
+                        <strong>"Complete risk visibility"</strong><br>
+                        • 147 vendors identified and risk-scored<br>
+                        • 8 critical vendors flagged for immediate action<br>
+                        • 3 vendors with recent security incidents discovered<br>
+                        • $12M exposure quantified across top 10 vendors<br>
+                        • VendorSoluce approach: 12 hours over 6 weeks
+                    </div>
+                </div>
+                
+                <!-- ROI Value -->
+                <div class="value-card">
+                    <div class="value-icon" style="background: rgba(255, 185, 0, 0.1); color: var(--vendorsoluce-gold);">💰</div>
+                    <h3 class="value-title" style="color: var(--vendorsoluce-gold);">Business Impact</h3>
+                    <div class="value-description">
+                        <strong>Quantified ROI:</strong><br>
+                        • 95% time savings (12 hours vs. 240+ hours)<br>
+                        • $180K annual operational savings<br>
+                        • $10-44M risk exposure eliminated<br>
+                        • 70% faster vendor onboarding<br>
+                        • Always audit-ready compliance
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800 backdrop-blur-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
+    <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 mb-2">
+      <div class="flex items-start space-x-1 flex-shrink-0">
+        <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-16 w-16 sm:h-20 sm:w-20 transition-transform duration-300 hover:scale-110 flex-shrink-0 block opacity-100" loading="eager">
+        <div class="brand-text">
+          <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">VendorSoluce&trade;</span>
+          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter" style="letter-spacing: -0.02em; margin-top: -3px;">Supply Chain Assurance</span>
+          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
+          <div class="text-sm mt-2 text-gray-700 dark:text-gray-300 leading-tight">
+            <div>VendorSoluce&trade; Supply Chain Assurance &mdash;</div>
+            <div>Privacy-First</div>
+            <div>Comprehensive supply chain risk management platform</div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 flex-1 md:ml-8 lg:ml-12">
+        <div class="flex-1">
+          <h3 class="font-medium mb-3 text-sm text-gray-700 dark:text-gray-300">Quick Links</h3>
+          <ul class="space-y-1 leading-tight">
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="how-it-works.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers w-3.5 h-3.5 text-current inline-block"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>How It Works</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="features.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-3.5 h-3.5 text-current inline-block"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>Features</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="pricing.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-3.5 h-3.5 text-current inline-block"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>Pricing</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="trust.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-3.5 h-3.5 text-current inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>Trust</a></li>
+          </ul>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-medium mb-3 text-sm text-gray-700 dark:text-gray-300">Resources</h3>
+          <ul class="space-y-1 leading-tight">
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="radar/vendor-risk-radar.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-3.5 h-3.5 text-current inline-block"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path><circle cx="12" cy="12" r="2"></circle></svg>Vendor Radar</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="index.html#best-practices"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>Best Practices</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-3.5 h-3.5 text-current inline-block"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>Contact</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="faq.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>FAQ</a></li>
+          </ul>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-medium mb-3 text-sm text-gray-700 dark:text-gray-300">Legal</h3>
+          <ul class="space-y-1 leading-tight">
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/privacy-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock w-3.5 h-3.5 text-current inline-block"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Privacy Policy</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/cookie-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cookie w-3.5 h-3.5 text-current inline-block"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>Cookie Policy</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/terms.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scale w-3.5 h-3.5 text-current inline-block"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>Terms of Service</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/acceptable-use-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check w-3.5 h-3.5 text-current inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>Acceptable Use</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col lg:flex-row justify-between items-center gap-3 lg:gap-4 pt-1">
+      <div class="flex flex-col sm:flex-row items-center gap-3 flex-1 justify-center lg:justify-start">
+        <div class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-secure-green/10 border border-secure-green/30 status-badge-secure">
+          <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="w-3.5 h-3.5 block opacity-100" loading="eager">
+          <span class="text-[10px] sm:text-xs font-medium text-secure-green">Privacy-First • Local Storage</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle2 w-3.5 h-3.5 text-secure-green"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+          <span class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">Version 1.0</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-center lg:items-end space-y-0 leading-tight text-xs flex-shrink-0">
+        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">© 2025 ERMITS LLC</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+    
+    <!-- JavaScript -->
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add entrance animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe stage cards for entrance animations
+        document.querySelectorAll('.stage-card, .value-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

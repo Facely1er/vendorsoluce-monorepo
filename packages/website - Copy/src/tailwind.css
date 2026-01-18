@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* VendorSoluce custom styles */
+:root {
+  --vendorsoluce-green: #33691E;
+  --vendorsoluce-light-green: #66BB6A;
+  --vendorsoluce-dark-green: #2E5A1A;
+  --vendorsoluce-pale-green: #E8F5E8;
+}
+

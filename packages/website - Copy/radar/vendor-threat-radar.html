@@ -1,0 +1,2781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Risk Radar - VendorSoluce</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'vendorsoluce-green': '#2e7d32',
+                        'vendorsoluce-light-green': '#4caf50',
+                        'vendorsoluce-dark-green': '#1b5e20',
+                        'vendorsoluce-pale-green': '#e8f5e9',
+                        'secure-green': '#16a34a'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --vendorsoluce-green: #2e7d32;
+            --vendorsoluce-light-green: #4caf50;
+            --vendorsoluce-dark-green: #1b5e20;
+            --vendorsoluce-pale-green: #e8f5e9;
+            --vendorsoluce-navy: #1a2e1a;
+            --vendorsoluce-teal: #009688;
+            --vendorsoluce-blue: #2196f3;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f9fafb;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+        
+        body.dark-mode {
+            background: #111827;
+            color: #f3f4f6;
+        }
+        
+        /* Container */
+        .radar-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .radar-header {
+            text-align: center;
+            padding: 32px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--vendorsoluce-green);
+        }
+        
+        .dark-mode .radar-header {
+            background: #1f2937;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .radar-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--vendorsoluce-green);
+            margin-bottom: 8px;
+        }
+        
+        .dark-mode .radar-header h1 {
+            color: var(--vendorsoluce-light-green);
+        }
+        
+        .radar-status {
+            font-size: 1rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .dark-mode .radar-status {
+            color: #9ca3af;
+        }
+        
+        .hero-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .hero-items > div {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .timestamp {
+            margin-top: 8px;
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+        
+        .dark-mode .timestamp {
+            color: #6b7280;
+        }
+        
+        /* Toolbar */
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .dark-mode .toolbar {
+            background: #1f2937;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .toolbar-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Buttons */
+        button {
+            background: var(--vendorsoluce-green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        button:hover:not(:disabled) {
+            background: var(--vendorsoluce-dark-green);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(46, 125, 50, 0.2);
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        button.secondary {
+            background: white;
+            color: var(--vendorsoluce-green);
+            border: 2px solid var(--vendorsoluce-green);
+        }
+        
+        .dark-mode button.secondary {
+            background: #374151;
+            color: var(--vendorsoluce-light-green);
+            border-color: var(--vendorsoluce-light-green);
+        }
+        
+        button.secondary:hover:not(:disabled) {
+            background: var(--vendorsoluce-pale-green);
+        }
+        
+        .dark-mode button.secondary:hover:not(:disabled) {
+            background: #4b5563;
+        }
+        
+        button.danger {
+            background: #ef4444;
+        }
+        
+        button.danger:hover:not(:disabled) {
+            background: #dc2626;
+        }
+        
+        select {
+            background: white;
+            color: #1f2937;
+            border: 2px solid #d1d5db;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+        
+        .dark-mode select {
+            background: #374151;
+            color: #f3f4f6;
+            border-color: #4b5563;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: var(--vendorsoluce-green);
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+        
+        input[type="file"] {
+            display: none;
+        }
+        
+        /* Alert Banner */
+        .alert-banner {
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-left: 4px solid;
+        }
+        
+        .alert-banner.critical {
+            background: #fef2f2;
+            border-color: #dc2626;
+            color: #991b1b;
+        }
+        
+        .dark-mode .alert-banner.critical {
+            background: #7f1d1d;
+            color: #fca5a5;
+        }
+        
+        .alert-banner.warning {
+            background: #fffbeb;
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+        
+        .dark-mode .alert-banner.warning {
+            background: #78350f;
+            color: #fcd34d;
+        }
+        
+        .alert-banner.clear {
+            background: #f0fdf4;
+            border-color: var(--vendorsoluce-green);
+            color: #166534;
+        }
+        
+        .dark-mode .alert-banner.clear {
+            background: #14532d;
+            color: #86efac;
+        }
+        
+        .alert-icon {
+            font-size: 1.5rem;
+        }
+        
+        .alert-content {
+            flex: 1;
+        }
+        
+        .alert-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--vendorsoluce-green);
+            transition: all 0.2s;
+        }
+        
+        .dark-mode .stat-card {
+            background: #1f2937;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-card.critical {
+            border-left-color: #dc2626;
+        }
+        
+        .stat-card.warning {
+            border-left-color: #f59e0b;
+        }
+        
+        .stat-card.success {
+            border-left-color: var(--vendorsoluce-green);
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+        
+        .dark-mode .stat-label {
+            color: #9ca3af;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+        
+        .dark-mode .stat-value {
+            color: #f3f4f6;
+        }
+        
+        /* Main Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .dark-mode .card {
+            background: #1f2937;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            border-color: #374151;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .dark-mode .card-header {
+            border-bottom-color: #374151;
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .dark-mode .card-title {
+            color: #f3f4f6;
+        }
+        
+        .card-title svg {
+            width: 24px;
+            height: 24px;
+            color: var(--vendorsoluce-green);
+        }
+        
+        .dark-mode .card-title svg {
+            color: var(--vendorsoluce-light-green);
+        }
+        
+        /* Sonar Radar */
+        .sonar-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0a1628;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .dark-mode .sonar-container {
+            background: #0a0e1a;
+        }
+        
+        #sonarCanvas {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .radar-legend {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark-mode .radar-legend {
+            background: rgba(31, 41, 55, 0.95);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        
+        .legend-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        
+        /* Vendor List */
+        .vendor-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .vendor-list::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .vendor-list::-webkit-scrollbar-track {
+            background: #f3f4f6;
+            border-radius: 4px;
+        }
+        
+        .dark-mode .vendor-list::-webkit-scrollbar-track {
+            background: #374151;
+        }
+        
+        .vendor-list::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+        
+        .dark-mode .vendor-list::-webkit-scrollbar-thumb {
+            background: #4b5563;
+        }
+        
+        .vendor-item {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #e5e7eb;
+            background: #f9fafb;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .dark-mode .vendor-item {
+            background: #374151;
+            border-color: #4b5563;
+        }
+        
+        .vendor-item:hover {
+            border-color: var(--vendorsoluce-green);
+            box-shadow: 0 2px 4px rgba(46, 125, 50, 0.1);
+        }
+        
+        .vendor-item.critical {
+            border-left: 4px solid #dc2626;
+        }
+        
+        .vendor-item.high {
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .vendor-item.medium {
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .vendor-item.low {
+            border-left: 4px solid var(--vendorsoluce-green);
+        }
+        
+        .vendor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        
+        .vendor-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1f2937;
+        }
+        
+        .dark-mode .vendor-name {
+            color: #f3f4f6;
+        }
+        
+        .vendor-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .badge.critical {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+        
+        .dark-mode .badge.critical {
+            background: #7f1d1d;
+            color: #fca5a5;
+        }
+        
+        .badge.high {
+            background: #fffbeb;
+            color: #92400e;
+        }
+        
+        .dark-mode .badge.high {
+            background: #78350f;
+            color: #fcd34d;
+        }
+        
+        .badge.medium {
+            background: #eff6ff;
+            color: #1e40af;
+        }
+        
+        .dark-mode .badge.medium {
+            background: #1e3a8a;
+            color: #93c5fd;
+        }
+        
+        .badge.low {
+            background: #f0fdf4;
+            color: #166534;
+        }
+        
+        .dark-mode .badge.low {
+            background: #14532d;
+            color: #86efac;
+        }
+        
+        .vendor-info {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+        
+        .dark-mode .vendor-info {
+            color: #9ca3af;
+        }
+        
+        .vendor-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.75rem;
+        }
+        
+        /* Charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .chart-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .dark-mode .chart-card {
+            background: #1f2937;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            border-color: #374151;
+        }
+        
+        .chart-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+        
+        .dark-mode .chart-title {
+            color: #f3f4f6;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 250px;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal.show {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark-mode .modal-content {
+            background: #1f2937;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--vendorsoluce-green);
+        }
+        
+        .dark-mode .modal-title {
+            color: var(--vendorsoluce-light-green);
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+            padding: 4px;
+        }
+        
+        .close-btn:hover {
+            color: #1f2937;
+        }
+        
+        .dark-mode .close-btn:hover {
+            color: #f3f4f6;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+            font-size: 0.875rem;
+        }
+        
+        .dark-mode .form-label {
+            color: #d1d5db;
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            background: white;
+            color: #1f2937;
+        }
+        
+        .dark-mode .form-input,
+        .dark-mode .form-select,
+        .dark-mode .form-textarea {
+            background: #374151;
+            color: #f3f4f6;
+            border-color: #4b5563;
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--vendorsoluce-green);
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+        
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--vendorsoluce-green);
+            color: white;
+            border: none;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+            z-index: 100;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--vendorsoluce-dark-green);
+            transform: scale(1.1);
+        }
+        
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* Icons using SVG */
+        .icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .radar-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+            
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .toolbar-group {
+                width: 100%;
+                justify-content: stretch;
+            }
+            
+            .toolbar-group button,
+            .toolbar-group select {
+                flex: 1;
+            }
+            
+            .sonar-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Simplified Radar Header with Branding and Main Site Link -->
+<nav class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-[100] w-full">
+  <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 w-full">
+    <div class="flex items-center justify-between h-16 w-full">
+      <!-- Brand with Main Site Link -->
+      <a class="flex items-center min-w-0 group" href="../index.html">
+        <img src="../homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 flex-shrink-0 transition-transform group-hover:scale-105">
+        <span class="ml-1.5 sm:ml-2 min-w-0">
+          <div class="flex items-center gap-1.5">
+            <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">VendorSoluce™</span>
+            <span class="px-1 py-0.5 text-[8px] sm:text-[9px] font-semibold uppercase tracking-wide bg-vendorsoluce-green/10 text-vendorsoluce-green dark:text-white dark:bg-vendorsoluce-green/20 rounded-full">Beta</span>
+          </div>
+          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter" style="letter-spacing: -0.02em; margin-top: -3px;">Vendor Threat Radar</span>
+          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
+        </span>
+      </a>
+      
+      <!-- Main Site Return Link -->
+      <div class="flex items-center space-x-1.5 sm:space-x-2 flex-shrink-0">
+        <a href="../index.html" class="flex items-center space-x-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600" title="Return to Main Site">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 flex-shrink-0">
+            <path d="m12 19-7-7 7-7"></path>
+            <path d="M19 12H5"></path>
+          </svg>
+          <span class="hidden sm:inline">Main Site</span>
+        </a>
+        <button type="button" data-theme-toggle class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-yellow-400 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="Switch theme">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun w-5 h-5 text-amber-500" style="display: none;">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon w-5 h-5">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    <div class="radar-container">
+        <!-- Header -->
+        <div class="radar-header">
+            <h1>🎯 Vendor Risk Radar</h1>
+            <div class="radar-status hero-items">
+                <div>See Vendor Threat Landscape</div>
+                <div>Define Security Requirements</div>
+                <div>Collect & Maintain Audit Evidence</div>
+            </div>
+            <div class="timestamp" id="timestamp"></div>
+        </div>
+
+        <!-- Alert Banner -->
+        <div id="alertBanner" class="alert-banner clear">
+            <div class="alert-icon">✓</div>
+            <div class="alert-content">
+                <div class="alert-title">System Status: All Clear</div>
+                <div>No critical vendor risks detected</div>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="toolbar-group">
+                <button onclick="openAddVendor()">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Add Vendor
+                </button>
+                <label for="csvImport">
+                    <button onclick="document.getElementById('csvImport').click()" class="secondary">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                        </svg>
+                        Import CSV
+                    </button>
+                </label>
+                <input type="file" id="csvImport" accept=".csv" onchange="importVendors(event)">
+                <button onclick="exportVendors()" class="secondary">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
+                    </svg>
+                    Export Data
+                </button>
+                <button onclick="generateComprehensiveReport()" class="secondary">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Generate Report
+                </button>
+            </div>
+            <div class="toolbar-group">
+                <select id="riskFilter" onchange="filterVendors()">
+                    <option value="all">All Risk Levels</option>
+                    <option value="critical">Critical</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <button onclick="scanVendors()" class="secondary">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    Refresh Scan
+                </button>
+                <button onclick="clearAllVendors()" class="danger">Clear All</button>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card critical">
+                <div class="stat-label">Critical Risk</div>
+                <div class="stat-value" id="criticalCount">0</div>
+            </div>
+            <div class="stat-card warning">
+                <div class="stat-label">High Risk</div>
+                <div class="stat-value" id="highCount">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Medium Risk</div>
+                <div class="stat-value" id="mediumCount">0</div>
+            </div>
+            <div class="stat-card success">
+                <div class="stat-label">Low Risk</div>
+                <div class="stat-value" id="lowCount">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Vendors</div>
+                <div class="stat-value" id="totalCount">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Avg Risk Score</div>
+                <div class="stat-value" id="avgRisk">0</div>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="stat-label" style="color: white;">Active Threats</div>
+                <div class="stat-value" style="color: white;" id="activeThreats">0</div>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <div class="stat-label" style="color: white;">Predictive Alerts</div>
+                <div class="stat-value" style="color: white;" id="predictiveAlerts">0</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-grid">
+            <!-- Sonar Radar -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="6"/>
+                            <circle cx="12" cy="12" r="2"/>
+                        </svg>
+                        Risk Radar
+                    </div>
+                </div>
+                <div class="sonar-container">
+                    <canvas id="sonarCanvas"></canvas>
+                    <div class="radar-legend">
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: #dc2626;"></div>
+                            <span>Critical</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: #f59e0b;"></div>
+                            <span>High</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: #3b82f6;"></div>
+                            <span>Medium</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: #2e7d32;"></div>
+                            <span>Low</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vendor List -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        </svg>
+                        Vendor Portfolio
+                    </div>
+                </div>
+                <div class="vendor-list" id="vendorList">
+                    <div style="text-align: center; padding: 40px; color: #9ca3af;">
+                        <svg style="width: 48px; height: 48px; margin: 0 auto 16px; opacity: 0.5;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+                        </svg>
+                        <p>No vendors added yet</p>
+                        <p style="font-size: 0.875rem; margin-top: 8px;">Click "Add Vendor" to get started</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Charts -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-title">Risk Distribution</div>
+                <div class="chart-container">
+                    <canvas id="inherentChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title">Sector Distribution</div>
+                <div class="chart-container">
+                    <canvas id="sectorChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title">Geographic Distribution</div>
+                <div class="chart-container">
+                    <canvas id="geoChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Vendor Modal -->
+    <div id="vendorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Add Vendor</h2>
+                <button class="close-btn" onclick="closeVendorModal()">×</button>
+            </div>
+            <form id="vendorForm">
+                <div class="form-group">
+                    <label class="form-label">Vendor Name *</label>
+                    <input type="text" id="vendorName" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Category *</label>
+                    <select id="vendorCategory" class="form-select" required>
+                        <option value="critical">Critical</option>
+                        <option value="strategic">Strategic</option>
+                        <option value="tactical">Tactical</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Data Types Processed</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="dataType" value="PII">
+                            <span>PII</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="dataType" value="Financial">
+                            <span>Financial</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="dataType" value="Health">
+                            <span>Health Data</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="dataType" value="Credentials">
+                            <span>Credentials</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="dataType" value="IP">
+                            <span>Intellectual Property</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="dataType" value="Customer">
+                            <span>Customer Data</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="dataType" value="Employee">
+                            <span>Employee Data</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="dataType" value="Public">
+                            <span>Public Information</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Sector</label>
+                    <select id="vendorSector" class="form-select">
+                        <option value="Technology">Technology</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Critical Infrastructure">Critical Infrastructure</option>
+                        <option value="Defense">Defense</option>
+                        <option value="Energy">Energy</option>
+                        <option value="Retail">Retail</option>
+                        <option value="Manufacturing">Manufacturing</option>
+                        <option value="Education">Education</option>
+                        <option value="Government">Government</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <select id="vendorLocation" class="form-select">
+                        <option value="United States">United States</option>
+                        <option value="Canada">Canada</option>
+                        <option value="European Union">European Union</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Singapore">Singapore</option>
+                        <option value="India">India</option>
+                        <option value="China">China</option>
+                        <option value="Russia">Russia</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Contact Email</label>
+                    <input type="email" id="vendorContact" class="form-input">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Notes</label>
+                    <textarea id="vendorNotes" class="form-textarea"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" onclick="closeVendorModal()" class="secondary">Cancel</button>
+                    <button type="submit">Save Vendor</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+        <svg id="lightIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+        </svg>
+        <svg id="darkIcon" style="display: none;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+        </svg>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        // Global state
+        let vendorData = [];
+        let editingVendorId = null;
+        let sweepAngle = 0;
+        let animationFrame = null;
+        const charts = {};
+
+        // Sonar radar animation
+        function drawSonarRadar() {
+            const canvas = document.getElementById('sonarCanvas');
+            const ctx = canvas.getContext('2d');
+            const container = canvas.parentElement;
+            
+            // Set canvas size
+            const size = Math.min(container.clientWidth, container.clientHeight) - 40;
+            canvas.width = size;
+            canvas.height = size;
+            
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const maxRadius = size / 2 - 20;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            const isDark = document.body.classList.contains('dark-mode');
+            const gridColor = isDark ? 'rgba(76, 175, 80, 0.15)' : 'rgba(46, 125, 50, 0.15)';
+            const sweepColor = isDark ? 'rgba(76, 175, 80, 0.4)' : 'rgba(46, 125, 50, 0.4)';
+            const textColor = isDark ? '#9ca3af' : '#6b7280';
+            
+            // Draw concentric circles
+            ctx.strokeStyle = gridColor;
+            ctx.lineWidth = 1;
+            for (let i = 1; i <= 4; i++) {
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, (maxRadius / 4) * i, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+            
+            // Draw crosshairs
+            ctx.beginPath();
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, size);
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(size, centerY);
+            ctx.stroke();
+            
+            // Draw angle lines (every 45 degrees)
+            for (let angle = 0; angle < 360; angle += 45) {
+                const rad = (angle * Math.PI) / 180;
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(
+                    centerX + Math.cos(rad) * maxRadius,
+                    centerY + Math.sin(rad) * maxRadius
+                );
+                ctx.stroke();
+            }
+            
+            // Sector labels only (no risk level labels)
+            ctx.font = 'bold 11px Inter';
+            ctx.fillStyle = textColor;
+            ctx.globalAlpha = 0.6;
+            
+            // Top - Technology
+            ctx.textAlign = 'center';
+            ctx.fillText('TECHNOLOGY', centerX, 20);
+            
+            // Right - Finance
+            ctx.save();
+            ctx.translate(size - 20, centerY);
+            ctx.rotate(Math.PI / 2);
+            ctx.fillText('FINANCE', 0, 0);
+            ctx.restore();
+            
+            // Bottom - Healthcare
+            ctx.fillText('HEALTHCARE', centerX, size - 10);
+            
+            // Left - Operations
+            ctx.save();
+            ctx.translate(20, centerY);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText('OPERATIONS', 0, 0);
+            ctx.restore();
+            
+            ctx.globalAlpha = 1.0;
+            
+            // Draw sweep line
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.rotate(sweepAngle);
+            
+            // Draw fade gradient
+            const gradient = ctx.createLinearGradient(0, 0, maxRadius, 0);
+            gradient.addColorStop(0, sweepColor);
+            gradient.addColorStop(0.5, sweepColor.replace('0.4', '0.2'));
+            gradient.addColorStop(1, 'transparent');
+            
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.arc(0, 0, maxRadius, 0, Math.PI / 3);
+            ctx.lineTo(0, 0);
+            ctx.fill();
+            
+            // Draw sweep line
+            ctx.strokeStyle = isDark ? '#4caf50' : '#2e7d32';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(maxRadius, 0);
+            ctx.stroke();
+            
+            ctx.restore();
+            
+            // Draw vendor blips
+            vendorData.forEach(vendor => {
+                // Position based on risk level and random angle
+                const risk = vendor.inherentRisk;
+                const distance = (risk / 100) * maxRadius;
+                
+                // Create consistent angle for each vendor based on ID
+                let hash = 0;
+                for (let i = 0; i < vendor.id.length; i++) {
+                    hash = vendor.id.charCodeAt(i) + ((hash << 5) - hash);
+                }
+                const angle = (hash % 360) * (Math.PI / 180);
+                
+                const x = centerX + Math.cos(angle) * distance;
+                const y = centerY + Math.sin(angle) * distance;
+                
+                // Calculate if sweep is near this blip
+                const blipAngle = Math.atan2(y - centerY, x - centerX);
+                const angleDiff = Math.abs(((sweepAngle - blipAngle + Math.PI) % (Math.PI * 2)) - Math.PI);
+                const isNearSweep = angleDiff < Math.PI / 6;
+                
+                // Set color based on risk level
+                let color;
+                switch (vendor.riskLevel) {
+                    case 'critical':
+                        color = '#dc2626';
+                        break;
+                    case 'high':
+                        color = '#f59e0b';
+                        break;
+                    case 'medium':
+                        color = '#3b82f6';
+                        break;
+                    default:
+                        color = '#2e7d32';
+                }
+                
+                // Draw blip
+                ctx.fillStyle = color;
+                ctx.shadowBlur = isNearSweep ? 10 : 0;
+                ctx.shadowColor = color;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, isNearSweep ? 6 : 4, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.shadowBlur = 0;
+                
+                // Draw vendor name when sweep is near
+                if (isNearSweep) {
+                    ctx.fillStyle = textColor;
+                    ctx.font = '10px Inter';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(vendor.name, x, y - 12);
+                }
+            });
+            
+            // Update sweep angle
+            sweepAngle += 0.02;
+            if (sweepAngle > Math.PI * 2) {
+                sweepAngle = 0;
+            }
+            
+            // Continue animation
+            animationFrame = requestAnimationFrame(drawSonarRadar);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadVendors();
+            updateTimestamp();
+            setInterval(updateTimestamp, 1000);
+            scanVendors();
+            drawSonarRadar();
+            
+            // Check for saved dark mode preference
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+                document.documentElement.classList.add('dark');
+                document.getElementById('lightIcon').style.display = 'none';
+                document.getElementById('darkIcon').style.display = 'block';
+            }
+            
+            // Redraw radar on window resize
+            window.addEventListener('resize', () => {
+                drawSonarRadar();
+            });
+        });
+
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            
+            // Also toggle Tailwind dark mode for header/footer
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            
+            document.getElementById('lightIcon').style.display = isDark ? 'none' : 'block';
+            document.getElementById('darkIcon').style.display = isDark ? 'block' : 'none';
+            
+            // Recreate charts with new colors
+            if (vendorData.length > 0) {
+                createAnalyticsCharts();
+            }
+        }
+
+        // Update Timestamp
+        function updateTimestamp() {
+            const now = new Date();
+            document.getElementById('timestamp').textContent = 
+                'Last updated: ' + now.toLocaleString();
+        }
+
+        // Generate ID
+        function generateId() {
+            return 'vendor-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+        }
+
+        // Calculate Risk
+        // Enhanced Risk Calculation with Threat Intelligence
+        function calculateVendorRisk(vendor) {
+            let inherentRisk = 0;
+            const riskFactors = [];
+            
+            // 1. Category Weight (Base Risk)
+            const categoryWeights = { 
+                critical: 45, 
+                strategic: 35, 
+                tactical: 20 
+            };
+            const categoryRisk = categoryWeights[vendor.category] || 0;
+            inherentRisk += categoryRisk;
+            riskFactors.push(`Category: ${vendor.category} (+${categoryRisk})`);
+            
+            // 2. Enhanced Data Sensitivity Analysis
+            if (vendor.dataTypes) {
+                const dataRiskMatrix = {
+                    'PII': 15,
+                    'Financial': 20,
+                    'Health': 18,
+                    'Credentials': 25,
+                    'IP': 12,
+                    'Customer': 10,
+                    'Employee': 8,
+                    'Public': 2
+                };
+                
+                let dataRisk = 0;
+                vendor.dataTypes.forEach(dataType => {
+                    const risk = dataRiskMatrix[dataType] || 5;
+                    dataRisk += risk;
+                });
+                
+                // Data combination multiplier
+                if (vendor.dataTypes.length > 3) {
+                    dataRisk *= 1.3;
+                    riskFactors.push('Multiple data types (+30% multiplier)');
+                }
+                
+                inherentRisk += Math.min(dataRisk, 40);
+                riskFactors.push(`Data Types: ${vendor.dataTypes.join(', ')} (+${Math.min(dataRisk, 40)})`);
+            }
+            
+            // 3. Geopolitical Risk Assessment
+            const geoRiskMatrix = {
+                'United States': { risk: 5, factor: 'Domestic' },
+                'Canada': { risk: 6, factor: 'Allied - Low Risk' },
+                'European Union': { risk: 8, factor: 'GDPR Compliance Required' },
+                'United Kingdom': { risk: 7, factor: 'Post-Brexit Regulations' },
+                'Australia': { risk: 6, factor: 'Allied - Privacy Laws' },
+                'Japan': { risk: 8, factor: 'Data Localization' },
+                'Singapore': { risk: 10, factor: 'Regional Hub' },
+                'India': { risk: 12, factor: 'Data Protection Bill' },
+                'China': { risk: 25, factor: 'National Security Concerns' },
+                'Russia': { risk: 30, factor: 'Sanctions & Security' },
+                'Other': { risk: 15, factor: 'Unknown Jurisdiction' }
+            };
+            
+            const geoInfo = geoRiskMatrix[vendor.location] || geoRiskMatrix['Other'];
+            inherentRisk += geoInfo.risk;
+            riskFactors.push(`Location: ${vendor.location} - ${geoInfo.factor} (+${geoInfo.risk})`);
+            
+            // 4. Sector-Specific Threat Intelligence
+            const sectorThreatMatrix = {
+                'Technology': { risk: 18, threats: ['Supply Chain', 'IP Theft', 'Zero-Day'] },
+                'Finance': { risk: 22, threats: ['APT Groups', 'Ransomware', 'Data Theft'] },
+                'Healthcare': { risk: 20, threats: ['PHI Breaches', 'Ransomware', 'Nation State'] },
+                'Critical Infrastructure': { risk: 25, threats: ['Nation State', 'Sabotage', 'APT'] },
+                'Defense': { risk: 28, threats: ['Nation State', 'Espionage', 'Supply Chain'] },
+                'Energy': { risk: 24, threats: ['Nation State', 'Critical Systems', 'SCADA'] },
+                'Retail': { risk: 12, threats: ['POS Malware', 'Card Skimming', 'E-commerce'] },
+                'Manufacturing': { risk: 15, threats: ['Industrial Espionage', 'Supply Chain', 'IP'] },
+                'Education': { risk: 10, threats: ['Data Theft', 'Ransomware', 'Research IP'] },
+                'Government': { risk: 30, threats: ['Nation State', 'APT', 'Classified Data'] },
+                'Other': { risk: 15, threats: ['Generic Threats', 'Opportunistic'] }
+            };
+            
+            const sectorInfo = sectorThreatMatrix[vendor.sector] || sectorThreatMatrix['Other'];
+            inherentRisk += sectorInfo.risk;
+            riskFactors.push(`Sector: ${vendor.sector} - Active threats: ${sectorInfo.threats.slice(0,2).join(', ')} (+${sectorInfo.risk})`);
+            
+            // 5. Threat Intelligence Modifiers
+            let threatMultiplier = 1.0;
+            const currentDate = new Date();
+            const riskEvents = [];
+            
+            // Simulate real-time threat intelligence
+            if (vendor.sector === 'Technology' && Math.random() > 0.7) {
+                threatMultiplier += 0.15;
+                riskEvents.push('Recent supply chain alerts in tech sector');
+            }
+            
+            if (vendor.location === 'China' || vendor.location === 'Russia') {
+                threatMultiplier += 0.20;
+                riskEvents.push('Heightened geopolitical tensions');
+            }
+            
+            if (vendor.dataTypes?.includes('Financial') && Math.random() > 0.8) {
+                threatMultiplier += 0.10;
+                riskEvents.push('Increased financial sector targeting');
+            }
+            
+            // 6. Compliance Framework Mapping
+            const complianceGaps = calculateComplianceGaps(vendor);
+            const complianceRisk = complianceGaps.score;
+            inherentRisk += complianceRisk;
+            riskFactors.push(`Compliance Gaps: ${complianceGaps.gaps.join(', ')} (+${complianceRisk})`);
+            
+            // Apply threat multiplier
+            inherentRisk = Math.min(100, inherentRisk * threatMultiplier);
+            
+            // 7. Advanced Residual Risk Calculation
+            const controls = assessSecurityControls(vendor);
+            const residualRisk = Math.max(5, inherentRisk - controls.effectiveness);
+            
+            // 8. Risk Level with Enhanced Thresholds
+            let riskLevel = 'low';
+            let riskColor = '#4caf50';
+            if (inherentRisk >= 85) { 
+                riskLevel = 'critical'; 
+                riskColor = '#f44336';
+            } else if (inherentRisk >= 65) { 
+                riskLevel = 'high'; 
+                riskColor = '#ff9800';
+            } else if (inherentRisk >= 35) { 
+                riskLevel = 'medium'; 
+                riskColor = '#ffeb3b';
+            }
+            
+            // 9. Predictive Risk Score
+            const predictiveFactors = calculatePredictiveRisk(vendor, sectorInfo.threats);
+            
+            return {
+                inherentRisk: Math.round(inherentRisk),
+                residualRisk: Math.round(residualRisk),
+                riskLevel,
+                riskColor,
+                riskFactors,
+                riskEvents,
+                threatMultiplier: Math.round(threatMultiplier * 100),
+                complianceGaps: complianceGaps.gaps,
+                securityControls: controls.implemented,
+                predictiveScore: predictiveFactors.score,
+                nextReviewDate: new Date(Date.now() + (90 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+                lastUpdated: new Date().toISOString()
+            };
+        }
+        
+        // Compliance Framework Mapping
+        function calculateComplianceGaps(vendor) {
+            const applicableFrameworks = [];
+            let gapScore = 0;
+            const gaps = [];
+            
+            // Determine applicable frameworks
+            if (vendor.dataTypes?.includes('PII')) {
+                if (vendor.location === 'European Union') {
+                    applicableFrameworks.push('GDPR');
+                    gaps.push('GDPR Art. 32');
+                    gapScore += 8;
+                }
+                if (vendor.location === 'United States') {
+                    applicableFrameworks.push('CCPA');
+                    gaps.push('CCPA 1798.100');
+                    gapScore += 6;
+                }
+            }
+            
+            if (vendor.dataTypes?.includes('Health')) {
+                applicableFrameworks.push('HIPAA');
+                gaps.push('HIPAA §164.308');
+                gapScore += 10;
+            }
+            
+            if (vendor.dataTypes?.includes('Financial')) {
+                applicableFrameworks.push('PCI DSS');
+                gaps.push('PCI DSS Req. 3');
+                gapScore += 12;
+            }
+            
+            if (vendor.sector === 'Finance') {
+                applicableFrameworks.push('SOX');
+                gaps.push('SOX §404');
+                gapScore += 7;
+            }
+            
+            if (vendor.category === 'critical') {
+                applicableFrameworks.push('ISO 27001');
+                gaps.push('ISO 27001 A.13.1');
+                gapScore += 5;
+            }
+            
+            return { 
+                frameworks: applicableFrameworks, 
+                gaps: gaps.length ? gaps : ['Minor compliance gaps'], 
+                score: Math.min(gapScore, 25) 
+            };
+        }
+        
+        // Security Controls Assessment
+        function assessSecurityControls(vendor) {
+            let effectiveness = 0;
+            const implemented = [];
+            
+            // Simulate control assessment based on vendor characteristics
+            if (vendor.category === 'critical') {
+                effectiveness += 15;
+                implemented.push('Multi-factor Authentication', 'Encryption at Rest', 'SOC 2 Type II');
+            } else if (vendor.category === 'strategic') {
+                effectiveness += 10;
+                implemented.push('Multi-factor Authentication', 'Encryption in Transit');
+            } else {
+                effectiveness += 5;
+                implemented.push('Basic Authentication');
+            }
+            
+            // Sector-specific controls
+            if (vendor.sector === 'Finance') {
+                effectiveness += 10;
+                implemented.push('PCI DSS Compliance', 'Fraud Detection');
+            } else if (vendor.sector === 'Healthcare') {
+                effectiveness += 8;
+                implemented.push('HIPAA Compliance', 'PHI Protection');
+            }
+            
+            return { effectiveness, implemented };
+        }
+        
+        // Predictive Risk Analytics
+        function calculatePredictiveRisk(vendor, sectorThreats) {
+            let predictiveScore = 0;
+            const factors = [];
+            
+            // Historical incident patterns
+            if (sectorThreats.includes('Ransomware')) {
+                predictiveScore += 15;
+                factors.push('High ransomware probability in sector');
+            }
+            
+            // Supply chain risk
+            if (vendor.category === 'critical' && vendor.sector === 'Technology') {
+                predictiveScore += 20;
+                factors.push('Critical supply chain position');
+            }
+            
+            // Data concentration risk
+            if (vendor.dataTypes?.length > 3) {
+                predictiveScore += 10;
+                factors.push('High data concentration');
+            }
+            
+            // Geopolitical trends
+            if (['China', 'Russia', 'North Korea', 'Iran'].includes(vendor.location)) {
+                predictiveScore += 25;
+                factors.push('Elevated geopolitical risk');
+            }
+            
+            return { 
+                score: Math.min(predictiveScore, 100), 
+                factors 
+            };
+        }
+
+        // Load Vendors
+        function loadVendors() {
+            const stored = localStorage.getItem('vendorData');
+            if (stored) {
+                vendorData = JSON.parse(stored);
+            } else {
+                // Sample data
+                vendorData = [
+                    {
+                        id: generateId(),
+                        name: 'CloudTech Solutions',
+                        category: 'critical',
+                        dataTypes: ['PII', 'Financial'],
+                        sector: 'Technology',
+                        location: 'United States',
+                        contact: 'security@cloudtech.example',
+                        notes: 'Primary cloud infrastructure provider'
+                    },
+                    {
+                        id: generateId(),
+                        name: 'DataGuard Inc',
+                        category: 'strategic',
+                        dataTypes: ['PII', 'Health'],
+                        sector: 'Healthcare',
+                        location: 'European Union',
+                        contact: 'compliance@dataguard.example',
+                        notes: 'Healthcare data processing'
+                    },
+                    {
+                        id: generateId(),
+                        name: 'SecurePayments Co',
+                        category: 'critical',
+                        dataTypes: ['Financial', 'Credentials'],
+                        sector: 'Finance',
+                        location: 'United States',
+                        contact: 'support@securepay.example',
+                        notes: 'Payment processing gateway'
+                    }
+                ];
+            }
+            
+            // Calculate risks
+            vendorData = vendorData.map(v => ({
+                ...v,
+                ...calculateVendorRisk(v)
+            }));
+            
+            updateAllDisplays();
+        }
+
+        // Scan Vendors
+        function scanVendors() {
+            // Simulate scan
+            vendorData = vendorData.map(v => ({
+                ...v,
+                ...calculateVendorRisk(v)
+            }));
+            
+            localStorage.setItem('vendorData', JSON.stringify(vendorData));
+            updateAllDisplays();
+        }
+
+        // Update All Displays
+        function updateAllDisplays() {
+            updateStats();
+            updateAlertBanner();
+            renderVendorList();
+            createAnalyticsCharts();
+        }
+
+        // Update Stats
+        function updateStats() {
+            const critical = vendorData.filter(v => v.riskLevel === 'critical').length;
+            const high = vendorData.filter(v => v.riskLevel === 'high').length;
+            const medium = vendorData.filter(v => v.riskLevel === 'medium').length;
+            const low = vendorData.filter(v => v.riskLevel === 'low').length;
+            const total = vendorData.length;
+            const avgRisk = total > 0 
+                ? Math.round(vendorData.reduce((sum, v) => sum + v.inherentRisk, 0) / total)
+                : 0;
+            
+            // Calculate predictive analytics
+            const activeThreats = vendorData.filter(v => v.riskEvents && v.riskEvents.length > 0).length;
+            const predictiveAlerts = vendorData.filter(v => v.predictiveScore > 60).length;
+            
+            document.getElementById('criticalCount').textContent = critical;
+            document.getElementById('highCount').textContent = high;
+            document.getElementById('mediumCount').textContent = medium;
+            document.getElementById('lowCount').textContent = low;
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('avgRisk').textContent = avgRisk;
+            document.getElementById('activeThreats').textContent = activeThreats;
+            document.getElementById('predictiveAlerts').textContent = predictiveAlerts;
+        }
+
+        // Update Alert Banner
+        function updateAlertBanner() {
+            const banner = document.getElementById('alertBanner');
+            const critical = vendorData.filter(v => v.riskLevel === 'critical').length;
+            const high = vendorData.filter(v => v.riskLevel === 'high').length;
+            
+            if (critical > 0) {
+                banner.className = 'alert-banner critical';
+                banner.innerHTML = `
+                    <div class="alert-icon">⚠️</div>
+                    <div class="alert-content">
+                        <div class="alert-title">Critical Alert: ${critical} Critical Risk Vendor${critical > 1 ? 's' : ''}</div>
+                        <div>Immediate action required for high-risk vendors</div>
+                    </div>
+                `;
+            } else if (high > 0) {
+                banner.className = 'alert-banner warning';
+                banner.innerHTML = `
+                    <div class="alert-icon">⚡</div>
+                    <div class="alert-content">
+                        <div class="alert-title">Warning: ${high} High Risk Vendor${high > 1 ? 's' : ''}</div>
+                        <div>Review and monitoring recommended</div>
+                    </div>
+                `;
+            } else {
+                banner.className = 'alert-banner clear';
+                banner.innerHTML = `
+                    <div class="alert-icon">✓</div>
+                    <div class="alert-content">
+                        <div class="alert-title">System Status: All Clear</div>
+                        <div>No critical vendor risks detected</div>
+                    </div>
+                `;
+            }
+        }
+
+        // Render Vendor List
+        function renderVendorList() {
+            const container = document.getElementById('vendorList');
+            const filter = document.getElementById('riskFilter').value;
+            
+            let filtered = vendorData;
+            if (filter !== 'all') {
+                filtered = vendorData.filter(v => v.riskLevel === filter);
+            }
+            
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #9ca3af;">
+                        <svg style="width: 48px; height: 48px; margin: 0 auto 16px; opacity: 0.5;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+                        </svg>
+                        <p>No vendors match the selected filter</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = filtered.map(vendor => `
+                <div class="vendor-item ${vendor.riskLevel}" style="border-left: 4px solid ${vendor.riskColor || '#4caf50'};">
+                    <div class="vendor-header">
+                        <div class="vendor-name">${vendor.name}</div>
+                        <div class="vendor-badges">
+                            <span class="badge ${vendor.riskLevel}">${vendor.riskLevel}</span>
+                            ${vendor.threatMultiplier > 100 ? `<span class="badge warning">Threat Active</span>` : ''}
+                            ${vendor.complianceGaps && vendor.complianceGaps.length > 1 ? `<span class="badge critical">Compliance</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="vendor-info">
+                        <strong>Category:</strong> ${vendor.category.charAt(0).toUpperCase() + vendor.category.slice(1)} | 
+                        <strong>Risk Score:</strong> ${vendor.inherentRisk}/${vendor.residualRisk} | 
+                        <strong>Predictive:</strong> ${vendor.predictiveScore || 'N/A'}
+                    </div>
+                    <div class="vendor-info">
+                        <strong>Sector:</strong> ${vendor.sector} | 
+                        <strong>Location:</strong> ${vendor.location}
+                        ${vendor.threatMultiplier > 100 ? ` | <strong style="color: #ff9800;">Threat Multiplier: ${vendor.threatMultiplier}%</strong>` : ''}
+                    </div>
+                    ${vendor.dataTypes && vendor.dataTypes.length > 0 ? `
+                        <div class="vendor-info">
+                            <strong>Data Types:</strong> ${vendor.dataTypes.join(', ')}
+                        </div>
+                    ` : ''}
+                    ${vendor.complianceGaps && vendor.complianceGaps.length > 0 ? `
+                        <div class="vendor-info">
+                            <strong>Compliance Gaps:</strong> ${vendor.complianceGaps.slice(0, 3).join(', ')}${vendor.complianceGaps.length > 3 ? '...' : ''}
+                        </div>
+                    ` : ''}
+                    ${vendor.securityControls && vendor.securityControls.length > 0 ? `
+                        <div class="vendor-info">
+                            <strong>Security Controls:</strong> ${vendor.securityControls.slice(0, 2).join(', ')}${vendor.securityControls.length > 2 ? '...' : ''}
+                        </div>
+                    ` : ''}
+                    ${vendor.riskEvents && vendor.riskEvents.length > 0 ? `
+                        <div class="vendor-info" style="color: #ff9800;">
+                            <strong>🚨 Active Threats:</strong> ${vendor.riskEvents.join('; ')}
+                        </div>
+                    ` : ''}
+                    ${vendor.nextReviewDate ? `
+                        <div class="vendor-info" style="font-size: 0.85em; opacity: 0.8;">
+                            <strong>Next Review:</strong> ${vendor.nextReviewDate} | 
+                            <strong>Last Updated:</strong> ${vendor.lastUpdated ? new Date(vendor.lastUpdated).toLocaleDateString() : 'N/A'}
+                        </div>
+                    ` : ''}
+                    <div class="vendor-actions">
+                        <button class="btn-small secondary" onclick="viewVendorDetails('${vendor.id}')">Details</button>
+                        <button class="btn-small secondary" onclick="editVendor('${vendor.id}')">Edit</button>
+                        <button class="btn-small danger" onclick="deleteVendor('${vendor.id}')">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Create Analytics Charts
+        function createAnalyticsCharts() {
+            const isDark = document.body.classList.contains('dark-mode');
+            const textColor = isDark ? '#9ca3af' : '#6b7280';
+            const gridColor = isDark ? 'rgba(75, 85, 99, 0.2)' : 'rgba(209, 213, 219, 0.5)';
+            
+            // Risk Distribution
+            const inherentCtx = document.getElementById('inherentChart');
+            if (charts.inherent) charts.inherent.destroy();
+            
+            const riskBuckets = {
+                'Critical (90-100)': vendorData.filter(v => v.inherentRisk >= 90).length,
+                'High (70-89)': vendorData.filter(v => v.inherentRisk >= 70 && v.inherentRisk < 90).length,
+                'Medium (40-69)': vendorData.filter(v => v.inherentRisk >= 40 && v.inherentRisk < 70).length,
+                'Low (0-39)': vendorData.filter(v => v.inherentRisk < 40).length
+            };
+            
+            charts.inherent = new Chart(inherentCtx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(riskBuckets),
+                    datasets: [{
+                        data: Object.values(riskBuckets),
+                        backgroundColor: [
+                            'rgba(220, 38, 38, 0.8)',
+                            'rgba(245, 158, 11, 0.8)',
+                            'rgba(59, 130, 246, 0.8)',
+                            'rgba(46, 125, 50, 0.8)'
+                        ],
+                        borderColor: isDark ? '#1f2937' : 'white',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: textColor,
+                                padding: 10,
+                                font: { size: 11 }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Sector Distribution
+            const sectorCtx = document.getElementById('sectorChart');
+            if (charts.sector) charts.sector.destroy();
+            
+            const sectors = {};
+            vendorData.forEach(v => {
+                sectors[v.sector] = (sectors[v.sector] || 0) + 1;
+            });
+            
+            charts.sector = new Chart(sectorCtx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(sectors),
+                    datasets: [{
+                        label: 'Vendors',
+                        data: Object.values(sectors),
+                        backgroundColor: 'rgba(46, 125, 50, 0.6)',
+                        borderColor: 'rgba(46, 125, 50, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: textColor },
+                            grid: { color: gridColor }
+                        },
+                        x: {
+                            ticks: { color: textColor },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+            
+            // Geographic Distribution
+            const geoCtx = document.getElementById('geoChart');
+            if (charts.geo) charts.geo.destroy();
+            
+            const locations = {};
+            vendorData.forEach(v => {
+                locations[v.location] = (locations[v.location] || 0) + 1;
+            });
+            
+            charts.geo = new Chart(geoCtx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(locations),
+                    datasets: [{
+                        data: Object.values(locations),
+                        backgroundColor: [
+                            'rgba(46, 125, 50, 0.8)',
+                            'rgba(76, 175, 80, 0.8)',
+                            'rgba(0, 150, 136, 0.8)',
+                            'rgba(33, 150, 243, 0.8)'
+                        ],
+                        borderColor: isDark ? '#1f2937' : 'white',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: textColor,
+                                padding: 10,
+                                font: { size: 11 }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Filter Vendors
+        function filterVendors() {
+            renderVendorList();
+        }
+
+        // Open Add Vendor Modal
+        function openAddVendor() {
+            editingVendorId = null;
+            document.getElementById('modalTitle').textContent = 'Add Vendor';
+            document.getElementById('vendorForm').reset();
+            document.getElementById('vendorModal').classList.add('show');
+        }
+
+        // Close Vendor Modal
+        function closeVendorModal() {
+            document.getElementById('vendorModal').classList.remove('show');
+            editingVendorId = null;
+        }
+
+        // Edit Vendor
+        function editVendor(id) {
+            const vendor = vendorData.find(v => v.id === id);
+            if (!vendor) return;
+            
+            editingVendorId = id;
+            document.getElementById('modalTitle').textContent = 'Edit Vendor';
+            document.getElementById('vendorName').value = vendor.name;
+            document.getElementById('vendorCategory').value = vendor.category;
+            document.getElementById('vendorSector').value = vendor.sector;
+            document.getElementById('vendorLocation').value = vendor.location;
+            document.getElementById('vendorContact').value = vendor.contact || '';
+            document.getElementById('vendorNotes').value = vendor.notes || '';
+            
+            // Check data types
+            document.querySelectorAll('input[name="dataType"]').forEach(cb => {
+                cb.checked = vendor.dataTypes && vendor.dataTypes.includes(cb.value);
+            });
+            
+            document.getElementById('vendorModal').classList.add('show');
+        }
+
+        // Delete Vendor
+        function deleteVendor(id) {
+            if (!confirm('Are you sure you want to delete this vendor?')) return;
+            
+            vendorData = vendorData.filter(v => v.id !== id);
+            localStorage.setItem('vendorData', JSON.stringify(vendorData));
+            updateAllDisplays();
+        }
+
+        // Form Submit
+        document.getElementById('vendorForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                id: editingVendorId || generateId(),
+                name: document.getElementById('vendorName').value,
+                category: document.getElementById('vendorCategory').value,
+                dataTypes: Array.from(document.querySelectorAll('input[name="dataType"]:checked')).map(cb => cb.value),
+                sector: document.getElementById('vendorSector').value,
+                location: document.getElementById('vendorLocation').value,
+                contact: document.getElementById('vendorContact').value,
+                notes: document.getElementById('vendorNotes').value
+            };
+            
+            if (editingVendorId) {
+                const index = vendorData.findIndex(v => v.id === editingVendorId);
+                if (index !== -1) {
+                    vendorData[index] = { ...vendorData[index], ...formData };
+                }
+            } else {
+                vendorData.push(formData);
+            }
+            
+            // Recalculate risks
+            vendorData = vendorData.map(vendor => ({
+                ...vendor,
+                ...calculateVendorRisk(vendor)
+            }));
+            
+            localStorage.setItem('vendorData', JSON.stringify(vendorData));
+            updateAllDisplays();
+            closeVendorModal();
+        });
+
+        // Import Vendors
+        function importVendors(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const csv = e.target.result;
+                    const lines = csv.split('\n');
+                    
+                    const imported = [];
+                    for (let i = 1; i < lines.length; i++) {
+                        if (!lines[i].trim()) continue;
+                        
+                        const values = lines[i].split(',').map(v => v.trim());
+                        const vendor = {
+                            id: generateId(),
+                            name: values[0] || '',
+                            category: values[1] || 'tactical',
+                            dataTypes: values[2] ? values[2].split(';').map(d => d.trim()) : [],
+                            sector: values[3] || 'Other',
+                            location: values[4] || 'United States',
+                            contact: values[5] || '',
+                            notes: values[6] || ''
+                        };
+                        
+                        if (vendor.name) {
+                            imported.push(vendor);
+                        }
+                    }
+                    
+                    vendorData = [...vendorData, ...imported];
+                    vendorData = vendorData.map(v => ({ ...v, ...calculateVendorRisk(v) }));
+                    localStorage.setItem('vendorData', JSON.stringify(vendorData));
+                    updateAllDisplays();
+                    
+                    alert(`Successfully imported ${imported.length} vendors!`);
+                } catch (error) {
+                    alert('Error importing CSV: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        // Export Vendors
+        function exportVendors() {
+            if (vendorData.length === 0) {
+                alert('No vendors to export');
+                return;
+            }
+            
+            const csv = [
+                ['Name', 'Category', 'Data Types', 'Sector', 'Location', 'Contact', 'Notes', 'Inherent Risk', 'Residual Risk', 'Risk Level'].join(','),
+                ...vendorData.map(v => [
+                    v.name,
+                    v.category,
+                    v.dataTypes.join(';'),
+                    v.sector,
+                    v.location,
+                    v.contact || '',
+                    v.notes || '',
+                    v.inherentRisk,
+                    v.residualRisk,
+                    v.riskLevel
+                ].join(','))
+            ].join('\n');
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `vendor-risk-export-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Clear All Vendors
+        function clearAllVendors() {
+            if (!confirm('Are you sure you want to clear all vendors? This cannot be undone.')) return;
+            
+            vendorData = [];
+            localStorage.setItem('vendorData', JSON.stringify(vendorData));
+            updateAllDisplays();
+        }
+        
+        // Enhanced Vendor Details View
+        function viewVendorDetails(vendorId) {
+            const vendor = vendorData.find(v => v.id === vendorId);
+            if (!vendor) return;
+            
+            const modal = document.createElement('div');
+            modal.className = 'modal show';
+            modal.innerHTML = `
+                <div class="modal-content" style="max-width: 900px;">
+                    <div class="modal-header">
+                        <h2>📊 ${vendor.name} - Risk Analysis</h2>
+                        <button class="close-btn" onclick="this.closest('.modal').remove()">×</button>
+                    </div>
+                    <div style="padding: 20px; max-height: 70vh; overflow-y: auto;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                            <div>
+                                <h3 style="color: var(--vendorsoluce-green); margin-bottom: 10px;">Basic Information</h3>
+                                <p><strong>Category:</strong> ${vendor.category.charAt(0).toUpperCase() + vendor.category.slice(1)}</p>
+                                <p><strong>Sector:</strong> ${vendor.sector}</p>
+                                <p><strong>Location:</strong> ${vendor.location}</p>
+                                <p><strong>Contact:</strong> ${vendor.contact || 'Not provided'}</p>
+                            </div>
+                            <div>
+                                <h3 style="color: var(--vendorsoluce-green); margin-bottom: 10px;">Risk Metrics</h3>
+                                <p><strong>Inherent Risk:</strong> <span style="color: ${vendor.riskColor};">${vendor.inherentRisk}/100</span></p>
+                                <p><strong>Residual Risk:</strong> ${vendor.residualRisk}/100</p>
+                                <p><strong>Risk Level:</strong> <span class="badge ${vendor.riskLevel}">${vendor.riskLevel.toUpperCase()}</span></p>
+                                <p><strong>Predictive Score:</strong> ${vendor.predictiveScore || 'N/A'}/100</p>
+                            </div>
+                        </div>
+                        
+                        ${vendor.dataTypes && vendor.dataTypes.length > 0 ? `
+                            <div style="margin-bottom: 20px;">
+                                <h3 style="color: var(--vendorsoluce-green); margin-bottom: 10px;">Data Processing</h3>
+                                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                    ${vendor.dataTypes.map(type => `<span class="badge secondary">${type}</span>`).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${vendor.riskFactors && vendor.riskFactors.length > 0 ? `
+                            <div style="margin-bottom: 20px;">
+                                <h3 style="color: var(--vendorsoluce-green); margin-bottom: 10px;">Risk Factors</h3>
+                                <ul style="margin: 0; padding-left: 20px;">
+                                    ${vendor.riskFactors.map(factor => `<li>${factor}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                        
+                        ${vendor.complianceGaps && vendor.complianceGaps.length > 0 ? `
+                            <div style="margin-bottom: 20px;">
+                                <h3 style="color: #ff9800; margin-bottom: 10px;">⚠️ Compliance Gaps</h3>
+                                <ul style="margin: 0; padding-left: 20px;">
+                                    ${vendor.complianceGaps.map(gap => `<li style="color: #ff9800;">${gap}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                        
+                        ${vendor.securityControls && vendor.securityControls.length > 0 ? `
+                            <div style="margin-bottom: 20px;">
+                                <h3 style="color: var(--vendorsoluce-green); margin-bottom: 10px;">✅ Security Controls</h3>
+                                <ul style="margin: 0; padding-left: 20px;">
+                                    ${vendor.securityControls.map(control => `<li style="color: var(--vendorsoluce-green);">${control}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                        
+                        ${vendor.riskEvents && vendor.riskEvents.length > 0 ? `
+                            <div style="margin-bottom: 20px;">
+                                <h3 style="color: #f44336; margin-bottom: 10px;">🚨 Active Threat Intelligence</h3>
+                                <ul style="margin: 0; padding-left: 20px;">
+                                    ${vendor.riskEvents.map(event => `<li style="color: #f44336;">${event}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                        
+                        ${vendor.notes ? `
+                            <div style="margin-bottom: 20px;">
+                                <h3 style="color: var(--vendorsoluce-green); margin-bottom: 10px;">Notes</h3>
+                                <p style="background: #f9fafb; padding: 15px; border-radius: 8px; margin: 0;">${vendor.notes}</p>
+                            </div>
+                        ` : ''}
+                        
+                        <div style="margin-bottom: 20px;">
+                            <h3 style="color: var(--vendorsoluce-green); margin-bottom: 10px;">Review Information</h3>
+                            <p><strong>Next Review Date:</strong> ${vendor.nextReviewDate || 'Not scheduled'}</p>
+                            <p><strong>Last Updated:</strong> ${vendor.lastUpdated ? new Date(vendor.lastUpdated).toLocaleString() : 'N/A'}</p>
+                            <p><strong>Threat Multiplier:</strong> ${vendor.threatMultiplier || 100}%</p>
+                        </div>
+                        
+                        <div style="text-align: right; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+                            <button onclick="editVendor('${vendor.id}'); this.closest('.modal').remove();" class="secondary" style="margin-right: 10px;">Edit Vendor</button>
+                            <button onclick="this.closest('.modal').remove();">Close</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        // Comprehensive Risk Report Generation
+        function generateComprehensiveReport() {
+            if (vendorData.length === 0) {
+                alert('No vendor data available for reporting');
+                return;
+            }
+            
+            // Generate comprehensive risk analytics
+            const analytics = generateRiskAnalytics();
+            
+            // Create downloadable report
+            const reportHtml = generateReportHTML(analytics);
+            
+            // Download as HTML file
+            const blob = new Blob([reportHtml], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `vendor-risk-comprehensive-report-${new Date().toISOString().split('T')[0]}.html`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            // Also generate CSV with enhanced data
+            exportEnhancedCSV();
+        }
+        
+        // Generate Risk Analytics
+        function generateRiskAnalytics() {
+            const totalVendors = vendorData.length;
+            const riskDistribution = {
+                critical: vendorData.filter(v => v.riskLevel === 'critical').length,
+                high: vendorData.filter(v => v.riskLevel === 'high').length,
+                medium: vendorData.filter(v => v.riskLevel === 'medium').length,
+                low: vendorData.filter(v => v.riskLevel === 'low').length
+            };
+            
+            const averageRisk = Math.round(vendorData.reduce((sum, v) => sum + v.inherentRisk, 0) / totalVendors);
+            const averageResidual = Math.round(vendorData.reduce((sum, v) => sum + v.residualRisk, 0) / totalVendors);
+            
+            // Sector analysis
+            const sectorRisks = {};
+            vendorData.forEach(v => {
+                if (!sectorRisks[v.sector]) {
+                    sectorRisks[v.sector] = { total: 0, count: 0, vendors: [] };
+                }
+                sectorRisks[v.sector].total += v.inherentRisk;
+                sectorRisks[v.sector].count += 1;
+                sectorRisks[v.sector].vendors.push(v.name);
+            });
+            
+            Object.keys(sectorRisks).forEach(sector => {
+                sectorRisks[sector].average = Math.round(sectorRisks[sector].total / sectorRisks[sector].count);
+            });
+            
+            // Geographic analysis
+            const geoRisks = {};
+            vendorData.forEach(v => {
+                if (!geoRisks[v.location]) {
+                    geoRisks[v.location] = { total: 0, count: 0, vendors: [] };
+                }
+                geoRisks[v.location].total += v.inherentRisk;
+                geoRisks[v.location].count += 1;
+                geoRisks[v.location].vendors.push(v.name);
+            });
+            
+            Object.keys(geoRisks).forEach(location => {
+                geoRisks[location].average = Math.round(geoRisks[location].total / geoRisks[location].count);
+            });
+            
+            // Compliance gaps analysis
+            const allGaps = vendorData.flatMap(v => v.complianceGaps || []);
+            const gapFrequency = {};
+            allGaps.forEach(gap => {
+                gapFrequency[gap] = (gapFrequency[gap] || 0) + 1;
+            });
+            
+            // Active threats
+            const activeThreats = vendorData.filter(v => v.riskEvents && v.riskEvents.length > 0);
+            
+            return {
+                summary: {
+                    totalVendors,
+                    averageRisk,
+                    averageResidual,
+                    riskDistribution
+                },
+                sectorAnalysis: sectorRisks,
+                geographicAnalysis: geoRisks,
+                complianceGaps: gapFrequency,
+                activeThreats,
+                recommendedActions: generateRecommendations(riskDistribution, sectorRisks, geoRisks),
+                generatedAt: new Date().toISOString()
+            };
+        }
+        
+        // Generate Risk Recommendations
+        function generateRecommendations(riskDist, sectors, geography) {
+            const recommendations = [];
+            
+            if (riskDist.critical > 0) {
+                recommendations.push(`Immediate action required: ${riskDist.critical} vendor(s) at critical risk level`);
+            }
+            
+            if (riskDist.high > riskDist.critical) {
+                recommendations.push(`Priority review needed: ${riskDist.high} vendor(s) at high risk level`);
+            }
+            
+            // Sector recommendations
+            const highRiskSectors = Object.entries(sectors)
+                .filter(([sector, data]) => data.average > 70)
+                .map(([sector]) => sector);
+            
+            if (highRiskSectors.length > 0) {
+                recommendations.push(`Enhanced due diligence recommended for sectors: ${highRiskSectors.join(', ')}`);
+            }
+            
+            // Geographic recommendations
+            const highRiskLocations = Object.entries(geography)
+                .filter(([location, data]) => data.average > 70)
+                .map(([location]) => location);
+            
+            if (highRiskLocations.length > 0) {
+                recommendations.push(`Additional controls needed for vendors in: ${highRiskLocations.join(', ')}`);
+            }
+            
+            return recommendations;
+        }
+        
+        // Generate HTML Report
+        function generateReportHTML(analytics) {
+            return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Risk Comprehensive Report - ${new Date().toLocaleDateString()}</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; margin: 40px; color: #333; }
+        .header { text-align: center; margin-bottom: 40px; border-bottom: 3px solid #2e7d32; padding-bottom: 20px; }
+        .section { margin-bottom: 30px; }
+        .section h2 { color: #2e7d32; border-left: 4px solid #2e7d32; padding-left: 15px; }
+        .risk-card { background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 10px 0; }
+        .critical { border-left: 4px solid #f44336; }
+        .high { border-left: 4px solid #ff9800; }
+        .medium { border-left: 4px solid #ffeb3b; }
+        .low { border-left: 4px solid #4caf50; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .recommendation { background: #fff3cd; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #ffc107; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #2e7d32; color: white; }
+        .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 Vendor Risk Management Report</h1>
+        <p>Comprehensive Third-Party Risk Assessment</p>
+        <p><strong>Generated:</strong> ${new Date().toLocaleString()}</p>
+        <p><strong>Report Period:</strong> Current Portfolio Analysis</p>
+    </div>
+    
+    <div class="section">
+        <h2>📊 Executive Summary</h2>
+        <div class="grid">
+            <div class="risk-card">
+                <h3>Portfolio Overview</h3>
+                <p><strong>Total Vendors:</strong> ${analytics.summary.totalVendors}</p>
+                <p><strong>Average Risk Score:</strong> ${analytics.summary.averageRisk}/100</p>
+                <p><strong>Average Residual Risk:</strong> ${analytics.summary.averageResidual}/100</p>
+            </div>
+            <div class="risk-card">
+                <h3>Risk Distribution</h3>
+                <p class="critical">Critical Risk: ${analytics.summary.riskDistribution.critical} vendors</p>
+                <p class="high">High Risk: ${analytics.summary.riskDistribution.high} vendors</p>
+                <p class="medium">Medium Risk: ${analytics.summary.riskDistribution.medium} vendors</p>
+                <p class="low">Low Risk: ${analytics.summary.riskDistribution.low} vendors</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>🎯 Key Recommendations</h2>
+        ${analytics.recommendedActions.map(rec => `<div class="recommendation">${rec}</div>`).join('')}
+    </div>
+    
+    <div class="section">
+        <h2>🏢 Sector Risk Analysis</h2>
+        <table>
+            <tr><th>Sector</th><th>Vendor Count</th><th>Average Risk</th><th>Key Vendors</th></tr>
+            ${Object.entries(analytics.sectorAnalysis).map(([sector, data]) => `
+                <tr>
+                    <td>${sector}</td>
+                    <td>${data.count}</td>
+                    <td class="${data.average > 70 ? 'critical' : data.average > 40 ? 'medium' : 'low'}">${data.average}</td>
+                    <td>${data.vendors.slice(0, 3).join(', ')}${data.vendors.length > 3 ? '...' : ''}</td>
+                </tr>
+            `).join('')}
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>🌍 Geographic Risk Analysis</h2>
+        <table>
+            <tr><th>Location</th><th>Vendor Count</th><th>Average Risk</th><th>Key Vendors</th></tr>
+            ${Object.entries(analytics.geographicAnalysis).map(([location, data]) => `
+                <tr>
+                    <td>${location}</td>
+                    <td>${data.count}</td>
+                    <td class="${data.average > 70 ? 'critical' : data.average > 40 ? 'medium' : 'low'}">${data.average}</td>
+                    <td>${data.vendors.slice(0, 3).join(', ')}${data.vendors.length > 3 ? '...' : ''}</td>
+                </tr>
+            `).join('')}
+        </table>
+    </div>
+    
+    ${Object.keys(analytics.complianceGaps).length > 0 ? `
+    <div class="section">
+        <h2>⚖️ Compliance Gap Analysis</h2>
+        <table>
+            <tr><th>Compliance Requirement</th><th>Affected Vendors</th></tr>
+            ${Object.entries(analytics.complianceGaps).map(([gap, count]) => `
+                <tr><td>${gap}</td><td>${count}</td></tr>
+            `).join('')}
+        </table>
+    </div>
+    ` : ''}
+    
+    ${analytics.activeThreats.length > 0 ? `
+    <div class="section">
+        <h2>🚨 Active Threat Intelligence</h2>
+        ${analytics.activeThreats.map(vendor => `
+            <div class="risk-card critical">
+                <h4>${vendor.name}</h4>
+                <p><strong>Active Threats:</strong> ${vendor.riskEvents.join('; ')}</p>
+                <p><strong>Risk Level:</strong> ${vendor.riskLevel.toUpperCase()}</p>
+            </div>
+        `).join('')}
+    </div>
+    ` : ''}
+    
+    <div class="footer">
+        <p>Generated by VendorSoluce Risk Radar | Part of the ERMITS Ecosystem</p>
+        <p>This report contains confidential risk assessment data</p>
+    </div>
+</body>
+</html>`;
+        }
+        
+        // Export Enhanced CSV
+        function exportEnhancedCSV() {
+            const enhancedCsv = [
+                ['Name', 'Category', 'Data Types', 'Sector', 'Location', 'Contact', 'Notes', 'Inherent Risk', 'Residual Risk', 'Risk Level', 'Predictive Score', 'Threat Multiplier', 'Compliance Gaps', 'Security Controls', 'Risk Events', 'Next Review', 'Last Updated'].join(','),
+                ...vendorData.map(v => [
+                    v.name,
+                    v.category,
+                    (v.dataTypes || []).join(';'),
+                    v.sector,
+                    v.location,
+                    v.contact || '',
+                    v.notes || '',
+                    v.inherentRisk,
+                    v.residualRisk,
+                    v.riskLevel,
+                    v.predictiveScore || 'N/A',
+                    v.threatMultiplier || 100,
+                    (v.complianceGaps || []).join(';'),
+                    (v.securityControls || []).join(';'),
+                    (v.riskEvents || []).join(';'),
+                    v.nextReviewDate || '',
+                    v.lastUpdated || ''
+                ].join(','))
+            ].join('\n');
+            
+            const blob = new Blob([enhancedCsv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `vendor-risk-enhanced-export-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Theme toggle functionality for header button
+        (function() {
+            // Get theme from localStorage or default to light
+            const getTheme = () => {
+                const stored = localStorage.getItem('darkMode');
+                if (stored === 'true') return 'dark';
+                // Check system preference
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            };
+            
+            // Apply theme
+            const applyTheme = (theme) => {
+                const html = document.documentElement;
+                const body = document.body;
+                const isDark = theme === 'dark';
+                
+                if (isDark) {
+                    html.classList.add('dark');
+                    body.classList.add('dark-mode');
+                } else {
+                    html.classList.remove('dark');
+                    body.classList.remove('dark-mode');
+                }
+                localStorage.setItem('darkMode', isDark);
+                
+                // Update theme toggle button icons
+                const themeButtons = document.querySelectorAll('[data-theme-toggle]');
+                themeButtons.forEach(btn => {
+                    const sunIcon = btn.querySelector('.lucide-sun');
+                    const moonIcon = btn.querySelector('.lucide-moon');
+                    if (isDark) {
+                        if (sunIcon) sunIcon.style.display = 'block';
+                        if (moonIcon) moonIcon.style.display = 'none';
+                        btn.setAttribute('aria-label', 'Switch to light mode');
+                    } else {
+                        if (sunIcon) sunIcon.style.display = 'none';
+                        if (moonIcon) moonIcon.style.display = 'block';
+                        btn.setAttribute('aria-label', 'Switch to dark mode');
+                    }
+                });
+                
+                // Update the floating theme toggle button icons if they exist
+                const lightIcon = document.getElementById('lightIcon');
+                const darkIcon = document.getElementById('darkIcon');
+                if (lightIcon && darkIcon) {
+                    lightIcon.style.display = isDark ? 'none' : 'block';
+                    darkIcon.style.display = isDark ? 'block' : 'none';
+                }
+                
+                // Recreate charts with new colors
+                if (vendorData && vendorData.length > 0 && typeof createAnalyticsCharts === 'function') {
+                    createAnalyticsCharts();
+                }
+            };
+            
+            // Apply theme immediately to prevent flash
+            applyTheme(getTheme());
+            
+            // Set up event listeners after DOM is ready
+            document.addEventListener('DOMContentLoaded', () => {
+                // Re-apply theme to ensure icons are updated
+                applyTheme(getTheme());
+                
+                // Add click handlers to theme toggle buttons
+                document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const currentTheme = getTheme();
+                        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                        applyTheme(newTheme);
+                    });
+                });
+                
+                // Listen for system theme changes
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                    if (!localStorage.getItem('darkMode')) {
+                        applyTheme(e.matches ? 'dark' : 'light');
+                    }
+                });
+            });
+        })();
+    </script>
+
+<!-- Footer -->
+<footer class="bg-white dark:bg-gray-800 backdrop-blur-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
+    <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 mb-2">
+      <div class="flex items-start space-x-1 flex-shrink-0">
+        <img src="../homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-16 w-16 sm:h-20 sm:w-20 transition-transform duration-300 hover:scale-110 flex-shrink-0 block opacity-100" loading="eager">
+        <div class="brand-text">
+          <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">VendorSoluce&trade;</span>
+          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter" style="letter-spacing: -0.02em; margin-top: -3px;">Supply Chain Assurance</span>
+          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
+          <div class="text-sm mt-2 text-gray-700 dark:text-gray-300 leading-tight">
+            <div>VendorSoluce&trade; Supply Chain Assurance &mdash;</div>
+            <div>Privacy-First</div>
+            <div>Comprehensive supply chain risk management platform</div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 flex-1 md:ml-8 lg:ml-12">
+        <div class="flex-1">
+          <h3 class="font-medium mb-3 text-sm text-gray-700 dark:text-gray-300">Quick Links</h3>
+          <ul class="space-y-1 leading-tight">
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="../how-it-works.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers w-3.5 h-3.5 text-current inline-block"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>How It Works</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="../features.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-3.5 h-3.5 text-current inline-block"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>Features</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="../pricing.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-3.5 h-3.5 text-current inline-block"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>Pricing</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="../trust.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-3.5 h-3.5 text-current inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>Trust</a></li>
+          </ul>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-medium mb-3 text-sm text-gray-700 dark:text-gray-300">Resources</h3>
+          <ul class="space-y-1 leading-tight">
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="vendor-risk-radar.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-3.5 h-3.5 text-current inline-block"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path><circle cx="12" cy="12" r="2"></circle></svg>Vendor Radar</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="../index.html#best-practices"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>Best Practices</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="../contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-3.5 h-3.5 text-current inline-block"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>Contact</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="../faq.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>FAQ</a></li>
+          </ul>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-medium mb-3 text-sm text-gray-700 dark:text-gray-300">Legal</h3>
+          <ul class="space-y-1 leading-tight">
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="../legal/privacy-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock w-3.5 h-3.5 text-current inline-block"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Privacy Policy</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="../legal/cookie-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cookie w-3.5 h-3.5 text-current inline-block"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>Cookie Policy</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="../legal/terms.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scale w-3.5 h-3.5 text-current inline-block"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>Terms of Service</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="../legal/acceptable-use-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check w-3.5 h-3.5 text-current inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>Acceptable Use</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col lg:flex-row justify-between items-center gap-3 lg:gap-4 pt-1">
+      <div class="flex flex-col sm:flex-row items-center gap-3 flex-1 justify-center lg:justify-start">
+        <div class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-secure-green/10 border border-secure-green/30 status-badge-secure">
+          <img src="../homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="w-3.5 h-3.5 block opacity-100" loading="eager">
+          <span class="text-[10px] sm:text-xs font-medium text-secure-green">Privacy-First • Local Storage</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle2 w-3.5 h-3.5 text-secure-green"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+          <span class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">Version 1.0</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-center lg:items-end space-y-0 leading-tight text-xs flex-shrink-0">
+        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">© 2025 ERMITS LLC</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

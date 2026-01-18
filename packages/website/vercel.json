@@ -8,6 +8,11 @@
       "source": "/best-practices",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/start",
+      "destination": "/assessment/",
+      "permanent": false
     }
   ],
   "headers": [

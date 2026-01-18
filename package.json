@@ -5,7 +5,9 @@
   "type": "module",
   "description": "VendorSoluce monorepo containing the marketing website and main application",
   "workspaces": [
-    "packages/*"
+    "packages/app",
+    "packages/shared",
+    "packages/website"
   ],
   "scripts": {
     "dev": "turbo run dev",
