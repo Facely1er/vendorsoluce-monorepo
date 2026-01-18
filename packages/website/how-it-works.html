@@ -148,6 +148,217 @@
     .breadcrumb-nav {
       top: var(--nav-height, 64px);
     }
+    
+    /* Visual Process Flow Enhancements */
+    .process-flow-container {
+      position: relative;
+    }
+    
+    .process-step-card {
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+    
+    .process-step-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--vendorsoluce-green), var(--vendorsoluce-light-green));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .process-step-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .process-step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+    }
+    
+    .step-number-badge {
+      position: relative;
+      background: linear-gradient(135deg, var(--vendorsoluce-green), var(--vendorsoluce-light-green));
+      color: white;
+      font-weight: 700;
+      box-shadow: 0 4px 6px -1px rgba(51, 105, 30, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .step-number-badge::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, var(--vendorsoluce-green), var(--vendorsoluce-light-green));
+      opacity: 0.3;
+      filter: blur(8px);
+      z-index: -1;
+      transition: opacity 0.3s ease;
+    }
+    
+    .process-step-card:hover .step-number-badge {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 8px 12px -2px rgba(51, 105, 30, 0.4);
+    }
+    
+    .process-step-card:hover .step-number-badge::after {
+      opacity: 0.5;
+    }
+    
+    .step-icon {
+      transition: all 0.3s ease;
+    }
+    
+    .process-step-card:hover .step-icon {
+      transform: scale(1.1) rotate(-5deg);
+    }
+    
+    /* Process Flow Connector */
+    .process-connector {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 60px;
+      background: linear-gradient(180deg, var(--vendorsoluce-green), var(--vendorsoluce-light-green));
+      opacity: 0.3;
+      z-index: 0;
+    }
+    
+    .process-connector::before,
+    .process-connector::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--vendorsoluce-green);
+      border: 2px solid white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .process-connector::before {
+      top: -6px;
+    }
+    
+    .process-connector::after {
+      bottom: -6px;
+    }
+    
+    /* Arrow between steps */
+    .process-arrow {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 40px;
+      z-index: 1;
+      opacity: 0.4;
+      transition: all 0.3s ease;
+    }
+    
+    .process-step-card:hover + .process-arrow,
+    .process-arrow:hover {
+      opacity: 0.8;
+      transform: translateX(-50%) translateY(4px);
+    }
+    
+    /* Feature list icons */
+    .feature-item {
+      position: relative;
+      padding-left: 1.5rem;
+      transition: all 0.2s ease;
+    }
+    
+    .feature-item::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--vendorsoluce-green);
+      font-weight: 700;
+      font-size: 1.1em;
+    }
+    
+    .dark .feature-item::before {
+      color: var(--vendorsoluce-light-green);
+    }
+    
+    .feature-item:hover {
+      transform: translateX(4px);
+      color: var(--vendorsoluce-green);
+    }
+    
+    .dark .feature-item:hover {
+      color: var(--vendorsoluce-light-green);
+    }
+    
+    /* Animated gradient background for intro */
+    .intro-gradient {
+      background: linear-gradient(135deg, rgba(51, 105, 30, 0.05) 0%, rgba(102, 187, 106, 0.05) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .intro-gradient::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(51, 105, 30, 0.1) 0%, transparent 70%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+    }
+    
+    /* Outcome badge styling */
+    .outcome-badge {
+      background: linear-gradient(135deg, rgba(51, 105, 30, 0.1), rgba(102, 187, 106, 0.1));
+      border-left: 4px solid var(--vendorsoluce-green);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .dark .outcome-badge {
+      background: linear-gradient(135deg, rgba(51, 105, 30, 0.2), rgba(102, 187, 106, 0.2));
+      border-left-color: var(--vendorsoluce-light-green);
+    }
+    
+    .outcome-badge::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      left: 8px;
+      font-size: 4rem;
+      color: var(--vendorsoluce-green);
+      opacity: 0.2;
+      font-family: serif;
+    }
+    
+    .dark .outcome-badge::before {
+      color: var(--vendorsoluce-light-green);
+    }
     </style>
   <script>
 // Theme toggle functionality - must run immediately to prevent flash
@@ -601,12 +812,19 @@
     </nav>
     
     <!-- Intro Section -->
-    <section class="py-12 md:py-16 px-6 sm:px-8 lg:px-12 bg-white dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto text-center">
-            <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
-                Three stages. Three outcomes. One journey to vendor risk assurance.
+    <section class="py-16 md:py-20 px-6 sm:px-8 lg:px-12 intro-gradient relative">
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold mb-6 bg-vendorsoluce-green/10 text-vendorsoluce-green dark:bg-vendorsoluce-green/20 dark:text-vendorsoluce-light-green border border-vendorsoluce-green/20">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+                Three-Stage Process
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight">
+                Three stages. Three outcomes.<br>
+                <span class="bg-gradient-to-r from-vendorsoluce-green to-vendorsoluce-light-green bg-clip-text text-transparent">One journey</span> to vendor risk assurance.
             </h1>
-            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
                 VendorSoluce is not a checkbox exercise. It is a structured journey designed to help teams discover vendor exposure, understand compliance gaps, and close those gaps with evidence-based proof of vendor risk management.
             </p>
         </div>
