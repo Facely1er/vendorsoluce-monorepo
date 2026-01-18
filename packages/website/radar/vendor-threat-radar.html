@@ -319,12 +319,36 @@
             border-left-color: #dc2626;
         }
         
+        .stat-card.critical .stat-value {
+            color: #dc2626;
+        }
+        
+        html.dark .stat-card.critical .stat-value {
+            color: #fca5a5;
+        }
+        
         .stat-card.warning {
             border-left-color: #f59e0b;
         }
         
+        .stat-card.warning .stat-value {
+            color: #f59e0b;
+        }
+        
+        html.dark .stat-card.warning .stat-value {
+            color: #fcd34d;
+        }
+        
         .stat-card.success {
             border-left-color: var(--vendorsoluce-green);
+        }
+        
+        .stat-card.success .stat-value {
+            color: var(--vendorsoluce-green);
+        }
+        
+        html.dark .stat-card.success .stat-value {
+            color: var(--vendorsoluce-light-green);
         }
         
         .stat-label {
@@ -456,6 +480,11 @@
             align-items: center;
             gap: 8px;
             margin-bottom: 6px;
+            color: #1f2937;
+        }
+        
+        html.dark .legend-item {
+            color: #f3f4f6;
         }
         
         .legend-item:last-child {
@@ -603,6 +632,16 @@
             color: #86efac;
         }
         
+        .badge.secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        
+        html.dark .badge.secondary {
+            background: #374151;
+            color: #d1d5db;
+        }
+        
         .vendor-info {
             font-size: 0.875rem;
             color: #6b7280;
@@ -722,6 +761,10 @@
             padding: 4px;
         }
         
+        html.dark .close-btn {
+            color: #9ca3af;
+        }
+        
         .close-btn:hover {
             color: #1f2937;
         }
@@ -792,6 +835,11 @@
             gap: 8px;
             font-size: 0.875rem;
             cursor: pointer;
+            color: #374151;
+        }
+        
+        html.dark .checkbox-label {
+            color: #d1d5db;
         }
         
         .checkbox-label input[type="checkbox"] {
@@ -899,15 +947,30 @@
             padding: 40px;
             color: #9ca3af;
         }
+        
+        html.dark .empty-state {
+            color: #6b7280;
+        }
+        
         .empty-state-icon {
             width: 48px;
             height: 48px;
             margin: 0 auto 16px;
             opacity: 0.5;
         }
+        
+        html.dark .empty-state-icon {
+            opacity: 0.4;
+        }
+        
         .empty-state-text {
             font-size: 0.875rem;
             margin-top: 8px;
+            color: #9ca3af;
+        }
+        
+        html.dark .empty-state-text {
+            color: #6b7280;
         }
         .hidden-icon {
             display: none;
@@ -1761,8 +1824,8 @@
                 }
             });
             
-            // Update sweep angle
-            sweepAngle += 0.02;
+            // Update sweep angle (reduced speed for smoother animation)
+            sweepAngle += 0.008;
             if (sweepAngle > Math.PI * 2) {
                 sweepAngle = 0;
             }
@@ -2308,9 +2371,11 @@
             }
             
             if (filtered.length === 0) {
+                const isDark = document.documentElement.classList.contains('dark');
+                const textColor = isDark ? '#6b7280' : '#9ca3af';
                 container.innerHTML = `
-                    <div style="text-align: center; padding: 40px; color: #9ca3af;">
-                        <svg style="width: 48px; height: 48px; margin: 0 auto 16px; opacity: 0.5;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div style="text-align: center; padding: 40px; color: ${textColor};" class="empty-state">
+                        <svg style="width: 48px; height: 48px; margin: 0 auto 16px; opacity: ${isDark ? '0.4' : '0.5'};" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="empty-state-icon">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
                         </svg>
                         <p>No vendors match the selected filter</p>

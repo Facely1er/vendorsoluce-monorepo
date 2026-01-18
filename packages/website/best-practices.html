@@ -5,13 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Best Practices — VendorSoluce</title>
   <meta name="description" content="Best practices for supply chain risk management and vendor security." />
-  <!-- Redirect to homepage -->
-  <meta http-equiv="refresh" content="0; url=index.html" />
-  <link rel="canonical" href="https://vendorsoluce.com/" />
+  <link rel="canonical" href="https://vendorsoluce.com/best-practices.html" />
+  <link href="assets/css/tailwind.css" rel="stylesheet"/>
+  <style>
+    :root {
+      --vendorsoluce-green: #33691E;
+      --vendorsoluce-light-green: #66BB6A;
+      --vendorsoluce-dark-green: #2E5A1A;
+      --vendorsoluce-pale-green: #E8F5E8;
+    }
+    .bg-vendorsoluce-green { background-color: var(--vendorsoluce-green); }
+    .text-vendorsoluce-green { color: var(--vendorsoluce-green) !important; }
+    html:not(.dark) .text-vendorsoluce-green { color: var(--vendorsoluce-green) !important; }
+    html.dark .text-vendorsoluce-green { color: white !important; }
+    .vs-badge{display:inline-flex;align-items:center;border-radius:999px;padding:2px 6px;font-size:0.65em;background:rgba(51,105,30,.12);color:var(--vendorsoluce-green);font-weight:600;vertical-align:middle;border:none}
+    html.dark .vs-badge{background:rgba(102,187,106,.18);color:var(--vendorsoluce-light-green)}
+  </style>
   <script>
-    // Immediate redirect to homepage
-    window.location.replace('index.html');
-  </script>
+// Theme toggle functionality
+(function() {
+  const getTheme = () => {
+    const stored = localStorage.getItem('theme');
+    if (stored) return stored;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+  const applyTheme = (theme) => {
+    const html = document.documentElement;
+    if (theme === 'dark') {
+      html.classList.add('dark');
+    } else {
+      html.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+  };
+  applyTheme(getTheme());
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const currentTheme = getTheme();
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        applyTheme(newTheme);
+      });
+    });
+  });
+})();
+</script>
 </head>
 <body>
     <div id="root"><div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col"><!-- Shared Header Navigation for VendorSoluce -->
@@ -357,5 +395,36 @@
     </div>
   </div>
 </div>
+
+<main class="flex-1 pt-[var(--nav-height,64px)]">
+    <!-- Intro Section with Reduced Top Padding -->
+    <section class="py-6 md:py-8 px-6 sm:px-8 lg:px-12 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+                Best Practices for Supply Chain Risk Management
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Learn proven strategies and best practices for managing vendor risk and ensuring supply chain security.
+            </p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-8 md:py-12 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="space-y-8">
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-sm">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                        Vendor Risk Assessment Best Practices
+                    </h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                        Content coming soon...
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
 </body>
 </html>
