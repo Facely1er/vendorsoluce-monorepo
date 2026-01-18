@@ -135,6 +135,148 @@
     .mobile-menu-position {
       top: 64px;
     }
+    
+    /* FAQ Page Enhancements */
+    .faq-category-nav {
+      position: sticky;
+      top: calc(var(--nav-height, 64px) + 44px);
+      z-index: 30;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+    }
+    
+    .dark .faq-category-nav {
+      background: rgba(31, 41, 55, 0.95);
+      border-bottom-color: rgba(55, 65, 81, 0.8);
+    }
+    
+    .faq-category-link {
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    
+    .faq-category-link:hover {
+      color: var(--vendorsoluce-green);
+      transform: translateY(-1px);
+    }
+    
+    .dark .faq-category-link:hover {
+      color: var(--vendorsoluce-light-green);
+    }
+    
+    .faq-item {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .faq-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--vendorsoluce-green), var(--vendorsoluce-light-green));
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.3s ease;
+    }
+    
+    .faq-item:hover::before {
+      transform: scaleY(1);
+    }
+    
+    .faq-item:hover {
+      transform: translateX(4px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .dark .faq-item:hover {
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .faq-question {
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    
+    .faq-question::before {
+      content: 'Q';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1.25rem;
+      height: 1.25rem;
+      background: linear-gradient(135deg, var(--vendorsoluce-green), var(--vendorsoluce-light-green));
+      color: white;
+      border-radius: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    
+    .faq-answer {
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    
+    .faq-answer::before {
+      content: 'A';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1.25rem;
+      height: 1.25rem;
+      background: rgba(51, 105, 30, 0.1);
+      color: var(--vendorsoluce-green);
+      border-radius: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    
+    .dark .faq-answer::before {
+      background: rgba(102, 187, 106, 0.2);
+      color: var(--vendorsoluce-light-green);
+    }
+    
+    .category-header {
+      position: relative;
+      padding-left: 3rem;
+    }
+    
+    .category-icon {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2.5rem;
+      height: 2.5rem;
+      background: linear-gradient(135deg, var(--vendorsoluce-green), var(--vendorsoluce-light-green));
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 4px 6px -1px rgba(51, 105, 30, 0.3);
+    }
+    
+    .faq-intro {
+      background: linear-gradient(135deg, rgba(51, 105, 30, 0.05) 0%, rgba(102, 187, 106, 0.05) 100%);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .dark .faq-intro {
+      background: linear-gradient(135deg, rgba(51, 105, 30, 0.1) 0%, rgba(102, 187, 106, 0.1) 100%);
+    }
     </style>
   <script>
 // Theme toggle functionality - must run immediately to prevent flash
@@ -587,15 +729,45 @@
         </div>
     </nav>
     <div class="pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mt-0">
+        <!-- FAQ Intro -->
+        <div class="faq-intro max-w-4xl mx-auto mt-8 mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Frequently Asked Questions</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                Find answers to common questions about VendorSoluce, our features, pricing, and how we can help you manage vendor risk and supply chain compliance.
+            </p>
+        </div>
+        
+        <!-- Category Navigation -->
+        <div class="faq-category-nav py-4 mb-8 max-w-4xl mx-auto">
+            <div class="flex flex-wrap gap-2 justify-center">
+                <a href="#general" class="faq-category-link px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">General</a>
+                <a href="#evidence" class="faq-category-link px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Evidence & Validation</a>
+                <a href="#sbom" class="faq-category-link px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">SBOM & Assessments</a>
+                <a href="#compliance" class="faq-category-link px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Compliance & Security</a>
+                <a href="#platform" class="faq-category-link px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Platform Features</a>
+                <a href="#governance" class="faq-category-link px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Governance</a>
+                <a href="#pricing" class="faq-category-link px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Pricing</a>
+            </div>
+        </div>
+        
         <!-- FAQ Questions -->
-        <div class="space-y-4 mb-12 max-w-4xl mx-auto">
+        <div class="space-y-6 mb-12 max-w-4xl mx-auto">
             <!-- General Section -->
-            <div class="mb-8">
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">General</h2>
+            <div class="mb-12" id="general">
+                <div class="category-header mb-8">
+                    <div class="category-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <path d="M12 17h.01"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">General</h2>
+                </div>
                 <div class="space-y-4">
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What is VendorSoluce?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What is VendorSoluce?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 VendorSoluce is a vendor risk and supply-chain assurance workflow platform that helps organizations manage vendor intake, evidence capture, risk decisions, and compliance tracking. It provides tools for vendor risk assessment, SBOM analysis, and NIST SP 800-161 compliance assessments.
                             </p>
