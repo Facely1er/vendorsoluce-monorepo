@@ -830,82 +830,146 @@
         </div>
     </section>
 
-<section class="py-8 md:py-12 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-gray-900">
+<section class="py-12 md:py-16 px-6 sm:px-8 lg:px-12 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
 <div class="max-w-7xl mx-auto">
-<div class="space-y-12">
-<div class="modern-card p-8 md:p-10">
-<div class="flex gap-6">
-<div class="w-14 h-14 rounded-xl bg-vendorsoluce-green/10 text-vendorsoluce-green dark:text-vendorsoluce-light-green flex items-center justify-center text-xl font-bold flex-shrink-0">
-1
+<div class="process-flow-container space-y-8 md:space-y-12">
+<div class="process-step-card modern-card p-8 md:p-10 relative">
+<div class="flex flex-col md:flex-row gap-6 md:gap-8">
+<div class="flex items-start gap-4 md:gap-6">
+<div class="step-number-badge w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-2xl md:text-3xl font-bold flex-shrink-0 step-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+<circle cx="12" cy="12" r="4"></circle>
+</svg>
 </div>
 <div class="flex-1">
-<h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">Discover Your Vendor Exposure</h2>
-<p class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green mb-3">
+<h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-3">
+<span>Discover Your Vendor Exposure</span>
+</h2>
+<div class="outcome-badge mb-4">
+<p class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green">
 Outcome: "I know exactly which vendors pose the greatest risk to my organization."
 </p>
+</div>
 <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
 Discover vendor exposure through intake forms, SBOM analysis, and risk signal aggregation. Get instant visibility into which vendors pose the greatest risk to your organization based on data access, business criticality, and compliance requirements.
 </p>
 <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-600 dark:text-gray-300 mb-6">
-<li>• Vendor intake with contact information, industry classification, and business context</li>
-<li>• Risk scoring using weighted factors: data access, criticality, compliance requirements</li>
-<li>• Vendor classification by risk level: Low, Medium, High, Critical</li>
-<li>• SBOM analysis for vulnerability detection and supply chain visibility</li>
+<li class="feature-item">Vendor intake with contact information, industry classification, and business context</li>
+<li class="feature-item">Risk scoring using weighted factors: data access, criticality, compliance requirements</li>
+<li class="feature-item">Vendor classification by risk level: Low, Medium, High, Critical</li>
+<li class="feature-item">SBOM analysis for vulnerability detection and supply chain visibility</li>
 </ul>
-<a href="https://www.application.vendorsoluce.com/tools/vendor-risk-radar" class="inline-flex items-center px-6 py-3 bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green text-white rounded-lg font-semibold transition-colors">
-Start Vendor Risk Radar →
+<a href="https://www.application.vendorsoluce.com/tools/vendor-risk-radar" class="inline-flex items-center px-6 py-3 bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green text-white rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 group-hover:translate-x-1 transition-transform">
+<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+<circle cx="12" cy="12" r="4"></circle>
+</svg>
+Start Vendor Risk Radar
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-x-1 transition-transform">
+<path d="M5 12h14"></path>
+<path d="m12 5 7 7-7 7"></path>
+</svg>
 </a>
 </div>
 </div>
 </div>
+<!-- Connector Arrow -->
+<div class="process-connector hidden md:block"></div>
+<div class="process-arrow hidden md:block">
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--vendorsoluce-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M12 5v14"></path>
+<path d="m19 12-7 7-7-7"></path>
+</svg>
+</div>
 
-<div class="modern-card p-8 md:p-10">
-<div class="flex gap-6">
-<div class="w-14 h-14 rounded-xl bg-vendorsoluce-green/10 text-vendorsoluce-green dark:text-vendorsoluce-light-green flex items-center justify-center text-xl font-bold flex-shrink-0">
-2
+<div class="process-step-card modern-card p-8 md:p-10 relative">
+<div class="flex flex-col md:flex-row gap-6 md:gap-8">
+<div class="flex items-start gap-4 md:gap-6">
+<div class="step-number-badge w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-2xl md:text-3xl font-bold flex-shrink-0 step-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+<path d="M9 12l2 2 4-4"></path>
+</svg>
 </div>
 <div class="flex-1">
-<h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">Understand Your Compliance Gaps</h2>
-<p class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green mb-3">
+<h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-3">
+<span>Understand Your Compliance Gaps</span>
+</h2>
+<div class="outcome-badge mb-4">
+<p class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green">
 Outcome: "I know exactly which security controls and compliance requirements I need from each vendor based on their risk level."
 </p>
+</div>
 <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
 Define security requirements using NIST SP 800-161, collect evidence, and assess vendor compliance. Generate a risk-informed gap analysis that prioritizes controls based on your specific vendor exposure and business context.
 </p>
 <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-600 dark:text-gray-300 mb-6">
-<li>• NIST SP 800-161 aligned assessments: 24 questions across 6 security domains</li>
-<li>• Evidence collection linked to assessment questions and compliance controls</li>
-<li>• SBOM analysis: Scan CycloneDX and SPDX formats for known vulnerabilities</li>
-<li>• Risk-informed prioritization based on vendor exposure and business context</li>
+<li class="feature-item">NIST SP 800-161 aligned assessments: 24 questions across 6 security domains</li>
+<li class="feature-item">Evidence collection linked to assessment questions and compliance controls</li>
+<li class="feature-item">SBOM analysis: Scan CycloneDX and SPDX formats for known vulnerabilities</li>
+<li class="feature-item">Risk-informed prioritization based on vendor exposure and business context</li>
 </ul>
-<a href="https://www.application.vendorsoluce.com/supply-chain-assessment" class="inline-flex items-center px-6 py-3 bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green text-white rounded-lg font-semibold transition-colors">
-Start Supply Chain Assessment →
+<a href="https://www.application.vendorsoluce.com/supply-chain-assessment" class="inline-flex items-center px-6 py-3 bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green text-white rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 group-hover:translate-x-1 transition-transform">
+<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+<path d="M9 12l2 2 4-4"></path>
+</svg>
+Start Supply Chain Assessment
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-x-1 transition-transform">
+<path d="M5 12h14"></path>
+<path d="m12 5 7 7-7 7"></path>
+</svg>
 </a>
 </div>
 </div>
 </div>
+<!-- Connector Arrow -->
+<div class="process-connector hidden md:block"></div>
+<div class="process-arrow hidden md:block">
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--vendorsoluce-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M12 5v14"></path>
+<path d="m19 12-7 7-7-7"></path>
+</svg>
+</div>
 
-<div class="modern-card p-8 md:p-10">
-<div class="flex gap-6">
-<div class="w-14 h-14 rounded-xl bg-vendorsoluce-green/10 text-vendorsoluce-green dark:text-vendorsoluce-light-green flex items-center justify-center text-xl font-bold flex-shrink-0">
-3
+<div class="process-step-card modern-card p-8 md:p-10 relative">
+<div class="flex flex-col md:flex-row gap-6 md:gap-8">
+<div class="flex items-start gap-4 md:gap-6">
+<div class="step-number-badge w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-2xl md:text-3xl font-bold flex-shrink-0 step-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+<path d="m9 11 3 3L22 4"></path>
+</svg>
 </div>
 <div class="flex-1">
-<h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">Close the Compliance Gaps</h2>
-<p class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green mb-3">
+<h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-3">
+<span>Close the Compliance Gaps</span>
+</h2>
+<div class="outcome-badge mb-4">
+<p class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green">
 Outcome: "I have evidence-based proof of vendor compliance and defensible vendor risk management decisions."
 </p>
+</div>
 <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
 Track vendor compliance, generate procurement-ready reports, and maintain evidence for oversight decisions. Get evidence-based proof of vendor compliance without drowning in email, with complete traceability of every decision.
 </p>
 <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-600 dark:text-gray-300 mb-6">
-<li>• Risk-driven remediation roadmap with prioritized actions</li>
-<li>• Evidence collection aligned to compliance requirements</li>
-<li>• Procurement-ready and oversight-ready reporting</li>
-<li>• Complete traceability of vendor risk management decisions</li>
+<li class="feature-item">Risk-driven remediation roadmap with prioritized actions</li>
+<li class="feature-item">Evidence collection aligned to compliance requirements</li>
+<li class="feature-item">Procurement-ready and oversight-ready reporting</li>
+<li class="feature-item">Complete traceability of vendor risk management decisions</li>
 </ul>
-<a href="https://www.application.vendorsoluce.com/vendor-assessments" class="inline-flex items-center px-6 py-3 bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green text-white rounded-lg font-semibold transition-colors">
-Start Vendor Assessments →
+<a href="https://www.application.vendorsoluce.com/vendor-assessments" class="inline-flex items-center px-6 py-3 bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green text-white rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 group-hover:translate-x-1 transition-transform">
+<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+<path d="m9 11 3 3L22 4"></path>
+</svg>
+Start Vendor Assessments
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-x-1 transition-transform">
+<path d="M5 12h14"></path>
+<path d="m12 5 7 7-7 7"></path>
+</svg>
 </a>
 </div>
 </div>
