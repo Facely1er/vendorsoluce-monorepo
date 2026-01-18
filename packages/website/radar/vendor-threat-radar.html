@@ -47,11 +47,17 @@
             background: #f9fafb;
             color: #1f2937;
             line-height: 1.6;
+            transition: background-color 0.2s, color 0.2s;
         }
         
         html.dark body {
             background: #111827;
             color: #f3f4f6;
+        }
+        
+        /* Ensure root div background matches body */
+        html.dark #root > div {
+            background: #111827;
         }
         
         /* Container */
@@ -1677,7 +1683,7 @@
             // Clear canvas
             ctx.clearRect(0, 0, size, size);
             
-            const isDark = document.body.classList.contains('dark-mode');
+            const isDark = document.documentElement.classList.contains('dark');
             const gridColor = isDark ? 'rgba(76, 175, 80, 0.15)' : 'rgba(46, 125, 50, 0.15)';
             const sweepColor = isDark ? 'rgba(76, 175, 80, 0.4)' : 'rgba(46, 125, 50, 0.4)';
             const textColor = isDark ? '#9ca3af' : '#6b7280';

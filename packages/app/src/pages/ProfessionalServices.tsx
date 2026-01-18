@@ -258,6 +258,21 @@ const ProfessionalServices: React.FC = () => {
             </button>
           </Link>
         </div>
+
+        {/* Legal Disclaimer */}
+        <div className="mt-12 bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-200 dark:border-yellow-800 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+            <Shield className="w-5 h-5 mr-2 text-yellow-600 dark:text-yellow-400" />
+            Important Disclaimers
+          </h3>
+          <div className="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+            <p><strong>Premium Reports:</strong> Reports are for informational purposes only and do not constitute legal, compliance, or professional consulting advice. Results are based on user-provided inputs and third-party data sources.</p>
+            <p><strong>Priority Support:</strong> Response time targets (e.g., "within 4 hours") are goals and may vary based on issue severity, volume, and business hours. Actual response times are not guaranteed.</p>
+            <p><strong>White-Label Branding:</strong> Custom branding is subject to technical limitations and may require additional setup time. Branding changes may take effect after deployment.</p>
+            <p><strong>Additional Storage:</strong> Storage limits are maximum allocations. Data may be subject to retention policies and fair use limits.</p>
+            <p className="mt-4 text-xs">For complete terms and limitations, please review our <a href="/legal/terms" className="text-vendorsoluce-green dark:text-vendorsoluce-light-green underline">Terms of Service</a>.</p>
+          </div>
+        </div>
       </div>
     </div>
   );

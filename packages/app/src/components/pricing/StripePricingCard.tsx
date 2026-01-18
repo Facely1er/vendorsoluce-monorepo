@@ -345,6 +345,13 @@ export const StripePricingCard: React.FC<StripePricingCardProps> = ({
             </Badge>
           </div>
         )}
+
+        {/* Legal Disclaimer */}
+        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+            <strong>Note:</strong> Compliance features assist with tracking and reporting but do not guarantee certification. "Unlimited" features are subject to fair use. Support response times are targets. See <a href="/legal/terms" className="text-vendorsoluce-green dark:text-vendorsoluce-light-green underline">Terms of Service</a> for complete details.
+          </p>
+        </div>
       </div>
     </div>
   );
