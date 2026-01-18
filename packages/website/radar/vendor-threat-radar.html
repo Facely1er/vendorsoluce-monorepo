@@ -12,6 +12,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -56,8 +57,17 @@
         }
         
         /* Ensure root div background matches body */
+        #root > div {
+            transition: background-color 0.2s;
+        }
+        
         html.dark #root > div {
-            background: #111827;
+            background: #111827 !important;
+        }
+        
+        /* Ensure light mode root div background */
+        #root > div.bg-gray-50 {
+            background: #f9fafb;
         }
         
         /* Container */
@@ -1001,15 +1011,21 @@
     } else {
       html.classList.remove('dark');
     }
+    // Store in both keys for compatibility
     localStorage.setItem('theme', theme);
+    localStorage.setItem('darkMode', theme === 'dark');
     
     // Update theme toggle button icons (only if DOM is ready)
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
         updateThemeIcons(theme);
+        // Dispatch custom event for chart updates
+        window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme } }));
       });
     } else {
       updateThemeIcons(theme);
+      // Dispatch custom event for chart updates
+      window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme } }));
     }
   };
   
@@ -1099,6 +1115,17 @@
   html.dark .vs-badge {
     background: rgba(102, 187, 106, 0.18);
     color: var(--vendorsoluce-light-green);
+  }
+  
+  /* Ensure header and footer respond to dark mode */
+  html.dark nav.bg-white,
+  html.dark nav[class*="bg-white"] {
+    background-color: #1f2937 !important;
+  }
+  
+  html.dark footer.bg-white,
+  html.dark footer[class*="bg-white"] {
+    background-color: #1f2937 !important;
   }
 </style>
 <nav class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-[100] w-full">
@@ -1848,6 +1875,13 @@
             scanVendors();
             drawSonarRadar();
             
+            // Listen for theme changes to update charts
+            window.addEventListener('themeChanged', function() {
+                if (vendorData && vendorData.length > 0 && typeof createAnalyticsCharts === 'function') {
+                    createAnalyticsCharts();
+                }
+            });
+            
             // Check for saved theme preference and apply
             const savedTheme = localStorage.getItem('theme');
             const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -1887,19 +1921,27 @@
             });
         });
 
-        // Dark Mode Toggle
+        // Dark Mode Toggle - consolidated with main theme system
         function toggleDarkMode() {
             const html = document.documentElement;
             const isDark = html.classList.contains('dark');
             const newTheme = isDark ? 'light' : 'dark';
             
+            // Apply theme
             if (newTheme === 'dark') {
                 html.classList.add('dark');
             } else {
                 html.classList.remove('dark');
             }
             
+            // Store in both keys for compatibility
             localStorage.setItem('theme', newTheme);
+            localStorage.setItem('darkMode', newTheme === 'dark');
+            
+            // Force Tailwind to re-evaluate (in case of dynamic content)
+            if (typeof tailwind !== 'undefined') {
+                tailwind.config = tailwind.config || {};
+            }
             
             // Update theme toggle button icons in header
             const themeButtons = document.querySelectorAll('[data-theme-toggle]');
@@ -2447,7 +2489,7 @@
 
         // Create Analytics Charts
         function createAnalyticsCharts() {
-            const isDark = document.body.classList.contains('dark-mode');
+            const isDark = document.documentElement.classList.contains('dark');
             const textColor = isDark ? '#9ca3af' : '#6b7280';
             const gridColor = isDark ? 'rgba(75, 85, 99, 0.2)' : 'rgba(209, 213, 219, 0.5)';
             
@@ -3133,12 +3175,16 @@
             URL.revokeObjectURL(url);
         }
 
-        // Theme toggle functionality for header button
+        // Theme toggle functionality for header button - consolidated
         (function() {
             // Get theme from localStorage or default to light
             const getTheme = () => {
-                const stored = localStorage.getItem('darkMode');
-                if (stored === 'true') return 'dark';
+                // Check both possible localStorage keys for compatibility
+                const storedTheme = localStorage.getItem('theme');
+                const storedDarkMode = localStorage.getItem('darkMode');
+                if (storedTheme) return storedTheme;
+                if (storedDarkMode === 'true') return 'dark';
+                if (storedDarkMode === 'false') return 'light';
                 // Check system preference
                 return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
             };
@@ -3146,16 +3192,15 @@
             // Apply theme
             const applyTheme = (theme) => {
                 const html = document.documentElement;
-                const body = document.body;
                 const isDark = theme === 'dark';
                 
                 if (isDark) {
                     html.classList.add('dark');
-                    body.classList.add('dark-mode');
                 } else {
                     html.classList.remove('dark');
-                    body.classList.remove('dark-mode');
                 }
+                // Store in both keys for compatibility
+                localStorage.setItem('theme', theme);
                 localStorage.setItem('darkMode', isDark);
                 
                 // Update theme toggle button icons
@@ -3207,7 +3252,7 @@
                 
                 // Listen for system theme changes
                 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                    if (!localStorage.getItem('darkMode')) {
+                    if (!localStorage.getItem('theme') && !localStorage.getItem('darkMode')) {
                         applyTheme(e.matches ? 'dark' : 'light');
                     }
                 });
