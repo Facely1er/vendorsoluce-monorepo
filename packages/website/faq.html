@@ -142,6 +142,7 @@
       top: calc(var(--nav-height, 64px) + 44px);
       z-index: 30;
       background: rgba(255, 255, 255, 0.95);
+      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(229, 231, 235, 0.8);
     }
@@ -774,27 +775,27 @@
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Who uses it?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Who uses it?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 Procurement, security, compliance, and vendor management teams that need defensible third-party decisions. Organizations managing supply chain risk, using the Vendor Exposure Radar for vendor intake and analysis, and ensuring compliance with frameworks like NIST SP 800-161, CMMC, and SOC 2.
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How quickly can we get started with VendorSoluce?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How quickly can we get started with VendorSoluce?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 Most customers can begin using the platform within a day. Our onboarding process includes guidance and the platform is designed for straightforward setup. You can start with a 14-day free trial with full Professional tier access - no credit card required.
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Is VendorSoluce available on mobile?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Is VendorSoluce available on mobile?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 Yes! VendorSoluce is fully responsive and works on mobile devices. You can access all core features including vendor management, assessments, SBOM analysis, and reports. Native mobile apps are planned for iOS and Android.
                             </p>
@@ -804,21 +805,29 @@
             </div>
 
             <!-- Evidence & Validation Section -->
-            <div class="mb-8">
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">Evidence & Validation</h2>
+            <div class="mb-12" id="evidence">
+                <div class="category-header mb-8">
+                    <div class="category-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <path d="m9 12 2 2 4-4"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Evidence & Validation</h2>
+                </div>
                 <div class="space-y-4">
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Do you just collect questionnaires?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Do you just collect questionnaires?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 No. VendorSoluce is designed to link claims to evidence and track follow-ups and remediation. You can upload evidence files, conduct framework-based assessments, analyze SBOM files, and generate compliance reports with actionable recommendations.
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What artifacts can we export?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What artifacts can we export?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 You can export Vendor Exposure Radar reports, SBOM analysis results, compliance scoring reports, Vendor Risk Platform summaries, and evidence inventories. Export formats include PDF, Excel, CSV, and JSON, depending on your subscription tier. Reports can be customized with your company branding and include executive summaries.
                             </p>
@@ -828,39 +837,47 @@
             </div>
 
             <!-- SBOM & Assessments Section -->
-            <div class="mb-8">
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">SBOM & Assessments</h2>
+            <div class="mb-12" id="sbom">
+                <div class="category-header mb-8">
+                    <div class="category-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <circle cx="12" cy="12" r="4"></circle>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">SBOM & Assessments</h2>
+                </div>
                 <div class="space-y-4">
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What SBOM file formats are supported?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What SBOM file formats are supported?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 VendorSoluce supports all major SBOM formats including SPDX (JSON, XML, RDF), CycloneDX (JSON, XML), and can also process plain text component lists. You can upload .spdx, .json, .xml, and .yaml files.
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How long does a supply chain assessment take?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How long does a supply chain assessment take?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 A complete supply chain assessment typically takes 15-20 minutes to complete. It includes 24 questions across 6 domains: Governance, Supplier Management, Product Security, Incident Response, Information Sharing, and Continuous Monitoring. Your progress is automatically saved, so you can pause and resume at any time.
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How do I interpret SBOM vulnerability results?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How do I interpret SBOM vulnerability results?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 SBOM vulnerability results show: Critical vulnerabilities (immediate action needed), High vulnerabilities (address within 30 days), Medium/Low vulnerabilities (address in next update cycle). Results include CVE details, affected components, and remediation recommendations to help you prioritize and address security issues.
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What do the risk scores mean?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What do the risk scores mean?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 Risk scores range from 0-100 with color-coded levels: Green (0-25) = Low Risk, Yellow (26-50) = Medium Risk, Orange (51-75) = High Risk, Red (76-100) = Critical Risk. Scores are calculated based on data access, criticality, security controls, compliance, and system exposure.
                             </p>
@@ -870,38 +887,45 @@
             </div>
 
             <!-- Compliance & Security Section -->
-            <div class="mb-8">
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">Compliance & Security</h2>
+            <div class="mb-12" id="compliance">
+                <div class="category-header mb-8">
+                    <div class="category-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Compliance & Security</h2>
+                </div>
                 <div class="space-y-4">
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How does VendorSoluce help with NIST 800-161 compliance?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How does VendorSoluce help with NIST 800-161 compliance?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 VendorSoluce provides assessment templates, controls mapping, and risk scoring that aligns with NIST SP 800-161 requirements, making it easier for organizations to implement and document their supply chain risk management program. The platform helps you track compliance across all required domains and generate audit-ready reports.
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What is NIST SP 800-161 compliance?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What is NIST SP 800-161 compliance?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 NIST SP 800-161 is the Cybersecurity Supply Chain Risk Management (C-SCRM) framework. It provides guidelines for managing cybersecurity risks in supply chains and is required for federal agencies and contractors. It covers governance, supplier management, and continuous monitoring.
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What security certifications does VendorSoluce have?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What security certifications does VendorSoluce have?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 VendorSoluce implements security measures designed to support SOC 2 Type II and FedRAMP Moderate requirements. We use industry-standard security practices to protect your data, including encryption at rest and in transit, regular security audits, and access controls.
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How is my data protected?</h3>
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How is my data protected?</h3>
                         <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                                 VendorSoluce implements enterprise-grade security: encryption at rest and in transit, SOC 2 Type II compliance, ISO 27001 certification, regular security audits, and data residency options. Your data is never shared with third parties without consent.
@@ -918,9 +942,9 @@
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Can VendorSoluce integrate with our existing GRC platform?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Can VendorSoluce integrate with our existing GRC platform?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 Yes, VendorSoluce offers API integrations with major GRC platforms including ServiceNow, RSA Archer, MetricStream, and more. Our integration guides provide step-by-step instructions. API access is available on Professional and Enterprise plans.
                             </p>
@@ -930,30 +954,37 @@
             </div>
 
             <!-- Platform Features Section -->
-            <div class="mb-8">
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">Platform Features</h2>
+            <div class="mb-12" id="platform">
+                <div class="category-header mb-8">
+                    <div class="category-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Platform Features</h2>
+                </div>
                 <div class="space-y-4">
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What user roles and permissions are available?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What user roles and permissions are available?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 VendorSoluce supports role-based access control with roles like Admin (full access), Manager (vendor and assessment management), Analyst (view and analyze data), and Viewer (read-only access). Permissions can be customized based on your organization's needs.
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How do I export reports?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How do I export reports?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 To export reports: 1) Navigate to the report section, 2) Select the data you want to include, 3) Choose format (PDF, Excel, CSV, JSON), 4) Click "Export" button. Reports can be customized with your company branding and include executive summaries.
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Does VendorSoluce offer professional services?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Does VendorSoluce offer professional services?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 Yes, we offer professional services for customers who need help with implementation, customization, or creating custom assessment templates for specific industries or compliance requirements. Contact our sales team to discuss your needs.
                             </p>
@@ -963,12 +994,22 @@
             </div>
 
             <!-- Governance Section -->
-            <div class="mb-8">
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">Governance</h2>
+            <div class="mb-12" id="governance">
+                <div class="category-header mb-8">
+                    <div class="category-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Governance</h2>
+                </div>
                 <div class="space-y-4">
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How are exceptions handled?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How are exceptions handled?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 VendorSoluce provides risk scoring and compliance assessment tools that help you identify gaps and make informed decisions. While explicit exception tracking with rationale and expiry is planned for future releases, you can currently document risk acceptance decisions in assessment notes and track remediation through the assessment workflow.
                             </p>
@@ -978,11 +1019,19 @@
             </div>
 
             <!-- Pricing Section -->
-            <div class="mb-8">
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">Pricing</h2>
+            <div class="mb-12" id="pricing">
+                <div class="category-header mb-8">
+                    <div class="category-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" x2="12" y1="2" y2="22"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Pricing</h2>
+                </div>
                 <div class="space-y-4">
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What's included in each plan?</h3>
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What's included in each plan?</h3>
                         <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                                 Each plan includes Vendor Exposure Radar, Vendor Risk Platform, Vendor Governance Portal, compliance frameworks, risk scoring, and reporting. Higher tiers include more users, vendors, storage, and advanced features like API access and white-labeling.
@@ -999,26 +1048,26 @@
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Can I change plans later?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Can I change plans later?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 Yes! You can upgrade or downgrade your plan at any time. Changes are prorated, so you only pay the difference for the remaining billing period.
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What compliance frameworks are supported?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What compliance frameworks are supported?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 We support NIST SP 800-161, CMMC 2.0, SOC2 Type II, ISO 27001, FedRAMP, and FISMA. Different plans include different frameworks - check the features comparison on the pricing page.
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Is there a free trial?</h3>
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Is there a free trial?</h3>
                         <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                                 Yes! All plans come with a 14-day free trial with full Professional tier access. No credit card required to start. You can cancel anytime during the trial period.
@@ -1029,17 +1078,17 @@
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How does annual billing work?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How does annual billing work?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 Annual billing offers a 20% discount compared to monthly billing. You'll be charged once per year and can cancel anytime. Changes to your plan are prorated.
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Do you offer custom pricing?</h3>
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Do you offer custom pricing?</h3>
                         <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                                 Yes! For large organizations with specific needs, we offer custom pricing and enterprise solutions.
@@ -1056,17 +1105,17 @@
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What support do you provide?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What support do you provide?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 Starter plans include email support. Professional plans get priority support. Enterprise and Federal plans include 24/7 dedicated support and account managers. You can contact support through in-app chat, email (support@vendorsoluce.com), support tickets, or phone (for Enterprise customers).
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How do I contact support?</h3>
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How do I contact support?</h3>
                         <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                                 You can contact support through: 1) In-app chat (this assistant), 2) Email support@vendorsoluce.com, 3) Support tickets in your account, 4) Phone support for Enterprise customers. Response times: Chat (immediate), Email (24 hours), Phone (4 hours for Enterprise).
@@ -1083,9 +1132,9 @@
                         </div>
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What about Vendor Risk Assessments?</h3>
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="faq-item bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm">
+                        <h3 class="faq-question text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What about Vendor Risk Assessments?</h3>
+                        <div class="faq-answer pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 Vendor Risk Assessments and Due Diligence Portal features are available through <strong>VendorTal</strong>, our separate assessment platform. VendorSoluce focuses on supply chain risk assessment, SBOM analysis, and vendor risk monitoring. Contact sales to learn about VendorTal integration options.
                             </p>
