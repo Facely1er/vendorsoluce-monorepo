@@ -131,7 +131,7 @@
                 normalizedHrefPage === currentPageClean ||
                 (currentPageClean === '' && (linkPage === 'index.html' || normalizedHrefPage === 'index.html' || href === 'index.html' || href.endsWith('/'))) ||
                 (currentPageClean === 'index.html' && (linkPage === '' || normalizedHrefPage === '' || href === './' || href === '../')) ||
-                (currentPath.includes('radar') && (href.includes('vendor-risk-radar.html') || normalizedHref.includes('vendor-risk-radar.html'))) ||
+                (currentPath.includes('radar') && (href.includes('vendor-threat-radar.html') || normalizedHref.includes('vendor-threat-radar.html'))) ||
                 (currentPath.includes('legal') && (href.includes(currentPageClean) || normalizedHrefPage === currentPageClean));
             
             if (isMatch) {
@@ -139,7 +139,7 @@
                 link.setAttribute('aria-current', 'page');
                 
                 // For Vendor Radar button, disable hover effects
-                if ((href.includes('vendor-risk-radar.html') || normalizedHref.includes('vendor-risk-radar.html')) && currentPath.includes('vendor-risk-radar.html')) {
+                if ((href.includes('vendor-threat-radar.html') || normalizedHref.includes('vendor-threat-radar.html')) && currentPath.includes('vendor-threat-radar.html')) {
                     link.style.pointerEvents = 'none';
                     link.style.opacity = '0.9';
                     link.classList.add('cursor-default');
