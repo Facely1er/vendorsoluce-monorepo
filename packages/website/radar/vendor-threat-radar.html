@@ -57,8 +57,17 @@
         }
         
         /* Ensure root div background matches body */
+        #root {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
         #root > div {
             transition: background-color 0.2s;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         
         html.dark #root > div {
@@ -68,6 +77,15 @@
         /* Ensure light mode root div background */
         #root > div.bg-gray-50 {
             background: #f9fafb;
+        }
+        
+        /* Ensure footer stays at bottom and nothing appears after it */
+        footer {
+            margin-top: auto;
+        }
+        
+        body > *:last-child:not(footer):not(script) {
+            display: none;
         }
         
         /* Container */
@@ -3387,6 +3405,7 @@ html.dark footer > div > div:last-child {
     </div>
   </div>
 </footer>
-</div></div>
+</div>
+</div>
 </body>
 </html>
