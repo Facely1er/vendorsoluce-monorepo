@@ -80,6 +80,61 @@
       color: var(--vendorsoluce-light-green) !important;
     }
     
+    /* Active navigation link styles - only target navigation menu links (have title attribute), exclude brand logo */
+    nav a[title].active,
+    nav a[title][aria-current="page"] {
+      color: #33691E !important;
+      background: rgba(51,105,30,.08) !important;
+      font-weight: 700 !important;
+    }
+    html.dark nav a[title].active,
+    html.dark nav a[title][aria-current="page"] {
+      color: #66BB6A !important;
+      background: rgba(102,187,106,.12) !important;
+    }
+    nav a[title].active:hover,
+    nav a[title][aria-current="page"]:hover {
+      background: rgba(51,105,30,.12) !important;
+    }
+    html.dark nav a[title].active:hover,
+    html.dark nav a[title][aria-current="page"]:hover {
+      background: rgba(102,187,106,.18) !important;
+    }
+    /* Ensure brand logo link is never affected by active/hover nav styles */
+    nav [data-tour="main-nav"] a,
+    nav [data-tour="main-nav"] a:hover,
+    nav [data-tour="main-nav"] a.active,
+    nav [data-tour="main-nav"] a[aria-current="page"],
+    nav [data-tour="main-nav"] a:focus {
+      color: inherit !important;
+      background: transparent !important;
+      font-weight: inherit !important;
+    }
+    /* Prevent hover effects on active Vendor Radar button */
+    nav a[aria-current="page"][style*="pointer-events: none"],
+    nav a[aria-current="page"].cursor-default {
+      pointer-events: none !important;
+      opacity: 0.9;
+    }
+    nav a[aria-current="page"][style*="pointer-events: none"]:hover,
+    nav a[aria-current="page"].cursor-default:hover {
+      transform: none !important;
+      box-shadow: none !important;
+    }
+    .vs-badge{display:inline-flex;align-items:center;border-radius:999px;padding:2px 6px;font-size:0.65em;background:rgba(51,105,30,.12);color:var(--vendorsoluce-green);font-weight:600;vertical-align:middle;border:none}
+    html.dark .vs-badge{background:rgba(102,187,106,.18);color:var(--vendorsoluce-light-green)}
+    
+    /* Utility classes for inline styles */
+    .tagline-text {
+      letter-spacing: -0.02em;
+      margin-top: -3px;
+    }
+    .hidden-icon {
+      display: none;
+    }
+    .mobile-menu-position {
+      top: 64px;
+    }
     </style>
   <script>
 // Theme toggle functionality - must run immediately to prevent flash
@@ -170,10 +225,352 @@
 </script>
 </head>
 <body>
-    <div id="root"><div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col"><nav class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-[100] w-full"><div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 w-full"><div class="flex items-center justify-between h-16 w-full"><div class="flex items-center flex-shrink-0 min-w-0 md:max-w-none max-w-[calc(100%-60px)]" data-tour="main-nav"><a class="flex items-center min-w-0 group" href="index.html"><img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 flex-shrink-0 transition-transform group-hover:scale-105"><span class="ml-1.5 sm:ml-2 min-w-0"><span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">VendorSoluce™</span><span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter" style="letter-spacing: -0.02em; margin-top: -3px;">Supply Chain Assurance</span><span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span></span></a></div><div class="hidden md:flex md:items-center md:space-x-0.5"><a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center" title="Home" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home flex-shrink-0"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg><span class="ml-1.5 text-xs">Home</span></a><a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center" title="How It Works" href="how-it-works.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers flex-shrink-0"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg><span class="ml-1.5 text-xs">How It Works</span></a><a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center" title="Features" href="features.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star flex-shrink-0"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span class="ml-1.5 text-xs">Features</span></a><a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center" title="Pricing" href="pricing.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign flex-shrink-0"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg><span class="ml-1.5 text-xs">Pricing</span></a><a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center" title="Trust" href="trust.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield flex-shrink-0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path></svg><span class="ml-1.5 text-xs">Trust</span></a><a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-vendorsoluce-green dark:text-white bg-vendorsoluce-green/20 dark:bg-vendorsoluce-green/30 hover:bg-vendorsoluce-green/30 dark:hover:bg-vendorsoluce-green/40 border border-vendorsoluce-green/30 dark:border-vendorsoluce-green/40 transition-colors duration-200 flex items-center" title="FAQ" href="faq.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle flex-shrink-0"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg><span class="ml-1.5 text-xs">FAQ</span></a><a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center" title="Contact" href="contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail flex-shrink-0"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg><span class="ml-1.5 text-xs">Contact</span></a></div><div class="hidden md:flex items-center space-x-0.5 flex-shrink-0"><div class="relative "><button type="button" class="font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-transparent text-vendorsoluce-green hover:bg-vendorsoluce-pale-green focus:ring-vendorsoluce-green/30 dark:text-vendorsoluce-light-green dark:hover:bg-vendorsoluce-green/20 px-3 py-1.5 text-sm cursor-pointer p-2" aria-label="Change language"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe h-5 w-5 text-gray-700 dark:text-gray-300"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg></button></div><div data-tour="theme-toggle"><button type="button" data-theme-toggle class="font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-transparent text-vendorsoluce-green hover:bg-vendorsoluce-pale-green focus:ring-vendorsoluce-green/30 dark:text-vendorsoluce-light-green dark:hover:bg-vendorsoluce-green/20 px-3 py-1.5 text-sm cursor-pointer p-2" aria-label="Switch to light mode"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun h-5 w-5 text-gray-300" style="display: none;"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon h-5 w-5 text-gray-300"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg></button></div><div data-tour="user-menu"><a href="https://app.vendorsoluce.com/signin"><button type="button" class="font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-vendorsoluce-green text-white hover:bg-vendorsoluce-dark-green focus:ring-vendorsoluce-green/50 dark:bg-vendorsoluce-green dark:hover:bg-vendorsoluce-dark-green p-2 cursor-pointer flex items-center justify-center" aria-label="Get Started"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-5 w-5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></button></a></div></div><div class="flex items-center md:hidden flex-shrink-0 ml-auto gap-1.5"><div data-tour="theme-toggle"><button type="button" data-theme-toggle class="font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-transparent text-vendorsoluce-green hover:bg-vendorsoluce-pale-green focus:ring-vendorsoluce-green/30 dark:text-vendorsoluce-light-green dark:hover:bg-vendorsoluce-green/20 px-3 py-1.5 text-sm cursor-pointer p-2" aria-label="Switch to light mode"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun h-5 w-5 text-gray-300" style="display: none;"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon h-5 w-5 text-gray-300"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg></button></div><button data-mobile-menu-button="true" class="inline-flex items-center justify-center p-1.5 rounded-md text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none flex-shrink-0 w-9 h-9" aria-label="Open menu" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu "><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button></div></div></div></nav>
-<main class="flex-1">
+    <div id="root"><div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col"><!-- Shared Header Navigation for VendorSoluce -->
+<nav class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-[100] w-full">
+  <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 w-full">
+    <div class="flex items-center justify-between h-16 w-full">
+      <!-- Brand -->
+      <div class="flex items-center flex-shrink-0 min-w-0 md:max-w-none max-w-[calc(100%-60px)]" data-tour="main-nav">
+        <a class="flex items-center min-w-0 group" href="index.html">
+          <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 flex-shrink-0 transition-transform group-hover:scale-105 pointer-events-none">
+          <span class="ml-1.5 sm:ml-2 min-w-0 pointer-events-none">
+            <div class="flex items-center gap-1.5">
+              <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">
+                VendorSoluce™
+                <span class="vs-badge ml-1.5">beta</span>
+              </span>
+            </div>
+            <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter tagline-text">Supply Chain Assurance</span>
+            <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
+          </span>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation - Streamlined -->
+      <div class="hidden md:flex md:items-center md:space-x-1">
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Home" href="index.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home w-4 h-4 mr-2">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          Home
+        </a>
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="How It Works" href="how-it-works.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers w-4 h-4 mr-2">
+            <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path>
+            <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path>
+            <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path>
+          </svg>
+          How It Works
+        </a>
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-white dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200" title="Features" href="features.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star w-4 h-4 mr-2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Features
+        </a>
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-white dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200" title="Pricing" href="pricing.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-4 h-4 mr-2">
+            <line x1="12" x2="12" y1="2" y2="22"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          Pricing
+        </a>
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-white dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200" title="Trust" href="trust.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-4 h-4 mr-2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+          </svg>
+          Trust
+        </a>
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-white dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200" title="FAQ" href="faq.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-4 h-4 mr-2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <path d="M12 17h.01"></path>
+          </svg>
+          FAQ
+        </a>
+      </div>
+
+      <!-- Action Buttons (Desktop) -->
+      <div class="hidden md:flex items-center space-x-1.5 sm:space-x-2 flex-shrink-0">
+        <a href="radar/vendor-threat-radar.html" class="flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-vendorsoluce-green text-white hover:bg-vendorsoluce-dark-green font-medium" title="Vendor Radar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-5 h-5 flex-shrink-0">
+            <path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path>
+            <circle cx="12" cy="12" r="2"></circle>
+          </svg>
+          <span class="text-sm font-medium whitespace-nowrap">Vendor Radar</span>
+        </a>
+        <div data-tour="user-menu">
+          <a href="https://www.application.vendorsoluce.com">
+            <button type="button" class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="User Account">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user w-5 h-5">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </button>
+          </a>
+        </div>
+        <div data-tour="theme-toggle">
+          <button type="button" data-theme-toggle class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-yellow-400 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="Switch theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun w-5 h-5 text-amber-500 hidden-icon">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon w-5 h-5">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="flex items-center md:hidden flex-shrink-0 ml-auto gap-1.5">
+        <div data-tour="theme-toggle">
+          <button type="button" data-theme-toggle class="font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-transparent text-vendorsoluce-green hover:bg-vendorsoluce-pale-green focus:ring-vendorsoluce-green/30 dark:text-vendorsoluce-light-green dark:hover:bg-vendorsoluce-green/20 px-3 py-1.5 text-sm cursor-pointer p-2" aria-label="Switch to light mode">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun h-5 w-5 text-gray-300 hidden-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon h-5 w-5 text-gray-300"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+          </button>
+        </div>
+        <button data-mobile-menu-button="true" class="inline-flex items-center justify-center p-1.5 rounded-md text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none flex-shrink-0 w-9 h-9" aria-label="Open menu" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu">
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+<script>
+(function() {
+    function initMobileMenu() {
+        const menuButton = document.querySelector('[data-mobile-menu-button]');
+        if (!menuButton) return;
+
+        menuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+            const mobileMenu = document.querySelector('[data-mobile-menu]');
+            
+            if (mobileMenu) {
+                if (isExpanded) {
+                    mobileMenu.classList.add('hidden');
+                    menuButton.setAttribute('aria-expanded', 'false');
+                    menuButton.setAttribute('aria-label', 'Open menu');
+                } else {
+                    mobileMenu.classList.remove('hidden');
+                    menuButton.setAttribute('aria-expanded', 'true');
+                    menuButton.setAttribute('aria-label', 'Close menu');
+                }
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const mobileMenu = document.querySelector('[data-mobile-menu]');
+            if (mobileMenu && !mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    menuButton.setAttribute('aria-expanded', 'false');
+                    menuButton.setAttribute('aria-label', 'Open menu');
+                }
+            }
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const mobileMenu = document.querySelector('[data-mobile-menu]');
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    menuButton.setAttribute('aria-expanded', 'false');
+                    menuButton.setAttribute('aria-label', 'Open menu');
+                }
+            }
+        });
+    }
+
+    // Always wait for DOM to be fully loaded to ensure mobile menu panel exists
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobileMenu);
+    } else {
+        // Use setTimeout to ensure DOM is fully parsed even if readyState is 'complete'
+        setTimeout(initMobileMenu, 0);
+    }
+    
+    // Set active navigation link based on current page
+    function setActiveNavLink() {
+        const currentPath = window.location.pathname;
+        const currentFile = currentPath.split('/').pop() || 'index.html';
+        const normalizedCurrentFile = currentFile.split('?')[0].split('#')[0];
+        
+        // Find only navigation menu links (exclude branding and action buttons)
+        // Only target links in the desktop navigation menu container (not action buttons area)
+        const desktopNavMenu = document.querySelector('nav > div.hidden.md\\:flex.md\\:items-center');
+        const desktopNavLinks = desktopNavMenu ? desktopNavMenu.querySelectorAll('a[title][href]') : [];
+        const mobileNavLinks = document.querySelectorAll('[data-mobile-menu] a[href]');
+        const navLinks = [...desktopNavLinks, ...mobileNavLinks];
+        
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href || href.startsWith('http') || href.startsWith('#')) return;
+            
+            // Double-check: skip branding link (inside data-tour="main-nav")
+            if (link.closest('[data-tour="main-nav"]')) {
+                return;
+            }
+            
+            // Skip Vendor Radar button (has title="Vendor Radar" or radar icon)
+            if (link.getAttribute('title') === 'Vendor Radar' || 
+                link.querySelector('svg.lucide-radar') ||
+                link.textContent.trim().includes('Vendor Radar')) {
+                return;
+            }
+            
+            // Skip action buttons area (links in the right-side action buttons container)
+            const parentContainer = link.parentElement;
+            if (parentContainer && (
+                parentContainer.querySelector('[data-tour="user-menu"]') || 
+                parentContainer.querySelector('[data-tour="theme-toggle"]') ||
+                parentContainer.classList.contains('flex-shrink-0')
+            )) {
+                const hasActionButtons = parentContainer.querySelector('[data-tour="user-menu"]') || 
+                                        parentContainer.querySelector('[data-tour="theme-toggle"]');
+                if (hasActionButtons) {
+                    return;
+                }
+            }
+            
+            // Extract filename from href (handle relative paths)
+            let linkFile = href.replace(/^\.\.?\//, '').split('/').pop() || '';
+            linkFile = linkFile.split('?')[0].split('#')[0];
+            
+            // Check if this link matches the current page
+            const isCurrentPage = 
+                linkFile === normalizedCurrentFile || 
+                (normalizedCurrentFile === '' && linkFile === 'index.html') ||
+                (normalizedCurrentFile === 'index.html' && linkFile === 'index.html');
+            
+            if (isCurrentPage) {
+                // Get current classes and replace to make it active
+                let classes = link.getAttribute('class') || '';
+                
+                // Remove inactive classes
+                classes = classes
+                    .replace(/\btext-gray-700\b/g, '')
+                    .replace(/\bdark:text-gray-300\b/g, '')
+                    .replace(/\bhover:bg-gray-50\b/g, '')
+                    .replace(/\bdark:hover:bg-gray-700\b/g, '')
+                    .replace(/\bhover:text-vendorsoluce-green\b/g, '')
+                    .replace(/\bdark:hover:text-white\b/g, '');
+                
+                // Add active classes
+                classes += ' text-vendorsoluce-green dark:text-white bg-vendorsoluce-green/20 dark:bg-vendorsoluce-green/30 border border-vendorsoluce-green/30 dark:border-vendorsoluce-green/40 hover:bg-vendorsoluce-green/30 dark:hover:bg-vendorsoluce-green/40';
+                
+                // Clean up extra spaces
+                classes = classes.replace(/\s+/g, ' ').trim();
+                link.setAttribute('class', classes);
+            }
+        });
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setActiveNavLink);
+    } else {
+        setActiveNavLink();
+    }
+})();
+</script>
+
+<!-- Mobile Menu Panel -->
+<div data-mobile-menu="true" class="md:hidden fixed left-0 right-0 z-50 hidden" style="top: 64px;">
+  <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <div class="space-y-2">
+        <a href="index.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home w-4 h-4 mr-2">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          Home
+        </a>
+        <a href="how-it-works.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers w-4 h-4 mr-2">
+            <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path>
+            <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path>
+            <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path>
+          </svg>
+          How It Works
+        </a>
+        <a href="features.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-4 h-4 mr-2">
+            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
+            <path d="M5 3v4"></path>
+            <path d="M19 17v4"></path>
+            <path d="M3 5h4"></path>
+            <path d="M17 19h4"></path>
+          </svg>
+          Features
+        </a>
+        <a href="pricing.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-4 h-4 mr-2">
+            <line x1="12" x2="12" y1="2" y2="22"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          Pricing
+        </a>
+        <a href="trust.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-4 h-4 mr-2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+          </svg>
+          Trust
+        </a>
+        <div class="pt-2 border-t border-gray-200 dark:border-gray-700">
+          <a href="radar/vendor-threat-radar.html" class="block w-full px-4 py-2 rounded-lg text-sm font-semibold text-center text-white bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green transition-colors">
+            Vendor Radar
+          </a>
+        </div>
+        <!-- Secondary links in footer section -->
+        <div class="pt-2 border-t border-gray-200 dark:border-gray-700 space-y-2">
+          <a href="faq.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+            FAQ
+          </a>
+        </div>
+      </div>
+      <div class="px-4 py-2 border-t border-gray-200 dark:border-gray-700 mt-2 pt-2">
+        <div class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Legal</div>
+        <div class="space-y-1">
+          <a href="legal/privacy-policy.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            Privacy Policy
+          </a>
+          <a href="legal/cookie-policy.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>
+            Cookie Policy
+          </a>
+          <a href="legal/terms.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>
+            Terms of Service
+          </a>
+          <a href="legal/acceptable-use-policy.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path></svg>
+            Acceptable Use Policy
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="flex-1 pt-[var(--nav-height,64px)]">
     <!-- Breadcrumb Navigation -->
-    <nav aria-label="Breadcrumb" class="sticky z-40 w-full h-10 sm:h-11 text-sm border-b border-gray-200 dark:border-gray-700 transition-colors px-4 sm:px-6 lg:px-8 flex items-center backdrop-blur-sm bg-white/95 dark:bg-gray-900/95" style="top: 64px;">
+    <nav aria-label="Breadcrumb" class="sticky z-40 w-full h-10 sm:h-11 text-sm border-b border-gray-200 dark:border-gray-700 transition-colors px-4 sm:px-6 lg:px-8 flex items-center backdrop-blur-sm bg-white/95 dark:bg-gray-900/95" style="top: var(--nav-height, 64px); margin-top: calc(-1 * var(--nav-height, 64px));">
         <div class="max-w-7xl mx-auto w-full">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-1">
@@ -189,41 +586,48 @@
             </div>
         </div>
     </nav>
-    
-    <div class="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" style="margin-top: 0;">
         <!-- FAQ Questions -->
         <div class="space-y-4 mb-12 max-w-4xl mx-auto">
             <!-- General Section -->
             <div class="mb-8">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">General</h2>
                 <div class="space-y-4">
-                    <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <summary class="flex items-center justify-between cursor-pointer list-none">
-                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pr-8">What is VendorSoluce?</h3>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-6 h-6 text-vendorsoluce-green flex-shrink-0">
-                                <path d="m6 9 6 6 6-6"></path>
-                            </svg>
-                        </summary>
-                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What is VendorSoluce?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 VendorSoluce is a vendor risk and supply-chain assurance workflow platform that helps organizations manage vendor intake, evidence capture, risk decisions, and compliance tracking. It provides tools for vendor risk assessment, SBOM analysis, and NIST SP 800-161 compliance assessments.
                             </p>
                         </div>
-                    </details>
+                    </div>
 
-                    <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <summary class="flex items-center justify-between cursor-pointer list-none">
-                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pr-8">Who uses it?</h3>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-6 h-6 text-vendorsoluce-green flex-shrink-0">
-                                <path d="m6 9 6 6 6-6"></path>
-                            </svg>
-                        </summary>
-                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Who uses it?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 Procurement, security, compliance, and vendor management teams that need defensible third-party decisions. Organizations managing supply chain risk, using the Vendor Exposure Radar for vendor intake and analysis, and ensuring compliance with frameworks like NIST SP 800-161, CMMC, and SOC 2.
                             </p>
                         </div>
-                    </details>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How quickly can we get started with VendorSoluce?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                                Most customers can begin using the platform within a day. Our onboarding process includes guidance and the platform is designed for straightforward setup. You can start with a 14-day free trial with full Professional tier access - no credit card required.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Is VendorSoluce available on mobile?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                                Yes! VendorSoluce is fully responsive and works on mobile devices. You can access all core features including vendor management, assessments, SBOM analysis, and reports. Native mobile apps are planned for iOS and Android.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -231,33 +635,158 @@
             <div class="mb-8">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">Evidence & Validation</h2>
                 <div class="space-y-4">
-                    <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <summary class="flex items-center justify-between cursor-pointer list-none">
-                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pr-8">Do you just collect questionnaires?</h3>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-6 h-6 text-vendorsoluce-green flex-shrink-0">
-                                <path d="m6 9 6 6 6-6"></path>
-                            </svg>
-                        </summary>
-                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Do you just collect questionnaires?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 No. VendorSoluce is designed to link claims to evidence and track follow-ups and remediation. You can upload evidence files, conduct framework-based assessments, analyze SBOM files, and generate compliance reports with actionable recommendations.
                             </p>
                         </div>
-                    </details>
+                    </div>
 
-                    <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <summary class="flex items-center justify-between cursor-pointer list-none">
-                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pr-8">What artifacts can we export?</h3>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-6 h-6 text-vendorsoluce-green flex-shrink-0">
-                                <path d="m6 9 6 6 6-6"></path>
-                            </svg>
-                        </summary>
-                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What artifacts can we export?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
-                                You can export Vendor Exposure Radar reports, SBOM analysis results, compliance scoring reports, Vendor Risk Platform summaries, and evidence inventories. Export formats include PDF and JSON, depending on your subscription tier.
+                                You can export Vendor Exposure Radar reports, SBOM analysis results, compliance scoring reports, Vendor Risk Platform summaries, and evidence inventories. Export formats include PDF, Excel, CSV, and JSON, depending on your subscription tier. Reports can be customized with your company branding and include executive summaries.
                             </p>
                         </div>
-                    </details>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SBOM & Assessments Section -->
+            <div class="mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">SBOM & Assessments</h2>
+                <div class="space-y-4">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What SBOM file formats are supported?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                                VendorSoluce supports all major SBOM formats including SPDX (JSON, XML, RDF), CycloneDX (JSON, XML), and can also process plain text component lists. You can upload .spdx, .json, .xml, and .yaml files.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How long does a supply chain assessment take?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                                A complete supply chain assessment typically takes 15-20 minutes to complete. It includes 24 questions across 6 domains: Governance, Supplier Management, Product Security, Incident Response, Information Sharing, and Continuous Monitoring. Your progress is automatically saved, so you can pause and resume at any time.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How do I interpret SBOM vulnerability results?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                                SBOM vulnerability results show: Critical vulnerabilities (immediate action needed), High vulnerabilities (address within 30 days), Medium/Low vulnerabilities (address in next update cycle). Results include CVE details, affected components, and remediation recommendations to help you prioritize and address security issues.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What do the risk scores mean?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                                Risk scores range from 0-100 with color-coded levels: Green (0-25) = Low Risk, Yellow (26-50) = Medium Risk, Orange (51-75) = High Risk, Red (76-100) = Critical Risk. Scores are calculated based on data access, criticality, security controls, compliance, and system exposure.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compliance & Security Section -->
+            <div class="mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">Compliance & Security</h2>
+                <div class="space-y-4">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How does VendorSoluce help with NIST 800-161 compliance?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                                VendorSoluce provides assessment templates, controls mapping, and risk scoring that aligns with NIST SP 800-161 requirements, making it easier for organizations to implement and document their supply chain risk management program. The platform helps you track compliance across all required domains and generate audit-ready reports.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What is NIST SP 800-161 compliance?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                                NIST SP 800-161 is the Cybersecurity Supply Chain Risk Management (C-SCRM) framework. It provides guidelines for managing cybersecurity risks in supply chains and is required for federal agencies and contractors. It covers governance, supplier management, and continuous monitoring.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What security certifications does VendorSoluce have?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                                VendorSoluce implements security measures designed to support SOC 2 Type II and FedRAMP Moderate requirements. We use industry-standard security practices to protect your data, including encryption at rest and in transit, regular security audits, and access controls.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How is my data protected?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                                VendorSoluce implements enterprise-grade security: encryption at rest and in transit, SOC 2 Type II compliance, ISO 27001 certification, regular security audits, and data residency options. Your data is never shared with third parties without consent.
+                            </p>
+                            <div class="mt-4">
+                                <a href="trust.html" class="inline-flex items-center text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium text-sm">
+                                    Learn more about security
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-4 h-4 ml-2">
+                                        <path d="M5 12h14"></path>
+                                        <path d="m12 5 7 7-7 7"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Can VendorSoluce integrate with our existing GRC platform?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                                Yes, VendorSoluce offers API integrations with major GRC platforms including ServiceNow, RSA Archer, MetricStream, and more. Our integration guides provide step-by-step instructions. API access is available on Professional and Enterprise plans.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Platform Features Section -->
+            <div class="mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">Platform Features</h2>
+                <div class="space-y-4">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What user roles and permissions are available?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                                VendorSoluce supports role-based access control with roles like Admin (full access), Manager (vendor and assessment management), Analyst (view and analyze data), and Viewer (read-only access). Permissions can be customized based on your organization's needs.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How do I export reports?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                                To export reports: 1) Navigate to the report section, 2) Select the data you want to include, 3) Choose format (PDF, Excel, CSV, JSON), 4) Click "Export" button. Reports can be customized with your company branding and include executive summaries.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Does VendorSoluce offer professional services?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                                Yes, we offer professional services for customers who need help with implementation, customization, or creating custom assessment templates for specific industries or compliance requirements. Contact our sales team to discuss your needs.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -265,19 +794,14 @@
             <div class="mb-8">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">Governance</h2>
                 <div class="space-y-4">
-                    <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <summary class="flex items-center justify-between cursor-pointer list-none">
-                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pr-8">How are exceptions handled?</h3>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-6 h-6 text-vendorsoluce-green flex-shrink-0">
-                                <path d="m6 9 6 6 6-6"></path>
-                            </svg>
-                        </summary>
-                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How are exceptions handled?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 VendorSoluce provides risk scoring and compliance assessment tools that help you identify gaps and make informed decisions. While explicit exception tracking with rationale and expiry is planned for future releases, you can currently document risk acceptance decisions in assessment notes and track remediation through the assessment workflow.
                             </p>
                         </div>
-                    </details>
+                    </div>
                 </div>
             </div>
 
@@ -285,14 +809,9 @@
             <div class="mb-8">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">Pricing</h2>
                 <div class="space-y-4">
-                    <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <summary class="flex items-center justify-between cursor-pointer list-none">
-                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pr-8">What's included in each plan?</h3>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-6 h-6 text-vendorsoluce-green flex-shrink-0">
-                                <path d="m6 9 6 6 6-6"></path>
-                            </svg>
-                        </summary>
-                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What's included in each plan?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                                 Each plan includes Vendor Exposure Radar, Vendor Risk Platform, Vendor Governance Portal, compliance frameworks, risk scoring, and reporting. Higher tiers include more users, vendors, storage, and advanced features like API access and white-labeling.
                             </p>
@@ -306,44 +825,29 @@
                                 </a>
                             </div>
                         </div>
-                    </details>
+                    </div>
 
-                    <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <summary class="flex items-center justify-between cursor-pointer list-none">
-                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pr-8">Can I change plans later?</h3>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-6 h-6 text-vendorsoluce-green flex-shrink-0">
-                                <path d="m6 9 6 6 6-6"></path>
-                            </svg>
-                        </summary>
-                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Can I change plans later?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 Yes! You can upgrade or downgrade your plan at any time. Changes are prorated, so you only pay the difference for the remaining billing period.
                             </p>
                         </div>
-                    </details>
+                    </div>
 
-                    <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <summary class="flex items-center justify-between cursor-pointer list-none">
-                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pr-8">What compliance frameworks are supported?</h3>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-6 h-6 text-vendorsoluce-green flex-shrink-0">
-                                <path d="m6 9 6 6 6-6"></path>
-                            </svg>
-                        </summary>
-                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What compliance frameworks are supported?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 We support NIST SP 800-161, CMMC 2.0, SOC2 Type II, ISO 27001, FedRAMP, and FISMA. Different plans include different frameworks - check the features comparison on the pricing page.
                             </p>
                         </div>
-                    </details>
+                    </div>
 
-                    <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <summary class="flex items-center justify-between cursor-pointer list-none">
-                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pr-8">Is there a free trial?</h3>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-6 h-6 text-vendorsoluce-green flex-shrink-0">
-                                <path d="m6 9 6 6 6-6"></path>
-                            </svg>
-                        </summary>
-                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Is there a free trial?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                                 Yes! All plans come with a 14-day free trial with full Professional tier access. No credit card required to start. You can cancel anytime during the trial period.
                             </p>
@@ -351,30 +855,20 @@
                                 Trial includes: Supply Chain Risk Assessment (NIST SP 800-161), SBOM Analysis, Vendor Risk Monitoring, Risk Scoring, and Compliance Tracking.
                             </p>
                         </div>
-                    </details>
+                    </div>
 
-                    <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <summary class="flex items-center justify-between cursor-pointer list-none">
-                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pr-8">How does annual billing work?</h3>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-6 h-6 text-vendorsoluce-green flex-shrink-0">
-                                <path d="m6 9 6 6 6-6"></path>
-                            </svg>
-                        </summary>
-                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How does annual billing work?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 Annual billing offers a 20% discount compared to monthly billing. You'll be charged once per year and can cancel anytime. Changes to your plan are prorated.
                             </p>
                         </div>
-                    </details>
+                    </div>
 
-                    <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <summary class="flex items-center justify-between cursor-pointer list-none">
-                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pr-8">Do you offer custom pricing?</h3>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-6 h-6 text-vendorsoluce-green flex-shrink-0">
-                                <path d="m6 9 6 6 6-6"></path>
-                            </svg>
-                        </summary>
-                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Do you offer custom pricing?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                                 Yes! For large organizations with specific needs, we offer custom pricing and enterprise solutions.
                             </p>
@@ -388,36 +882,26 @@
                                 </a>
                             </div>
                         </div>
-                    </details>
+                    </div>
 
-                    <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <summary class="flex items-center justify-between cursor-pointer list-none">
-                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pr-8">What support do you provide?</h3>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-6 h-6 text-vendorsoluce-green flex-shrink-0">
-                                <path d="m6 9 6 6 6-6"></path>
-                            </svg>
-                        </summary>
-                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What support do you provide?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
-                                Starter plans include email support. Professional plans get priority support. Enterprise and Federal plans include 24/7 dedicated support and account managers.
+                                Starter plans include email support. Professional plans get priority support. Enterprise and Federal plans include 24/7 dedicated support and account managers. You can contact support through in-app chat, email (support@vendorsoluce.com), support tickets, or phone (for Enterprise customers).
                             </p>
                         </div>
-                    </details>
+                    </div>
 
-                    <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <summary class="flex items-center justify-between cursor-pointer list-none">
-                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pr-8">Is my data secure?</h3>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-6 h-6 text-vendorsoluce-green flex-shrink-0">
-                                <path d="m6 9 6 6 6-6"></path>
-                            </svg>
-                        </summary>
-                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">How do I contact support?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                                We implement enterprise-grade security measures including encryption at rest and in transit, regular security audits, and access controls. Our platform is designed to support various compliance frameworks including SOC2 and FedRAMP requirements.
+                                You can contact support through: 1) In-app chat (this assistant), 2) Email support@vendorsoluce.com, 3) Support tickets in your account, 4) Phone support for Enterprise customers. Response times: Chat (immediate), Email (24 hours), Phone (4 hours for Enterprise).
                             </p>
                             <div class="mt-4">
-                                <a href="trust.html" class="inline-flex items-center text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium text-sm">
-                                    Learn more about security
+                                <a href="contact.html" class="inline-flex items-center text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium text-sm">
+                                    Contact support
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-4 h-4 ml-2">
                                         <path d="M5 12h14"></path>
                                         <path d="m12 5 7 7-7 7"></path>
@@ -425,21 +909,16 @@
                                 </a>
                             </div>
                         </div>
-                    </details>
+                    </div>
 
-                    <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <summary class="flex items-center justify-between cursor-pointer list-none">
-                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white pr-8">What about Vendor Risk Assessments?</h3>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-6 h-6 text-vendorsoluce-green flex-shrink-0">
-                                <path d="m6 9 6 6 6-6"></path>
-                            </svg>
-                        </summary>
-                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">What about Vendor Risk Assessments?</h3>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                 Vendor Risk Assessments and Due Diligence Portal features are available through <strong>VendorTal</strong>, our separate assessment platform. VendorSoluce focuses on supply chain risk assessment, SBOM analysis, and vendor risk monitoring. Contact sales to learn about VendorTal integration options.
                             </p>
                         </div>
-                    </details>
+                    </div>
                 </div>
             </div>
         </div>
@@ -476,8 +955,121 @@
         </section>
     </div>
 </main></div></div>
-<footer class="bg-gray-900 text-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6"><div class="grid grid-cols-1 md:grid-cols-5 gap-6 lg:gap-8"><div class="col-span-1 md:col-span-2 md:pr-8"><div class="flex items-center mb-4"><img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce™ " class="h-12 w-12"><span class="ml-2"><span class="block text-xl font-bold text-vendorsoluce-green dark:text-white">VendorSoluce™</span><span class="block text-xs text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal" style="margin-top: -3px;">A Supply Chain Assurance </span><span class="block text-xs text-gray-600 dark:text-gray-400 font-normal">by ERMITS</span></span></div><p class="text-gray-300 text-sm leading-relaxed">Comprehensive supply chain risk management platform for modern organizations featuring assessments and automated compliance tools.</p></div><div><h3 class="text-lg font-semibold mb-3">Quick Links</h3><ul class="space-y-2"><li><a class="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap" href="how-it-works.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers h-4 w-4 mr-2"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg><span>How It Works</span></a></li><li><a class="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap" href="features.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles h-4 w-4 mr-2"><path d="m12 3-1.912 5.813a2 2 0 0 1-.343 1.023L3 14l5.164 6.23a2 2 0 0 1 .343 1.023L12 21l1.912-5.813a2 2 0 0 1 .343-1.023L21 14l-5.747-4.164a2 2 0 0 1-.343-1.023L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg><span>Features</span></a></li><li><a class="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap" href="pricing.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign h-4 w-4 mr-2"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg><span>Pricing</span></a></li><li><a class="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap" href="trust.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield h-4 w-4 mr-2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path></svg><span>Trust</span></a></li></ul></div><div><h3 class="text-lg font-semibold mb-3">Resources</h3><ul class="space-y-2"><li><a class="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap" href="index.html#best-practices"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award h-4 w-4 mr-2"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path><circle cx="12" cy="8" r="6"></circle></svg><span>Best Practices</span></a></li><li><a class="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap" href="contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail h-4 w-4 mr-2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg><span>Contact</span></a></li><li><a class="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap" href="faq.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle h-4 w-4 mr-2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg><span>FAQ</span></a></li></ul></div><div><h3 class="text-lg font-semibold mb-3">Legal</h3><ul class="space-y-2"><li><a class="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap" href="legal/privacy-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock h-4 w-4 mr-2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span>Privacy Policy</span></a></li><li><a class="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap" href="legal/cookie-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cookie h-4 w-4 mr-2"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5 4 4 0 0 1-5-5 4 4 0 0 1-5-5Z"></path><path d="M8.5 8.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z"></path><path d="M16 15a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z"></path></svg><span>Cookie Policy</span></a></li><li><a class="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap" href="legal/terms.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scale h-4 w-4 mr-2"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg><span>Terms of Service</span></a></li><li><a class="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap" href="legal/acceptable-use-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check h-4 w-4 mr-2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path><path d="m9 12 2 2 4-4"></path></svg><span>Acceptable Use</span></a></li></ul></div></div><div class="border-t border-gray-800 mt-6 pt-6"><div class="flex flex-col md:flex-row justify-between items-center"><div class="text-gray-400 text-sm">© 2025 ERMITS LLC. All rights reserved.</div><div class="mt-4 md:mt-0"><a class="inline-flex items-center px-4 py-2 bg-vendorsoluce-green text-white rounded-md hover:bg-vendorsoluce-dark-green transition-colors text-sm" href="index.html#supply-chain-assessment"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target h-4 w-4 mr-2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>Start Free Assessment<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right h-4 w-4 ml-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></div></footer>
+<style>
+/* Footer branding styles */
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+.brand-name {
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--vendorsoluce-green);
+  margin-bottom: 2px;
+}
+.dark .brand-name {
+  color: white;
+}
+.brand-tagline {
+  font-size: 13px;
+  color: #6B7280;
+  margin-bottom: 1px;
+}
+.dark .brand-tagline {
+  color: #94A3B8;
+}
+.brand-attribution {
+  font-size: 11px;
+  color: #6B7280;
+}
+.dark .brand-attribution {
+  color: #94A3B8;
+}
+
+/* Make footer borders extremely subtle - match background colors */
+footer.bg-white,
+footer[class*="bg-white"],
+footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+}
+html.dark footer.bg-gray-800,
+html.dark footer[class*="bg-gray-800"],
+html.dark footer {
+  border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
+}
+footer > div > div:last-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+}
+html.dark footer > div > div:last-child {
+  border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
+}
+</style>
+<footer class="bg-white dark:bg-gray-800 backdrop-blur-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
+    <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 mb-2">
+      <div class="flex items-start space-x-1 flex-shrink-0">
+        <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-16 w-16 sm:h-20 sm:w-20 transition-transform duration-300 hover:scale-110 flex-shrink-0 block opacity-100" loading="eager">
+        <div class="brand-text">
+          <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">VendorSoluce&trade;</span>
+          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter tagline-text">Supply Chain Assurance</span>
+          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
+          <div class="text-sm mt-2 text-gray-700 dark:text-gray-300 leading-tight">
+            <div>VendorSoluce&trade; Supply Chain Assurance &mdash;</div>
+            <div>Privacy-First</div>
+            <div>Comprehensive supply chain risk management platform</div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 flex-1 md:ml-8 lg:ml-12">
+        <div class="flex-1">
+          <h3 class="font-medium mb-3 text-sm text-gray-700 dark:text-gray-300">Quick Links</h3>
+          <ul class="space-y-1 leading-tight">
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="how-it-works.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers w-3.5 h-3.5 text-current inline-block"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>How It Works</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="features.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-3.5 h-3.5 text-current inline-block"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>Features</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="pricing.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-3.5 h-3.5 text-current inline-block"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>Pricing</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="trust.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-3.5 h-3.5 text-current inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>Trust</a></li>
+          </ul>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-medium mb-3 text-sm text-gray-700 dark:text-gray-300">Resources</h3>
+          <ul class="space-y-1 leading-tight">
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="radar/vendor-threat-radar.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-3.5 h-3.5 text-current inline-block"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path><circle cx="12" cy="12" r="2"></circle></svg>Vendor Radar</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="index.html#best-practices"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>Best Practices</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="faq.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>FAQ</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-3.5 h-3.5 text-current inline-block"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>Contact</a></li>
+          </ul>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-medium mb-3 text-sm text-gray-700 dark:text-gray-300">Legal</h3>
+          <ul class="space-y-1 leading-tight">
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/privacy-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock w-3.5 h-3.5 text-current inline-block"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Privacy Policy</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/cookie-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cookie w-3.5 h-3.5 text-current inline-block"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>Cookie Policy</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/terms.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scale w-3.5 h-3.5 text-current inline-block"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>Terms of Service</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="legal/acceptable-use-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check w-3.5 h-3.5 text-current inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>Acceptable Use</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col lg:flex-row justify-between items-center gap-3 lg:gap-4 pt-1">
+      <div class="flex flex-col sm:flex-row items-center gap-3 flex-1 justify-center lg:justify-start">
+        <div class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-secure-green/10 border border-secure-green/30 status-badge-secure">
+          <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="w-3.5 h-3.5 block opacity-100" loading="eager">
+          <span class="text-[10px] sm:text-xs font-medium text-secure-green">Local browser-based analysis</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle2 w-3.5 h-3.5 text-secure-green"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+          <span class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">Version 1.0</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-center lg:items-end space-y-0 leading-tight text-xs flex-shrink-0">
+        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">© 2025 ERMITS LLC</div>
+      </div>
+    </div>
+  </div>
+</footer>
 <button class="fixed bottom-6 right-6 z-50 bg-vendorsoluce-green hover:bg-vendorsoluce-green/90 text-white rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-105 group" aria-label="Open chat support"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle h-4 w-4"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg><span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full h-3 w-3 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">!</span></button></div></div>
   <script src="assets/js/main.js"></script>
+  <script src="includes/active-nav.js"></script>
 </body>
 </html>

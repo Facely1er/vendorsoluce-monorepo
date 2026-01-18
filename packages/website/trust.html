@@ -116,6 +116,7 @@
       background-color: rgb(255 255 255);
       box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
     }
     
@@ -195,6 +196,21 @@
     }
     .vs-badge{display:inline-flex;align-items:center;border-radius:999px;padding:2px 6px;font-size:0.65em;background:rgba(51,105,30,.12);color:var(--vendorsoluce-green);font-weight:600;vertical-align:middle;border:none}
     html.dark .vs-badge{background:rgba(102,187,106,.18);color:var(--vendorsoluce-light-green)}
+    
+    /* Utility classes for inline styles */
+    .tagline-text {
+      letter-spacing: -0.02em;
+      margin-top: -3px;
+    }
+    .hidden-icon {
+      display: none;
+    }
+    .mobile-menu-position {
+      top: 64px;
+    }
+    .breadcrumb-position {
+      top: var(--nav-height, 64px);
+    }
     </style>
   <script>
 // Theme toggle functionality - must run immediately to prevent flash
@@ -300,7 +316,7 @@
                 <span class="vs-badge ml-1.5">beta</span>
               </span>
             </div>
-            <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter" style="letter-spacing: -0.02em; margin-top: -3px;">Supply Chain Assurance</span>
+            <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter tagline-text">Supply Chain Assurance</span>
             <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
           </span>
         </a>
@@ -309,14 +325,14 @@
       <!-- Desktop Navigation - Streamlined -->
       <div class="hidden md:flex md:items-center md:space-x-1">
         <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Home" href="index.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home w-4 h-4 mr-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home w-4 h-4 mr-2">
             <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
           </svg>
           Home
         </a>
         <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="How It Works" href="how-it-works.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers w-4 h-4 mr-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers w-4 h-4 mr-2">
             <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path>
             <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path>
             <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path>
@@ -324,49 +340,40 @@
           How It Works
         </a>
         <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-white dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200" title="Features" href="features.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star w-4 h-4 mr-1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Features
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star w-4 h-4 mr-2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Features
         </a>
         <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-white dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200" title="Pricing" href="pricing.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-4 h-4 mr-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-4 h-4 mr-2">
             <line x1="12" x2="12" y1="2" y2="22"></line>
             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
           </svg>
           Pricing
         </a>
         <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-white dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200" title="Trust" href="trust.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-4 h-4 mr-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-4 h-4 mr-2">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
           </svg>
           Trust
         </a>
         <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-white dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200" title="FAQ" href="faq.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-4 h-4 mr-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-4 h-4 mr-2">
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
             <path d="M12 17h.01"></path>
           </svg>
           FAQ
         </a>
-        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-white dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200" title="Contact" href="contact.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-4 h-4 mr-1.5">
-            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-          </svg>
-          Contact
-        </a>
-        <div class="ml-2 border-l border-gray-300 dark:border-gray-600 pl-3">
-          <a href="radar/vendor-threat-radar.html" class="inline-flex items-center px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-vendorsoluce-green text-white hover:bg-vendorsoluce-dark-green font-semibold text-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-4 h-4 mr-1.5">
-              <path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path>
-              <circle cx="12" cy="12" r="2"></circle>
-            </svg>
-            Vendor Radar
-          </a>
-        </div>
       </div>
 
       <!-- Action Buttons (Desktop) -->
       <div class="hidden md:flex items-center space-x-1.5 sm:space-x-2 flex-shrink-0">
+        <a href="radar/vendor-threat-radar.html" class="flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-vendorsoluce-green text-white hover:bg-vendorsoluce-dark-green font-medium" title="Vendor Radar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-5 h-5 flex-shrink-0">
+            <path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path>
+            <circle cx="12" cy="12" r="2"></circle>
+          </svg>
+          <span class="text-sm font-medium whitespace-nowrap">Vendor Radar</span>
+        </a>
         <div data-tour="user-menu">
           <a href="https://www.application.vendorsoluce.com">
             <button type="button" class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="User Account">
@@ -379,7 +386,7 @@
         </div>
         <div data-tour="theme-toggle">
           <button type="button" data-theme-toggle class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-yellow-400 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="Switch theme">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun w-5 h-5 text-amber-500" style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun w-5 h-5 text-amber-500 hidden-icon">
               <circle cx="12" cy="12" r="4"></circle>
               <path d="M12 2v2"></path>
               <path d="M12 20v2"></path>
@@ -401,7 +408,7 @@
       <div class="flex items-center md:hidden flex-shrink-0 ml-auto gap-1.5">
         <div data-tour="theme-toggle">
           <button type="button" data-theme-toggle class="font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-transparent text-vendorsoluce-green hover:bg-vendorsoluce-pale-green focus:ring-vendorsoluce-green/30 dark:text-vendorsoluce-light-green dark:hover:bg-vendorsoluce-green/20 px-3 py-1.5 text-sm cursor-pointer p-2" aria-label="Switch to light mode">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun h-5 w-5 text-gray-300" style="display: none;"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun h-5 w-5 text-gray-300 hidden-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon h-5 w-5 text-gray-300"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
           </button>
         </div>
@@ -559,18 +566,18 @@
 </script>
 
 <!-- Mobile Menu Panel -->
-<div data-mobile-menu="true" class="md:hidden fixed left-0 right-0 z-50 hidden" style="top: 64px;">
+<div data-mobile-menu="true" class="md:hidden fixed left-0 right-0 z-50 hidden mobile-menu-position">
   <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-lg">
     <div class="max-w-7xl mx-auto px-4 py-3">
       <div class="space-y-2">
-        <a href="index.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
+        <a href="index.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home w-4 h-4 mr-2">
             <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
           </svg>
           Home
         </a>
-        <a href="how-it-works.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
+        <a href="how-it-works.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers w-4 h-4 mr-2">
             <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path>
             <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path>
@@ -578,7 +585,7 @@
           </svg>
           How It Works
         </a>
-        <a href="features.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
+        <a href="features.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-4 h-4 mr-2">
             <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
             <path d="M5 3v4"></path>
@@ -588,14 +595,14 @@
           </svg>
           Features
         </a>
-        <a href="pricing.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
+        <a href="pricing.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-4 h-4 mr-2">
             <line x1="12" x2="12" y1="2" y2="22"></line>
             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
           </svg>
           Pricing
         </a>
-        <a href="trust.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
+        <a href="trust.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-4 h-4 mr-2">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
           </svg>
@@ -610,9 +617,6 @@
         <div class="pt-2 border-t border-gray-200 dark:border-gray-700 space-y-2">
           <a href="faq.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
             FAQ
-          </a>
-          <a href="contact.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
-            Contact
           </a>
         </div>
       </div>
@@ -642,7 +646,7 @@
 </div>
 <main class="flex-1 pt-[var(--nav-height,64px)]">
     <!-- Breadcrumb Navigation -->
-    <nav aria-label="Breadcrumb" class="sticky z-40 w-full h-10 sm:h-11 text-sm border-b border-gray-200 dark:border-gray-700 transition-colors px-4 sm:px-6 lg:px-8 flex items-center backdrop-blur-sm bg-white/95 dark:bg-gray-900/95" style="top: var(--nav-height, 64px);">
+    <nav aria-label="Breadcrumb" class="sticky z-40 w-full h-10 sm:h-11 text-sm border-b border-gray-200 dark:border-gray-700 transition-colors px-4 sm:px-6 lg:px-8 flex items-center backdrop-blur-sm bg-white/95 dark:bg-gray-900/95 breadcrumb-position">
         <div class="max-w-7xl mx-auto w-full">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-1">
@@ -659,64 +663,52 @@
         </div>
     </nav>
     
-    <!-- What Reviewers Care About Section -->
+    <!-- Core Vendor Governance Capabilities Section -->
     <section class="py-12 md:py-16 px-6 sm:px-8 lg:px-12 bg-white dark:bg-gray-900">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-8">
-                <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4">What Reviewers Care About</h2>
-                <p class="text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">Evidence-first vendor governance with procurement-ready workflows.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                <div class="modern-card p-5 md:p-6">
-                    <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-vendorsoluce-green">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" x2="8" y1="13" y2="13"></line>
-                            <line x1="16" x2="8" y1="17" y2="17"></line>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">Evidence Discipline</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center">Comprehensive evidence collection with full audit trails.</p>
-                    <ul class="feature-list text-sm text-gray-600 dark:text-gray-400">
-                        <li>File uploads and assessment documentation</li>
-                        <li>PDF report generation</li>
-                        <li>Complete audit trails linking assessments to decisions</li>
-                        <li>Full traceability from evidence to decisions</li>
-                    </ul>
+            <div class="modern-card p-8 md:p-10 border-2 border-vendorsoluce-green/20">
+                <div class="flex items-center gap-4 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-vendorsoluce-green flex-shrink-0">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" x2="8" y1="13" y2="13"></line>
+                        <line x1="16" x2="8" y1="17" y2="17"></line>
+                    </svg>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Evidence-first vendor governance with procurement-ready workflows</h2>
                 </div>
-                <div class="modern-card p-5 md:p-6">
-                    <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-vendorsoluce-green">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
-                        </svg>
+                <div class="space-y-6 text-gray-600 dark:text-gray-300">
+                    <p class="text-lg leading-relaxed">
+                        VendorSoluce enables defensible vendor risk decisions through comprehensive evidence collection, structured workflows, and complete decision records. Build vendor governance capabilities that support procurement processes and enable confident risk decisions.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-vendorsoluce-green mt-1 flex-shrink-0">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Complete decision records with full traceability</h3>
+                                <p>Every vendor decision is documented with supporting evidence, rationale, and approval chains. This enables procurement teams and security leaders to understand why decisions were made and defend them when needed.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-vendorsoluce-green mt-1 flex-shrink-0">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Structured workflows aligned with NIST SP 800-161</h3>
+                                <p>Risk acceptance tracking, exception management, and remediation assignments follow established supply chain risk management practices. This ensures vendor governance activities align with organizational risk management frameworks.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-vendorsoluce-green mt-1 flex-shrink-0">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Multi-dimensional risk visibility across the supply chain</h3>
+                                <p>Real-time vulnerability intelligence, comprehensive vendor risk profiles, and complete supply chain visibility enable security teams to understand vendor risk from multiple perspectives and prioritize remediation efforts effectively.</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">Governance</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center">Structured workflows aligned with NIST SP 800-161.</p>
-                    <ul class="feature-list text-sm text-gray-600 dark:text-gray-400">
-                        <li>Risk acceptance tracking</li>
-                        <li>Exception management</li>
-                        <li>Automated remediation assignments</li>
-                        <li>Clear approval workflows</li>
-                    </ul>
-                </div>
-                <div class="modern-card p-5 md:p-6">
-                    <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-vendorsoluce-green">
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">SCRM Posture</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center">Enterprise-grade supply chain risk management.</p>
-                    <ul class="feature-list text-sm text-gray-600 dark:text-gray-400">
-                        <li>Multi-dimensional risk scoring</li>
-                        <li>Real-time vulnerability intelligence via OSV Database</li>
-                        <li>Comprehensive vendor risk profiles</li>
-                        <li>Complete supply chain visibility</li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -725,63 +717,51 @@
     <!-- Procurement-Ready Governance Section -->
     <section class="py-12 md:py-16 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-gray-800">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-8">
-                <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4">Procurement-Ready Governance</h2>
-                <p class="text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">Complete decision records, exception tracking, and evidence vault for defensible vendor risk management.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                <div class="modern-card p-5 md:p-6">
-                    <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-vendorsoluce-green">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" x2="8" y1="13" y2="13"></line>
-                            <line x1="16" x2="8" y1="17" y2="17"></line>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">Decision Records</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center">Complete assessment documentation with full decision history.</p>
-                    <ul class="feature-list text-sm text-gray-600 dark:text-gray-400">
-                        <li>Approve/deny decisions with detailed rationale</li>
-                        <li>Risk scores and automated follow-up tracking</li>
-                        <li>PDF reports for procurement and audits</li>
-                        <li>Full context for regulatory compliance</li>
-                    </ul>
+            <div class="modern-card p-8 md:p-10 border-2 border-vendorsoluce-green/20">
+                <div class="flex items-center gap-4 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-vendorsoluce-green flex-shrink-0">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+                    </svg>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Procurement-ready governance workflows</h2>
                 </div>
-                <div class="modern-card p-5 md:p-6">
-                    <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-vendorsoluce-green">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
+                <div class="space-y-6 text-gray-600 dark:text-gray-300">
+                    <p class="text-lg leading-relaxed">
+                        Complete decision records, exception tracking, and evidence vault enable procurement teams to make vendor decisions with confidence. Every approval, exception, and remediation action is documented and traceable.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-vendorsoluce-green mt-1 flex-shrink-0">
+                                <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Decision records that support procurement processes</h3>
+                                <p>Approve/deny decisions include detailed rationale, risk scores, and automated follow-up tracking. PDF reports provide procurement teams with the documentation needed to move forward with vendor relationships.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-vendorsoluce-green mt-1 flex-shrink-0">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Exception tracking with lifecycle management</h3>
+                                <p>Explicit risk acceptance workflows include expiration dates, approval chains, and compensating control requirements. Automated notifications ensure exceptions are reviewed before expiration, maintaining compliance posture.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 md:col-span-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-vendorsoluce-green mt-1 flex-shrink-0">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" x2="8" y1="13" y2="13"></line>
+                                <line x1="16" x2="8" y1="17" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Centralized evidence vault with complete traceability</h3>
+                                <p>Secure file uploads, artifact linking to assessment requirements, and version control ensure evidence is organized and accessible. Complete traceability to compliance controls enables security teams to demonstrate due diligence in vendor risk management.</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">Exception Tracking</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center">Explicit risk acceptance workflows with lifecycle management.</p>
-                    <ul class="feature-list text-sm text-gray-600 dark:text-gray-400">
-                        <li>Expiration dates and approval chains</li>
-                        <li>Compensating control requirements</li>
-                        <li>Automated notifications and tracking</li>
-                        <li>Compliance validation before expiration</li>
-                    </ul>
-                </div>
-                <div class="modern-card p-5 md:p-6">
-                    <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-vendorsoluce-green">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" x2="8" y1="13" y2="13"></line>
-                            <line x1="16" x2="8" y1="17" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">Evidence Vault</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center">Centralized evidence repository with complete audit trails.</p>
-                    <ul class="feature-list text-sm text-gray-600 dark:text-gray-400">
-                        <li>Secure file uploads</li>
-                        <li>Artifact linking to assessment requirements</li>
-                        <li>Version control and expiration monitoring</li>
-                        <li>Complete traceability to compliance controls</li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -790,63 +770,231 @@
     <!-- Evidence Artifacts Section -->
     <section class="py-12 md:py-16 px-6 sm:px-8 lg:px-12 bg-white dark:bg-gray-900">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-8">
-                <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4">Evidence Artifacts</h2>
-                <p class="text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">Comprehensive evidence collection and tracking for audit-ready vendor governance.</p>
+            <div class="modern-card p-8 md:p-10 border-2 border-vendorsoluce-green/20">
+                <div class="flex items-center gap-4 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-vendorsoluce-green flex-shrink-0">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Evidence collection and lifecycle management</h2>
+                </div>
+                <div class="space-y-6 text-gray-600 dark:text-gray-300">
+                    <p class="text-lg leading-relaxed">
+                        From vendor intake through ongoing monitoring, VendorSoluce supports the complete evidence lifecycle. Automated tracking, expiration monitoring, and remediation workflows ensure vendor risk management remains current and actionable.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-vendorsoluce-green mt-1 flex-shrink-0">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Structured vendor intake with automated risk classification</h3>
+                                <p>Comprehensive vendor intake captures scope definition, business criticality, and data access classification. Automated risk classification ensures vendors are prioritized based on their risk profile, enabling security teams to focus efforts where they matter most.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-vendorsoluce-green mt-1 flex-shrink-0">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" x2="8" y1="13" y2="13"></line>
+                                <line x1="16" x2="8" y1="17" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Evidence inventory with automated compliance validation</h3>
+                                <p>View collected documents, identify missing requirements, and track expiration dates and renewals. Automated compliance validation ensures evidence remains current and complete, reducing the risk of gaps in vendor risk management.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 md:col-span-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-vendorsoluce-green mt-1 flex-shrink-0">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Remediation tracking that converts gaps into action</h3>
+                                <p>Assessment gaps are automatically converted into actionable remediation items with assigned deadlines and responsible parties. Proof-of-completion fields and automated status updates ensure remediation efforts are tracked to closure, with compliance validation before items are marked complete.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                <div class="modern-card p-5 md:p-6">
-                    <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-vendorsoluce-green">
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
+        </div>
+    </section>
+
+    <!-- Framework Alignment & Requirements Mapping Section -->
+    <section class="py-12 md:py-16 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4">Framework Alignment &amp; Requirements Mapping</h2>
+                <p class="text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">VendorSoluce supports vendor governance and supply chain risk management activities aligned with established cybersecurity and risk management frameworks. The mappings below describe how VendorSoluce outputs may be used to inform governance, risk, and compliance efforts.</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-4 max-w-2xl mx-auto">VendorSoluce does not claim certification, control ownership, or compliance on behalf of customers.</p>
+            </div>
+            
+            <div class="space-y-10">
+                <!-- NIST SP 800-161 -->
+                <div class="modern-card p-6 md:p-8">
+                    <h3 class="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-4">NIST SP 800-161 (Supply Chain Risk Management)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm border border-gray-200 dark:border-gray-700">
+                            <thead class="bg-gray-100 dark:bg-gray-700">
+                                <tr>
+                                    <th class="text-left p-3 font-semibold text-gray-900 dark:text-white">SCRM Activity</th>
+                                    <th class="text-left p-3 font-semibold text-gray-900 dark:text-white">VendorSoluce Contribution</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-600 dark:text-gray-300">
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Vendor risk identification</td>
+                                    <td class="p-3">Comprehensive vendor intake, risk classification, and threat intelligence integration</td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Supply chain visibility</td>
+                                    <td class="p-3">SBOM analysis, dependency mapping, and vulnerability intelligence via OSV Database</td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Risk assessment</td>
+                                    <td class="p-3">Multi-dimensional risk scoring, evidence collection, and assessment documentation</td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Risk decision support</td>
+                                    <td class="p-3">Decision records, exception tracking, and approval workflows</td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Continuous monitoring</td>
+                                    <td class="p-3">Evidence expiration tracking, remediation assignments, and status updates</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">Intake Packet</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center">Comprehensive vendor intake with structured profiles.</p>
-                    <ul class="feature-list text-sm text-gray-600 dark:text-gray-400">
-                        <li>Scope definition and business criticality</li>
-                        <li>Data access classification</li>
-                        <li>Ownership assignment</li>
-                        <li>Automated risk classification</li>
-                    </ul>
                 </div>
-                <div class="modern-card p-5 md:p-6">
-                    <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-vendorsoluce-green">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" x2="8" y1="13" y2="13"></line>
-                            <line x1="16" x2="8" y1="17" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
+
+                <!-- NIST Cybersecurity Framework -->
+                <div class="modern-card p-6 md:p-8">
+                    <h3 class="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-4">NIST Cybersecurity Framework (CSF v2 concepts)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm border border-gray-200 dark:border-gray-700">
+                            <thead class="bg-gray-100 dark:bg-gray-700">
+                                <tr>
+                                    <th class="text-left p-3 font-semibold text-gray-900 dark:text-white">CSF Function</th>
+                                    <th class="text-left p-3 font-semibold text-gray-900 dark:text-white">VendorSoluce Contribution</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-600 dark:text-gray-300">
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Identify</td>
+                                    <td class="p-3">Vendor risk profiles, dependency awareness, and supply chain visibility</td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Protect</td>
+                                    <td class="p-3">Vendor security assessment inputs and evidence collection</td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Detect</td>
+                                    <td class="p-3">Vulnerability intelligence, threat signals, and risk indicators</td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Respond</td>
+                                    <td class="p-3">Remediation tracking and incident response preparedness inputs</td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Recover</td>
+                                    <td class="p-3">Informational input only</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">Evidence Inventory</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center">Automated evidence tracking with real-time monitoring.</p>
-                    <ul class="feature-list text-sm text-gray-600 dark:text-gray-400">
-                        <li>View collected documents</li>
-                        <li>Identify missing requirements</li>
-                        <li>Track expiration dates and renewals</li>
-                        <li>Automated compliance validation</li>
-                    </ul>
                 </div>
-                <div class="modern-card p-5 md:p-6">
-                    <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-vendorsoluce-green">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
+
+                <!-- ISO/IEC 27001 & 27005 -->
+                <div class="modern-card p-6 md:p-8">
+                    <h3 class="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-4">ISO/IEC 27001 &amp; ISO/IEC 27005</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm border border-gray-200 dark:border-gray-700">
+                            <thead class="bg-gray-100 dark:bg-gray-700">
+                                <tr>
+                                    <th class="text-left p-3 font-semibold text-gray-900 dark:text-white">Risk Management Activity</th>
+                                    <th class="text-left p-3 font-semibold text-gray-900 dark:text-white">VendorSoluce Role</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-600 dark:text-gray-300">
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Risk identification</td>
+                                    <td class="p-3">Identification of vendor-related risks and supply chain dependencies</td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Risk analysis</td>
+                                    <td class="p-3">Risk scoring, vulnerability assessment, and threat intelligence integration</td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Risk evaluation</td>
+                                    <td class="p-3">Decision-support outputs for vendor risk prioritization and acceptance</td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Risk treatment</td>
+                                    <td class="p-3">Remediation tracking and exception management workflows</td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Monitoring &amp; review</td>
+                                    <td class="p-3">Continuous vendor risk visibility and evidence lifecycle management</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">Remediation Tracker</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 text-center">Convert assessment gaps into actionable items.</p>
-                    <ul class="feature-list text-sm text-gray-600 dark:text-gray-400">
-                        <li>Assigned deadlines and responsible parties</li>
-                        <li>Proof-of-completion fields</li>
-                        <li>Automated status updates</li>
-                        <li>Compliance validation before closure</li>
-                    </ul>
+                </div>
+
+                <!-- Third-Party Risk Management -->
+                <div class="modern-card p-6 md:p-8">
+                    <h3 class="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-4">Third-Party Risk Management (TPRM)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm border border-gray-200 dark:border-gray-700">
+                            <thead class="bg-gray-100 dark:bg-gray-700">
+                                <tr>
+                                    <th class="text-left p-3 font-semibold text-gray-900 dark:text-white">TPRM Capability</th>
+                                    <th class="text-left p-3 font-semibold text-gray-900 dark:text-white">Coverage</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-600 dark:text-gray-300">
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Vendor onboarding &amp; intake</td>
+                                    <td class="p-3"><span class="font-medium text-vendorsoluce-green dark:text-vendorsoluce-light-green">✔ Supported</span></td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Risk assessment &amp; scoring</td>
+                                    <td class="p-3"><span class="font-medium text-vendorsoluce-green dark:text-vendorsoluce-light-green">✔ Supported</span></td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Evidence collection &amp; management</td>
+                                    <td class="p-3"><span class="font-medium text-vendorsoluce-green dark:text-vendorsoluce-light-green">✔ Supported</span></td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Decision records &amp; approvals</td>
+                                    <td class="p-3"><span class="font-medium text-vendorsoluce-green dark:text-vendorsoluce-light-green">✔ Supported</span></td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Exception &amp; risk acceptance tracking</td>
+                                    <td class="p-3"><span class="font-medium text-vendorsoluce-green dark:text-vendorsoluce-light-green">✔ Supported</span></td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Remediation &amp; follow-up management</td>
+                                    <td class="p-3"><span class="font-medium text-vendorsoluce-green dark:text-vendorsoluce-light-green">✔ Supported</span></td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">SBOM analysis &amp; vulnerability intelligence</td>
+                                    <td class="p-3"><span class="font-medium text-vendorsoluce-green dark:text-vendorsoluce-light-green">✔ Supported</span></td>
+                                </tr>
+                                <tr class="border-t border-gray-200 dark:border-gray-700">
+                                    <td class="p-3">Continuous monitoring &amp; reassessment</td>
+                                    <td class="p-3"><span class="font-medium text-vendorsoluce-green dark:text-vendorsoluce-light-green">✔ Supported</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-3">Comprehensive TPRM capabilities aligned with procurement-ready workflows.</p>
                 </div>
             </div>
         </div>
@@ -909,7 +1057,7 @@ html.dark footer > div > div:last-child {
         <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-16 w-16 sm:h-20 sm:w-20 transition-transform duration-300 hover:scale-110 flex-shrink-0 block opacity-100" loading="eager">
         <div class="brand-text">
           <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">VendorSoluce&trade;</span>
-          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter" style="letter-spacing: -0.02em; margin-top: -3px;">Supply Chain Assurance</span>
+          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter tagline-text">Supply Chain Assurance</span>
           <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
           <div class="text-sm mt-2 text-gray-700 dark:text-gray-300 leading-tight">
             <div>VendorSoluce&trade; Supply Chain Assurance &mdash;</div>
@@ -933,8 +1081,8 @@ html.dark footer > div > div:last-child {
           <ul class="space-y-1 leading-tight">
             <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="radar/vendor-threat-radar.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-3.5 h-3.5 text-current inline-block"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path><circle cx="12" cy="12" r="2"></circle></svg>Vendor Radar</a></li>
             <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="index.html#best-practices"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>Best Practices</a></li>
-            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-3.5 h-3.5 text-current inline-block"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>Contact</a></li>
             <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="faq.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>FAQ</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-3.5 h-3.5 text-current inline-block"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>Contact</a></li>
           </ul>
         </div>
         <div class="flex-1">
@@ -952,7 +1100,7 @@ html.dark footer > div > div:last-child {
       <div class="flex flex-col sm:flex-row items-center gap-3 flex-1 justify-center lg:justify-start">
         <div class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-secure-green/10 border border-secure-green/30 status-badge-secure">
           <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="w-3.5 h-3.5 block opacity-100" loading="eager">
-          <span class="text-[10px] sm:text-xs font-medium text-secure-green">Privacy-First • Local Storage</span>
+          <span class="text-[10px] sm:text-xs font-medium text-secure-green">Local browser-based analysis</span>
         </div>
         <div class="flex items-center space-x-1.5">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle2 w-3.5 h-3.5 text-secure-green"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>

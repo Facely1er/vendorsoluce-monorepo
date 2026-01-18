@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Best Practices — VendorSoluce</title>
-  <meta name="description" content="Best practices for supply chain risk management and vendor security." />
-  <!-- Redirect to homepage -->
-  <meta http-equiv="refresh" content="0; url=index.html" />
-  <link rel="canonical" href="https://vendorsoluce.com/" />
-  <script>
-    // Immediate redirect to homepage
-    window.location.replace('index.html');
-  </script>
-</head>
-<body>
-    <div id="root"><div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col"><!-- Shared Header Navigation for VendorSoluce -->
+<!-- 
+  CLEAN HEADER TEMPLATE FOR VENDORSOLUCE
+  Based on index.html structure - ready for verification
+  Usage: Copy this entire block into each HTML page
+-->
 <nav class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-[100] w-full">
   <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 w-full">
     <div class="flex items-center justify-between h-16 w-full">
@@ -35,7 +23,7 @@
         </a>
       </div>
 
-      <!-- Desktop Navigation - Streamlined -->
+      <!-- Desktop Navigation -->
       <div class="hidden md:flex md:items-center md:space-x-1">
         <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Home" href="index.html">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home w-4 h-4 mr-1.5">
@@ -117,14 +105,37 @@
         </div>
       </div>
 
-      <!-- Mobile Menu Button -->
+      <!-- Mobile Action Buttons (Theme Toggle + Menu) -->
       <div class="flex items-center md:hidden flex-shrink-0 ml-auto gap-1.5">
         <div data-tour="theme-toggle">
-          <button type="button" data-theme-toggle class="font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-transparent text-vendorsoluce-green hover:bg-vendorsoluce-pale-green focus:ring-vendorsoluce-green/30 dark:text-vendorsoluce-light-green dark:hover:bg-vendorsoluce-green/20 px-3 py-1.5 text-sm cursor-pointer p-2" aria-label="Switch to light mode">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun h-5 w-5 text-gray-300" style="display: none;"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon h-5 w-5 text-gray-300"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+          <button type="button" data-theme-toggle class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-yellow-400 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="Switch theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun w-5 h-5 text-amber-500" style="display: none;">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon w-5 h-5">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
           </button>
         </div>
+        <button data-mobile-menu-button="true" class="inline-flex items-center justify-center p-1.5 rounded-md text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none flex-shrink-0 w-9 h-9" aria-label="Open menu" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu">
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="flex items-center md:hidden flex-shrink-0 ml-auto gap-1.5">
         <button data-mobile-menu-button="true" class="inline-flex items-center justify-center p-1.5 rounded-md text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none flex-shrink-0 w-9 h-9" aria-label="Open menu" aria-expanded="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu">
             <line x1="4" x2="20" y1="12" y2="12"></line>
@@ -136,147 +147,6 @@
     </div>
   </div>
 </nav>
-<script>
-(function() {
-    function initMobileMenu() {
-        const menuButton = document.querySelector('[data-mobile-menu-button]');
-        if (!menuButton) return;
-
-        menuButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-            const mobileMenu = document.querySelector('[data-mobile-menu]');
-            
-            if (mobileMenu) {
-                if (isExpanded) {
-                    mobileMenu.classList.add('hidden');
-                    menuButton.setAttribute('aria-expanded', 'false');
-                    menuButton.setAttribute('aria-label', 'Open menu');
-                } else {
-                    mobileMenu.classList.remove('hidden');
-                    menuButton.setAttribute('aria-expanded', 'true');
-                    menuButton.setAttribute('aria-label', 'Close menu');
-                }
-            }
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            const mobileMenu = document.querySelector('[data-mobile-menu]');
-            if (mobileMenu && !mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    menuButton.setAttribute('aria-expanded', 'false');
-                    menuButton.setAttribute('aria-label', 'Open menu');
-                }
-            }
-        });
-
-        // Close menu on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const mobileMenu = document.querySelector('[data-mobile-menu]');
-                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    menuButton.setAttribute('aria-expanded', 'false');
-                    menuButton.setAttribute('aria-label', 'Open menu');
-                }
-            }
-        });
-    }
-
-    // Always wait for DOM to be fully loaded to ensure mobile menu panel exists
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initMobileMenu);
-    } else {
-        // Use setTimeout to ensure DOM is fully parsed even if readyState is 'complete'
-        setTimeout(initMobileMenu, 0);
-    }
-    
-    // Set active navigation link based on current page
-    function setActiveNavLink() {
-        const currentPath = window.location.pathname;
-        const currentFile = currentPath.split('/').pop() || 'index.html';
-        const normalizedCurrentFile = currentFile.split('?')[0].split('#')[0];
-        
-        // Find only navigation menu links (exclude branding and action buttons)
-        // Only target links in the desktop navigation menu container (not action buttons area)
-        const desktopNavMenu = document.querySelector('nav > div.hidden.md\\:flex.md\\:items-center');
-        const desktopNavLinks = desktopNavMenu ? desktopNavMenu.querySelectorAll('a[title][href]') : [];
-        const mobileNavLinks = document.querySelectorAll('[data-mobile-menu] a[href]');
-        const navLinks = [...desktopNavLinks, ...mobileNavLinks];
-        
-        navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            if (!href || href.startsWith('http') || href.startsWith('#')) return;
-            
-            // Double-check: skip branding link (inside data-tour="main-nav")
-            if (link.closest('[data-tour="main-nav"]')) {
-                return;
-            }
-            
-            // Skip Vendor Radar button (has title="Vendor Radar" or radar icon)
-            if (link.getAttribute('title') === 'Vendor Radar' || 
-                link.querySelector('svg.lucide-radar') ||
-                link.textContent.trim().includes('Vendor Radar')) {
-                return;
-            }
-            
-            // Skip action buttons area (links in the right-side action buttons container)
-            const parentContainer = link.parentElement;
-            if (parentContainer && (
-                parentContainer.querySelector('[data-tour="user-menu"]') || 
-                parentContainer.querySelector('[data-tour="theme-toggle"]') ||
-                parentContainer.classList.contains('flex-shrink-0')
-            )) {
-                const hasActionButtons = parentContainer.querySelector('[data-tour="user-menu"]') || 
-                                        parentContainer.querySelector('[data-tour="theme-toggle"]');
-                if (hasActionButtons) {
-                    return;
-                }
-            }
-            
-            // Extract filename from href (handle relative paths)
-            let linkFile = href.replace(/^\.\.?\//, '').split('/').pop() || '';
-            linkFile = linkFile.split('?')[0].split('#')[0];
-            
-            // Check if this link matches the current page
-            const isCurrentPage = 
-                linkFile === normalizedCurrentFile || 
-                (normalizedCurrentFile === '' && linkFile === 'index.html') ||
-                (normalizedCurrentFile === 'index.html' && linkFile === 'index.html');
-            
-            if (isCurrentPage) {
-                // Get current classes and replace to make it active
-                let classes = link.getAttribute('class') || '';
-                
-                // Remove inactive classes
-                classes = classes
-                    .replace(/\btext-gray-700\b/g, '')
-                    .replace(/\bdark:text-gray-300\b/g, '')
-                    .replace(/\bhover:bg-gray-50\b/g, '')
-                    .replace(/\bdark:hover:bg-gray-700\b/g, '')
-                    .replace(/\bhover:text-vendorsoluce-green\b/g, '')
-                    .replace(/\bdark:hover:text-white\b/g, '');
-                
-                // Add active classes
-                classes += ' text-vendorsoluce-green dark:text-white bg-vendorsoluce-green/20 dark:bg-vendorsoluce-green/30 border border-vendorsoluce-green/30 dark:border-vendorsoluce-green/40 hover:bg-vendorsoluce-green/30 dark:hover:bg-vendorsoluce-green/40';
-                
-                // Clean up extra spaces
-                classes = classes.replace(/\s+/g, ' ').trim();
-                link.setAttribute('class', classes);
-            }
-        });
-    }
-    
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', setActiveNavLink);
-    } else {
-        setActiveNavLink();
-    }
-})();
-</script>
 
 <!-- Mobile Menu Panel -->
 <div data-mobile-menu="true" class="md:hidden fixed left-0 right-0 z-50 hidden" style="top: 64px;">
@@ -299,13 +169,7 @@
           How It Works
         </a>
         <a href="features.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-4 h-4 mr-2">
-            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
-            <path d="M5 3v4"></path>
-            <path d="M19 17v4"></path>
-            <path d="M3 5h4"></path>
-            <path d="M17 19h4"></path>
-          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star w-4 h-4 mr-2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
           Features
         </a>
         <a href="pricing.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
@@ -321,41 +185,23 @@
           </svg>
           Trust
         </a>
+        <a href="faq.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-4 h-4 mr-2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <path d="M12 17h.01"></path>
+          </svg>
+          FAQ
+        </a>
         <div class="pt-2 border-t border-gray-200 dark:border-gray-700">
           <a href="radar/vendor-threat-radar.html" class="block w-full px-4 py-2 rounded-lg text-sm font-semibold text-center text-white bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green transition-colors">
             Vendor Radar
-          </a>
-        </div>
-        <!-- Secondary links in footer section -->
-        <div class="pt-2 border-t border-gray-200 dark:border-gray-700 space-y-2">
-          <a href="faq.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
-            FAQ
-          </a>
-        </div>
-      </div>
-      <div class="px-4 py-2 border-t border-gray-200 dark:border-gray-700 mt-2 pt-2">
-        <div class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Legal</div>
-        <div class="space-y-1">
-          <a href="legal/privacy-policy.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-            Privacy Policy
-          </a>
-          <a href="legal/cookie-policy.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>
-            Cookie Policy
-          </a>
-          <a href="legal/terms.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>
-            Terms of Service
-          </a>
-          <a href="legal/acceptable-use-policy.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path></svg>
-            Acceptable Use Policy
           </a>
         </div>
       </div>
     </div>
   </div>
 </div>
-</body>
-</html>
+
+<!-- Navigation JavaScript - Include this script tag after the mobile menu -->
+<script src="assets/js/navigation.js"></script>

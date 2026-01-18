@@ -101,7 +101,22 @@
       transform: none !important;
       box-shadow: none !important;
     }
+    
+    /* Utility classes for inline styles */
+    .tagline-text {
+      letter-spacing: -0.02em;
+      margin-top: -3px;
+    }
+    .hidden-icon {
+      display: none;
+    }
+    .mobile-menu-position {
+      top: 64px;
+    }
   </style>
+<style id="layout-fixes">:root{--breadcrumb-height:0px;}
+main{padding-top:calc(var(--nav-height,64px) + var(--breadcrumb-height));}
+</style>
 <script>
 // Theme toggle functionality - must run immediately to prevent flash
 (function() {
@@ -191,60 +206,7 @@
 </script>
 </head>
 <body>
-  <div id="root">
-    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
-      <!-- Shared Header Navigation for VendorSoluce -->
-<style>
-  /* Active navigation link styles */
-  nav a.active,
-  nav a[aria-current="page"] {
-    color: #33691E !important;
-    background: rgba(51,105,30,.08) !important;
-    font-weight: 700 !important;
-  }
-  html.dark nav a.active,
-  html.dark nav a[aria-current="page"] {
-    color: #66BB6A !important;
-    background: rgba(102,187,106,.12) !important;
-  }
-  nav a.active:hover,
-  nav a[aria-current="page"]:hover {
-    background: rgba(51,105,30,.12) !important;
-  }
-  html.dark nav a.active:hover,
-  html.dark nav a[aria-current="page"]:hover {
-    background: rgba(102,187,106,.18) !important;
-  }
-  /* Prevent hover effects on active Vendor Radar button */
-  nav a[aria-current="page"][style*="pointer-events: none"],
-  nav a[aria-current="page"].cursor-default {
-    pointer-events: none !important;
-    opacity: 0.9;
-  }
-  nav a[aria-current="page"][style*="pointer-events: none"]:hover,
-  nav a[aria-current="page"].cursor-default:hover {
-    transform: none !important;
-    box-shadow: none !important;
-  }
-  
-  /* Make footer borders extremely subtle - match background colors */
-  footer.bg-white,
-  footer[class*="bg-white"],
-  footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
-  }
-  html.dark footer.bg-gray-800,
-  html.dark footer[class*="bg-gray-800"],
-  html.dark footer {
-    border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
-  }
-  footer > div > div:last-child {
-    border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
-  }
-  html.dark footer > div > div:last-child {
-    border-top: 1px solid rgba(31, 41, 55, 0.03) !important;
-  }
-</style>
+    <div id="root"><div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col"><!-- Shared Header Navigation for VendorSoluce -->
 <nav class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-[100] w-full">
   <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 w-full">
     <div class="flex items-center justify-between h-16 w-full">
@@ -254,44 +216,57 @@
           <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 flex-shrink-0 transition-transform group-hover:scale-105 pointer-events-none">
           <span class="ml-1.5 sm:ml-2 min-w-0 pointer-events-none">
             <div class="flex items-center gap-1.5">
-              <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">VendorSoluce™</span>
-              <span class="px-1 py-0.5 text-[8px] sm:text-[9px] font-semibold tracking-wide bg-vendorsoluce-green/10 text-vendorsoluce-green dark:text-vendorsoluce-light-green dark:bg-vendorsoluce-green/20 rounded-full">beta</span>
+              <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">
+                VendorSoluce™
+                <span class="vs-badge ml-1.5">beta</span>
+              </span>
             </div>
-            <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter" style="letter-spacing: -0.02em; margin-top: -3px;">Supply Chain Assurance</span>
+            <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter tagline-text">Supply Chain Assurance</span>
             <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
           </span>
         </a>
       </div>
 
-      <!-- Desktop Navigation -->
-      <div class="hidden md:flex md:items-center md:space-x-0.5">
-        <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="Home" href="index.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home flex-shrink-0"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-          <span class="ml-1.5 text-xs">Home</span>
+      <!-- Desktop Navigation - Streamlined -->
+      <div class="hidden md:flex md:items-center md:space-x-1">
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Home" href="index.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home w-4 h-4 mr-2">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          Home
         </a>
-        <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="How It Works" href="how-it-works.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers flex-shrink-0"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>
-          <span class="ml-1.5 text-xs">How It Works</span>
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="How It Works" href="how-it-works.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers w-4 h-4 mr-2">
+            <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path>
+            <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path>
+            <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path>
+          </svg>
+          How It Works
         </a>
-        <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="Features" href="features.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles flex-shrink-0"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
-          <span class="ml-1.5 text-xs">Features</span>
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-white dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200" title="Features" href="features.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star w-4 h-4 mr-2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Features
         </a>
-        <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="Pricing" href="pricing.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign flex-shrink-0"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-          <span class="ml-1.5 text-xs">Pricing</span>
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-white dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200" title="Pricing" href="pricing.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-4 h-4 mr-2">
+            <line x1="12" x2="12" y1="2" y2="22"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          Pricing
         </a>
-        <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="Trust" href="trust.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield flex-shrink-0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path></svg>
-          <span class="ml-1.5 text-xs">Trust</span>
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-white dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200" title="Trust" href="trust.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-4 h-4 mr-2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+          </svg>
+          Trust
         </a>
-        <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="FAQ" href="faq.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle flex-shrink-0"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
-          <span class="ml-1.5 text-xs">FAQ</span>
-        </a>
-        <a class="px-2.5 py-1.5 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center" title="Contact" href="contact.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail flex-shrink-0"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
-          <span class="ml-1.5 text-xs">Contact</span>
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-white dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200" title="FAQ" href="faq.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-4 h-4 mr-2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <path d="M12 17h.01"></path>
+          </svg>
+          FAQ
         </a>
       </div>
 
@@ -305,8 +280,8 @@
           <span class="text-sm font-medium whitespace-nowrap">Vendor Radar</span>
         </a>
         <div data-tour="user-menu">
-          <a href="account.html" aria-label="Local Account Menu" title="Local Account">
-            <button type="button" class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="Local Account">
+          <a href="https://www.application.vendorsoluce.com">
+            <button type="button" class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="User Account">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user w-5 h-5">
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
@@ -316,7 +291,7 @@
         </div>
         <div data-tour="theme-toggle">
           <button type="button" data-theme-toggle class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-yellow-400 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="Switch theme">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun w-5 h-5 text-amber-500" style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun w-5 h-5 text-amber-500 hidden-icon">
               <circle cx="12" cy="12" r="4"></circle>
               <path d="M12 2v2"></path>
               <path d="M12 20v2"></path>
@@ -338,7 +313,7 @@
       <div class="flex items-center md:hidden flex-shrink-0 ml-auto gap-1.5">
         <div data-tour="theme-toggle">
           <button type="button" data-theme-toggle class="font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-transparent text-vendorsoluce-green hover:bg-vendorsoluce-pale-green focus:ring-vendorsoluce-green/30 dark:text-vendorsoluce-light-green dark:hover:bg-vendorsoluce-green/20 px-3 py-1.5 text-sm cursor-pointer p-2" aria-label="Switch to light mode">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun h-5 w-5 text-gray-300" style="display: none;"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun h-5 w-5 text-gray-300 hidden-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon h-5 w-5 text-gray-300"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
           </button>
         </div>
@@ -353,81 +328,231 @@
     </div>
   </div>
 </nav>
+<script>
+// Mobile Menu Functionality - Enhanced with backdrop
+window.closeMobileMenu = function() {
+    const mobileMenu = document.querySelector('[data-mobile-menu="true"]');
+    const menuButton = document.querySelector('[data-mobile-menu-button="true"]');
+    if (mobileMenu) {
+        mobileMenu.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+    if (menuButton) {
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Open menu');
+    }
+};
 
-<!-- Mobile Menu Panel -->
-<div data-mobile-menu="true" class="md:hidden fixed left-0 right-0 z-50 hidden" style="top: 64px;">
-  <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-lg">
-    <div class="max-w-7xl mx-auto px-4 py-3">
-      <div class="space-y-2">
-        <a href="index.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home w-4 h-4 mr-2">
-            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-          </svg>
-          Home
+function openMobileMenu() {
+    const mobileMenu = document.querySelector('[data-mobile-menu="true"]');
+    const menuButton = document.querySelector('[data-mobile-menu-button="true"]');
+    if (mobileMenu) {
+        mobileMenu.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    if (menuButton) {
+        menuButton.setAttribute('aria-expanded', 'true');
+        menuButton.setAttribute('aria-label', 'Close menu');
+    }
+}
+
+// Initialize mobile menu after DOM is loaded
+function initMobileMenuHandlers() {
+    const menuButton = document.querySelector('[data-mobile-menu-button="true"]');
+    const closeButton = document.querySelector('[data-mobile-menu-close="true"]');
+    const backdrop = document.querySelector('[data-mobile-menu-backdrop="true"]');
+
+    if (menuButton) {
+        menuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+            if (isExpanded) {
+                window.closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        });
+    }
+
+    if (closeButton) {
+        closeButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.closeMobileMenu();
+        });
+    }
+
+    if (backdrop) {
+        backdrop.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.closeMobileMenu();
+        });
+    }
+
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const mobileMenu = document.querySelector('[data-mobile-menu="true"]');
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                window.closeMobileMenu();
+            }
+        }
+    });
+}
+
+// Wait for DOM to be fully loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileMenuHandlers);
+} else {
+    setTimeout(initMobileMenuHandlers, 0);
+}
+
+// Navigation Active State Management
+(function() {
+    const pageMap = {
+        "index.html": { key: "index", label: "Home" },
+        "how-it-works.html": { key: "how-it-works", label: "How It Works" },
+        "features.html": { key: "features", label: "Features" },
+        "pricing.html": { key: "pricing", label: "Pricing" },
+        "trust.html": { key: "trust", label: "Trust" },
+        "faq.html": { key: "faq", label: "FAQ" },
+        "account.html": { key: "account", label: "Account" },
+        "contact.html": { key: "contact", label: "Contact" },
+        "best-practices.html": { key: "best-practices", label: "Best Practices" }
+    };
+
+    function currentFile() {
+        const raw = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+        return raw;
+    }
+
+    function setActiveNav(file) {
+        const info = pageMap[file];
+        if (!info) return;
+
+        const selectors = ['a.nav-link[data-page]', 'a.mobile-nav-link[data-page]'];
+        selectors.forEach(sel => {
+            document.querySelectorAll(sel).forEach(a => {
+                const isActive = (a.getAttribute("data-page") === info.key);
+                a.classList.remove("nav-link-active", "bg-vendorsoluce-green");
+                if (isActive) {
+                    a.classList.add("nav-link-active", "bg-vendorsoluce-green");
+                }
+            });
+        });
+    }
+
+    function setBreadcrumb(file) {
+        const info = pageMap[file];
+        if (!info) return;
+
+        const bc = document.querySelector('nav[aria-label="Breadcrumb"][data-breadcrumb], nav[aria-label="Breadcrumb"]');
+        if (!bc) return;
+
+        const spans = Array.from(bc.querySelectorAll("span"));
+        if (spans.length) {
+            const current = spans.reverse().find(s => !s.closest("a")) || spans[0];
+            if (current) current.textContent = info.label;
+        }
+    }
+
+    function run() {
+        const file = currentFile();
+        setActiveNav(file);
+        setBreadcrumb(file);
+    }
+
+    document.addEventListener("DOMContentLoaded", run);
+    window.addEventListener("load", run);
+})();
+
+// Breadcrumb height calculation
+(function(){
+    function update(){
+        const bc = document.querySelector('[data-breadcrumb], .breadcrumb, nav[aria-label="Breadcrumb"]');
+        document.documentElement.style.setProperty('--breadcrumb-height', bc ? (bc.offsetHeight + 'px') : '0px');
+    }
+    window.addEventListener('load', update);
+    window.addEventListener('resize', update);
+    document.addEventListener('DOMContentLoaded', update);
+})();
+</script>
+
+<!-- Mobile Menu Panel - Full Screen Overlay -->
+<div data-mobile-menu="true" class="fixed inset-0 z-[100] md:hidden hidden">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-gray-900/80 dark:bg-gray-900/90 backdrop-blur-sm transition-opacity duration-300" data-mobile-menu-backdrop="true"></div>
+  <!-- Menu Panel -->
+  <div class="fixed top-0 left-0 right-0 bottom-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-xl overflow-y-auto">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <!-- Mobile Menu Header with Logo and Close Button -->
+      <div class="flex items-start justify-between mb-6 pb-4 border-b border-gray-200 dark:border-gray-700 gap-4">
+        <a class="flex items-center space-x-3 flex-shrink-0 hover:opacity-90 transition-all duration-200 group min-w-0 flex-1" href="index.html" onclick="closeMobileMenu()">
+          <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-14 w-14 min-w-[56px] min-h-[56px] transition-transform duration-300 group-hover:scale-110 object-contain flex-shrink-0 block opacity-100" loading="eager">
+          <div class="flex flex-col gap-0.5 min-w-0 flex-1">
+            <div class="block text-base font-bold leading-tight whitespace-nowrap text-vendorsoluce-green dark:text-white">VendorSoluce™</div>
+            <div class="block text-sm font-semibold leading-tight whitespace-nowrap text-gray-700 dark:text-gray-300">Supply Chain Assurance</div>
+            <div class="block text-xs font-normal leading-tight whitespace-nowrap text-gray-600 dark:text-gray-400">by ERMITS</div>
+          </div>
         </a>
-        <a href="how-it-works.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers w-4 h-4 mr-2">
-            <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path>
-            <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path>
-            <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path>
+        <button aria-label="Close menu" class="p-2 rounded-lg transition-all duration-200 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 min-w-[44px] min-h-[44px] flex items-center justify-center flex-shrink-0" data-mobile-menu-close="true">
+          <svg class="lucide lucide-x w-5 h-5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="m18 6-12 12"></path>
+            <path d="m6 6 12 12"></path>
           </svg>
-          How It Works
+        </button>
+      </div>
+      <!-- Mobile Menu Navigation Links -->
+      <nav class="flex flex-col space-y-2">
+        <a class="mobile-nav-link" data-page="index" href="index.html" onclick="closeMobileMenu()">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span>Home</span>
         </a>
-        <a href="features.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-4 h-4 mr-2">
-            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
-            <path d="M5 3v4"></path>
-            <path d="M19 17v4"></path>
-            <path d="M3 5h4"></path>
-            <path d="M17 19h4"></path>
-          </svg>
-          Features
+        <a class="mobile-nav-link" data-page="how-it-works" href="how-it-works.html" onclick="closeMobileMenu()">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>
+          <span>How It Works</span>
         </a>
-        <a href="pricing.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-4 h-4 mr-2">
-            <line x1="12" x2="12" y1="2" y2="22"></line>
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-          </svg>
-          Pricing
+        <a class="mobile-nav-link" data-page="features" href="features.html" onclick="closeMobileMenu()">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
+          <span>Features</span>
         </a>
-        <a href="trust.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-4 h-4 mr-2">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
-          </svg>
-          Trust
+        <a class="mobile-nav-link" data-page="pricing" href="pricing.html" onclick="closeMobileMenu()">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          <span>Pricing</span>
+        </a>
+        <a class="mobile-nav-link" data-page="trust" href="trust.html" onclick="closeMobileMenu()">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+          <span>Trust</span>
+        </a>
+        <a class="mobile-nav-link" data-page="faq" href="faq.html" onclick="closeMobileMenu()">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+          <span>FAQ</span>
         </a>
         <div class="pt-2 border-t border-gray-200 dark:border-gray-700">
-          <a href="radar/vendor-threat-radar.html" class="block w-full px-4 py-2 rounded-lg text-sm font-semibold text-center text-white bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green transition-colors">
+          <a href="radar/vendor-threat-radar.html" class="block w-full px-4 py-2 rounded-lg text-sm font-semibold text-center text-white bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green transition-colors" onclick="closeMobileMenu()">
             Vendor Radar
           </a>
         </div>
-        <!-- Secondary links in footer section -->
-        <div class="pt-2 border-t border-gray-200 dark:border-gray-700 space-y-2">
-          <a href="faq.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
-            FAQ
-          </a>
-          <a href="contact.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
-            Contact
-          </a>
-        </div>
-      </div>
-      <div class="px-4 py-2 border-t border-gray-200 dark:border-gray-700 mt-2 pt-2">
+      </nav>
+      <!-- Legal Links Section -->
+      <div class="px-4 py-2 border-t border-gray-200 dark:border-gray-700 mt-4 pt-4">
         <div class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Legal</div>
         <div class="space-y-1">
-          <a href="legal/privacy-policy.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
+          <a href="legal/privacy-policy.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2" onclick="closeMobileMenu()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
             Privacy Policy
           </a>
-          <a href="legal/cookie-policy.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
+          <a href="legal/cookie-policy.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2" onclick="closeMobileMenu()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>
             Cookie Policy
           </a>
-          <a href="legal/terms.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
+          <a href="legal/terms.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2" onclick="closeMobileMenu()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>
             Terms of Service
           </a>
-          <a href="legal/acceptable-use-policy.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
+          <a href="legal/acceptable-use-policy.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2" onclick="closeMobileMenu()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path></svg>
             Acceptable Use Policy
           </a>
@@ -436,30 +561,37 @@
     </div>
   </div>
 </div>
-      <main class="flex-1 pt-[var(--nav-height,64px)]">
+<main class="flex-1 pt-[var(--nav-height,64px)]">
         <!-- Breadcrumb Navigation -->
-        <nav aria-label="Breadcrumb" class="sticky z-40 w-full h-10 sm:h-11 text-sm border-b border-gray-200 dark:border-gray-700 transition-colors px-4 sm:px-6 lg:px-8 flex items-center backdrop-blur-sm bg-white/95 dark:bg-gray-900/95" style="top: var(--nav-height, 64px);">
-          <div class="max-w-7xl mx-auto w-full">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-1">
-                <div class="flex items-center">
-                  <a class="transition-colors flex items-center text-gray-600 dark:text-gray-400 hover:text-vendorsoluce-green" href="index.html">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home h-4 w-4 mr-1"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>Home</a>
-                  </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right h-4 w-4 flex-shrink-0 text-gray-400"><path d="m9 18 6-6-6-6"></path></svg>
-                  <div class="flex items-center">
-                    <span class="font-medium flex items-center text-vendorsoluce-green">Account</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </nav>
+        <nav aria-label="Breadcrumb" class="sticky top-[var(--nav-height,64px)] z-40 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700 transition-colors" data-breadcrumb="true">
+          <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-2 sm:py-2.5">
+            <ol class="flex items-center space-x-1 sm:space-x-2 text-sm">
+              <li>
+                <a class="text-gray-600 hover:text-vendorsoluce-green dark:text-gray-400 dark:hover:text-vendorsoluce-light-green transition-colors flex items-center" href="index.html">
+                  <svg class="w-4 h-4 mr-1" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                  </svg>
+                  <span>Home</span>
+                </a>
+              </li>
+              <li class="flex items-center">
+                <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 mx-1" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                  <path d="m9 18 6-6"></path>
+                </svg>
+              </li>
+              <li>
+                <span aria-current="page" class="text-vendorsoluce-green dark:text-vendorsoluce-light-green font-medium">Account</span>
+              </li>
+            </ol>
+          </div>
+        </nav>
           
           <!-- Account Content -->
           <section class="py-12 px-4 sm:px-6 lg:px-8">
             <div class="max-w-4xl mx-auto space-y-6 mb-12">
               <!-- Account Info Card -->
-              <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-8">
+              <div class="modern-card p-6 md:p-8">
                 <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-circle mr-2 text-vendorsoluce-green"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle><path d="M12 1v6m0 6v6"></path></svg>
                   Account Information
@@ -474,7 +606,7 @@
               </div>
 
               <!-- Privacy Settings Card -->
-              <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-8">
+              <div class="modern-card p-6 md:p-8">
                 <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check mr-2 text-vendorsoluce-green"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
                   Privacy & Security
@@ -498,7 +630,7 @@
               </div>
 
               <!-- Preferences Card -->
-              <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-8">
+              <div class="modern-card p-6 md:p-8">
                 <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings mr-2 text-vendorsoluce-green"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                   Preferences
@@ -513,7 +645,7 @@
               </div>
 
               <!-- Actions Card -->
-              <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-8">
+              <div class="modern-card p-6 md:p-8">
                 <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap mr-2 text-vendorsoluce-green"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
                   Quick Actions
@@ -549,7 +681,7 @@
         <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-16 w-16 sm:h-20 sm:w-20 transition-transform duration-300 hover:scale-110 flex-shrink-0 block opacity-100" loading="eager">
         <div class="brand-text">
           <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">VendorSoluce&trade;</span>
-          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter" style="letter-spacing: -0.02em; margin-top: -3px;">Supply Chain Assurance</span>
+          <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-vendorsoluce-green/80 text-gray-700 dark:text-vendorsoluce-light-green font-normal leading-tight tracking-tighter tagline-text">Supply Chain Assurance</span>
           <span class="block text-[9px] sm:text-[10px] md:text-[10px] text-gray-600 dark:text-gray-400 font-normal leading-tight">by ERMITS</span>
           <div class="text-sm mt-2 text-gray-700 dark:text-gray-300 leading-tight">
             <div>VendorSoluce&trade; Supply Chain Assurance &mdash;</div>
@@ -573,8 +705,8 @@
           <ul class="space-y-1 leading-tight">
             <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="radar/vendor-threat-radar.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-3.5 h-3.5 text-current inline-block"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path><circle cx="12" cy="12" r="2"></circle></svg>Vendor Radar</a></li>
             <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="index.html#best-practices"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>Best Practices</a></li>
-            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-3.5 h-3.5 text-current inline-block"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>Contact</a></li>
             <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="faq.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>FAQ</a></li>
+            <li><a class="text-sm font-medium flex items-center gap-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white transition-colors" href="contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-3.5 h-3.5 text-current inline-block"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>Contact</a></li>
           </ul>
         </div>
         <div class="flex-1">
@@ -592,7 +724,7 @@
       <div class="flex flex-col sm:flex-row items-center gap-3 flex-1 justify-center lg:justify-start">
         <div class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-secure-green/10 border border-secure-green/30 status-badge-secure">
           <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="w-3.5 h-3.5 block opacity-100" loading="eager">
-          <span class="text-[10px] sm:text-xs font-medium text-secure-green">Privacy-First • Local Storage</span>
+          <span class="text-[10px] sm:text-xs font-medium text-secure-green">Local browser-based analysis</span>
         </div>
         <div class="flex items-center space-x-1.5">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle2 w-3.5 h-3.5 text-secure-green"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>

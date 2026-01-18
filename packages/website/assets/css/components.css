@@ -152,3 +152,94 @@
   .grid-3{ grid-template-columns: 1fr; }
   .nav-links{ display:none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SEMANTIC UI COMPONENTS - Aligned with CyberCaution polishing
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* Modern Card Component */
+.modern-card {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+}
+
+.dark .modern-card {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+/* Navigation Link Styles - Polished hover and active states */
+/* Use minimal styles to avoid breaking Tailwind classes */
+.nav-link {
+  /* Let Tailwind handle display, padding, etc. */
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* Hover effect ONLY for inactive links - only override color/background */
+.nav-link:not(.nav-link-active):not(.bg-vendorsoluce-green):hover {
+  color: #33691E !important;
+  background-color: rgba(51, 105, 30, 0.1) !important;
+}
+
+.dark .nav-link:not(.nav-link-active):not(.bg-vendorsoluce-green):hover {
+  color: white !important;
+}
+
+/* Active link styles - green background with white text */
+.nav-link.nav-link-active,
+.nav-link.bg-vendorsoluce-green {
+  background-color: #33691E !important;
+  color: white !important;
+}
+
+/* CRITICAL: Prevent ANY hover effects on active links */
+.nav-link.nav-link-active:hover,
+.nav-link.bg-vendorsoluce-green:hover {
+  background-color: #33691E !important;
+  color: white !important;
+}
+
+/* Mobile navigation link styles - same rules */
+.mobile-nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  color: inherit;
+  text-decoration: none;
+}
+
+.mobile-nav-link:not(.nav-link-active):not(.bg-vendorsoluce-green):hover {
+  color: #33691E !important;
+  background-color: rgba(51, 105, 30, 0.1) !important;
+}
+
+.dark .mobile-nav-link:not(.nav-link-active):not(.bg-vendorsoluce-green):hover {
+  color: white !important;
+}
+
+.mobile-nav-link.nav-link-active,
+.mobile-nav-link.bg-vendorsoluce-green {
+  background-color: #33691E !important;
+  color: white !important;
+}
+
+.mobile-nav-link.nav-link-active:hover,
+.mobile-nav-link.bg-vendorsoluce-green:hover {
+  background-color: #33691E !important;
+  color: white !important;
+}
+
+/* Ensure SVG icons inherit the text color */
+.nav-link svg,
+.mobile-nav-link svg {
+  color: currentColor;
+}
