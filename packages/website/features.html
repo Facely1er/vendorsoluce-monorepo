@@ -145,9 +145,17 @@
     
     /* Feature card compatibility - use modern-card instead */
     .feature-card {
-      /* @apply is a Tailwind CSS directive */
-      /* stylelint-disable-next-line at-rule-no-unknown */
-      @apply modern-card;
+      border-radius: 0.75rem;
+      border-width: 1px;
+      border-color: rgb(229 231 235);
+      background-color: rgb(255 255 255);
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .dark .feature-card {
+      border-color: rgb(55 65 81) !important;
+      background-color: rgb(31 41 55) !important;
     }
     /* Prevent hover effects on active Vendor Radar button */
     nav a[aria-current="page"][style*="pointer-events: none"],
