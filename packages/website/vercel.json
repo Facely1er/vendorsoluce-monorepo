@@ -3,6 +3,9 @@
   "public": true,
   "cleanUrls": true,
   "trailingSlash": false,
+  "buildCommand": "npm run build:css",
+  "installCommand": "cd ../.. && npm install",
+  "outputDirectory": ".",
   "redirects": [
     {
       "source": "/best-practices",

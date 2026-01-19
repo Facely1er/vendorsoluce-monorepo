@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "build": "npm run build:css",
     "build:css": "tailwindcss -i ./src/tailwind.css -o ./assets/css/tailwind.css --minify",
     "watch:css": "tailwindcss -i ./src/tailwind.css -o ./assets/css/tailwind.css --watch",
     "serve": "npx http-server . -p 8080 -c-1 --cors",
