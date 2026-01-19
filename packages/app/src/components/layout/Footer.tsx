@@ -12,8 +12,7 @@ import {
   ArrowRight,
   HelpCircle,
   Shield,
-  Scale,
-  Cookie
+  Scale
 } from 'lucide-react';
 import { isVendorPortalDomain } from '../../utils/domainDetection';
 import { config } from '../../utils/config';
@@ -43,7 +42,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Solutions */}
-          <div className="md:px-4">
+          <div className="md:px-6 lg:px-8">
             <h3 className="text-lg font-semibold mb-3">
               {t('footer.sections.solutions', 'Solutions')}
             </h3>
@@ -94,7 +93,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Resources */}
-          <div className="md:px-4">
+          <div className="md:px-6 lg:px-8">
             <h3 className="text-lg font-semibold mb-3">
               {t('footer.sections.resources', 'Resources')}
             </h3>
@@ -138,7 +137,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Legal */}
-          <div className="md:px-4">
+          <div className="md:px-6 lg:px-8">
             <h3 className="text-lg font-semibold mb-3">
               {t('footer.sections.legal', 'Legal')}
             </h3>
@@ -159,7 +158,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/cookie-policy" className="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap">
-                  <Cookie className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
+                  <FileText className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
                   <span>Cookie Policy</span>
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
@@ -177,16 +176,9 @@ const Footer: React.FC = () => {
 
         {/* Bottom Section */}
         <div className="border-t border-gray-800 mt-6 pt-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="flex justify-center">
             <div className="text-gray-400 text-sm">
               {t('footer.copyright', '© 2025 ERMITS LLC. All rights reserved.')}
-            </div>
-            <div className="mt-4 md:mt-0">
-              <Link to="/supply-chain-assessment" className="inline-flex items-center px-4 py-2 bg-vendorsoluce-green text-white rounded-md hover:bg-vendorsoluce-dark-green transition-colors text-sm">
-                <Target className="h-4 w-4 mr-2" />
-                {t('footer.cta.text', 'Start Free Assessment')}
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Link>
             </div>
           </div>
         </div>

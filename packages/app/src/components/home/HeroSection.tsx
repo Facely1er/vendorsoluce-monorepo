@@ -21,28 +21,28 @@ const HeroSection: React.FC = () => {
   ];
   
   return (
-    <section className="relative text-white py-16 px-4 sm:px-6 lg:px-8 overflow-hidden min-h-screen">
+    <section className="relative text-white pt-8 md:pt-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Background Image */}
-      <div className="absolute inset-0 z-0 min-h-screen hero-background"></div>
+      <div className="absolute inset-0 z-0 hero-background"></div>
       
       {/* Dynamic Theme Overlay */}
-      <div className="absolute inset-0 z-10 min-h-screen hero-overlay"></div>
+      <div className="absolute inset-0 z-10 hero-overlay"></div>
       
       {/* Content */}
       <div className="max-w-7xl mx-auto relative z-20">
         <div className="relative">
           <div className="text-center">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 opacity-0 animate-fade-in-up animate-delay-100">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 opacity-0 animate-fade-in-up animate-delay-100">
               {t('home.hero.title_line1')} <br />
               {t('home.hero.title_line2')}
             </h1>
             
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-100 mb-8 max-w-4xl mx-auto opacity-0 animate-fade-in-up animate-delay-300">
+            <p className="text-base md:text-lg lg:text-xl text-gray-100 mb-4 max-w-4xl mx-auto opacity-0 animate-fade-in-up animate-delay-300">
               {t('home.hero.subtitle')}
             </p>
             
-            <div className="text-xl text-gray-100 mb-10 max-w-4xl mx-auto opacity-0 animate-fade-in-up animate-delay-500">
-              <div className="h-24 md:h-28 lg:h-32 flex items-center justify-center">
+            <div className="text-base md:text-lg text-gray-100 mb-1 max-w-4xl mx-auto opacity-0 animate-fade-in-up animate-delay-500">
+              <div className="h-14 md:h-16 lg:h-20 flex items-center justify-center">
                 <TextCarousel 
                   texts={carouselTexts}
                   interval={4000}
@@ -54,15 +54,15 @@ const HeroSection: React.FC = () => {
             
             {/* Trial Message */}
             {!isAuthenticated && (
-              <div className="mb-6 opacity-0 animate-fade-in-up animate-delay-600">
-                <p className="text-base md:text-lg text-gray-100">
+              <div className="mb-2 opacity-0 animate-fade-in-up animate-delay-600">
+                <p className="text-sm md:text-base text-gray-100">
                   <span className="font-semibold">14-day free trial</span> - No credit card required
                 </p>
               </div>
             )}
             
             {/* Primary CTAs */}
-            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8 opacity-0 animate-fade-in-up animate-delay-700">
+            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-4 opacity-0 animate-fade-in-up animate-delay-700">
               {!isAuthenticated ? (
                 <>
                   <Link to="/signin?redirect=/dashboard">
@@ -96,7 +96,7 @@ const HeroSection: React.FC = () => {
             
             {/* Secondary Quick Links */}
             {!isAuthenticated && (
-              <div className="flex flex-wrap justify-center gap-3 mb-8 opacity-0 animate-fade-in-up animate-delay-800">
+              <div className="flex flex-wrap justify-center gap-3 mb-6 opacity-0 animate-fade-in-up animate-delay-800">
                 <Link to="/tools/vendor-risk-calculator" className="text-sm text-gray-200 hover:text-white underline transition-colors">
                   Try Free Tools
                 </Link>
@@ -112,12 +112,12 @@ const HeroSection: React.FC = () => {
             )}
             
             {/* Key Benefits */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 opacity-0 animate-fade-in-up animate-delay-900 hover:bg-white/15 hover:scale-105 transition-all duration-300 hover:shadow-xl cursor-pointer">
-                <div className="flex items-center justify-center mb-4">
-                  <Zap className="h-8 w-8 text-yellow-300" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto pb-4 md:pb-6">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 opacity-0 animate-fade-in-up animate-delay-900 hover:bg-white/15 hover:scale-105 transition-all duration-300 hover:shadow-xl cursor-pointer">
+                <div className="flex items-center justify-center mb-3">
+                  <Zap className="h-6 w-6 text-yellow-300" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">{t('home.hero.benefits.section1.title')}</h3>
+                <h3 className="text-lg font-semibold mb-3">{t('home.hero.benefits.section1.title')}</h3>
                 <div className="text-gray-100 text-m space-y-2">
                   <div className="flex items-start">
                     <CheckCircle className="h-4 w-4 mr-2 text-green-300 mt-0.5 flex-shrink-0" />
@@ -134,11 +134,11 @@ const HeroSection: React.FC = () => {
                 </div>
               </div>
               
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 opacity-0 animate-fade-in-up animate-delay-1100 hover:bg-white/15 hover:scale-105 transition-all duration-300 hover:shadow-xl cursor-pointer">
-                <div className="flex items-center justify-center mb-4">
-                  <Eye className="h-8 w-8 text-blue-300" />
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 opacity-0 animate-fade-in-up animate-delay-1100 hover:bg-white/15 hover:scale-105 transition-all duration-300 hover:shadow-xl cursor-pointer">
+                <div className="flex items-center justify-center mb-3">
+                  <Eye className="h-6 w-6 text-blue-300" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">{t('home.hero.benefits.section2.title')}</h3>
+                <h3 className="text-lg font-semibold mb-3">{t('home.hero.benefits.section2.title')}</h3>
                 <div className="text-gray-100 text-m space-y-2">
                   <div className="flex items-start">
                     <CheckCircle className="h-4 w-4 mr-2 text-green-300 mt-0.5 flex-shrink-0" />
@@ -155,11 +155,11 @@ const HeroSection: React.FC = () => {
                 </div>
               </div>
               
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 opacity-0 animate-fade-in-up animate-delay-1300 hover:bg-white/15 hover:scale-105 transition-all duration-300 hover:shadow-xl cursor-pointer">
-                <div className="flex items-center justify-center mb-4">
-                  <Shield className="h-8 w-8 text-green-300" />
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 opacity-0 animate-fade-in-up animate-delay-1300 hover:bg-white/15 hover:scale-105 transition-all duration-300 hover:shadow-xl cursor-pointer">
+                <div className="flex items-center justify-center mb-3">
+                  <Shield className="h-6 w-6 text-green-300" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">{t('home.hero.benefits.section3.title')}</h3>
+                <h3 className="text-lg font-semibold mb-3">{t('home.hero.benefits.section3.title')}</h3>
                 <div className="text-gray-100 text-m space-y-2">
                   <div className="flex items-start">
                     <CheckCircle className="h-4 w-4 mr-2 text-green-300 mt-0.5 flex-shrink-0" />
