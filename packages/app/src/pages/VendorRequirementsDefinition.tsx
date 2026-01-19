@@ -17,9 +17,12 @@ import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import JourneyProgress from '../components/journey/JourneyProgress';
 import BackToDashboardLink from '../components/common/BackToDashboardLink';
+import VendorRequirementsList from '../components/vendor-requirements/VendorRequirementsList';
+import RequirementSummary from '../components/vendor-requirements/RequirementSummary';
 import { useVendorRequirements } from '../hooks/useVendorRequirements';
 import { useVendorPortfolio } from './tools/VendorRiskRadar/hooks/useVendorPortfolio';
 import { getRiskTierFromScore, getRequirementCountForTier } from '../utils/requirementMapping';
+import type { RequirementSummary as RequirementSummaryType } from '../types/requirements';
 import { 
   Shield, 
   ArrowRight, 
@@ -108,6 +111,46 @@ const VendorRequirementsDefinition: React.FC = () => {
       totalVendors: vendors.length
     };
   }, [vendors, requirements]);
+
+  // Calculate requirement summary
+  const requirementSummary: RequirementSummaryType = useMemo(() => {
+    const vendorsByTier = {
+      Critical: requirements.filter(r => r.riskTier === 'Critical').length,
+      High: requirements.filter(r => r.riskTier === 'High').length,
+      Medium: requirements.filter(r => r.riskTier === 'Medium').length,
+      Low: requirements.filter(r => r.riskTier === 'Low').length
+    };
+
+    const requirementsByTier = {
+      Critical: requirements.filter(r => r.riskTier === 'Critical').reduce((sum, r) => sum + r.requirements.length, 0),
+      High: requirements.filter(r => r.riskTier === 'High').reduce((sum, r) => sum + r.requirements.length, 0),
+      Medium: requirements.filter(r => r.riskTier === 'Medium').reduce((sum, r) => sum + r.requirements.length, 0),
+      Low: requirements.filter(r => r.riskTier === 'Low').reduce((sum, r) => sum + r.requirements.length, 0)
+    };
+
+    const gapsByTier = {
+      Critical: requirements.filter(r => r.riskTier === 'Critical').reduce((sum, r) => sum + r.gaps.length, 0),
+      High: requirements.filter(r => r.riskTier === 'High').reduce((sum, r) => sum + r.gaps.length, 0),
+      Medium: requirements.filter(r => r.riskTier === 'Medium').reduce((sum, r) => sum + r.gaps.length, 0),
+      Low: requirements.filter(r => r.riskTier === 'Low').reduce((sum, r) => sum + r.gaps.length, 0)
+    };
+
+    const totalCompliant = requirements.reduce((sum, req) => 
+      sum + req.gaps.filter(g => g.status === 'compliant').length, 0
+    );
+    const totalReqCount = requirements.reduce((sum, req) => sum + req.requirements.length, 0);
+    const complianceRate = totalReqCount > 0 ? Math.round((totalCompliant / totalReqCount) * 100) : 0;
+
+    return {
+      totalVendors: requirements.length,
+      vendorsByTier,
+      totalRequirements: stats.totalRequirements,
+      requirementsByTier,
+      totalGaps: stats.totalGaps,
+      gapsByTier,
+      complianceRate
+    };
+  }, [requirements, stats]);
 
   const loading = vendorsLoading || requirementsLoading || isGenerating;
 
@@ -241,6 +284,11 @@ const VendorRequirementsDefinition: React.FC = () => {
         })}
       </div>
 
+      {/* Requirement Summary */}
+      {requirements.length > 0 && (
+        <RequirementSummary summary={requirementSummary} showDetails={true} />
+      )}
+
       {/* Vendor Requirements List */}
       <Card className="mb-6">
         <CardHeader>
@@ -279,68 +327,15 @@ const VendorRequirementsDefinition: React.FC = () => {
               </Button>
             </div>
           ) : (
-            <div className="space-y-4">
-              {requirements.map(requirement => {
-                const vendor = vendors.find(v => v.id === requirement.vendorId);
-                const riskScore = vendor?.residualRisk || vendor?.inherentRisk || requirement.riskScore;
-                
-                return (
-                  <Card key={requirement.id} className="border-l-4 border-l-vendorsoluce-green">
-                    <CardContent className="p-4">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                              {requirement.vendorName}
-                            </h3>
-                            <Badge 
-                              variant="outline"
-                              className={
-                                requirement.riskTier === 'Critical' ? 'border-red-500 text-red-700 dark:text-red-400' :
-                                requirement.riskTier === 'High' ? 'border-orange-500 text-orange-700 dark:text-orange-400' :
-                                requirement.riskTier === 'Medium' ? 'border-yellow-500 text-yellow-700 dark:text-yellow-400' :
-                                'border-green-500 text-green-700 dark:text-green-400'
-                              }
-                            >
-                              {requirement.riskTier} Risk
-                            </Badge>
-                            <span className="text-sm text-gray-500 dark:text-gray-400">
-                              Score: {riskScore}
-                            </span>
-                          </div>
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-3">
-                            <div>
-                              <div className="text-xs text-gray-500 dark:text-gray-400">Requirements</div>
-                              <div className="text-lg font-semibold text-gray-900 dark:text-white">
-                                {requirement.requirements.length}
-                              </div>
-                            </div>
-                            <div>
-                              <div className="text-xs text-gray-500 dark:text-gray-400">Gaps</div>
-                              <div className="text-lg font-semibold text-orange-600">
-                                {requirement.gaps.length}
-                              </div>
-                            </div>
-                            <div>
-                              <div className="text-xs text-gray-500 dark:text-gray-400">Status</div>
-                              <div className="text-lg font-semibold text-gray-900 dark:text-white">
-                                {requirement.status}
-                              </div>
-                            </div>
-                            <div>
-                              <div className="text-xs text-gray-500 dark:text-gray-400">NIST Framework</div>
-                              <div className="text-lg font-semibold text-vendorsoluce-green">
-                                SP 800-161
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
+            <VendorRequirementsList
+              requirements={requirements}
+              onRequirementUpdate={(vendorId, updatedRequirements) => {
+                // Handle requirement updates if needed
+                console.log('Update requirements for vendor:', vendorId, updatedRequirements);
+              }}
+              showGapAnalysis={true}
+              showRequirementDetails={true}
+            />
           )}
         </CardContent>
       </Card>
