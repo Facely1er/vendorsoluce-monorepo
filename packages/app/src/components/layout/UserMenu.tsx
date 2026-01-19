@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { User, LogOut, Settings, UserCog, Bell, Activity, Mail } from 'lucide-react';
+import { User, LogOut, Settings, UserCog, Bell, Activity, Mail, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { Button } from '../ui/Button';
@@ -131,6 +131,19 @@ const UserMenu: React.FC = () => {
             <HelpCircle className="h-4 w-4 mr-2" />
             Take Product Tour
           </button>
+          
+          <a
+            href="https://vendorsoluce.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+            onClick={() => setIsOpen(false)}
+          >
+            <ExternalLink className="h-4 w-4 mr-2" />
+            Back to Website
+          </a>
+          
+          <div className="border-t border-gray-200 dark:border-gray-700 my-1"></div>
           
           <button
             onClick={() => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, ChevronRight, Home, Layers, FileJson, BarChart3, BookOpen, Phone, Users, DollarSign, Command, FileText, Code } from 'lucide-react';
+import { Menu, X, ChevronDown, ChevronRight, Home, Layers, FileJson, BarChart3, BookOpen, Phone, Users, DollarSign, Command, FileText, Code, Shield, HelpCircle, ExternalLink } from 'lucide-react';
 import { MenuItem } from '../../types';
 import ThemeToggle from './ThemeToggle';
 import UserMenu from './UserMenu';
@@ -80,6 +80,8 @@ const Navbar: React.FC = () => {
     { label: t('navigation.solutions'), href: '#', icon: 'Layers' },
     { label: t('navigation.resources'), href: '#', icon: 'BookOpen' },
     { label: t('navigation.pricing'), href: '/pricing', icon: 'DollarSign' },
+    { label: 'Trust', href: 'https://vendorsoluce.com/trust.html', icon: 'Shield', external: true },
+    { label: 'FAQ', href: 'https://vendorsoluce.com/faq.html', icon: 'HelpCircle', external: true },
   ];
 
   const solutionItems: MenuItem[] = [
@@ -171,6 +173,9 @@ const Navbar: React.FC = () => {
       Phone: <Phone size={16} className="flex-shrink-0" />,
       FileText: <FileText size={15} className="flex-shrink-0" />,
       Code: <Code size={15} className="flex-shrink-0" />,
+      Shield: <Shield size={16} className="flex-shrink-0" />,
+      HelpCircle: <HelpCircle size={16} className="flex-shrink-0" />,
+      ExternalLink: <ExternalLink size={16} className="flex-shrink-0" />,
     };
     
     return iconName in icons ? icons[iconName as keyof typeof icons] : null;
@@ -316,15 +321,30 @@ const Navbar: React.FC = () => {
                   )}
                 </div>
               ) : (
-                <Link
-                  key={item.label}
-                  to={item.href}
-                  className={`${getActiveLinkClasses(isActiveLink(item.href))} px-2.5 py-1.5`}
-                  title={item.label}
-                >
-                  {getIcon(item.icon as string)}
-                  <span className="ml-1.5 text-xs">{item.label}</span>
-                </Link>
+                (item as any).external ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${getActiveLinkClasses(false)} px-2.5 py-1.5`}
+                    title={item.label}
+                  >
+                    {getIcon(item.icon as string)}
+                    <span className="ml-1.5 text-xs">{item.label}</span>
+                    <ExternalLink size={12} className="ml-1 opacity-60" />
+                  </a>
+                ) : (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className={`${getActiveLinkClasses(isActiveLink(item.href))} px-2.5 py-1.5`}
+                    title={item.label}
+                  >
+                    {getIcon(item.icon as string)}
+                    <span className="ml-1.5 text-xs">{item.label}</span>
+                  </Link>
+                )
               )
             )}
           </div>
@@ -510,6 +530,19 @@ const Navbar: React.FC = () => {
                     </div>
                   )}
                 </div>
+              ) : (item as any).external ? (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`text-base font-medium flex items-center rounded-md px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {getIcon(item.icon as string)}
+                  <span className="ml-2">{item.label}</span>
+                  <ExternalLink size={14} className="ml-2 opacity-60" />
+                </a>
               ) : (
                 <Link
                   key={item.label}

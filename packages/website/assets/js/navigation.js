@@ -7,6 +7,59 @@
     'use strict';
 
     /**
+     * Initialize Dropdown Menus
+     */
+    function initDropdowns() {
+        const dropdownButtons = document.querySelectorAll('[data-dropdown-toggle]');
+        
+        dropdownButtons.forEach(button => {
+            const dropdownId = button.getAttribute('data-dropdown-toggle');
+            const dropdown = document.getElementById(dropdownId + '-dropdown');
+            const parent = button.closest('.nav-dropdown');
+            
+            if (!dropdown || !parent) return;
+            
+            // Toggle dropdown on click
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isOpen = parent.classList.contains('open');
+                
+                // Close all other dropdowns
+                document.querySelectorAll('.nav-dropdown').forEach(d => {
+                    if (d !== parent) {
+                        d.classList.remove('open');
+                    }
+                });
+                
+                // Toggle current dropdown
+                if (isOpen) {
+                    parent.classList.remove('open');
+                } else {
+                    parent.classList.add('open');
+                }
+            });
+        });
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-dropdown')) {
+                document.querySelectorAll('.nav-dropdown').forEach(d => {
+                    d.classList.remove('open');
+                });
+            }
+        });
+        
+        // Close dropdowns on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.nav-dropdown').forEach(d => {
+                    d.classList.remove('open');
+                });
+            }
+        });
+    }
+
+    /**
      * Initialize Mobile Menu
      */
     function initMobileMenu() {
@@ -178,6 +231,7 @@
         // Wait for DOM to be ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', function() {
+                initDropdowns();
                 initMobileMenu();
                 setActiveNavLink();
                 updateBreadcrumbHeight();
@@ -186,6 +240,7 @@
                 window.addEventListener('resize', updateBreadcrumbHeight);
             });
         } else {
+            initDropdowns();
             initMobileMenu();
             setActiveNavLink();
             updateBreadcrumbHeight();
