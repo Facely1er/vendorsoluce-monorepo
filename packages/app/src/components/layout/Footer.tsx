@@ -12,7 +12,8 @@ import {
   ArrowRight,
   HelpCircle,
   Shield,
-  Scale
+  Scale,
+  Cookie
 } from 'lucide-react';
 import { isVendorPortalDomain } from '../../utils/domainDetection';
 import { config } from '../../utils/config';
@@ -42,35 +43,35 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Solutions */}
-          <div>
+          <div className="md:px-4">
             <h3 className="text-lg font-semibold mb-3">
               {t('footer.sections.solutions', 'Solutions')}
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/supply-chain-assessment" className="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap">
-                  <Target className="h-4 w-4 mr-2 text-vendorsoluce-green" />
+                  <Target className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
                   <span>{t('footer.links.solutions.supplyChainAssessment', 'Supply Chain Assessment')}</span>
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
               <li>
                 <Link to="/sbom-analyzer" className="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap">
-                  <FileSearch className="h-4 w-4 mr-2 text-vendorsoluce-teal" />
+                  <FileSearch className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
                   <span>{t('footer.links.solutions.sbomAnalysis', 'SBOM Analysis')}</span>
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
               <li>
                 <Link to="/vendors" className="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap">
-                  <TrendingUp className="h-4 w-4 mr-2 text-vendorsoluce-blue" />
+                  <TrendingUp className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
                   <span>{t('footer.links.solutions.vendorRiskDashboard', 'Vendor Risk Dashboard')}</span>
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
               <li>
                 <Link to="/pricing" className="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap">
-                  <DollarSign className="h-4 w-4 mr-2 text-vendorsoluce-green" />
+                  <DollarSign className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
                   <span>{t('footer.links.solutions.pricing', 'Pricing')}</span>
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
@@ -83,7 +84,7 @@ const Footer: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Shield className="h-4 w-4 mr-2 text-vendorsoluce-green" />
+                    <Shield className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
                     <span>{t('footer.links.vendors.portal', 'Vendor Assessment Portal')}</span>
                     <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </a>
@@ -93,42 +94,42 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Resources */}
-          <div>
+          <div className="md:px-4">
             <h3 className="text-lg font-semibold mb-3">
               {t('footer.sections.resources', 'Resources')}
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/templates" className="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap">
-                  <FileText className="h-4 w-4 mr-2" />
+                  <FileText className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
                   <span>{t('footer.links.resources.templates', 'Templates & Downloads')}</span>
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
               <li>
                 <Link to="/api-docs" className="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap">
-                  <Code className="h-4 w-4 mr-2" />
+                  <Code className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
                   <span>{t('footer.links.resources.apiDocs', 'API Documentation')}</span>
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
               <li>
                 <Link to="/integration-guides" className="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap">
-                  <Code className="h-4 w-4 mr-2" />
+                  <Code className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
                   <span>{t('footer.links.resources.integrationGuides', 'Integration Guides')}</span>
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
               <li>
                 <Link to="/how-it-works" className="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap">
-                  <HelpCircle className="h-4 w-4 mr-2" />
+                  <HelpCircle className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
                   <span>{t('footer.links.resources.howItWorks', 'How It Works')}</span>
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
               <li>
                 <Link to="/contact" className="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap">
-                  <MessageSquare className="h-4 w-4 mr-2" />
+                  <MessageSquare className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
                   <span>{t('footer.links.help.contact', 'Contact Support')}</span>
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
@@ -137,35 +138,35 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Legal */}
-          <div>
+          <div className="md:px-4">
             <h3 className="text-lg font-semibold mb-3">
               {t('footer.sections.legal', 'Legal')}
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/master-terms-of-service" className="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap">
-                  <Scale className="h-4 w-4 mr-2" />
+                  <Scale className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
                   <span>Terms of Service</span>
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
               <li>
                 <Link to="/master-privacy-policy" className="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap">
-                  <Shield className="h-4 w-4 mr-2" />
+                  <Shield className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
                   <span>Privacy Policy</span>
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
               <li>
                 <Link to="/cookie-policy" className="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap">
-                  <FileText className="h-4 w-4 mr-2" />
+                  <Cookie className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
                   <span>Cookie Policy</span>
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
               <li>
                 <Link to="/acceptable-use-policy" className="text-gray-300 hover:text-white flex items-center group text-sm whitespace-nowrap">
-                  <Shield className="h-4 w-4 mr-2" />
+                  <Shield className="h-4 w-4 flex-shrink-0 mr-2 text-vendorsoluce-green" />
                   <span>Acceptable Use Policy</span>
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
