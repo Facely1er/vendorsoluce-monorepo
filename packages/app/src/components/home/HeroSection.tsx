@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Target, CheckCircle, Zap, Eye, Shield, User, DollarSign } from 'lucide-react';
+import { Target, CheckCircle, Zap, Eye, Shield, User } from 'lucide-react';
 import Button from '../ui/Button';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
@@ -77,12 +77,6 @@ const HeroSection: React.FC = () => {
                       Start Assessment
                     </Button>
                   </Link>
-                  <Link to="/pricing">
-                    <Button variant="outline" size="lg" className="border-2 border-white text-white hover:bg-white/10 hover:scale-105 transition-all duration-300 flex items-center justify-center w-full sm:w-auto">
-                      <DollarSign className="h-5 w-5 mr-2" />
-                      View Pricing
-                    </Button>
-                  </Link>
                 </>
               ) : (
                 <Link to="/supply-chain-assessment">
@@ -103,10 +97,6 @@ const HeroSection: React.FC = () => {
                 <span className="text-gray-400">•</span>
                 <Link to="/how-it-works" className="text-sm text-gray-200 hover:text-white underline transition-colors">
                   How It Works
-                </Link>
-                <span className="text-gray-400">•</span>
-                <Link to="/contact" className="text-sm text-gray-200 hover:text-white underline transition-colors">
-                  Schedule Demo
                 </Link>
               </div>
             )}
