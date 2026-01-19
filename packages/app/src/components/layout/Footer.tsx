@@ -75,6 +75,20 @@ const Footer: React.FC = () => {
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
+              {!isVendorPortal && (
+                <li>
+                  <a 
+                    href={config.vendorPortal.url} 
+                    className="text-gray-300 hover:text-white flex items-center group text-sm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Shield className="h-4 w-4 mr-2 text-vendorsoluce-green" />
+                    <span>{t('footer.links.vendors.portal', 'Vendor Assessment Portal')}</span>
+                    <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
 
@@ -112,15 +126,6 @@ const Footer: React.FC = () => {
                   <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          {/* Help & Support */}
-          <div>
-            <h3 className="text-lg font-semibold mb-3">
-              {t('footer.sections.help', 'Help & Support')}
-            </h3>
-            <ul className="space-y-2">
               <li>
                 <Link to="/contact" className="text-gray-300 hover:text-white flex items-center group text-sm">
                   <MessageSquare className="h-4 w-4 mr-2" />
@@ -130,29 +135,6 @@ const Footer: React.FC = () => {
               </li>
             </ul>
           </div>
-
-          {/* For Vendors - Only show on vendorsoluce.com */}
-          {!isVendorPortal && (
-            <div>
-              <h3 className="text-lg font-semibold mb-3">
-                {t('footer.sections.forVendors', 'For Vendors')}
-              </h3>
-              <ul className="space-y-2">
-                <li>
-                  <a 
-                    href={config.vendorPortal.url} 
-                    className="text-gray-300 hover:text-white flex items-center group text-sm"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Shield className="h-4 w-4 mr-2 text-vendorsoluce-green" />
-                    <span>{t('footer.links.vendors.portal', 'Vendor Assessment Portal')}</span>
-                    <ArrowRight className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </a>
-                </li>
-              </ul>
-            </div>
-          )}
 
           {/* Legal */}
           <div>
