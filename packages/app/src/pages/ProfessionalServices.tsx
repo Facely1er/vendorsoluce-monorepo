@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Check, Shield, Zap, Building2, ArrowRight, Clock, Users, Code, HeadphonesIcon } from 'lucide-react';
+import { Check, Shield, Zap, Building2, ArrowRight, Code, HeadphonesIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const ProfessionalServices: React.FC = () => {
