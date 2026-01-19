@@ -488,7 +488,7 @@ const VendorRiskRadar: React.FC = () => {
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Link to="/supply-chain-assessment">
+                  <Link to="/vendor-requirements">
                     <Button variant="primary" className="flex items-center gap-2">
                       Continue to Stage 2: Define Requirements
                       <ArrowRight className="w-4 h-4" />

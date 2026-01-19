@@ -1,0 +1,437 @@
+/**
+ * Vendor Requirements Definition Page (Stage 2)
+ * 
+ * This page allows users to:
+ * 1. Import vendors from Stage 1 (Vendor Risk Radar)
+ * 2. View vendor risk tiers
+ * 3. Automatically generate vendor-specific control requirements based on risk tiers
+ * 4. Use NIST SP 800-161 as the framework for control mapping
+ * 5. Identify gaps (required vs. current controls)
+ * 6. Store requirements for use in Stage 3 (Vendor Portal)
+ */
+
+import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
+import { Button } from '../components/ui/Button';
+import { Badge } from '../components/ui/Badge';
+import JourneyProgress from '../components/journey/JourneyProgress';
+import BackToDashboardLink from '../components/common/BackToDashboardLink';
+import { useVendorRequirements } from '../hooks/useVendorRequirements';
+import { useVendorPortfolio } from './tools/VendorRiskRadar/hooks/useVendorPortfolio';
+import { getRiskTierFromScore, getRequirementCountForTier } from '../utils/requirementMapping';
+import { 
+  Shield, 
+  ArrowRight, 
+  CheckCircle, 
+  AlertTriangle, 
+  ExternalLink,
+  RefreshCw,
+  FileText,
+  TrendingUp
+} from 'lucide-react';
+import type { VendorRadar } from '../types/vendorRadar';
+
+const VendorRequirementsDefinition: React.FC = () => {
+  const navigate = useNavigate();
+  const { vendors, loading: vendorsLoading } = useVendorPortfolio();
+  const {
+    requirements,
+    generateAndSaveRequirements,
+    loading: requirementsLoading,
+    error: requirementsError,
+    refetch
+  } = useVendorRequirements();
+
+  const [hasGenerated, setHasGenerated] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  // Check if requirements already exist for vendors
+  useEffect(() => {
+    if (vendors.length > 0 && requirements.length > 0) {
+      const vendorsWithRequirements = new Set(requirements.map(r => r.vendorId));
+      const allVendorsHaveRequirements = vendors.every(v => vendorsWithRequirements.has(v.id));
+      if (allVendorsHaveRequirements) {
+        setHasGenerated(true);
+      }
+    }
+  }, [vendors, requirements]);
+
+  // Auto-generate requirements when vendors are loaded (if not already generated)
+  useEffect(() => {
+    if (vendors.length > 0 && !hasGenerated && !isGenerating && !requirementsLoading) {
+      handleGenerateRequirements();
+    }
+  }, [vendors.length, hasGenerated, isGenerating, requirementsLoading]);
+
+  const handleGenerateRequirements = async () => {
+    if (vendors.length === 0 || isGenerating) return;
+
+    setIsGenerating(true);
+    try {
+      const vendorsToProcess = vendors.map(vendor => ({
+        id: vendor.id,
+        name: vendor.name,
+        riskScore: vendor.residualRisk || vendor.inherentRisk || 0
+      }));
+
+      await generateAndSaveRequirements(vendorsToProcess);
+      setHasGenerated(true);
+      await refetch();
+    } catch (error) {
+      console.error('Failed to generate requirements:', error);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  const handleContinueToStage3 = () => {
+    navigate('/vendor-assessments');
+  };
+
+  // Calculate statistics
+  const stats = useMemo(() => {
+    const vendorsByTier = {
+      Critical: vendors.filter(v => getRiskTierFromScore(v.residualRisk || v.inherentRisk || 0) === 'Critical').length,
+      High: vendors.filter(v => getRiskTierFromScore(v.residualRisk || v.inherentRisk || 0) === 'High').length,
+      Medium: vendors.filter(v => getRiskTierFromScore(v.residualRisk || v.inherentRisk || 0) === 'Medium').length,
+      Low: vendors.filter(v => getRiskTierFromScore(v.residualRisk || v.inherentRisk || 0) === 'Low').length
+    };
+
+    const totalGaps = requirements.reduce((sum, req) => sum + req.gaps.length, 0);
+    const totalRequirements = requirements.reduce((sum, req) => sum + req.requirements.length, 0);
+
+    return {
+      vendorsByTier,
+      totalGaps,
+      totalRequirements,
+      totalVendors: vendors.length
+    };
+  }, [vendors, requirements]);
+
+  const loading = vendorsLoading || requirementsLoading || isGenerating;
+
+  if (loading && vendors.length === 0) {
+    return (
+      <div className="container mx-auto px-4 py-8 flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-vendorsoluce-green"></div>
+      </div>
+    );
+  }
+
+  if (vendors.length === 0) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <BackToDashboardLink />
+        <Card>
+          <CardContent className="p-8 text-center">
+            <AlertTriangle className="h-12 w-12 text-yellow-500 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              No Vendors Found
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              You need to add vendors in Stage 1 (Vendor Risk Radar) before defining requirements.
+            </p>
+            <Button
+              variant="primary"
+              onClick={() => navigate('/tools/vendor-risk-radar')}
+            >
+              Go to Stage 1: Vendor Risk Radar
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <BackToDashboardLink />
+      
+      {/* Journey Progress */}
+      <JourneyProgress 
+        currentStage={2} 
+        stage1Complete={vendors.length > 0}
+        showNavigation={true}
+      />
+      
+      {/* Stage 2 Header */}
+      <div className="mb-6 p-4 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10 rounded-lg border border-vendorsoluce-green/30">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xs font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green uppercase tracking-wide">
+            Stage 2 of 3
+          </span>
+          <span className="text-xs text-gray-500 dark:text-gray-400">•</span>
+          <span className="text-xs font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green">
+            Understand Your Gaps
+          </span>
+        </div>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+          Outcome: "I know exactly what controls I need from each vendor"
+        </h2>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Based on your vendor risk analysis from Stage 1, we've automatically generated vendor-specific security requirements using NIST SP 800-161.
+        </p>
+      </div>
+
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Vendors</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalVendors}</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Critical Risk</div>
+            <div className="text-2xl font-bold text-red-600">{stats.vendorsByTier.Critical}</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Requirements Generated</div>
+            <div className="text-2xl font-bold text-vendorsoluce-green">{stats.totalRequirements}</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Gaps Identified</div>
+            <div className="text-2xl font-bold text-orange-600">{stats.totalGaps}</div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Requirements by Risk Tier */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        {(['Critical', 'High', 'Medium', 'Low'] as const).map(tier => {
+          const tierVendors = vendors.filter(v => 
+            getRiskTierFromScore(v.residualRisk || v.inherentRisk || 0) === tier
+          );
+          const tierRequirements = requirements.filter(r => r.riskTier === tier);
+          const requirementCount = getRequirementCountForTier(tier);
+
+          return (
+            <Card key={tier} className={tier === 'Critical' ? 'border-l-4 border-l-red-500' : ''}>
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center justify-between">
+                  <span>{tier} Risk</span>
+                  <Badge variant="outline">{tierVendors.length} vendors</Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                    {requirementCount} requirements per vendor
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                    {tierRequirements.length} vendors processed
+                  </div>
+                  {tier === 'Critical' && (
+                    <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                        Includes: SOC 2, $5M insurance, IR plan, MFA, security assessment
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+
+      {/* Vendor Requirements List */}
+      <Card className="mb-6">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <CardTitle>Vendor Requirements</CardTitle>
+            {!hasGenerated && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleGenerateRequirements}
+                disabled={isGenerating}
+              >
+                <RefreshCw className={`w-4 h-4 mr-2 ${isGenerating ? 'animate-spin' : ''}`} />
+                Generate Requirements
+              </Button>
+            )}
+          </div>
+        </CardHeader>
+        <CardContent>
+          {requirements.length === 0 ? (
+            <div className="text-center py-8">
+              <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                No Requirements Generated Yet
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Click "Generate Requirements" to create vendor-specific requirements based on risk tiers.
+              </p>
+              <Button
+                variant="primary"
+                onClick={handleGenerateRequirements}
+                disabled={isGenerating}
+              >
+                <RefreshCw className={`w-4 h-4 mr-2 ${isGenerating ? 'animate-spin' : ''}`} />
+                Generate Requirements
+              </Button>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {requirements.map(requirement => {
+                const vendor = vendors.find(v => v.id === requirement.vendorId);
+                const riskScore = vendor?.residualRisk || vendor?.inherentRisk || requirement.riskScore;
+                
+                return (
+                  <Card key={requirement.id} className="border-l-4 border-l-vendorsoluce-green">
+                    <CardContent className="p-4">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                              {requirement.vendorName}
+                            </h3>
+                            <Badge 
+                              variant="outline"
+                              className={
+                                requirement.riskTier === 'Critical' ? 'border-red-500 text-red-700 dark:text-red-400' :
+                                requirement.riskTier === 'High' ? 'border-orange-500 text-orange-700 dark:text-orange-400' :
+                                requirement.riskTier === 'Medium' ? 'border-yellow-500 text-yellow-700 dark:text-yellow-400' :
+                                'border-green-500 text-green-700 dark:text-green-400'
+                              }
+                            >
+                              {requirement.riskTier} Risk
+                            </Badge>
+                            <span className="text-sm text-gray-500 dark:text-gray-400">
+                              Score: {riskScore}
+                            </span>
+                          </div>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-3">
+                            <div>
+                              <div className="text-xs text-gray-500 dark:text-gray-400">Requirements</div>
+                              <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                                {requirement.requirements.length}
+                              </div>
+                            </div>
+                            <div>
+                              <div className="text-xs text-gray-500 dark:text-gray-400">Gaps</div>
+                              <div className="text-lg font-semibold text-orange-600">
+                                {requirement.gaps.length}
+                              </div>
+                            </div>
+                            <div>
+                              <div className="text-xs text-gray-500 dark:text-gray-400">Status</div>
+                              <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                                {requirement.status}
+                              </div>
+                            </div>
+                            <div>
+                              <div className="text-xs text-gray-500 dark:text-gray-400">NIST Framework</div>
+                              <div className="text-lg font-semibold text-vendorsoluce-green">
+                                SP 800-161
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Error Display */}
+      {requirementsError && (
+        <Card className="mb-6 border-l-4 border-l-red-500">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
+              <AlertTriangle className="w-5 h-5" />
+              <span>{requirementsError}</span>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Continue to Stage 3 */}
+      {requirements.length > 0 && (
+        <Card className="mt-6 border-l-4 border-l-vendorsoluce-green">
+          <CardContent className="p-6">
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle className="w-5 h-5 text-vendorsoluce-green" />
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    Stage 2 Complete: You Understand Your Gaps
+                  </h3>
+                </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                  You've defined requirements for {requirements.length} vendor(s) with {stats.totalGaps} missing requirements identified. Continue to Stage 3 to collect evidence from vendors.
+                </p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                  <div>
+                    <div className="text-gray-500 dark:text-gray-400">Critical Vendors</div>
+                    <div className="font-semibold text-red-600">{stats.vendorsByTier.Critical}</div>
+                  </div>
+                  <div>
+                    <div className="text-gray-500 dark:text-gray-400">High Risk</div>
+                    <div className="font-semibold text-orange-600">{stats.vendorsByTier.High}</div>
+                  </div>
+                  <div>
+                    <div className="text-gray-500 dark:text-gray-400">Total Requirements</div>
+                    <div className="font-semibold text-vendorsoluce-green">{stats.totalRequirements}</div>
+                  </div>
+                  <div>
+                    <div className="text-gray-500 dark:text-gray-400">Gaps to Address</div>
+                    <div className="font-semibold text-orange-600">{stats.totalGaps}</div>
+                  </div>
+                </div>
+              </div>
+              <Button
+                variant="primary"
+                size="lg"
+                onClick={handleContinueToStage3}
+                className="flex items-center gap-2 whitespace-nowrap"
+              >
+                Continue to Stage 3: Collect Evidence
+                <ArrowRight className="w-5 h-5" />
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Cross-Project Links */}
+      <Card className="mt-6">
+        <CardContent className="p-4">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
+            <span className="text-gray-500 dark:text-gray-400">Also try:</span>
+            <Link to="/tools/vendor-risk-radar" className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1">
+              <ArrowRight className="w-3 h-3 rotate-180" />
+              Back to Stage 1
+            </Link>
+            <Link to="/supply-chain-assessment" className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1">
+              <Shield className="w-3 h-3" />
+              Foundation Track
+            </Link>
+            <a 
+              href="https://vendorsoluce.com/how-it-works.html" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1"
+            >
+              <ExternalLink className="w-3 h-3" />
+              Learn More
+            </a>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+export default VendorRequirementsDefinition;

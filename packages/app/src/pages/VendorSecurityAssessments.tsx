@@ -23,9 +23,11 @@ import {
 import { Link } from 'react-router-dom';
 import { useVendors } from '../hooks/useVendors.mock';
 import { useVendorAssessments } from '../hooks/useVendorAssessments.mock';
+import { useVendorRequirements } from '../hooks/useVendorRequirements';
 import CreateAssessmentModal from '../components/vendor-assessments/CreateAssessmentModal';
 import AssessmentProgressTracker from '../components/vendor-assessments/AssessmentProgressTracker';
 import BackToDashboardLink from '../components/common/BackToDashboardLink';
+import JourneyProgress from '../components/journey/JourneyProgress';
 import { logger } from '../utils/logger';
 import { 
   createAssessmentWithPortal, 
@@ -70,6 +72,7 @@ const VendorSecurityAssessments: React.FC = () => {
     getAssessmentProgress,
     refetch,
   } = useVendorAssessments();
+  const { requirements: vendorRequirements, loading: requirementsLoading } = useVendorRequirements();
   
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -259,9 +262,53 @@ const VendorSecurityAssessments: React.FC = () => {
     );
   }
 
+  // Get requirements for a specific vendor
+  const getRequirementsForVendor = (vendorId: string) => {
+    return vendorRequirements.find(req => req.vendorId === vendorId);
+  };
+
+  // Check if vendor has requirements from Stage 2
+  const vendorHasRequirements = (vendorId: string) => {
+    return vendorRequirements.some(req => req.vendorId === vendorId);
+  };
+
   return (
     <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <BackToDashboardLink />
+      
+      {/* Journey Progress */}
+      <JourneyProgress 
+        currentStage={3} 
+        stage1Complete={vendors.length > 0}
+        stage2Complete={vendorRequirements.length > 0}
+        showNavigation={true}
+      />
+      
+      {/* Stage 3 Header */}
+      <div className="mb-6 p-4 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10 rounded-lg border border-vendorsoluce-green/30">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xs font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green uppercase tracking-wide">
+            Stage 3 of 3
+          </span>
+          <span className="text-xs text-gray-500 dark:text-gray-400">•</span>
+          <span className="text-xs font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green">
+            Close the Gaps
+          </span>
+        </div>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+          Outcome: "I have evidence-based proof of vendor compliance"
+        </h2>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Collect evidence from vendors based on requirements defined in Stage 2. Get proof of compliance without drowning in email.
+        </p>
+        {vendorRequirements.length > 0 && (
+          <div className="mt-3 pt-3 border-t border-vendorsoluce-green/30">
+            <p className="text-xs text-vendorsoluce-green dark:text-vendorsoluce-light-green">
+              ✓ {vendorRequirements.length} vendor(s) have requirements from Stage 2 ready for evidence collection
+            </p>
+          </div>
+        )}
+      </div>
       
       {/* Header */}
       <div className="mb-8">
@@ -515,12 +562,24 @@ const VendorSecurityAssessments: React.FC = () => {
                       <tr key={assessment.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div>
-                            <div className="text-sm font-medium text-gray-900 dark:text-white">
-                              {assessment.vendor.name}
+                            <div className="flex items-center gap-2">
+                              <div className="text-sm font-medium text-gray-900 dark:text-white">
+                                {assessment.vendor.name}
+                              </div>
+                              {vendorHasRequirements(assessment.vendor.id) && (
+                                <Badge variant="outline" className="text-xs bg-vendorsoluce-pale-green border-vendorsoluce-green text-vendorsoluce-green">
+                                  Stage 2 Ready
+                                </Badge>
+                              )}
                             </div>
                             <div className="text-sm text-gray-500 dark:text-gray-400">
                               {assessment.vendor.contact_email || assessment.contact_email}
                             </div>
+                            {vendorHasRequirements(assessment.vendor.id) && (
+                              <div className="text-xs text-vendorsoluce-green dark:text-vendorsoluce-light-green mt-1">
+                                {getRequirementsForVendor(assessment.vendor.id)?.requirements.length || 0} requirements defined
+                              </div>
+                            )}
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -633,6 +692,7 @@ const VendorSecurityAssessments: React.FC = () => {
             estimatedTime: f.estimated_time || '',
             framework_type: f.framework_type
           }))}
+          vendorRequirements={vendorRequirements}
           onClose={() => setShowCreateModal(false)}
           onSuccess={handleCreateSuccess}
         />

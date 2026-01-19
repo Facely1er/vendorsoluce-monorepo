@@ -29,7 +29,7 @@ const JourneyProgress: React.FC<JourneyProgressProps> = ({
       number: 2,
       title: 'Understand Your Gaps',
       outcome: 'I know exactly what controls I need from each vendor',
-      path: '/supply-chain-assessment',
+      path: '/vendor-requirements',
       complete: stage2Complete,
     },
     {

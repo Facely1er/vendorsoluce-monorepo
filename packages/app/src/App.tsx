@@ -53,6 +53,8 @@ const TrialPage = lazyWithRetry(() => import('./pages/TrialPage'));
 const VendorSecurityAssessments = lazyWithRetry(() => import('./pages/VendorSecurityAssessments'));
 const VendorAssessmentPortal = lazyWithRetry(() => import('./pages/VendorAssessmentPortal'));
 const VendorPortalLandingPage = lazyWithRetry(() => import('./pages/VendorPortalLandingPage'));
+const VendorRequirementsDefinition = lazyWithRetry(() => import('./pages/VendorRequirementsDefinition'));
+const VendorRequirementsDefinition = lazyWithRetry(() => import('./pages/VendorRequirementsDefinition'));
 const ProfilePage = lazyWithRetry(() => import('./pages/ProfilePage'));
 const AccountPage = lazyWithRetry(() => import('./pages/AccountPage'));
 const UserDashboard = lazyWithRetry(() => import('./pages/UserDashboard'));
@@ -149,6 +151,12 @@ function App() {
                   <Route path="/supply-chain-assessment" element={<SupplyChainAssessment />} />
                   <Route path="/supply-chain-results/:id?" element={<SupplyChainResults />} />
                   <Route path="/supply-chain-recommendations/:id" element={<SupplyChainRecommendations />} />
+                  
+                  {/* Stage 2: Vendor Requirements Definition */}
+                  <Route path="/vendor-requirements" element={<VendorRequirementsDefinition />} />
+                  
+                  {/* Stage 2: Vendor Requirements Definition */}
+                  <Route path="/vendor-requirements" element={<VendorRequirementsDefinition />} />
                   <Route path="/sbom-analyzer" element={<SBOMAnalyzer />} />
                   <Route path="/sbom-analysis/:id" element={<SBOMAnalysisPage />} />
                   <Route path="/vendors" element={<VendorRiskDashboard />} />

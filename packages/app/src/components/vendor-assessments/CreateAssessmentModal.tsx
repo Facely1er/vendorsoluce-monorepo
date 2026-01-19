@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '../ui/Button';
-import { X, Send } from 'lucide-react';
+import { Badge } from '../ui/Badge';
+import { Card, CardContent } from '../ui/Card';
+import { X, Send, Shield, CheckCircle, AlertTriangle } from 'lucide-react';
 import { logger } from '../../utils/logger';
+import type { VendorRequirement } from '../../types/requirements';
 
 interface Vendor {
   id: string;
@@ -21,6 +24,7 @@ interface Framework {
 interface CreateAssessmentModalProps {
   vendors: Vendor[];
   frameworks: Framework[];
+  vendorRequirements?: VendorRequirement[]; // Stage 2 requirements
   onClose: () => void;
   onSuccess: (assessmentData: { 
     vendorId: string; 
@@ -35,6 +39,7 @@ interface CreateAssessmentModalProps {
 const CreateAssessmentModal: React.FC<CreateAssessmentModalProps> = ({
   vendors,
   frameworks,
+  vendorRequirements = [],
   onClose,
   onSuccess
 }) => {
@@ -74,6 +79,7 @@ const CreateAssessmentModal: React.FC<CreateAssessmentModalProps> = ({
 
   const selectedVendor = vendors.find(v => v.id === formData.vendorId);
   const selectedFramework = frameworks.find(f => f.id === formData.frameworkId);
+  const selectedVendorRequirements = vendorRequirements.find(req => req.vendorId === formData.vendorId);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -111,12 +117,35 @@ const CreateAssessmentModal: React.FC<CreateAssessmentModalProps> = ({
                 required
               >
                 <option value="">Choose a vendor...</option>
-                {vendors.map((vendor) => (
-                  <option key={vendor.id} value={vendor.id}>
-                    {vendor.name}
-                  </option>
-                ))}
+                {vendors.map((vendor) => {
+                  const hasRequirements = vendorRequirements.some(req => req.vendorId === vendor.id);
+                  return (
+                    <option key={vendor.id} value={vendor.id}>
+                      {vendor.name} {hasRequirements ? '✓ (Stage 2 Ready)' : ''}
+                    </option>
+                  );
+                })}
               </select>
+              {selectedVendorRequirements && (
+                <Card className="mt-3 border-l-4 border-l-vendorsoluce-green">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Shield className="w-4 h-4 text-vendorsoluce-green" />
+                      <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                        Stage 2 Requirements Available
+                      </span>
+                    </div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                      <div>Risk Tier: <span className="font-medium">{selectedVendorRequirements.riskTier}</span></div>
+                      <div>{selectedVendorRequirements.requirements.length} requirements defined</div>
+                      <div>{selectedVendorRequirements.gaps.length} gaps identified</div>
+                      <div className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-700">
+                        <span className="text-vendorsoluce-green">✓</span> Assessment will be pre-populated with these requirements
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </div>
 
             {/* Framework Selection */}
