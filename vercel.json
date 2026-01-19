@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build --workspace=app",
+  "buildCommand": "npm run build:app",
   "outputDirectory": "packages/app/dist",
   "installCommand": "npm install",
   "framework": "vite",
