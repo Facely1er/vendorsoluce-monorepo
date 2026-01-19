@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-16">
 
           {/* Company Info - Branding Section */}
           <div className="col-span-1 md:col-span-2 md:pr-8">
@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Solutions */}
-          <div className="md:px-6 lg:px-8">
+          <div className="md:px-8 lg:px-12">
             <h3 className="text-lg font-semibold mb-3">
               {t('footer.sections.solutions', 'Solutions')}
             </h3>
@@ -93,7 +93,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Resources */}
-          <div className="md:px-6 lg:px-8">
+          <div className="md:px-8 lg:px-12">
             <h3 className="text-lg font-semibold mb-3">
               {t('footer.sections.resources', 'Resources')}
             </h3>
@@ -137,7 +137,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Legal */}
-          <div className="md:px-6 lg:px-8">
+          <div className="md:px-8 lg:px-12">
             <h3 className="text-lg font-semibold mb-3">
               {t('footer.sections.legal', 'Legal')}
             </h3>
