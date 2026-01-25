@@ -280,7 +280,8 @@
     }
     </style>
 <style id="layout-fixes">:root{--breadcrumb-height:0px;}
-main{padding-top:calc(var(--nav-height,64px) + var(--breadcrumb-height));}
+main{padding-top:var(--nav-height,64px);}
+nav[aria-label="Breadcrumb"]{margin-top:calc(-1 * var(--nav-height,64px));position:relative;z-index:40;}
 </style>
   <script>
 // Theme toggle functionality - must run immediately to prevent flash

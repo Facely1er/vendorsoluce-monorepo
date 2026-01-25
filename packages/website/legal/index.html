@@ -9,6 +9,10 @@
   <link rel="stylesheet" href="../assets/css/base.css">
   <link rel="stylesheet" href="../assets/css/components.css">
   <link rel="stylesheet" href="../assets/css/product.css">
+  <style id="layout-fixes">:root{--breadcrumb-height:0px;}
+main{padding-top:var(--nav-height,64px);}
+nav[aria-label="Breadcrumb"]{margin-top:calc(-1 * var(--nav-height,64px));position:relative;z-index:40;}
+</style>
     </head>
 <body>
     <div id="root"><div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col"><!-- Shared Header Navigation for VendorSoluce -->

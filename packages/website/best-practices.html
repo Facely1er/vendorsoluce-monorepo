@@ -21,6 +21,10 @@
     .vs-badge{display:inline-flex;align-items:center;border-radius:999px;padding:2px 6px;font-size:0.65em;background:rgba(51,105,30,.12);color:var(--vendorsoluce-green);font-weight:600;vertical-align:middle;border:none}
     html.dark .vs-badge{background:rgba(102,187,106,.18);color:var(--vendorsoluce-light-green)}
   </style>
+  <style id="layout-fixes">:root{--breadcrumb-height:0px;}
+main{padding-top:var(--nav-height,64px);}
+nav[aria-label="Breadcrumb"]{margin-top:calc(-1 * var(--nav-height,64px));position:relative;z-index:40;}
+</style>
   <script>
 // Theme toggle functionality
 (function() {
