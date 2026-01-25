@@ -12,7 +12,8 @@ import {
   ArrowRight,
   HelpCircle,
   Shield,
-  Scale
+  Scale,
+  CheckCircle2
 } from 'lucide-react';
 import { isVendorPortalDomain } from '../../utils/domainDetection';
 import { config } from '../../utils/config';
@@ -31,14 +32,22 @@ const Footer: React.FC = () => {
             <div className="flex items-center mb-4">
               <img src="/vendorsoluce.png" alt={t('footer.company.name', 'VendorSoluce™')} className="h-12 w-12" />
               <span className="ml-2">
-                <span className="block text-xl font-bold text-vendorsoluce-green dark:text-white">VendorSoluce™</span>
-                <span className="block text-xs text-gray-600 dark:text-gray-400 font-normal">A Supply Chain Assurance </span>
-                <span className="block text-xs text-gray-600 dark:text-gray-400 font-normal">by ERMITS</span>
+                <span className="block text-xl font-bold text-vendorsoluce-green">VendorSoluce™</span>
+                <span className="block text-xs text-gray-400 font-normal">Supply Chain Assurance</span>
+                <span className="block text-xs text-gray-400 font-normal">by ERMITS</span>
               </span>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
               {t('footer.company.description', 'Comprehensive supply chain risk management platform for modern organizations featuring assessments and automated compliance tools.')}
             </p>
+            {/* Status Badge */}
+            <div className="mt-4 flex items-center space-x-3">
+              <div className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-vendorsoluce-green/10 border border-vendorsoluce-green/30">
+                <img src="/vendorsoluce.png" alt="VendorSoluce Logo" className="w-3.5 h-3.5 block opacity-100" />
+                <span className="text-xs font-medium text-vendorsoluce-green">Local browser-based analysis</span>
+              </div>
+              <span className="text-xs text-gray-400">Version 1.0</span>
+            </div>
           </div>
 
           {/* Solutions */}
