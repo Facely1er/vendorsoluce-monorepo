@@ -1356,5 +1356,17 @@ html.dark footer > div > div:last-child {
 
 
 </div></div>
+<script>
+// Breadcrumb height calculation
+(function(){
+    function update(){
+        const bc = document.querySelector('[data-breadcrumb], .breadcrumb, nav[aria-label="Breadcrumb"]');
+        document.documentElement.style.setProperty('--breadcrumb-height', bc ? (bc.offsetHeight + 'px') : '0px');
+    }
+    window.addEventListener('load', update);
+    window.addEventListener('resize', update);
+    document.addEventListener('DOMContentLoaded', update);
+})();
+</script>
 </body>
 </html>
