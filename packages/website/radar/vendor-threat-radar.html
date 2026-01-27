@@ -1193,20 +1193,24 @@
         if (sunIcon) {
           sunIcon.style.display = 'block';
           sunIcon.style.visibility = 'visible';
+          sunIcon.classList.remove('hidden-icon');
         }
         if (moonIcon) {
           moonIcon.style.display = 'none';
           moonIcon.style.visibility = 'hidden';
+          moonIcon.classList.add('hidden-icon');
         }
         btn.setAttribute('aria-label', 'Switch to light mode');
       } else {
         if (sunIcon) {
           sunIcon.style.display = 'none';
           sunIcon.style.visibility = 'hidden';
+          sunIcon.classList.add('hidden-icon');
         }
         if (moonIcon) {
           moonIcon.style.display = 'block';
           moonIcon.style.visibility = 'visible';
+          moonIcon.classList.remove('hidden-icon');
         }
         btn.setAttribute('aria-label', 'Switch to dark mode');
       }
@@ -3442,12 +3446,28 @@
                     const sunIcon = btn.querySelector('.lucide-sun');
                     const moonIcon = btn.querySelector('.lucide-moon');
                     if (isDark) {
-                        if (sunIcon) sunIcon.style.display = 'block';
-                        if (moonIcon) moonIcon.style.display = 'none';
+                        if (sunIcon) {
+                            sunIcon.style.display = 'block';
+                            sunIcon.style.visibility = 'visible';
+                            sunIcon.classList.remove('hidden-icon');
+                        }
+                        if (moonIcon) {
+                            moonIcon.style.display = 'none';
+                            moonIcon.style.visibility = 'hidden';
+                            moonIcon.classList.add('hidden-icon');
+                        }
                         btn.setAttribute('aria-label', 'Switch to light mode');
                     } else {
-                        if (sunIcon) sunIcon.style.display = 'none';
-                        if (moonIcon) moonIcon.style.display = 'block';
+                        if (sunIcon) {
+                            sunIcon.style.display = 'none';
+                            sunIcon.style.visibility = 'hidden';
+                            sunIcon.classList.add('hidden-icon');
+                        }
+                        if (moonIcon) {
+                            moonIcon.style.display = 'block';
+                            moonIcon.style.visibility = 'visible';
+                            moonIcon.classList.remove('hidden-icon');
+                        }
                         btn.setAttribute('aria-label', 'Switch to dark mode');
                     }
                 });
