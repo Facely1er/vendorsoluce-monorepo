@@ -1215,6 +1215,23 @@
         btn.setAttribute('aria-label', 'Switch to dark mode');
       }
     });
+    
+    // Update floating theme toggle button icons if they exist
+    const lightIcon = document.getElementById('lightIcon');
+    const darkIcon = document.getElementById('darkIcon');
+    if (lightIcon && darkIcon) {
+      if (theme === 'dark') {
+        lightIcon.style.display = 'block';
+        lightIcon.classList.remove('hidden-icon');
+        darkIcon.style.display = 'none';
+        darkIcon.classList.add('hidden-icon');
+      } else {
+        lightIcon.style.display = 'none';
+        lightIcon.classList.add('hidden-icon');
+        darkIcon.style.display = 'block';
+        darkIcon.classList.remove('hidden-icon');
+      }
+    }
   };
   
   // Apply theme immediately to prevent flash
