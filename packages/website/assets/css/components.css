@@ -61,7 +61,7 @@
 }
 
 /* Hero */
-.hero{ padding: var(--s-10) 0 var(--s-9); }
+.hero{ padding: 0 0 var(--s-9); }
 .hero-grid{
   display:grid;
   grid-template-columns: 1.2fr .8fr;
