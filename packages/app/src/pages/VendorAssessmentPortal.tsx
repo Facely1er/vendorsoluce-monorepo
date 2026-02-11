@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { 
@@ -746,24 +746,56 @@ const VendorAssessmentPortal: React.FC = () => {
                         <div className="text-sm text-gray-600 dark:text-gray-400">Gaps Closed</div>
                       </div>
                     </div>
-                    <div className="flex flex-wrap justify-center gap-3">
-                      <Link to="/tools/vendor-risk-radar">
-                        <Button variant="outline" className="flex items-center gap-2">
-                          <ArrowLeft className="w-4 h-4" />
-                          Back to Stage 1
-                        </Button>
-                      </Link>
-                      <Link to="/supply-chain-assessment">
-                        <Button variant="outline" className="flex items-center gap-2">
-                          <ArrowLeft className="w-4 h-4" />
-                          Back to Stage 2
-                        </Button>
-                      </Link>
+                    
+                    {/* Primary Action CTA */}
+                    <div className="mb-6">
+                      <Button 
+                        variant="primary" 
+                        size="lg"
+                        className="w-full md:w-auto flex items-center gap-2 justify-center"
+                        onClick={() => {
+                          // TODO: Implement report generation
+                          logger.info('Generate Report clicked');
+                        }}
+                      >
+                        <Download className="w-5 h-5" />
+                        Generate Compliance Report
+                      </Button>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 text-center mt-2">
+                        Export evidence-based proof of vendor compliance
+                      </p>
+                    </div>
+                    
+                    {/* Navigation Options */}
+                    <div className="flex flex-wrap justify-center gap-3 mb-4">
                       <Link to="/demo">
                         <Button variant="outline" className="flex items-center gap-2">
                           <ExternalLink className="w-4 h-4" />
                           See Demo
                         </Button>
+                      </Link>
+                      <a 
+                        href="https://vendorsoluce.com" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        <Button variant="outline" className="flex items-center gap-2">
+                          <ExternalLink className="w-4 h-4" />
+                          Back to Website
+                        </Button>
+                      </a>
+                    </div>
+                    
+                    {/* Secondary Navigation */}
+                    <div className="flex flex-wrap justify-center gap-2 text-sm">
+                      <Link to="/tools/vendor-risk-radar" className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1">
+                        <ArrowLeft className="w-3 h-3" />
+                        Back to Stage 1
+                      </Link>
+                      <span className="text-gray-300 dark:text-gray-600">•</span>
+                      <Link to="/supply-chain-assessment" className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1">
+                        <ArrowLeft className="w-3 h-3" />
+                        Back to Stage 2
                       </Link>
                     </div>
                   </div>
@@ -788,6 +820,15 @@ const VendorAssessmentPortal: React.FC = () => {
                     <ArrowLeft className="w-3 h-3" />
                     Back to Stage 2
                   </Link>
+                  <a 
+                    href="https://vendorsoluce.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1"
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                    Back to Website
+                  </a>
                   <a 
                     href="https://vendorsoluce.com/how-it-works.html" 
                     target="_blank" 

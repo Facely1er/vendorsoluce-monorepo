@@ -12,8 +12,7 @@ import {
   ArrowRight,
   HelpCircle,
   Shield,
-  Scale,
-  CheckCircle2
+  Scale
 } from 'lucide-react';
 import { isVendorPortalDomain } from '../../utils/domainDetection';
 import { config } from '../../utils/config';
