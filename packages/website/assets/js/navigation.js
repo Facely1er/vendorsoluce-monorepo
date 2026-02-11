@@ -228,25 +228,20 @@
      * Initialize all navigation functionality
      */
     function init() {
-        // Wait for DOM to be ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() {
-                initDropdowns();
-                initMobileMenu();
-                setActiveNavLink();
-                updateBreadcrumbHeight();
-                
-                // Update breadcrumb height on resize
-                window.addEventListener('resize', updateBreadcrumbHeight);
-            });
-        } else {
+        function runInit() {
             initDropdowns();
             initMobileMenu();
             setActiveNavLink();
             updateBreadcrumbHeight();
-            
-            // Update breadcrumb height on resize
             window.addEventListener('resize', updateBreadcrumbHeight);
+        }
+        // Always wait for full DOM so mobile menu panel (often after script) exists
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                requestAnimationFrame(runInit);
+            });
+        } else {
+            requestAnimationFrame(runInit);
         }
     }
 
