@@ -79,8 +79,9 @@
       }
     });
 
-    // Close menu when clicking outside
+    // Close menu when clicking outside (do not run when clicking a link - let it navigate)
     document.addEventListener('click', function(e) {
+      if (e.target.closest('a[href]')) return;
       const mobileMenu = document.querySelector('[data-mobile-menu]');
       if (mobileMenu && !mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
         if (!mobileMenu.classList.contains('hidden')) {

@@ -82,8 +82,9 @@
             }
         });
 
-        // Close menu when clicking outside
+        // Close menu when clicking outside (skip if clicking a link - let it navigate)
         document.addEventListener('click', function(e) {
+            if (e.target.closest('a[href]')) return;
             if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
                 if (!mobileMenu.classList.contains('hidden')) {
                     closeMobileMenu(menuButton, mobileMenu);

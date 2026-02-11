@@ -8,6 +8,12 @@
   <!-- Tailwind CSS (compiled) -->
   <link href="assets/css/tailwind.css" rel="stylesheet"/>
   <style>
+    /* Navigation link styles - consistent with Home page */
+    .nav-link { color: rgb(55 65 81); text-decoration: none; transition: all 0.2s ease; }
+    .dark .nav-link { color: rgb(209 213 219); }
+    .nav-link:not(.nav-link-active):not(.bg-vendorsoluce-green):not(.active):hover { color: #33691E !important; background-color: rgba(51, 105, 30, 0.1) !important; }
+    html.dark .nav-link:not(.nav-link-active):not(.bg-vendorsoluce-green):not(.active):hover { color: #66BB6A !important; background-color: rgba(102, 187, 106, 0.12) !important; }
+    .nav-link svg { color: currentColor; }
     /* Active navigation link styles - only target navigation menu links (have title attribute), exclude brand logo */
     nav a[title].active,
     nav a[title][aria-current="page"] {
@@ -145,13 +151,15 @@
     .mobile-menu-position {
       top: 64px;
     }
+    nav.sticky.top-0 { z-index: 9999 !important; pointer-events: auto !important; }
+    nav.sticky.top-0 a[href] { pointer-events: auto !important; cursor: pointer; }
     .breadcrumb-nav {
       top: var(--nav-height, 64px);
     }
     </style>
-<style id="layout-fixes">:root{--breadcrumb-height:0px;}
+<style id="layout-fixes">:root{--breadcrumb-height:0px;--nav-height:64px;}
 main{padding-top:var(--nav-height,64px);}
-nav[aria-label="Breadcrumb"]{margin-top:calc(-1 * var(--nav-height,64px));position:relative;z-index:40;}
+nav[aria-label="Breadcrumb"]{margin-top:calc(-1 * var(--nav-height,64px));position:sticky;top:var(--nav-height,64px);z-index:40;min-height:2.5rem;display:flex;align-items:center;width:100%;flex-shrink:0;}
 main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
 @media (min-width:768px){main nav[aria-label="Breadcrumb"]+*{padding-top:2rem!important;}}
 </style>
@@ -463,8 +471,8 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
       <!-- Brand -->
       <div class="flex items-center flex-shrink-0 min-w-0 md:max-w-none max-w-[calc(100%-60px)]" data-tour="main-nav">
         <a class="flex items-center min-w-0 group" href="index.html">
-          <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 flex-shrink-0 transition-transform group-hover:scale-105 pointer-events-none">
-          <span class="ml-1.5 sm:ml-2 min-w-0 pointer-events-none">
+          <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 flex-shrink-0 transition-transform group-hover:scale-105">
+          <span class="ml-1.5 sm:ml-2 min-w-0">
             <div class="flex items-center gap-1.5">
               <span class="block text-[10px] sm:text-xs md:text-sm font-bold text-vendorsoluce-green dark:text-white truncate leading-tight">
                 VendorSoluce™
@@ -479,14 +487,14 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
 
       <!-- Desktop Navigation - Streamlined -->
       <div class="hidden md:flex md:items-center md:space-x-1">
-        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Home" href="index.html">
+        <a class="nav-link inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Home" href="index.html">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home w-4 h-4 mr-2">
             <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
           </svg>
           Home
         </a>
-        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="How It Works" href="how-it-works.html">
+        <a class="nav-link inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="How It Works" href="how-it-works.html">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers w-4 h-4 mr-2">
             <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path>
             <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path>
@@ -494,23 +502,23 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
           </svg>
           How It Works
         </a>
-        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Features" href="features.html">
+        <a class="nav-link inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Features" href="features.html">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star w-4 h-4 mr-2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Features
         </a>
-        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Pricing" href="pricing.html">
+        <a class="nav-link inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Pricing" href="pricing.html">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-4 h-4 mr-2">
             <line x1="12" x2="12" y1="2" y2="22"></line>
             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
           </svg>
           Pricing
         </a>
-        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Trust" href="trust.html">
+        <a class="nav-link inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Trust" href="trust.html">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-4 h-4 mr-2">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
           </svg>
           Trust
         </a>
-        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="FAQ" href="faq.html">
+        <a class="nav-link inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="FAQ" href="faq.html">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-4 h-4 mr-2">
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
@@ -522,12 +530,12 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
 
       <!-- Action Buttons (Desktop) -->
       <div class="hidden md:flex items-center space-x-1.5 sm:space-x-2 flex-shrink-0">
-        <a href="radar/vendor-threat-radar.html" class="flex items-center justify-center gap-1 px-2 py-1.5 max-w-[5.5rem] min-w-0 flex-shrink-0 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-vendorsoluce-green text-white hover:bg-vendorsoluce-dark-green font-medium text-center h-9" title="Vendor Radar">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-4 h-4 flex-shrink-0">
+        <a href="radar/vendor-threat-radar.html" class="flex items-center gap-1.5 px-2 py-1 h-9 flex-shrink-0 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-vendorsoluce-green text-white hover:bg-vendorsoluce-dark-green font-medium" title="Vendor Radar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-3.5 h-3.5 flex-shrink-0">
             <path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path>
             <circle cx="12" cy="12" r="2"></circle>
           </svg>
-          <span class="text-sm font-medium leading-tight">Vendor Radar</span>
+          <span class="text-[9px] sm:text-[10px] font-medium leading-tight text-left block">Vendor<br>Radar</span>
         </a>
         <div data-tour="user-menu">
           <a href="account.html">
@@ -803,7 +811,7 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
 </div>
 <main class="flex-1 pt-[var(--nav-height,64px)]">
     <!-- Breadcrumb Navigation -->
-    <nav aria-label="Breadcrumb" class="sticky top-[var(--nav-height,64px)] z-40 w-full h-10 sm:h-11 text-sm border-b border-gray-200 dark:border-gray-700 transition-colors px-4 sm:px-6 lg:px-8 flex items-center backdrop-blur-sm bg-white/95 dark:bg-gray-900/95" data-breadcrumb="true">
+    <nav aria-label="Breadcrumb" class="sticky top-[var(--nav-height,64px)] z-40 w-full min-h-10 flex items-center text-sm border-b border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm px-4 sm:px-6 lg:px-8" data-breadcrumb="true">
         <div class="max-w-7xl mx-auto w-full">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-1">
@@ -839,150 +847,47 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
         </div>
     </section>
 
-<section class="py-12 md:py-16 px-6 sm:px-8 lg:px-12 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-<div class="max-w-7xl mx-auto">
-<div class="process-flow-container space-y-8 md:space-y-12">
-<div class="process-step-card modern-card p-8 md:p-10 relative">
-<div class="flex flex-col md:flex-row gap-6 md:gap-8">
-<div class="flex items-start gap-4 md:gap-6">
-<div class="step-number-badge w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-2xl md:text-3xl font-bold flex-shrink-0 step-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
-<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-<circle cx="12" cy="12" r="4"></circle>
-</svg>
-</div>
-<div class="flex-1">
-<h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-3">
-<span>Discover Your Vendor Exposure</span>
-</h2>
-<div class="outcome-badge mb-4">
-<p class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green">
-Outcome: "I know exactly which vendors pose the greatest risk to my organization."
-</p>
-</div>
-<p class="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-Discover vendor exposure through intake forms, SBOM analysis, and risk signal aggregation. Get instant visibility into which vendors pose the greatest risk to your organization based on data access, business criticality, and compliance requirements.
-</p>
-<ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-600 dark:text-gray-300 mb-6">
-<li class="feature-item">Vendor intake with contact information, industry classification, and business context</li>
-<li class="feature-item">Risk scoring using weighted factors: data access, criticality, compliance requirements</li>
-<li class="feature-item">Vendor classification by risk level: Low, Medium, High, Critical</li>
-<li class="feature-item">SBOM analysis for vulnerability detection and supply chain visibility</li>
-</ul>
-<a href="https://www.application.vendorsoluce.com/tools/vendor-risk-radar" class="inline-flex items-center px-6 py-3 bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green text-white rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group">
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 group-hover:translate-x-1 transition-transform">
-<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-<circle cx="12" cy="12" r="4"></circle>
-</svg>
-Start Vendor Risk Radar
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-x-1 transition-transform">
-<path d="M5 12h14"></path>
-<path d="m12 5 7 7-7 7"></path>
-</svg>
-</a>
-</div>
-</div>
-</div>
-<!-- Connector Arrow -->
-<div class="process-connector hidden md:block"></div>
-<div class="process-arrow hidden md:block">
-<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--vendorsoluce-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M12 5v14"></path>
-<path d="m19 12-7 7-7-7"></path>
-</svg>
-</div>
-
-<div class="process-step-card modern-card p-8 md:p-10 relative">
-<div class="flex flex-col md:flex-row gap-6 md:gap-8">
-<div class="flex items-start gap-4 md:gap-6">
-<div class="step-number-badge w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-2xl md:text-3xl font-bold flex-shrink-0 step-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
-<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-<path d="M9 12l2 2 4-4"></path>
-</svg>
-</div>
-<div class="flex-1">
-<h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-3">
-<span>Understand Your Compliance Gaps</span>
-</h2>
-<div class="outcome-badge mb-4">
-<p class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green">
-Outcome: "I know exactly which security controls and compliance requirements I need from each vendor based on their risk level."
-</p>
-</div>
-<p class="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-Define security requirements using NIST SP 800-161, collect evidence, and assess vendor compliance. Generate a risk-informed gap analysis that prioritizes controls based on your specific vendor exposure and business context.
-</p>
-<ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-600 dark:text-gray-300 mb-6">
-<li class="feature-item">NIST SP 800-161 aligned assessments: 24 questions across 6 security domains</li>
-<li class="feature-item">Evidence collection linked to assessment questions and compliance controls</li>
-<li class="feature-item">SBOM analysis: Scan CycloneDX and SPDX formats for known vulnerabilities</li>
-<li class="feature-item">Risk-informed prioritization based on vendor exposure and business context</li>
-</ul>
-<a href="https://www.application.vendorsoluce.com/supply-chain-assessment" class="inline-flex items-center px-6 py-3 bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green text-white rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group">
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 group-hover:translate-x-1 transition-transform">
-<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-<path d="M9 12l2 2 4-4"></path>
-</svg>
-Start Supply Chain Assessment
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-x-1 transition-transform">
-<path d="M5 12h14"></path>
-<path d="m12 5 7 7-7 7"></path>
-</svg>
-</a>
-</div>
-</div>
-</div>
-<!-- Connector Arrow -->
-<div class="process-connector hidden md:block"></div>
-<div class="process-arrow hidden md:block">
-<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--vendorsoluce-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M12 5v14"></path>
-<path d="m19 12-7 7-7-7"></path>
-</svg>
-</div>
-
-<div class="process-step-card modern-card p-8 md:p-10 relative">
-<div class="flex flex-col md:flex-row gap-6 md:gap-8">
-<div class="flex items-start gap-4 md:gap-6">
-<div class="step-number-badge w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-2xl md:text-3xl font-bold flex-shrink-0 step-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
-<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-<path d="m9 11 3 3L22 4"></path>
-</svg>
-</div>
-<div class="flex-1">
-<h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-3">
-<span>Close the Compliance Gaps</span>
-</h2>
-<div class="outcome-badge mb-4">
-<p class="text-sm font-semibold text-vendorsoluce-green dark:text-vendorsoluce-light-green">
-Outcome: "I have evidence-based proof of vendor compliance and defensible vendor risk management decisions."
-</p>
-</div>
-<p class="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-Track vendor compliance, generate procurement-ready reports, and maintain evidence for oversight decisions. Get evidence-based proof of vendor compliance without drowning in email, with complete traceability of every decision.
-</p>
-<ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-600 dark:text-gray-300 mb-6">
-<li class="feature-item">Risk-driven remediation roadmap with prioritized actions</li>
-<li class="feature-item">Evidence collection aligned to compliance requirements</li>
-<li class="feature-item">Procurement-ready and oversight-ready reporting</li>
-<li class="feature-item">Complete traceability of vendor risk management decisions</li>
-</ul>
-<a href="https://www.application.vendorsoluce.com/vendor-assessments" class="inline-flex items-center px-6 py-3 bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green text-white rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group">
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 group-hover:translate-x-1 transition-transform">
-<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-<path d="m9 11 3 3L22 4"></path>
-</svg>
-Start Vendor Assessments
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-x-1 transition-transform">
-<path d="M5 12h14"></path>
-<path d="m12 5 7 7-7 7"></path>
-</svg>
-</a>
-</div>
-</div>
-</div>
+<!-- The Value Journey -->
+<section id="value-journey" class="py-16 px-6 sm:px-8 lg:px-12 bg-gray-900 dark:bg-gray-900 text-white">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl font-bold text-white mb-6">The Value Journey</h2>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">Each step delivers a change in decision quality — not a list of features.</p>
+    </div>
+    <div class="mt-12 max-w-5xl mx-auto">
+      <div class="bg-gray-800 rounded-lg p-8 border border-gray-700 overflow-x-auto">
+        <table class="min-w-full border-collapse">
+          <thead>
+            <tr class="border-b border-gray-600">
+              <th class="px-6 py-4 text-left text-sm font-semibold text-vendorsoluce-light-green">Stage</th>
+              <th class="px-6 py-4 text-left text-sm font-semibold text-vendorsoluce-light-green">Outcome</th>
+              <th class="px-6 py-4 text-left text-sm font-semibold text-vendorsoluce-light-green">Key Change</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-300">
+            <tr class="border-b border-gray-700">
+              <td class="px-6 py-4 font-medium text-white">Radar</td>
+              <td class="px-6 py-4">Risk clarity + continuous monitoring</td>
+              <td class="px-6 py-4">Focused attention, not equal treatment</td>
+            </tr>
+            <tr class="border-b border-gray-700">
+              <td class="px-6 py-4 font-medium text-white">Assessment</td>
+              <td class="px-6 py-4">Confident requirements + gaps</td>
+              <td class="px-6 py-4">Explicit controls, not generic checklists</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 font-medium text-white">Due Diligence</td>
+              <td class="px-6 py-4">Defensible decisions + proof</td>
+              <td class="px-6 py-4">Audit-ready trail, not compliance theater</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-8 text-center">
+        <p class="text-gray-400 text-sm italic">+ Continuous monitoring throughout the lifecycle</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Process 1: Vendor Radar & Discovery - Detailed Section -->
