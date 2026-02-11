@@ -151,6 +151,38 @@
     .mobile-nav-link svg {
       color: currentColor;
     }
+    
+    /* Focus indicators for accessibility */
+    .nav-link:focus,
+    .mobile-nav-link:focus,
+    button:focus,
+    a:focus,
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: 2px solid #33691E;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    
+    html.dark .nav-link:focus,
+    html.dark .mobile-nav-link:focus,
+    html.dark button:focus,
+    html.dark a:focus,
+    html.dark input:focus,
+    html.dark textarea:focus,
+    html.dark select:focus {
+      outline-color: #66BB6A;
+    }
+    
+    /* Focus visible for keyboard navigation only */
+    .nav-link:focus:not(:focus-visible),
+    .mobile-nav-link:focus:not(:focus-visible),
+    button:focus:not(:focus-visible),
+    a:focus:not(:focus-visible) {
+      outline: none;
+    }
+    
     /* Ensure brand logo link is never affected by active/hover nav styles */
     nav [data-tour="main-nav"] a,
     nav [data-tour="main-nav"] a:hover,
