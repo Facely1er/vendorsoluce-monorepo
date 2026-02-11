@@ -19,6 +19,11 @@
     
 
     .bg-vendorsoluce-green { background-color: var(--vendorsoluce-green); }
+    .bg-vendorsoluce-dark-green { background-color: var(--vendorsoluce-dark-green); }
+    .text-vendorsoluce-light-green { color: var(--vendorsoluce-light-green); }
+    .bg-vendorsoluce-pale-green { background-color: var(--vendorsoluce-pale-green); }
+    .hover\:bg-vendorsoluce-dark-green:hover { background-color: var(--vendorsoluce-dark-green); }
+    .hover\:bg-vendorsoluce-pale-green:hover { background-color: var(--vendorsoluce-pale-green); }
     
     /* Fallback for browsers that don't support :not() with complex selectors */
     .text-vendorsoluce-green {
@@ -248,6 +253,10 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
           </svg>
           Trust
         </a>
+        <a class="nav-link inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Contact" href="contact.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-4 h-4 mr-2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+          Contact
+        </a>
         <a class="nav-link inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="FAQ" href="faq.html">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-4 h-4 mr-2">
             <circle cx="12" cy="12" r="10"></circle>
@@ -316,149 +325,6 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
     </div>
   </div>
 </nav>
-<script>
-(function() {
-    function initMobileMenu() {
-        const menuButton = document.querySelector('[data-mobile-menu-button]');
-        if (!menuButton) return;
-
-        menuButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-            const mobileMenu = document.querySelector('[data-mobile-menu]');
-            
-            if (mobileMenu) {
-                if (isExpanded) {
-                    mobileMenu.classList.add('hidden');
-                    menuButton.setAttribute('aria-expanded', 'false');
-                    menuButton.setAttribute('aria-label', 'Open menu');
-                } else {
-                    mobileMenu.classList.remove('hidden');
-                    menuButton.setAttribute('aria-expanded', 'true');
-                    menuButton.setAttribute('aria-label', 'Close menu');
-                }
-            }
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            const mobileMenu = document.querySelector('[data-mobile-menu]');
-            if (mobileMenu && !mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    menuButton.setAttribute('aria-expanded', 'false');
-                    menuButton.setAttribute('aria-label', 'Open menu');
-                }
-            }
-        });
-
-        // Close menu on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const mobileMenu = document.querySelector('[data-mobile-menu]');
-                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    menuButton.setAttribute('aria-expanded', 'false');
-                    menuButton.setAttribute('aria-label', 'Open menu');
-                }
-            }
-        });
-    }
-
-    // Wait for full DOM so mobile menu panel (after this script) exists, then run next frame
-    function runMobileMenuInit() {
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() { requestAnimationFrame(initMobileMenu); });
-        } else {
-            requestAnimationFrame(initMobileMenu);
-        }
-    }
-    runMobileMenuInit();
-    
-    // Set active navigation link based on current page
-    function setActiveNavLink() {
-        const currentPath = window.location.pathname;
-        const currentFile = currentPath.split('/').pop() || 'index.html';
-        const normalizedCurrentFile = currentFile.split('?')[0].split('#')[0];
-        
-        // Find only navigation menu links (exclude branding and action buttons)
-        // Only target links in the desktop navigation menu container (not action buttons area)
-        const desktopNavMenu = document.querySelector('nav > div.hidden.md\\:flex.md\\:items-center');
-        const desktopNavLinks = desktopNavMenu ? desktopNavMenu.querySelectorAll('a[title][href]') : [];
-        const mobileNavLinks = document.querySelectorAll('[data-mobile-menu] a[href]');
-        const navLinks = [...desktopNavLinks, ...mobileNavLinks];
-        
-        navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            if (!href || href.startsWith('http') || href.startsWith('#')) return;
-            
-            // Double-check: skip branding link (inside data-tour="main-nav")
-            if (link.closest('[data-tour="main-nav"]')) {
-                return;
-            }
-            
-            // Skip Vendor Radar button (has title="Vendor Radar" or radar icon)
-            if (link.getAttribute('title') === 'Vendor Radar' || 
-                link.querySelector('svg.lucide-radar') ||
-                link.textContent.trim().includes('Vendor Radar')) {
-                return;
-            }
-            
-            // Skip action buttons area (links in the right-side action buttons container)
-            const parentContainer = link.parentElement;
-            if (parentContainer && (
-                parentContainer.querySelector('[data-tour="user-menu"]') || 
-                parentContainer.querySelector('[data-tour="theme-toggle"]') ||
-                parentContainer.classList.contains('flex-shrink-0')
-            )) {
-                const hasActionButtons = parentContainer.querySelector('[data-tour="user-menu"]') || 
-                                        parentContainer.querySelector('[data-tour="theme-toggle"]');
-                if (hasActionButtons) {
-                    return;
-                }
-            }
-            
-            // Extract filename from href (handle relative paths)
-            let linkFile = href.replace(/^\.\.?\//, '').split('/').pop() || '';
-            linkFile = linkFile.split('?')[0].split('#')[0];
-            
-            // Check if this link matches the current page
-            const isCurrentPage = 
-                linkFile === normalizedCurrentFile || 
-                (normalizedCurrentFile === '' && linkFile === 'index.html') ||
-                (normalizedCurrentFile === 'index.html' && linkFile === 'index.html');
-            
-            if (isCurrentPage) {
-                // Get current classes and replace to make it active
-                let classes = link.getAttribute('class') || '';
-                
-                // Remove inactive classes
-                classes = classes
-                    .replace(/\btext-gray-700\b/g, '')
-                    .replace(/\bdark:text-gray-300\b/g, '')
-                    .replace(/\bhover:bg-gray-50\b/g, '')
-                    .replace(/\bdark:hover:bg-gray-700\b/g, '')
-                    .replace(/\bhover:text-vendorsoluce-green\b/g, '')
-                    .replace(/\bdark:hover:text-white\b/g, '');
-                
-                // Add active classes
-                classes += ' text-vendorsoluce-green dark:text-white bg-vendorsoluce-green/20 dark:bg-vendorsoluce-green/30 border border-vendorsoluce-green/30 dark:border-vendorsoluce-green/40 hover:bg-vendorsoluce-green/30 dark:hover:bg-vendorsoluce-green/40';
-                
-                // Clean up extra spaces
-                classes = classes.replace(/\s+/g, ' ').trim();
-                link.setAttribute('class', classes);
-            }
-        });
-    }
-    
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', setActiveNavLink);
-    } else {
-        setActiveNavLink();
-    }
-})();
-</script>
 
 <!-- Mobile Menu Panel -->
 <div data-mobile-menu="true" class="md:hidden fixed left-0 right-0 z-50 hidden" style="top: 64px;">
@@ -502,6 +368,10 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
           </svg>
           Trust
+        </a>
+        <a href="contact.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-4 h-4 mr-2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+          Contact
         </a>
         <div class="pt-2 border-t border-gray-200 dark:border-gray-700">
           <a href="radar/vendor-threat-radar.html" class="block w-full px-4 py-2 rounded-lg text-sm font-semibold text-center text-white bg-vendorsoluce-green hover:bg-vendorsoluce-dark-green transition-colors">
@@ -705,12 +575,12 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
     </div>
     <div class="flex flex-col lg:flex-row justify-between items-center gap-3 lg:gap-4 pt-1">
       <div class="flex flex-col sm:flex-row items-center gap-3 flex-1 justify-center lg:justify-start">
-        <div class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-secure-green/10 border border-secure-green/30 status-badge-secure">
+        <div class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-vendorsoluce-green/10 border border-vendorsoluce-green/30">
           <img src="./homepage_files/vendorsoluce.png" alt="VendorSoluce Logo" class="w-3.5 h-3.5 block opacity-100" loading="eager">
-          <span class="text-[10px] sm:text-xs font-medium text-secure-green">Local browser-based analysis</span>
+          <span class="text-[10px] sm:text-xs font-medium text-vendorsoluce-green">Local browser-based analysis</span>
         </div>
         <div class="flex items-center space-x-1.5">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle2 w-3.5 h-3.5 text-secure-green"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle2 w-3.5 h-3.5 text-vendorsoluce-green"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
           <span class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">Version 1.0</span>
         </div>
       </div>
@@ -721,6 +591,7 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
   </div>
 </footer><button type="button" class="fixed bottom-6 right-6 z-50 bg-vendorsoluce-green hover:bg-vendorsoluce-green/90 text-white rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-105 group" aria-label="Open chat support"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle h-4 w-4"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg><span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full h-3 w-3 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">!</span></button></div></div>
   <script src="assets/js/main.js"></script>
+  <script src="includes/active-nav.js"></script>
 <script>
 // Breadcrumb height calculation
 (function(){
