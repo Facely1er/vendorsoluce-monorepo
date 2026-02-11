@@ -299,7 +299,7 @@
                 
                 <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6">
                     <div class="text-sm text-gray-600 dark:text-gray-400">💡 Tip: CSV should have columns: Vendor Name, Domain, Industry</div>
-                    <button class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors" onclick="loadSampleData()">Load Sample Vendors</button>
+                    <button type="button" class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors" onclick="loadSampleData()">Load Sample Vendors</button>
                 </div>
             </div>
             
@@ -327,8 +327,8 @@
                 <div class="vendor-grid" id="vendorGrid"></div>
                 
                 <div class="flex flex-col sm:flex-row gap-4 mt-8">
-                    <button class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" onclick="resetVendors()">← Upload Different List</button>
-                    <button class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors" onclick="goToStage(2)">Continue to Stage 2 →</button>
+                    <button type="button" class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" onclick="resetVendors()">← Upload Different List</button>
+                    <button type="button" class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors" onclick="goToStage(2)">Continue to Stage 2 →</button>
                 </div>
             </div>
         </div>
@@ -345,8 +345,8 @@
             <div class="requirements-list" id="requirementsList"></div>
             
             <div class="flex flex-col sm:flex-row gap-4 mt-8">
-                <button class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" onclick="goToStage(1)">← Back to Stage 1</button>
-                <button class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors" onclick="goToStage(3)">Continue to Stage 3 →</button>
+                <button type="button" class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" onclick="goToStage(1)">← Back to Stage 1</button>
+                <button type="button" class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors" onclick="goToStage(3)">Continue to Stage 3 →</button>
             </div>
         </div>
         
@@ -389,7 +389,7 @@
                 </div>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" onclick="resetDemo()">Restart Demo</button>
+                    <button type="button" class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" onclick="resetDemo()">Restart Demo</button>
                     <a href="trial.html" class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors inline-block text-center">Try Stage 1 With Your Data →</a>
                     <a href="https://www.application.vendorsoluce.com/demo" class="px-6 py-3 bg-vendorsoluce-green text-white rounded-lg font-semibold hover:bg-vendorsoluce-dark-green transition-colors inline-block text-center">Continue to Interactive Demo →</a>
                     <a href="https://www.application.vendorsoluce.com/tools/vendor-risk-radar" class="px-6 py-3 bg-white dark:bg-gray-700 text-vendorsoluce-green dark:text-vendorsoluce-light-green border border-vendorsoluce-green rounded-lg font-semibold hover:bg-vendorsoluce-pale-green dark:hover:bg-vendorsoluce-green/20 transition-colors inline-block text-center">Start Stage 1 in Platform →</a>
