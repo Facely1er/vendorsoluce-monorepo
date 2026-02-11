@@ -14,10 +14,18 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     // Check for saved theme preference in localStorage
     const savedTheme = localStorage.getItem('theme');
     // Check for system preference if no saved preference
-    if (!savedTheme) {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const initialTheme = savedTheme 
+      ? (savedTheme as Theme)
+      : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    
+    // Apply theme immediately to prevent flash
+    if (initialTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
     }
-    return (savedTheme as Theme) || 'light';
+    
+    return initialTheme;
   });
 
   useEffect(() => {

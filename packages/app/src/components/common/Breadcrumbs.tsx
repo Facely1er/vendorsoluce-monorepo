@@ -70,7 +70,7 @@ const Breadcrumbs: React.FC = () => {
   }
 
   return (
-    <nav className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 mb-4" aria-label="Breadcrumb">
+    <nav className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 mb-6" aria-label="Breadcrumb">
       <Link
         to="/"
         className="flex items-center hover:text-vendorsoluce-green dark:hover:text-vendorsoluce-blue transition-colors"

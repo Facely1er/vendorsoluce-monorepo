@@ -9,6 +9,9 @@
   --vendorsoluce-pale-green: #E8F5E8;
   --neutral-gray: #6B7280;
   
+  /* Layout */
+  --header-height: 64px;
+  
   /* Risk Communication Colors */
   --risk-critical: #DC2626;
   --risk-high: #EA580C;
