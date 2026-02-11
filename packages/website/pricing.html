@@ -122,9 +122,9 @@
       top: 64px;
     }
     </style>
-<style id="layout-fixes">:root{--breadcrumb-height:0px;}
+<style id="layout-fixes">:root{--breadcrumb-height:0px;--nav-height:64px;}
 main{padding-top:var(--nav-height,64px);}
-nav[aria-label="Breadcrumb"]{margin-top:calc(-1 * var(--nav-height,64px));position:relative;z-index:40;}
+nav[aria-label="Breadcrumb"]{margin-top:calc(-1 * var(--nav-height,64px));position:sticky;top:var(--nav-height,64px);z-index:40;}
 main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
 @media (min-width:768px){main nav[aria-label="Breadcrumb"]+*{padding-top:2rem!important;}}
 </style>
@@ -208,7 +208,7 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
     </head>
 <body>
     <div id="root"><div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col"><!-- Shared Header Navigation for VendorSoluce -->
-<nav class="bg-gray-700 dark:bg-gray-800 shadow-sm sticky top-0 z-[100] w-full">
+<nav class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-[100] w-full">
   <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 w-full">
     <div class="flex items-center justify-between h-16 w-full">
       <!-- Brand -->
@@ -230,7 +230,7 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
 
       <!-- Desktop Navigation - Streamlined -->
       <div class="hidden md:flex md:items-center md:space-x-1">
-        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-white dark:text-white hover:text-white dark:hover:text-white transition-colors duration-200" title="Home" href="index.html">
+        <a class="inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-white hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" title="Home" href="index.html">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home w-4 h-4 mr-2">
             <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
@@ -273,16 +273,16 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
 
       <!-- Action Buttons (Desktop) -->
       <div class="hidden md:flex items-center space-x-1.5 sm:space-x-2 flex-shrink-0">
-        <a href="radar/vendor-threat-radar.html" class="flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-vendorsoluce-green text-white hover:bg-vendorsoluce-dark-green font-medium" title="Vendor Radar">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-5 h-5 flex-shrink-0">
+        <a href="radar/vendor-threat-radar.html" class="flex items-center justify-center gap-1 px-2 py-1.5 max-w-[5.5rem] min-w-0 flex-shrink-0 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-vendorsoluce-green text-white hover:bg-vendorsoluce-dark-green font-medium text-center h-9" title="Vendor Radar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-radar w-4 h-4 flex-shrink-0">
             <path d="M19.07 4.93A10 10 0 0 0 6.99 3.34M4.93 19.07a10 10 0 0 1 1.65-12.08M15.34 6.99a10 10 0 0 1 2.73 12.08M2 12h20M12 2v20"></path>
             <circle cx="12" cy="12" r="2"></circle>
           </svg>
-          <span class="text-sm font-medium whitespace-nowrap">Vendor Radar</span>
+          <span class="text-xs font-medium leading-tight">Vendor Radar</span>
         </a>
         <div data-tour="user-menu">
           <a href="account.html">
-            <button type="button" class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-600 dark:bg-gray-700 text-white hover:bg-gray-500 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="User Account">
+            <button type="button" class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="User Account">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user w-5 h-5">
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
@@ -291,7 +291,7 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
           </a>
         </div>
         <div data-tour="theme-toggle">
-          <button type="button" data-theme-toggle class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-600 dark:bg-gray-700 text-yellow-400 hover:bg-gray-500 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="Switch theme">
+          <button type="button" data-theme-toggle class="w-9 h-9 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-vendorsoluce-green focus:ring-offset-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-yellow-400 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center" aria-label="Switch theme">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun w-5 h-5 text-amber-500 hidden-icon">
               <circle cx="12" cy="12" r="4"></circle>
               <path d="M12 2v2"></path>
