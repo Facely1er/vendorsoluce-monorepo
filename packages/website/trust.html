@@ -203,6 +203,11 @@
     .vs-badge{display:inline-flex;align-items:center;border-radius:999px;padding:2px 6px;font-size:0.65em;background:rgba(51,105,30,.12);color:var(--vendorsoluce-green);font-weight:600;vertical-align:middle;border:none}
     html.dark .vs-badge{background:rgba(102,187,106,.18);color:var(--vendorsoluce-light-green)}
     
+    /* Collapsible framework sections - chevron rotation when open */
+    details.modern-card[open] summary svg.chevron-icon {
+      transform: rotate(180deg);
+    }
+    
     /* Utility classes for inline styles */
     .tagline-text {
       letter-spacing: -0.02em;
@@ -940,10 +945,14 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
                 </div>
             </div>
             
-            <div class="space-y-10">
+            <div class="space-y-4">
                 <!-- NIST SP 800-161 -->
-                <div class="modern-card p-6 md:p-8">
-                    <h3 class="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-4">NIST SP 800-161 (Supply Chain Risk Management)</h3>
+                <details class="modern-card group" open>
+                    <summary class="p-6 md:p-8 cursor-pointer list-none flex items-center justify-between gap-4 hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-colors rounded-lg [&::-webkit-details-marker]:hidden">
+                        <h3 class="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white m-0">NIST SP 800-161 (Supply Chain Risk Management)</h3>
+                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 flex-shrink-0 chevron-icon transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="px-6 md:px-8 pb-6 md:pb-8 pt-0">
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm border border-gray-200 dark:border-gray-700">
                             <thead class="bg-gray-100 dark:bg-gray-700">
@@ -976,11 +985,16 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
                             </tbody>
                         </table>
                     </div>
-                </div>
+                    </div>
+                </details>
 
                 <!-- NIST Cybersecurity Framework -->
-                <div class="modern-card p-6 md:p-8">
-                    <h3 class="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-4">NIST Cybersecurity Framework (CSF v2 concepts)</h3>
+                <details class="modern-card group">
+                    <summary class="p-6 md:p-8 cursor-pointer list-none flex items-center justify-between gap-4 hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-colors rounded-lg [&::-webkit-details-marker]:hidden">
+                        <h3 class="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white m-0">NIST Cybersecurity Framework (CSF v2 concepts)</h3>
+                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 flex-shrink-0 chevron-icon transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="px-6 md:px-8 pb-6 md:pb-8 pt-0">
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm border border-gray-200 dark:border-gray-700">
                             <thead class="bg-gray-100 dark:bg-gray-700">
@@ -1013,11 +1027,16 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
                             </tbody>
                         </table>
                     </div>
-                </div>
+                    </div>
+                </details>
 
                 <!-- ISO/IEC 27001 & 27005 -->
-                <div class="modern-card p-6 md:p-8">
-                    <h3 class="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-4">ISO/IEC 27001 &amp; ISO/IEC 27005</h3>
+                <details class="modern-card group">
+                    <summary class="p-6 md:p-8 cursor-pointer list-none flex items-center justify-between gap-4 hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-colors rounded-lg [&::-webkit-details-marker]:hidden">
+                        <h3 class="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white m-0">ISO/IEC 27001 &amp; ISO/IEC 27005</h3>
+                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 flex-shrink-0 chevron-icon transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="px-6 md:px-8 pb-6 md:pb-8 pt-0">
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm border border-gray-200 dark:border-gray-700">
                             <thead class="bg-gray-100 dark:bg-gray-700">
@@ -1050,11 +1069,16 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
                             </tbody>
                         </table>
                     </div>
-                </div>
+                    </div>
+                </details>
 
                 <!-- Third-Party Risk Management -->
-                <div class="modern-card p-6 md:p-8">
-                    <h3 class="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-4">Third-Party Risk Management (TPRM)</h3>
+                <details class="modern-card group">
+                    <summary class="p-6 md:p-8 cursor-pointer list-none flex items-center justify-between gap-4 hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-colors rounded-lg [&::-webkit-details-marker]:hidden">
+                        <h3 class="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white m-0">Third-Party Risk Management (TPRM)</h3>
+                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 flex-shrink-0 chevron-icon transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="px-6 md:px-8 pb-6 md:pb-8 pt-0">
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm border border-gray-200 dark:border-gray-700">
                             <thead class="bg-gray-100 dark:bg-gray-700">
@@ -1100,7 +1124,8 @@ main nav[aria-label="Breadcrumb"]+*{padding-top:1.5rem!important;}
                         </table>
                     </div>
                     <p class="text-xs text-gray-500 dark:text-gray-400 mt-3">Comprehensive TPRM capabilities aligned with procurement-ready workflows.</p>
-                </div>
+                    </div>
+                </details>
             </div>
         </div>
     </section>
