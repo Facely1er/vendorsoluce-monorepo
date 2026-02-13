@@ -56,65 +56,14 @@
     });
   }
 
-  function initMobileMenu() {
-    const menuButton = document.querySelector('[data-mobile-menu-button]');
-    if (!menuButton) return;
+  // Mobile menu is initialized by the inline script in the header (or navigation.js).
+  // Do not init here to avoid double-binding and menu opening then immediately closing.
 
-    menuButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-      const mobileMenu = document.querySelector('[data-mobile-menu]');
-      
-      if (mobileMenu) {
-        if (isExpanded) {
-          mobileMenu.classList.add('hidden');
-          menuButton.setAttribute('aria-expanded', 'false');
-          menuButton.setAttribute('aria-label', 'Open menu');
-        } else {
-          mobileMenu.classList.remove('hidden');
-          menuButton.setAttribute('aria-expanded', 'true');
-          menuButton.setAttribute('aria-label', 'Close menu');
-        }
-      }
-    });
-
-    // Close menu when clicking outside (do not run when clicking a link - let it navigate)
-    document.addEventListener('click', function(e) {
-      if (e.target.closest('a[href]')) return;
-      const mobileMenu = document.querySelector('[data-mobile-menu]');
-      if (mobileMenu && !mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
-        if (!mobileMenu.classList.contains('hidden')) {
-          mobileMenu.classList.add('hidden');
-          menuButton.setAttribute('aria-expanded', 'false');
-          menuButton.setAttribute('aria-label', 'Open menu');
-        }
-      }
-    });
-
-    // Close menu on escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        const mobileMenu = document.querySelector('[data-mobile-menu]');
-        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-          mobileMenu.classList.add('hidden');
-          menuButton.setAttribute('aria-expanded', 'false');
-          menuButton.setAttribute('aria-label', 'Open menu');
-        }
-      }
-    });
-  }
-
-  // Always wait for DOM to be fully loaded to ensure mobile menu panel exists
+  // Always wait for DOM to be fully loaded for active link detection
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      markActiveNavigationLinks();
-      initMobileMenu();
-    });
+    document.addEventListener('DOMContentLoaded', markActiveNavigationLinks);
   } else {
     markActiveNavigationLinks();
-    // Use setTimeout to ensure DOM is fully parsed even if readyState is 'complete'
-    setTimeout(initMobileMenu, 0);
   }
 })();
 

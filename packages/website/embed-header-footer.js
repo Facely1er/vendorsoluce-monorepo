@@ -12,65 +12,67 @@ const footerPath = path.join(__dirname, 'includes', 'footer.html');
 const headerHtml = fs.readFileSync(headerPath, 'utf-8');
 const footerHtml = fs.readFileSync(footerPath, 'utf-8');
 
-// Mobile menu JavaScript (needed for embedded header)
+// Mobile menu JavaScript: event delegation so it works regardless of script/panel order
 const mobileMenuScript = `
 <script>
 (function() {
-    function initMobileMenu() {
-        const menuButton = document.querySelector('[data-mobile-menu-button]');
-        if (!menuButton) return;
-
-        menuButton.addEventListener('click', function(e) {
+    document.addEventListener('click', function(e) {
+        var menuButton = e.target.closest('[data-mobile-menu-button]');
+        if (menuButton) {
             e.preventDefault();
             e.stopPropagation();
-            const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-            const mobileMenu = document.querySelector('[data-mobile-menu]');
-            
-            if (mobileMenu) {
-                if (isExpanded) {
-                    mobileMenu.classList.add('hidden');
-                    menuButton.setAttribute('aria-expanded', 'false');
-                    menuButton.setAttribute('aria-label', 'Open menu');
-                } else {
-                    mobileMenu.classList.remove('hidden');
-                    menuButton.setAttribute('aria-expanded', 'true');
-                    menuButton.setAttribute('aria-label', 'Close menu');
-                }
+            var mobileMenu = document.querySelector('[data-mobile-menu]');
+            if (!mobileMenu) return;
+            var isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+            if (isOpen) {
+                mobileMenu.classList.add('hidden');
+                menuButton.setAttribute('aria-expanded', 'false');
+                menuButton.setAttribute('aria-label', 'Open menu');
+                document.body.style.overflow = '';
+            } else {
+                mobileMenu.classList.remove('hidden');
+                menuButton.setAttribute('aria-expanded', 'true');
+                menuButton.setAttribute('aria-label', 'Close menu');
+                document.body.style.overflow = 'hidden';
             }
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            const mobileMenu = document.querySelector('[data-mobile-menu]');
-            if (mobileMenu && !mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    menuButton.setAttribute('aria-expanded', 'false');
-                    menuButton.setAttribute('aria-label', 'Open menu');
-                }
+            return;
+        }
+        var mobileMenu = document.querySelector('[data-mobile-menu]');
+        var btn = document.querySelector('[data-mobile-menu-button]');
+        if (mobileMenu && btn && !mobileMenu.contains(e.target) && !btn.contains(e.target)) {
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                btn.setAttribute('aria-expanded', 'false');
+                btn.setAttribute('aria-label', 'Open menu');
+                document.body.style.overflow = '';
             }
-        });
-
-        // Close menu on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const mobileMenu = document.querySelector('[data-mobile-menu]');
-                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    menuButton.setAttribute('aria-expanded', 'false');
-                    menuButton.setAttribute('aria-label', 'Open menu');
-                }
+        }
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            var mobileMenu = document.querySelector('[data-mobile-menu]');
+            var menuButton = document.querySelector('[data-mobile-menu-button]');
+            if (mobileMenu && menuButton && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                menuButton.setAttribute('aria-expanded', 'false');
+                menuButton.setAttribute('aria-label', 'Open menu');
+                document.body.style.overflow = '';
             }
-        });
-    }
-
-    // Always wait for DOM to be fully loaded to ensure mobile menu panel exists
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initMobileMenu);
-    } else {
-        // Use setTimeout to ensure DOM is fully parsed even if readyState is 'complete'
-        setTimeout(initMobileMenu, 0);
-    }
+        }
+    });
+    document.addEventListener('click', function(e) {
+        var link = e.target.closest('[data-mobile-menu] a[href]');
+        if (link && link.getAttribute('href') && !link.getAttribute('href').startsWith('#')) {
+            var mobileMenu = document.querySelector('[data-mobile-menu]');
+            var menuButton = document.querySelector('[data-mobile-menu-button]');
+            if (mobileMenu && menuButton) {
+                mobileMenu.classList.add('hidden');
+                menuButton.setAttribute('aria-expanded', 'false');
+                menuButton.setAttribute('aria-label', 'Open menu');
+                document.body.style.overflow = '';
+            }
+        }
+    }, true);
     
     // Set active navigation link based on current page
     function setActiveNavLink() {

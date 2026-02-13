@@ -1,0 +1,13 @@
+{
+  "axes": [
+    "Political",
+    "Economic",
+    "Social",
+    "Technological",
+    "Environmental",
+    "Legal"
+  ],
+  "min": 0,
+  "max": 100,
+  "animate": true
+}

@@ -484,13 +484,13 @@ const VendorRiskRadar: React.FC = () => {
                     </h3>
                   </div>
                   <p className="text-sm text-gray-600 dark:text-gray-400 ml-10">
-                    You know which vendors pose the greatest risk. Now define specific requirements for your critical vendors.
+                    You know which vendors pose the greatest risk. Now run a NIST-aligned assessment to understand compliance gaps.
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Link to="/vendor-requirements">
+                  <Link to="/supply-chain-assessment">
                     <Button variant="primary" className="flex items-center gap-2">
-                      Continue to Stage 2: Define Requirements
+                      Continue to Stage 2: Supply Chain Assessment
                       <ArrowRight className="w-4 h-4" />
                     </Button>
                   </Link>

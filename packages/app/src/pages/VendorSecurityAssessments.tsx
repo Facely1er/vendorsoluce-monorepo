@@ -21,8 +21,8 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useVendors } from '../hooks/useVendors.mock';
-import { useVendorAssessments } from '../hooks/useVendorAssessments.mock';
+import { useVendors } from '../hooks/useVendors';
+import { useVendorAssessments } from '../hooks/useVendorAssessments';
 import { useVendorRequirements } from '../hooks/useVendorRequirements';
 import CreateAssessmentModal from '../components/vendor-assessments/CreateAssessmentModal';
 import AssessmentProgressTracker from '../components/vendor-assessments/AssessmentProgressTracker';

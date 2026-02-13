@@ -1,0 +1,17 @@
+{
+  "questionnaireVersion": "STEEL-1.0",
+  "completedAt": "2025-11-28T17:37:12Z",
+  "dimensionScores": {
+    "political": 70.12,
+    "economic": 61.23,
+    "social": 65.89,
+    "technological": 73.5,
+    "environmental": 80,
+    "legal": 58.33
+  },
+  "compositeScore": 67.8,
+  "classification": "Imbalanced",
+  "radar": [],
+  "asymmetries": [],
+  "priorities": []
+}

@@ -1,0 +1,590 @@
+{
+  "version": "STEEL-1.0",
+  "createdAt": "2025-11-28T17:41:26Z",
+  "dimensions": [
+    "political",
+    "economic",
+    "social",
+    "technological",
+    "environmental",
+    "legal"
+  ],
+  "questions": [
+    {
+      "id": "P1",
+      "dimension": "political",
+      "order": 1,
+      "text": "To what extent is your organization exposed to sudden regulatory or enforcement action due to evolving cybersecurity or privacy laws?",
+      "options": [
+        {
+          "id": "P1_1",
+          "label": "High exposure \u2014 regulatory change would cause material disruption",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "P1_2",
+          "label": "Moderate exposure \u2014 manageable but resource-intensive",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "P1_3",
+          "label": "Low exposure \u2014 anticipated and absorbed without disruption",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "P1_4",
+          "label": "Minimal exposure \u2014 regulatory change is strategically factored in",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "P2",
+      "dimension": "political",
+      "order": 2,
+      "text": "How would regulators most likely characterize your organization\u2019s cybersecurity and privacy posture?",
+      "options": [
+        {
+          "id": "P2_1",
+          "label": "Non-transparent or reactive",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "P2_2",
+          "label": "Compliant but defensive",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "P2_3",
+          "label": "Cooperative and trusted",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "P2_4",
+          "label": "Credible reference or influencer",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "P3",
+      "dimension": "political",
+      "order": 3,
+      "text": "How exposed is the organization to geopolitical or state-linked cyber activity that could materially affect operations or trust?",
+      "options": [
+        {
+          "id": "P3_1",
+          "label": "Highly exposed and unmanaged",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "P3_2",
+          "label": "Exposed but only partially considered",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "P3_3",
+          "label": "Monitored with mitigation strategies",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "P3_4",
+          "label": "Strategically anticipated and modeled",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "E1",
+      "dimension": "economic",
+      "order": 4,
+      "text": "How well does leadership understand the financial impact of a credible cyber or privacy incident?",
+      "options": [
+        {
+          "id": "E1_1",
+          "label": "Not quantified",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "E1_2",
+          "label": "Rough estimates only",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "E1_3",
+          "label": "Quantified for key scenarios",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "E1_4",
+          "label": "Modeled and embedded in decision-making",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "E2",
+      "dimension": "economic",
+      "order": 5,
+      "text": "How aligned are cybersecurity and privacy investments with actual enterprise risk exposure?",
+      "options": [
+        {
+          "id": "E2_1",
+          "label": "Misaligned \u2014 spending does not reduce core risk",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "E2_2",
+          "label": "Partially aligned",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "E2_3",
+          "label": "Aligned to priority risks",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "E2_4",
+          "label": "Optimized \u2014 investments demonstrably shift risk posture",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "E3",
+      "dimension": "economic",
+      "order": 6,
+      "text": "To what extent could insurance and contractual mechanisms realistically absorb a major incident?",
+      "options": [
+        {
+          "id": "E3_1",
+          "label": "Little to no protection",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "E3_2",
+          "label": "Partial financial buffer",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "E3_3",
+          "label": "Meaningful but incomplete coverage",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "E3_4",
+          "label": "Risk transfer strategy is realistic and stress-tested",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "S1",
+      "dimension": "social",
+      "order": 7,
+      "text": "How significant is human behavior (staff, leadership, partners) as a contributor to enterprise cyber or privacy risk?",
+      "options": [
+        {
+          "id": "S1_1",
+          "label": "Dominant and unmanaged risk",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "S1_2",
+          "label": "Significant but partially mitigated",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "S1_3",
+          "label": "Managed and continuously assessed",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "S1_4",
+          "label": "Strategically minimized and designed around",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "dimension": "social",
+      "order": 8,
+      "text": "If a cyber or privacy incident became public, what would be the impact on stakeholder trust?",
+      "options": [
+        {
+          "id": "S2_1",
+          "label": "Severe and long-lasting damage",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "S2_2",
+          "label": "Material but recoverable damage",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "S2_3",
+          "label": "Limited reputational impact",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "S2_4",
+          "label": "Trust likely preserved due to strong posture",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "S3",
+      "dimension": "social",
+      "order": 9,
+      "text": "How exposed are executives or key personnel to targeted social engineering or reputational attack due to their public digital footprint?",
+      "options": [
+        {
+          "id": "S3_1",
+          "label": "Highly exposed and unmanaged",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "S3_2",
+          "label": "Known exposure but lightly mitigated",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "S3_3",
+          "label": "Controlled exposure",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "S3_4",
+          "label": "Strategically managed and monitored",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "T1",
+      "dimension": "technological",
+      "order": 10,
+      "text": "How dependent is the organization on a small number of critical technologies, platforms, or vendors?",
+      "options": [
+        {
+          "id": "T1_1",
+          "label": "Single-point failures exist",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "T1_2",
+          "label": "Some concentration risk",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "T1_3",
+          "label": "Dependencies are diversified",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "T1_4",
+          "label": "Resilience deliberately designed",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "T2",
+      "dimension": "technological",
+      "order": 11,
+      "text": "How does the organization\u2019s ability to detect and respond compare to the speed and sophistication of likely adversaries?",
+      "options": [
+        {
+          "id": "T2_1",
+          "label": "Adversaries significantly outpace us",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "T2_2",
+          "label": "Partial parity",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "T2_3",
+          "label": "Generally competitive",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "T2_4",
+          "label": "Proactive and resilient",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "T3",
+      "dimension": "technological",
+      "order": 12,
+      "text": "How well does the current technology environment reflect the organization\u2019s declared risk appetite?",
+      "options": [
+        {
+          "id": "T3_1",
+          "label": "Misaligned",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "T3_2",
+          "label": "Inconsistently aligned",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "T3_3",
+          "label": "Largely aligned",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "T3_4",
+          "label": "Deliberately architected to appetite",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "EN1",
+      "dimension": "environmental",
+      "order": 13,
+      "text": "How exposed are critical digital operations to physical, environmental, or infrastructure disruption?",
+      "options": [
+        {
+          "id": "EN1_1",
+          "label": "Highly exposed",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "EN1_2",
+          "label": "Moderately exposed",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "EN1_3",
+          "label": "Low exposure",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "EN1_4",
+          "label": "Exposure intentionally minimized",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "EN2",
+      "dimension": "environmental",
+      "order": 14,
+      "text": "To what extent does the organization rely on external infrastructure without tested continuity assumptions?",
+      "options": [
+        {
+          "id": "EN2_1",
+          "label": "High reliance, largely untested",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "EN2_2",
+          "label": "Known reliance but partially tested",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "EN2_3",
+          "label": "Tested for key scenarios",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "EN2_4",
+          "label": "Strategically resilient",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "EN3",
+      "dimension": "environmental",
+      "order": 15,
+      "text": "How likely are compound events (environmental, cyber, geopolitical) to materially disrupt operations?",
+      "options": [
+        {
+          "id": "EN3_1",
+          "label": "Likely and unmanaged",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "EN3_2",
+          "label": "Possible but only partially considered",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "EN3_3",
+          "label": "Unlikely due to controls",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "EN3_4",
+          "label": "Explicitly modeled and planned",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "L1",
+      "dimension": "legal",
+      "order": 16,
+      "text": "Is the organization\u2019s legal and regulatory exposure increasing faster than its ability to manage it?",
+      "options": [
+        {
+          "id": "L1_1",
+          "label": "Yes \u2014 exposure outpaces capability",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "L1_2",
+          "label": "Slightly increasing",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "L1_3",
+          "label": "Stable and manageable",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "L1_4",
+          "label": "Declining due to strategic alignment",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "dimension": "legal",
+      "order": 17,
+      "text": "How well does leadership understand and own cross-border data, outsourcing, and contractual risk?",
+      "options": [
+        {
+          "id": "L2_1",
+          "label": "Poor visibility",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "L2_2",
+          "label": "Partial visibility",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "L2_3",
+          "label": "Clear ownership",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "L2_4",
+          "label": "Strategically governed",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "dimension": "legal",
+      "order": 18,
+      "text": "In the event of regulatory scrutiny or litigation, how defensible would board-level cyber and privacy oversight be?",
+      "options": [
+        {
+          "id": "L3_1",
+          "label": "Weakly defensible",
+          "score": 1,
+          "order": 1
+        },
+        {
+          "id": "L3_2",
+          "label": "Adequate but fragile",
+          "score": 2,
+          "order": 2
+        },
+        {
+          "id": "L3_3",
+          "label": "Strongly defensible",
+          "score": 3,
+          "order": 3
+        },
+        {
+          "id": "L3_4",
+          "label": "Exemplary governance posture",
+          "score": 4,
+          "order": 4
+        }
+      ]
+    }
+  ]
+}

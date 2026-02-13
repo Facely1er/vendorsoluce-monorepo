@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, ChevronRight, Home, Layers, FileJson, BarChart3, BookOpen, Phone, Users, DollarSign, Command, FileText, Code, Shield, HelpCircle, ExternalLink } from 'lucide-react';
+import { Menu, X, ChevronDown, Home, Layers, FileJson, BarChart3, BookOpen, Phone, Users, DollarSign, Command, FileText, Code, Shield, HelpCircle, ExternalLink } from 'lucide-react';
 import { MenuItem } from '../../types';
 import ThemeToggle from './ThemeToggle';
 import UserMenu from './UserMenu';
@@ -16,8 +16,7 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [isResourcesOpen, setIsResourcesOpen] = useState(false);
-  const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
-  const [isVendorRiskOpen, setIsVendorRiskOpen] = useState(false);
+  const [isToolsOpen, setIsToolsOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
 
   React.useEffect(() => {
@@ -60,7 +59,7 @@ const Navbar: React.FC = () => {
       // Close desktop dropdowns
       if (!dropdown) {
         setIsResourcesOpen(false);
-        setIsSolutionsOpen(false);
+        setIsToolsOpen(false);
       }
     };
 
@@ -70,40 +69,25 @@ const Navbar: React.FC = () => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleResources = () => setIsResourcesOpen(!isResourcesOpen);
-  const toggleSolutions = () => setIsSolutionsOpen(!isSolutionsOpen);
-  const toggleVendorRisk = () => setIsVendorRiskOpen(!isVendorRiskOpen);
+  const toggleTools = () => setIsToolsOpen(!isToolsOpen);
 
+  // App-only nav: no website pages (Trust, FAQ, etc. live on vendorsoluce.com)
   const primaryNav: MenuItem[] = [
     { label: t('navigation.home'), href: '/', icon: 'Home' },
     { label: t('navigation.dashboard'), href: '/dashboard', icon: 'BarChart3' },
-    { label: t('navigation.howItWorks'), href: '/how-it-works', icon: 'Layers' },
-    { label: t('navigation.solutions'), href: '#', icon: 'Layers' },
+    { label: 'Tools', href: '#', icon: 'Layers' },
     { label: t('navigation.resources'), href: '#', icon: 'BookOpen' },
     { label: t('navigation.pricing'), href: '/pricing', icon: 'DollarSign' },
-    { label: 'Trust', href: 'https://vendorsoluce.com/trust.html', icon: 'Shield', external: true },
-    { label: 'FAQ', href: 'https://vendorsoluce.com/faq.html', icon: 'HelpCircle', external: true },
   ];
 
-  const solutionItems: MenuItem[] = [
+  // Flat tools list (app-only); website nav has its own Solutions with stage labels
+  const toolItems: MenuItem[] = [
+    { label: t('navigation.vendorRiskRadar'), href: '/tools/vendor-risk-radar' },
     { label: t('navigation.supplyChainAssessment'), href: '/supply-chain-assessment' },
-    { 
-      label: t('navigation.sbom'), 
-      href: '/sbom-analyzer',
-      // SBOM is mentioned in dashboard, not a direct standalone link
-    },
-    {
-      label: t('navigation.vendorRisk'),
-      href: '#', // Parent item, no direct link
-      children: [
-        { label: t('navigation.vendorRiskDashboard'), href: '/vendors' },
-        { label: t('navigation.vendorIQ'), href: '/tools/vendor-iq' },
-        { 
-          label: t('navigation.vendorRiskRadar'), 
-          href: '/tools/vendor-risk-radar',
-          // Risk Radar is integrated in dashboard
-        },
-      ]
-    },
+    { label: t('navigation.vendorAssessments'), href: '/vendor-assessments' },
+    { label: t('navigation.sbom'), href: '/sbom-analyzer' },
+    { label: t('navigation.vendorRiskDashboard'), href: '/vendors' },
+    { label: t('navigation.vendorIQ'), href: '/tools/vendor-iq' },
     ...(isAuthenticated ? [{ label: 'Asset Management', href: '/asset-management' }] : []),
   ];
 
@@ -207,13 +191,13 @@ const Navbar: React.FC = () => {
           </div>
           
           {/* Center: Desktop Navigation with icons */}
-          <div className="hidden md:flex md:items-center md:space-x-0.5">
+          <div className="hidden md:flex md:items-center md:gap-2">
             {primaryNav.map((item) => 
-              item.label === t('navigation.solutions') ? (
+              item.label === 'Tools' ? (
                 <div key={item.label} className="relative" data-dropdown>
                   <button
-                    onClick={toggleSolutions}
-                    className={`${getActiveButtonClasses(hasActiveChild(solutionItems))} px-2.5 py-1.5`}
+                    onClick={toggleTools}
+                    className={getActiveButtonClasses(hasActiveChild(toolItems))}
                     title={item.label}
                   >
                     {getIcon(item.icon as string)}
@@ -221,58 +205,21 @@ const Navbar: React.FC = () => {
                     <ChevronDown size={14} className="ml-1" />
                   </button>
 
-                  {isSolutionsOpen && (
+                  {isToolsOpen && (
                     <div className="absolute left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-[110] border border-gray-200 dark:border-gray-700">
-                      {solutionItems.map((solution) => (
-                        <div key={solution.label}>
-                          {solution.children ? (
-                            // Parent item with submenu
-                            <div className="relative group">
-                              <div className={`px-4 py-2 text-sm flex items-center justify-between ${
-                                hasActiveChild(solution.children)
-                                  ? 'text-vendorsoluce-green dark:text-white bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20'
-                                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                              }`}>
-                                <span>{solution.label}</span>
-                                <ChevronRight size={16} className="ml-2" />
-                              </div>
-                              {/* Submenu */}
-                              <div className="absolute left-full top-0 ml-1 w-56 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[120]">
-                                {solution.children.map((child) => (
-                                  <Link
-                                    key={child.label}
-                                    to={child.href}
-                                    className={`block px-4 py-2 text-sm ${
-                                      isActiveLink(child.href)
-                                        ? 'text-vendorsoluce-green dark:text-white bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20'
-                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                                    }`}
-                                    onClick={() => setIsSolutionsOpen(false)}
-                                  >
-                                    <div className="flex items-center justify-between">
-                                      <span>{child.label}</span>
-                                    </div>
-                                  </Link>
-                                ))}
-                              </div>
-                            </div>
-                          ) : (
-                            // Regular item
-                            <Link
-                              to={solution.href}
-                              className={`block px-4 py-2 text-sm ${
-                                isActiveLink(solution.href)
-                                  ? 'text-vendorsoluce-green dark:text-white bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20'
-                                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                              }`}
-                              onClick={() => setIsSolutionsOpen(false)}
-                            >
-                              <div className="flex items-center justify-between">
-                                <span>{solution.label}</span>
-                              </div>
-                            </Link>
-                          )}
-                        </div>
+                      {toolItems.map((tool) => (
+                        <Link
+                          key={tool.label}
+                          to={tool.href}
+                          className={`block px-4 py-2 text-sm ${
+                            isActiveLink(tool.href)
+                              ? 'text-vendorsoluce-green dark:text-white bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20'
+                              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                          }`}
+                          onClick={() => setIsToolsOpen(false)}
+                        >
+                          <span>{tool.label}</span>
+                        </Link>
                       ))}
                     </div>
                   )}
@@ -281,7 +228,7 @@ const Navbar: React.FC = () => {
                 <div key={item.label} className="relative" data-dropdown>
                   <button
                     onClick={toggleResources}
-                    className={`${getActiveButtonClasses(isActiveLink(item.href, resourceItems))} px-2.5 py-1.5`}
+                    className={getActiveButtonClasses(isActiveLink(item.href, resourceItems))}
                     title={item.label}
                   >
                     {getIcon(item.icon as string)}
@@ -327,7 +274,7 @@ const Navbar: React.FC = () => {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${getActiveLinkClasses(false)} px-2.5 py-1.5`}
+                    className={getActiveLinkClasses(false)}
                     title={item.label}
                   >
                     {getIcon(item.icon as string)}
@@ -338,7 +285,7 @@ const Navbar: React.FC = () => {
                   <Link
                     key={item.label}
                     to={item.href}
-                    className={`${getActiveLinkClasses(isActiveLink(item.href))} px-2.5 py-1.5`}
+                    className={getActiveLinkClasses(isActiveLink(item.href))}
                     title={item.label}
                   >
                     {getIcon(item.icon as string)}
@@ -350,7 +297,7 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Right: Utilities with compact icons */}
-          <div className="hidden md:flex items-center space-x-0.5 flex-shrink-0">
+          <div className="hidden md:flex items-center gap-2 flex-shrink-0">
             <button
               onClick={() => setIsCommandPaletteOpen(true)}
               className="p-1.5 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors"
@@ -446,12 +393,12 @@ const Navbar: React.FC = () => {
                     </div>
                   )}
                 </div>
-              ) : item.label === t('navigation.solutions') ? (
+              ) : item.label === 'Tools' ? (
                 <div key={item.label}>
                   <button
-                    onClick={toggleSolutions}
+                    onClick={toggleTools}
                     className={`w-full text-left text-base font-medium flex items-center justify-between rounded-md ${
-                      hasActiveChild(solutionItems)
+                      hasActiveChild(toolItems)
                         ? 'px-3 py-2 text-vendorsoluce-green dark:text-white bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20'
                         : 'px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700'
                     }`}
@@ -460,72 +407,26 @@ const Navbar: React.FC = () => {
                       {getIcon(item.icon as string)}
                       <span className="ml-2">{item.label}</span>
                     </div>
-                    <ChevronDown size={16} className={`ml-1 transition-transform duration-200 ${isSolutionsOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown size={16} className={`ml-1 transition-transform duration-200 ${isToolsOpen ? 'rotate-180' : ''}`} />
                   </button>
-                  
-                  {isSolutionsOpen && (
+                  {isToolsOpen && (
                     <div className="pl-6 py-2 space-y-1">
-                      {solutionItems.map((solution) => (
-                        <div key={solution.label}>
-                          {solution.children ? (
-                            // Parent item with submenu
-                            <div>
-                              <button
-                                onClick={toggleVendorRisk}
-                                className={`w-full text-left text-base font-medium flex items-center justify-between rounded-md ${
-                                  hasActiveChild(solution.children)
-                                    ? 'px-3 py-2 text-vendorsoluce-green dark:text-white bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20'
-                                    : 'px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700'
-                                }`}
-                              >
-                                <span>{solution.label}</span>
-                                <ChevronDown size={16} className={`ml-1 transition-transform duration-200 ${isVendorRiskOpen ? 'rotate-180' : ''}`} />
-                              </button>
-                              {isVendorRiskOpen && (
-                                <div className="pl-6 py-2 space-y-1">
-                                  {solution.children.map((child) => (
-                                    <Link
-                                      key={child.label}
-                                      to={child.href}
-                                      className={`block px-3 py-2 text-sm font-medium rounded-md ${
-                                        isActiveLink(child.href)
-                                          ? 'text-vendorsoluce-green dark:text-white bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20'
-                                          : 'text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700'
-                                      }`}
-                                      onClick={() => {
-                                        setIsOpen(false);
-                                        setIsSolutionsOpen(false);
-                                        setIsVendorRiskOpen(false);
-                                      }}
-                                    >
-                                      <div className="flex items-center justify-between">
-                                        <span>{child.label}</span>
-                                      </div>
-                                    </Link>
-                                  ))}
-                                </div>
-                              )}
-                            </div>
-                          ) : (
-                            // Regular item
-                            <Link
-                              to={solution.href}
-                              className={`block px-3 py-2 text-base font-medium rounded-md ${
-                                isActiveLink(solution.href)
-                                  ? 'text-vendorsoluce-green dark:text-white bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20'
-                                  : 'text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700'
-                              }`}
-                              onClick={() => {
-                                setIsOpen(false);
-                                setIsSolutionsOpen(false);
-                              }}
-                            >
-                              <div className="flex items-center justify-between">
-                                <span>{solution.label}</span>
-                              </div>
-                            </Link>
-                          )}
-                        </div>
+                      {toolItems.map((tool) => (
+                        <Link
+                          key={tool.label}
+                          to={tool.href}
+                          className={`block px-3 py-2 text-sm font-medium rounded-md ${
+                            isActiveLink(tool.href)
+                              ? 'text-vendorsoluce-green dark:text-white bg-vendorsoluce-green/10 dark:bg-vendorsoluce-green/20'
+                              : 'text-gray-700 dark:text-gray-300 hover:text-vendorsoluce-green dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700'
+                          }`}
+                          onClick={() => {
+                            setIsOpen(false);
+                            setIsToolsOpen(false);
+                          }}
+                        >
+                          <span>{tool.label}</span>
+                        </Link>
                       ))}
                     </div>
                   )}

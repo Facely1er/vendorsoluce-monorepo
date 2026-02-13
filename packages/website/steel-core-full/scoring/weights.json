@@ -1,0 +1,8 @@
+{
+  "political": 0.15,
+  "economic": 0.2,
+  "social": 0.15,
+  "technological": 0.2,
+  "environmental": 0.1,
+  "legal": 0.2
+}
