@@ -154,7 +154,6 @@ serve(async (req) => {
                 results.monthly7Day++;
               }
             }
-          }
         } catch (error) {
           results.errors.push(`7-day notification for user ${subscription.user_id}: ${error.message}`);
         }
@@ -277,7 +276,6 @@ serve(async (req) => {
                 results.annual30Day++;
               }
             }
-          }
         } catch (error) {
           results.errors.push(`30-day notification for user ${subscription.user_id}: ${error.message}`);
         }

@@ -12,10 +12,7 @@ import GapAnalysis from './GapAnalysis';
 import { 
   ChevronDown, 
   ChevronUp, 
-  Shield, 
-  AlertTriangle,
-  CheckCircle,
-  Eye
+  Shield
 } from 'lucide-react';
 import type { VendorRequirement } from '../../types/requirements';
 
@@ -28,7 +25,7 @@ interface VendorRequirementsListProps {
 
 const VendorRequirementsList: React.FC<VendorRequirementsListProps> = ({
   requirements,
-  onRequirementUpdate,
+  onRequirementUpdate: _onRequirementUpdate,
   showGapAnalysis = true,
   showRequirementDetails = true
 }) => {

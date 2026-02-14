@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../../components/ui/Card';
 import { Button } from '../../../../components/ui/Button';
 import RiskBadge from '../../../../components/ui/RiskBadge';
-import { AlertTriangle, Target, ChevronRight, Filter } from 'lucide-react';
+import { AlertTriangle, Target, Filter } from 'lucide-react';
 import type { VendorRadar } from '../../../../types/vendorRadar';
 
 interface VendorDashboardProps {

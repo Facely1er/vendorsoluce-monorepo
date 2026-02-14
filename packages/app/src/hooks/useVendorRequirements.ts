@@ -7,7 +7,6 @@ import { useAuth } from '../context/AuthContext';
 import {
   createVendorRequirement,
   getVendorRequirements,
-  getVendorRequirementById,
   getVendorRequirementByVendorId,
   updateVendorRequirement,
   deleteVendorRequirement,

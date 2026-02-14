@@ -10,7 +10,6 @@ import {
   Shield, 
   FileText, 
   CheckCircle, 
-  AlertCircle, 
   FileCheck,
   Award,
   ExternalLink

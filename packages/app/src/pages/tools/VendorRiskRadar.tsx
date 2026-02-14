@@ -20,8 +20,8 @@ const VendorRiskRadar: React.FC = () => {
     vendors,
     stats,
     addVendor,
-    updateVendor,
-    deleteVendor,
+    updateVendor: _updateVendor,
+    deleteVendor: _deleteVendor,
     importVendors,
     exportVendors,
     scanVendors,
@@ -381,6 +381,7 @@ const VendorRiskRadar: React.FC = () => {
                   value={filters.category}
                   onChange={(e) => setFilters({ ...filters, category: e.target.value })}
                   className="px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-sm"
+                  aria-label="Filter by category"
                 >
                   <option value="all">All Categories</option>
                   <option value="critical">Critical</option>
@@ -395,6 +396,7 @@ const VendorRiskRadar: React.FC = () => {
                   value={filters.riskLevel}
                   onChange={(e) => setFilters({ ...filters, riskLevel: e.target.value })}
                   className="px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-sm"
+                  aria-label="Filter by risk level"
                 >
                   <option value="all">All Risk Levels</option>
                   <option value="critical">Critical Risk (90+)</option>

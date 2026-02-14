@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card'
 import { Button } from '../components/ui/Button';
 import { AlertTriangle, CheckCircle, Circle, Info, ArrowLeft, ArrowRight, Clipboard, FileText, Shield, ExternalLink } from 'lucide-react';
 import { RotateCcw } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSupplyChainAssessments } from '../hooks/useSupplyChainAssessments';
 import { useAuth } from '../context/AuthContext';

@@ -22,7 +22,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   autoFocus = false
 }) => {
   const [internalValue, setInternalValue] = useState('');
-  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const debounceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const value = controlledValue !== undefined ? controlledValue : internalValue;
   const isControlled = controlledValue !== undefined;

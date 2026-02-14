@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../../../../components/ui/Card';
-import { AlertTriangle, Shield, TrendingUp, Database, FileX, Target } from 'lucide-react';
+import { Card, CardContent } from '../../../../components/ui/Card';
+import { AlertTriangle, Shield, TrendingUp, Database, Target } from 'lucide-react';
 import type { PortfolioStats } from '../../../../types/vendorRadar';
 
 interface StatsOverviewProps {
@@ -69,17 +69,18 @@ const StatsOverview: React.FC<StatsOverviewProps> = ({ stats }) => {
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
         {statCards.map((stat, index) => {
-          const Icon = stat.icon;
+          const IconComponent = stat.icon;
           return (
             <Card key={index} className="hover:shadow-md transition-shadow">
               <CardContent className="p-4">
-                <div className="mb-2">
+                <div className="mb-2 flex items-center gap-2">
+                  <IconComponent className="w-4 h-4 text-gray-500 flex-shrink-0" />
                   <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
                     {stat.label}
                   </p>
-                  <div className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                    {stat.value}
-                  </div>
+                </div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                  {stat.value}
                 </div>
                 {stat.showBar && (
                   <div className={`h-1 ${stat.barColor} rounded-full`} style={{ width: '100%' }}></div>

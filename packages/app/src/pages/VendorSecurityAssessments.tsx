@@ -66,13 +66,13 @@ const VendorSecurityAssessments: React.FC = () => {
     frameworks, 
     loading: assessmentsLoading, 
     error: assessmentsError,
-    createAssessment,
-    sendAssessment,
+    createAssessment: _createAssessment,
+    sendAssessment: _sendAssessment,
     deleteAssessment,
     getAssessmentProgress,
     refetch,
   } = useVendorAssessments();
-  const { requirements: vendorRequirements, loading: requirementsLoading } = useVendorRequirements();
+  const { requirements: vendorRequirements, loading: _requirementsLoading } = useVendorRequirements();
   
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');

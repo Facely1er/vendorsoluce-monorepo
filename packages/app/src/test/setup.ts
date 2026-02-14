@@ -38,7 +38,7 @@ if (typeof global.fetch === 'undefined') {
         arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
         headers: {} as any,
         redirected: false,
-        type: 'default' as ResponseType,
+        type: 'default' as Response['type'],
         url: '',
         clone: vi.fn(),
         body: null,

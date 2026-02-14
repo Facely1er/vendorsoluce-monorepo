@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Info, Sparkles } from 'lucide-react';
 import { AssessmentResults } from '../components/assessments/AssessmentResults';
-import { generateResultsPdf, generateComprehensiveAssessmentPdf, generatePremiumReportPdf } from '../utils/generatePdf';
+import { generateResultsPdf, generateComprehensiveAssessmentPdf, generatePremiumReportPdf, type ComprehensiveAssessmentData } from '../utils/generatePdf';
 import { PremiumReportModal } from '../components/reports/PremiumReportModal';
 import { useSupplyChainAssessments } from '../hooks/useSupplyChainAssessments';
 import { useAuth } from '../context/AuthContext';
@@ -36,7 +36,7 @@ const SupplyChainResults = () => {
     assessmentId?: string;
   }>({});
   const [showPremiumModal, setShowPremiumModal] = useState(false);
-  const [hasPremiumAccess, setHasPremiumAccess] = useState(false);
+  const [_hasPremiumAccess, setHasPremiumAccess] = useState(false);
   
   // Get results from location state or fetch from most recent completed assessment
   useEffect(() => {

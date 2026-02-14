@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { Radar, Upload, CheckCircle, ArrowRight, ArrowLeft } from 'lucide-react';
-import VendorRiskRadar from './tools/VendorRiskRadar';
+import { CheckCircle, ArrowRight, ArrowLeft } from 'lucide-react';
 
 interface DemoVendor {
   name: string;

@@ -7,7 +7,7 @@ interface ChartPreloaderProps {
 }
 
 export const useChartPreloader = ({ onLoad, delay = 0 }: ChartPreloaderProps = {}) => {
-  const [isPreloaded, setIsPreloaded] = useState(false);
+  const [_isPreloaded, setIsPreloaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
