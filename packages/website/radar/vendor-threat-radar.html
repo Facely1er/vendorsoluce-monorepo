@@ -1581,7 +1581,7 @@
 <div class="radar-container">
 <!-- Header -->
 <div class="radar-header">
-<h1>🎯 Vendor Risk Radar</h1>
+<h1><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 10px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Vendor Risk Radar</h1>
 <div class="radar-status hero-items">
 <div>See Vendor Threat Landscape</div>
 <div>Define Security Requirements</div>
@@ -1607,7 +1607,7 @@
                     Add Vendor
                 </button>
 <label for="csvImport">
-<button type="button" class="secondary" onclick="document.getElementById('csvImport').click()">
+<button type="button" class="secondary" onclick="document.getElementById('csvImport').click()" title="Import vendors from CSV file">
 <svg class="icon" fill="none" stroke="currentColor" viewbox="0 0 24 24">
 <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
@@ -1615,6 +1615,12 @@
                     </button>
 </label>
 <input accept=".csv" id="csvImport" onchange="importVendors(event)" type="file"/>
+<button type="button" class="secondary" onclick="showImportInstructions()" title="View CSV import instructions">
+<svg class="icon" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+                    Import Help
+                </button>
 <button type="button" class="secondary" onclick="exportVendors()">
 <svg class="icon" fill="none" stroke="currentColor" viewbox="0 0 24 24">
 <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
@@ -2279,6 +2285,193 @@
             return 'vendor-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
         }
 
+        // ============================================================================
+        // NIST-ALIGNED VENDOR DATA NORMALIZATION
+        // Implements minimal vendor input model with automatic enrichment per NIST frameworks
+        // ============================================================================
+        
+        /**
+         * Normalize minimal vendor input and enrich with NIST-aligned attributes
+         * 
+         * Accepts minimal vendor input:
+         * - Vendor Name (required)
+         * - Service Category (or Category) - free text
+         * - Data Sensitivity - one of: None, Internal only, Low, Moderate, High
+         * 
+         * Produces enriched vendor object with:
+         * - Derived category (critical/strategic/tactical/commodity)
+         * - Derived dataTypes array based on sensitivity
+         * - CIA (Confidentiality, Integrity, Availability) impact levels per NIST SP 800-37
+         * - FIPS-199 style impact classification
+         * - SBOM requirement flag based on text heuristics per NIST SP 800-161
+         * 
+         * @param {Object} row - Raw vendor data from CSV/form
+         * @returns {Object} Normalized and enriched vendor object
+         */
+        function normalizeImportedVendorRowMinimal(row) {
+            // Normalize input field names (handle various column name formats)
+            const vendorName = row.vendorname || row['vendor name'] || row.name || '';
+            const serviceCategory = row.servicecategory || row['service category'] || row.category || '';
+            const dataSensitivity = (row.datasensitivity || row['data sensitivity'] || row.sensitivity || 'None').trim();
+            
+            // Optional fields
+            const description = row.description || row.notes || '';
+            const sector = row.sector || row.industry || 'Other';
+            const location = row.location || row.country || 'United States';
+            const contact = row.contact || row.email || '';
+            
+            // Validate required field
+            if (!vendorName || !vendorName.trim()) {
+                throw new Error('Vendor Name is required');
+            }
+            
+            // ========================================================================
+            // DERIVE VENDOR CATEGORY (critical | strategic | tactical | commodity)
+            // Based on service category keywords, vendor name, and description
+            // ========================================================================
+            const categoryText = (vendorName + ' ' + serviceCategory + ' ' + description).toLowerCase();
+            let derivedCategory = 'tactical'; // default
+            
+            // Critical: Core infrastructure, security, identity, payments
+            if (categoryText.match(/\b(infrastructure|security|identity|auth|payment|core|mission[- ]?critical|primary|essential)\b/)) {
+                derivedCategory = 'critical';
+            }
+            // Strategic: Important SaaS, analytics, CRM, major platforms
+            else if (categoryText.match(/\b(crm|analytics|platform|saas|erp|strategic|important|key|major)\b/)) {
+                derivedCategory = 'strategic';
+            }
+            // Commodity: Office supplies, facilities, non-tech services
+            else if (categoryText.match(/\b(supplies|office|facilities|catering|cleaning|commodity|basic)\b/)) {
+                derivedCategory = 'commodity';
+            }
+            
+            // ========================================================================
+            // DERIVE DATA TYPES & CIA IMPACT from Data Sensitivity
+            // Implements NIST SP 800-37 / FIPS 199 impact categorization
+            // ========================================================================
+            let dataTypes = [];
+            let confidentialityImpact = 'LOW';
+            let integrityImpact = 'LOW';
+            let availabilityImpact = 'LOW';
+            
+            const sensitivityLower = dataSensitivity.toLowerCase();
+            
+            if (sensitivityLower.includes('high')) {
+                // High sensitivity: Financial + PII + Confidential data
+                dataTypes = ['PII', 'Financial', 'Confidential'];
+                confidentialityImpact = 'HIGH';
+                integrityImpact = 'MODERATE';
+                availabilityImpact = 'HIGH';
+            } else if (sensitivityLower.includes('moderate')) {
+                // Moderate sensitivity: PII + Confidential data
+                dataTypes = ['PII', 'Confidential'];
+                confidentialityImpact = 'MODERATE';
+                integrityImpact = 'MODERATE';
+                availabilityImpact = 'MODERATE';
+            } else if (sensitivityLower.includes('low') || sensitivityLower.includes('internal')) {
+                // Low/Internal: Confidential internal data only
+                dataTypes = ['Confidential'];
+                confidentialityImpact = 'MODERATE';
+                integrityImpact = 'LOW';
+                availabilityImpact = 'LOW';
+            }
+            // else: None - no data types, all impacts stay LOW
+            
+            // ========================================================================
+            // CALCULATE FIPS-199 OVERALL IMPACT
+            // Per FIPS 199: overall impact = highest of C/I/A impacts
+            // ========================================================================
+            let fips199Impact = 'LOW';
+            if (confidentialityImpact === 'HIGH' || integrityImpact === 'HIGH' || availabilityImpact === 'HIGH') {
+                fips199Impact = 'HIGH';
+            } else if (confidentialityImpact === 'MODERATE' || integrityImpact === 'MODERATE' || availabilityImpact === 'MODERATE') {
+                fips199Impact = 'MODERATE';
+            }
+            
+            // ========================================================================
+            // INFER SBOM REQUIREMENT based on text heuristics
+            // Per NIST SP 800-161 supply chain risk management practices
+            // Determines if vendor provides software/SaaS requiring SBOM review
+            // ========================================================================
+            const sbomText = (vendorName + ' ' + serviceCategory + ' ' + description).toLowerCase();
+            const softwareKeywords = [
+                'saas', 'software', 'platform', 'app', 'application', 'tool', 'agent',
+                'scanner', 'sdk', 'api', 'cloud', 'service', 'endpoint', 'security',
+                'devops', 'monitoring', 'analytics', 'crm', 'erp', 'database',
+                'infrastructure', 'hosting', 'cdn', 'code', 'development', 'testing'
+            ];
+            const nonSoftwareKeywords = [
+                'facilities', 'catering', 'cleaning', 'supplies', 'office', 'furniture',
+                'consulting', 'training', 'staffing', 'recruiting', 'legal', 'accounting'
+            ];
+            
+            let sbomRequiredForReview = false;
+            
+            // Check for non-software keywords first (more specific)
+            const hasNonSoftware = nonSoftwareKeywords.some(kw => sbomText.includes(kw));
+            if (!hasNonSoftware) {
+                // Check for software keywords
+                sbomRequiredForReview = softwareKeywords.some(kw => sbomText.includes(kw));
+            }
+            
+            // ========================================================================
+            // BUILD NORMALIZED VENDOR OBJECT
+            // ========================================================================
+            return {
+                name: vendorName.trim(),
+                category: derivedCategory,
+                dataTypes: dataTypes,
+                sector: sector,
+                location: location,
+                contact: contact,
+                notes: description,
+                
+                // NIST-aligned enrichment
+                cia: {
+                    confidentiality: confidentialityImpact,
+                    integrity: integrityImpact,
+                    availability: availabilityImpact
+                },
+                fips199Impact: fips199Impact,
+                
+                // SBOM requirement per NIST SP 800-161
+                sbom: {
+                    providesSoftware: sbomRequiredForReview,
+                    sbomAvailable: null, // Unknown at import time
+                    sbomRequiredForReview: sbomRequiredForReview
+                }
+            };
+        }
+        
+        /**
+         * Map raw CSV row to complete vendor object for radar
+         * Integrates normalization with risk calculation
+         * 
+         * @param {Object} rawRow - Raw vendor data from CSV
+         * @returns {Object} Complete vendor object with risk scores
+         */
+        function mapRawRowToVendorForRadar(rawRow) {
+            try {
+                // Step 1: Normalize and enrich minimal input
+                const normalizedVendor = normalizeImportedVendorRowMinimal(rawRow);
+                
+                // Step 2: Generate unique ID
+                normalizedVendor.id = generateId();
+                
+                // Step 3: Calculate risk scores
+                const riskData = calculateVendorRisk(normalizedVendor);
+                
+                // Step 4: Merge risk data into vendor object
+                return {
+                    ...normalizedVendor,
+                    ...riskData
+                };
+            } catch (error) {
+                console.error('Error mapping vendor row:', error, rawRow);
+                throw error;
+            }
+        }
+
         // Calculate Risk
         // Enhanced Risk Calculation with Threat Intelligence
         function calculateVendorRisk(vendor) {
@@ -2648,7 +2841,7 @@
             if (critical > 0) {
                 banner.className = 'alert-banner critical';
                 banner.innerHTML = `
-                    <div class="alert-icon">⚠️</div>
+                    <div class="alert-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></div>
                     <div class="alert-content">
                         <div class="alert-title">Critical Alert: ${critical} Critical Risk Vendor${critical > 1 ? 's' : ''}</div>
                         <div>Immediate action required for high-risk vendors</div>
@@ -2736,7 +2929,7 @@
                     ` : ''}
                     ${vendor.riskEvents && vendor.riskEvents.length > 0 ? `
                         <div class="vendor-info" style="color: #ff9800;">
-                            <strong>🚨 Active Threats:</strong> ${vendor.riskEvents.join('; ')}
+                            <strong><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>Active Threats:</strong> ${vendor.riskEvents.join('; ')}
                         </div>
                     ` : ''}
                     ${vendor.nextReviewDate ? `
@@ -2974,6 +3167,7 @@
         });
 
         // Import Vendors
+        // Supports both minimal (3-column) and detailed CSV formats
         function importVendors(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -2982,36 +3176,122 @@
             reader.onload = function(e) {
                 try {
                     const csv = e.target.result;
-                    const lines = csv.split('\n');
+                    const lines = csv.split('\n').filter(line => line.trim());
+                    
+                    if (lines.length < 2) {
+                        alert('CSV file must have at least a header row and one data row');
+                        return;
+                    }
+                    
+                    // Helper function to parse CSV line handling quoted fields
+                    // Implements RFC 4180 compliant parsing
+                    function parseCSVLine(line) {
+                        const result = [];
+                        let current = '';
+                        let inQuotes = false;
+                        
+                        for (let i = 0; i < line.length; i++) {
+                            const char = line[i];
+                            const nextChar = line[i + 1];
+                            
+                            if (char === '"') {
+                                if (inQuotes && nextChar === '"') {
+                                    // Escaped quote
+                                    current += '"';
+                                    i++; // Skip next quote
+                                } else {
+                                    // Toggle quote mode
+                                    inQuotes = !inQuotes;
+                                }
+                            } else if (char === ',' && !inQuotes) {
+                                // Field separator
+                                result.push(current.trim());
+                                current = '';
+                            } else {
+                                current += char;
+                            }
+                        }
+                        
+                        // Add last field
+                        result.push(current.trim());
+                        return result;
+                    }
+                    
+                    // Parse header row and normalize column names
+                    const headers = parseCSVLine(lines[0]).map(h => 
+                        h.trim().toLowerCase().replace(/[^a-z0-9]/g, '')
+                    );
+                    
+                    // Detect CSV format: minimal or detailed
+                    const hasMinimalColumns = headers.includes('vendorname') || headers.includes('name');
+                    const hasDataSensitivity = headers.includes('datasensitivity') || headers.includes('sensitivity');
+                    const isMinimalFormat = hasMinimalColumns && hasDataSensitivity;
                     
                     const imported = [];
+                    const errors = [];
+                    
                     for (let i = 1; i < lines.length; i++) {
                         if (!lines[i].trim()) continue;
                         
-                        const values = lines[i].split(',').map(v => v.trim());
-                        const vendor = {
-                            id: generateId(),
-                            name: values[0] || '',
-                            category: values[1] || 'tactical',
-                            dataTypes: values[2] ? values[2].split(';').map(d => d.trim()) : [],
-                            sector: values[3] || 'Other',
-                            location: values[4] || 'United States',
-                            contact: values[5] || '',
-                            notes: values[6] || ''
-                        };
-                        
-                        if (vendor.name) {
-                            imported.push(vendor);
+                        try {
+                            const values = parseCSVLine(lines[i]);
+                            
+                            // Create row object from headers and values
+                            const row = {};
+                            headers.forEach((header, idx) => {
+                                row[header] = values[idx] || '';
+                            });
+                            
+                            let vendor;
+                            
+                            if (isMinimalFormat) {
+                                // Use NIST-aligned normalization for minimal format
+                                vendor = mapRawRowToVendorForRadar(row);
+                            } else {
+                                // Legacy detailed format - backwards compatibility
+                                vendor = {
+                                    id: generateId(),
+                                    name: values[0] || '',
+                                    category: values[1] || 'tactical',
+                                    dataTypes: values[2] ? values[2].split(';').map(d => d.trim()).filter(Boolean) : [],
+                                    sector: values[3] || 'Other',
+                                    location: values[4] || 'United States',
+                                    contact: values[5] || '',
+                                    notes: values[6] || ''
+                                };
+                                
+                                // Calculate risk for legacy format
+                                const riskData = calculateVendorRisk(vendor);
+                                vendor = { ...vendor, ...riskData };
+                            }
+                            
+                            if (vendor && vendor.name) {
+                                imported.push(vendor);
+                            }
+                        } catch (rowError) {
+                            console.error(`Error processing row ${i}:`, rowError);
+                            errors.push(`Row ${i}: ${rowError.message}`);
                         }
                     }
                     
+                    if (imported.length === 0) {
+                        alert('No valid vendors found in file. Please check the format and ensure vendor names are provided.');
+                        return;
+                    }
+                    
                     vendorData = [...vendorData, ...imported];
-                    vendorData = vendorData.map(v => ({ ...v, ...calculateVendorRisk(v) }));
                     localStorage.setItem('vendorData', JSON.stringify(vendorData));
                     updateAllDisplays();
                     
-                    alert(`Successfully imported ${imported.length} vendors!`);
+                    let message = `Successfully imported ${imported.length} vendor${imported.length !== 1 ? 's' : ''}!`;
+                    if (errors.length > 0) {
+                        message += `\n\nWarnings: ${errors.length} row(s) had issues and were skipped.`;
+                        console.warn('Import errors:', errors);
+                    }
+                    alert(message);
+                    
                 } catch (error) {
+                    console.error('Error importing CSV:', error);
                     alert('Error importing CSV: ' + error.message);
                 }
             };
@@ -3060,6 +3340,204 @@
             updateAllDisplays();
         }
         
+        /**
+         * Show CSV Import Instructions
+         * Displays modal with updated minimal column requirements and NIST alignment
+         */
+        function showImportInstructions() {
+            const modal = document.createElement('div');
+            modal.className = 'modal show';
+            modal.innerHTML = `
+                <div class="modal-content" style="max-width: 800px;">
+                    <div class="modal-header">
+                        <h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>CSV Import Instructions</h2>
+                        <button type="button" class="close-btn" onclick="this.closest('.modal').remove()">×</button>
+                    </div>
+                    <div style="padding: 20px; max-height: 70vh; overflow-y: auto;">
+                        <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #0ea5e9;">
+                            <h3 style="margin-top: 0; color: #0c4a6e;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Quick Start: Minimal 3-Column Format</h3>
+                            <p style="margin: 0; color: #0c4a6e;">
+                                Get started with just three simple columns! The Vendor Risk Radar will automatically classify and enrich your vendor data with NIST-aligned risk attributes.
+                            </p>
+                        </div>
+                        
+                        <h3 style="color: var(--vendorsoluce-green);">Required Columns</h3>
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                            <thead>
+                                <tr style="background: #f3f4f6;">
+                                    <th style="padding: 10px; text-align: left; border: 1px solid #e5e7eb;">Column Name</th>
+                                    <th style="padding: 10px; text-align: left; border: 1px solid #e5e7eb;">Description</th>
+                                    <th style="padding: 10px; text-align: left; border: 1px solid #e5e7eb;">Required</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #e5e7eb;"><strong>Vendor Name</strong></td>
+                                    <td style="padding: 10px; border: 1px solid #e5e7eb;">Name of the vendor or service provider</td>
+                                    <td style="padding: 10px; border: 1px solid #e5e7eb;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="3" style="vertical-align: middle; margin-right: 4px;"><polyline points="20 6 9 17 4 12"></polyline></svg>Yes</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #e5e7eb;"><strong>Service Category</strong></td>
+                                    <td style="padding: 10px; border: 1px solid #e5e7eb;">Type of service provided (e.g., "Cloud Storage", "Payment Processing", "SaaS Platform")</td>
+                                    <td style="padding: 10px; border: 1px solid #e5e7eb;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="3" style="vertical-align: middle; margin-right: 4px;"><polyline points="20 6 9 17 4 12"></polyline></svg>Yes</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #e5e7eb;"><strong>Data Sensitivity</strong></td>
+                                    <td style="padding: 10px; border: 1px solid #e5e7eb;">Level of data sensitivity (see values below)</td>
+                                    <td style="padding: 10px; border: 1px solid #e5e7eb;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="3" style="vertical-align: middle; margin-right: 4px;"><polyline points="20 6 9 17 4 12"></polyline></svg>Yes</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <h3 style="color: var(--vendorsoluce-green);">Data Sensitivity Values</h3>
+                        <div style="margin-bottom: 20px;">
+                            <div style="background: #f9fafb; padding: 12px; margin-bottom: 8px; border-radius: 6px; border-left: 3px solid #6b7280;">
+                                <strong>None</strong> - Vendor does not process sensitive data (e.g., office supplies)
+                            </div>
+                            <div style="background: #fefce8; padding: 12px; margin-bottom: 8px; border-radius: 6px; border-left: 3px solid #eab308;">
+                                <strong>Internal only</strong> or <strong>Low</strong> - Processes internal business data only (Confidential)
+                            </div>
+                            <div style="background: #fef3c7; padding: 12px; margin-bottom: 8px; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                                <strong>Moderate</strong> - Processes personal information and internal data (PII + Confidential)
+                            </div>
+                            <div style="background: #fee2e2; padding: 12px; border-radius: 6px; border-left: 3px solid #ef4444;">
+                                <strong>High</strong> - Processes financial data, payment info, or highly sensitive data (PII + Financial + Confidential)
+                            </div>
+                        </div>
+                        
+                        <h3 style="color: var(--vendorsoluce-green);">Optional Helpful Columns</h3>
+                        <ul style="margin-bottom: 20px;">
+                            <li><strong>Description</strong> or <strong>Notes</strong> - Additional vendor details</li>
+                            <li><strong>Sector</strong> or <strong>Industry</strong> - Business sector (e.g., Technology, Finance, Healthcare)</li>
+                            <li><strong>Location</strong> or <strong>Country</strong> - Geographic location</li>
+                            <li><strong>Contact</strong> or <strong>Email</strong> - Vendor contact information</li>
+                        </ul>
+                        
+                        <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #16a34a;">
+                            <h3 style="margin-top: 0; color: #14532d;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>Automatic Enrichment</h3>
+                            <p style="margin: 0 0 10px 0; color: #14532d;">
+                                The Vendor Risk Radar automatically enriches your imported vendors with:
+                            </p>
+                            <ul style="margin: 0; padding-left: 20px; color: #14532d;">
+                                <li><strong>Vendor Classification</strong> - Critical, Strategic, Tactical, or Commodity based on service type</li>
+                                <li><strong>Data Type Mapping</strong> - Automatic assignment of data types (PII, Financial, Confidential) based on sensitivity level</li>
+                                <li><strong>CIA Impact Levels</strong> - Confidentiality, Integrity, and Availability impact per NIST SP 800-37</li>
+                                <li><strong>FIPS-199 Classification</strong> - Overall system impact classification</li>
+                                <li><strong>SBOM Requirements</strong> - Automatic detection of software vendors requiring Software Bill of Materials per NIST SP 800-161</li>
+                                <li><strong>Risk Scores</strong> - Inherent and residual risk calculations</li>
+                            </ul>
+                        </div>
+                        
+                        <h3 style="color: var(--vendorsoluce-green);">Example CSV</h3>
+                        <div style="background: #1f2937; color: #f3f4f6; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 0.9em; overflow-x: auto; margin-bottom: 20px;">
+Vendor Name,Service Category,Data Sensitivity,Description<br/>
+AWS,Cloud Infrastructure,High,Primary cloud hosting provider<br/>
+Okta,Identity Management,Moderate,SSO and authentication platform<br/>
+Slack,Communication Platform,Low,Team collaboration tool<br/>
+Office Depot,Office Supplies,None,Office supply vendor
+                        </div>
+                        
+                        <div style="background: #fef3c7; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                            <h3 style="margin-top: 0; color: #713f12;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>No Technical Security Fields Required</h3>
+                            <p style="margin: 0; color: #713f12;">
+                                You do <strong>not</strong> need to provide technical security fields like SBOM files, certifications, or detailed control lists to get started. 
+                                The system will automatically identify software vendors that may benefit from SBOM review and guide you through next steps.
+                            </p>
+                        </div>
+                        
+                        <div style="text-align: right; padding-top: 20px; border-top: 1px solid #e5e7eb; margin-top: 20px;">
+                            <button type="button" onclick="this.closest('.modal').remove();">Close</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        /**
+         * Render Software Transparency (SBOM) Status Section
+         * Displays NIST SP 800-161 aligned SBOM review status
+         * 
+         * @param {Object} vendor - Vendor object with sbom property
+         * @returns {string} HTML string for SBOM section
+         */
+        function renderSbomSection(vendor) {
+            // Check if vendor has SBOM data (support both old and new format)
+            const sbom = vendor.sbom || {};
+            const sbomRequiredForReview = sbom.sbomRequiredForReview || sbom.providesSoftware || false;
+            const sbomAvailable = sbom.sbomAvailable;
+            
+            if (!sbomRequiredForReview) {
+                // Vendor does not provide software - SBOM not required
+                return `
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: var(--vendorsoluce-green); margin-bottom: 10px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>Software Transparency (SBOM) Status
+                        </h3>
+                        <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #0ea5e9;">
+                            <p style="margin: 0; color: #0c4a6e;">
+                                <strong>Status:</strong> Not Required
+                            </p>
+                            <p style="margin: 10px 0 0 0; color: #0c4a6e; font-size: 0.9em;">
+                                Software transparency review is not required for this type of vendor.
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            if (sbomAvailable === true) {
+                // SBOM is verified and available
+                return `
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: var(--vendorsoluce-green); margin-bottom: 10px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>Software Transparency (SBOM) Status
+                        </h3>
+                        <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; border-left: 4px solid #16a34a;">
+                            <p style="margin: 0; color: #14532d;">
+                                <strong>Status:</strong> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="3" style="vertical-align: middle; margin-right: 4px;"><polyline points="20 6 9 17 4 12"></polyline></svg>Verified
+                            </p>
+                            <p style="margin: 10px 0 0 0; color: #14532d; font-size: 0.9em;">
+                                <strong>Requirement:</strong> SBOM or equivalent software inventory on file.
+                            </p>
+                            <p style="margin: 10px 0 0 0; color: #14532d; font-size: 0.85em; font-style: italic;">
+                                Software Bill of Materials helps identify vulnerable components and supports rapid incident response per NIST SP 800-161 supply chain risk management guidance.
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // SBOM not yet verified - recommendation to obtain
+            return `
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: #f59e0b; margin-bottom: 10px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>Software Transparency (SBOM) Status
+                    </h3>
+                    <div style="background: #fefce8; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                        <p style="margin: 0; color: #713f12;">
+                            <strong>Status:</strong> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" style="vertical-align: middle; margin-right: 4px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Not Yet Verified
+                        </p>
+                        <p style="margin: 10px 0 0 0; color: #713f12; font-size: 0.9em;">
+                            <strong>Recommendation:</strong> SBOM recommended for deeper security review
+                        </p>
+                        <p style="margin: 10px 0 0 0; color: #713f12; font-size: 0.85em;">
+                            This vendor provides software or SaaS services. Obtaining a Software Bill of Materials (SBOM) enables:
+                        </p>
+                        <ul style="margin: 8px 0 0 20px; padding: 0; color: #713f12; font-size: 0.85em;">
+                            <li>Visibility into software components and dependencies</li>
+                            <li>Rapid identification of vulnerabilities (e.g., Log4j, OpenSSL)</li>
+                            <li>Compliance with NIST SP 800-161 supply chain security practices</li>
+                            <li>Support for Executive Order 14028 (Improving Cybersecurity)</li>
+                        </ul>
+                        <p style="margin: 10px 0 0 0; color: #713f12; font-size: 0.8em; font-style: italic;">
+                            Consider requesting SBOM in SPDX or CycloneDX format from your vendor.
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+        
         // Enhanced Vendor Details View
         function viewVendorDetails(vendorId) {
             const vendor = vendorData.find(v => v.id === vendorId);
@@ -3070,7 +3548,7 @@
             modal.innerHTML = `
                 <div class="modal-content" style="max-width: 900px;">
                     <div class="modal-header">
-                        <h2>📊 ${vendor.name} - Risk Analysis</h2>
+                        <h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>${vendor.name} - Risk Analysis</h2>
                         <button type="button" class="close-btn" onclick="this.closest('.modal').remove()">×</button>
                     </div>
                     <div style="padding: 20px; max-height: 70vh; overflow-y: auto;">
@@ -3100,6 +3578,36 @@
                             </div>
                         ` : ''}
                         
+                        ${vendor.cia || vendor.fips199Impact ? `
+                            <div style="margin-bottom: 20px;">
+                                <h3 style="color: var(--vendorsoluce-green); margin-bottom: 10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>NIST Impact Classification</h3>
+                                <div style="background: #f0f9ff; padding: 15px; border-radius: 8px;">
+                                    ${vendor.cia ? `
+                                        <p style="margin: 0 0 8px 0;"><strong>CIA Impact Levels (NIST SP 800-37):</strong></p>
+                                        <div style="display: flex; gap: 12px; margin-bottom: 10px;">
+                                            <span class="badge ${vendor.cia.confidentiality === 'HIGH' ? 'critical' : vendor.cia.confidentiality === 'MODERATE' ? 'medium' : 'low'}" style="flex: 1; text-align: center;">
+                                                C: ${vendor.cia.confidentiality}
+                                            </span>
+                                            <span class="badge ${vendor.cia.integrity === 'HIGH' ? 'critical' : vendor.cia.integrity === 'MODERATE' ? 'medium' : 'low'}" style="flex: 1; text-align: center;">
+                                                I: ${vendor.cia.integrity}
+                                            </span>
+                                            <span class="badge ${vendor.cia.availability === 'HIGH' ? 'critical' : vendor.cia.availability === 'MODERATE' ? 'medium' : 'low'}" style="flex: 1; text-align: center;">
+                                                A: ${vendor.cia.availability}
+                                            </span>
+                                        </div>
+                                    ` : ''}
+                                    ${vendor.fips199Impact ? `
+                                        <p style="margin: 0;"><strong>FIPS 199 Overall Impact:</strong> 
+                                        <span class="badge ${vendor.fips199Impact === 'HIGH' ? 'critical' : vendor.fips199Impact === 'MODERATE' ? 'medium' : 'low'}">
+                                            ${vendor.fips199Impact}
+                                        </span></p>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${renderSbomSection(vendor)}
+                        
                         ${vendor.riskFactors && vendor.riskFactors.length > 0 ? `
                             <div style="margin-bottom: 20px;">
                                 <h3 style="color: var(--vendorsoluce-green); margin-bottom: 10px;">Risk Factors</h3>
@@ -3111,7 +3619,7 @@
                         
                         ${vendor.complianceGaps && vendor.complianceGaps.length > 0 ? `
                             <div style="margin-bottom: 20px;">
-                                <h3 style="color: #ff9800; margin-bottom: 10px;">⚠️ Compliance Gaps</h3>
+                                <h3 style="color: #ff9800; margin-bottom: 10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>Compliance Gaps</h3>
                                 <ul style="margin: 0; padding-left: 20px;">
                                     ${vendor.complianceGaps.map(gap => `<li style="color: #ff9800;">${gap}</li>`).join('')}
                                 </ul>
@@ -3120,7 +3628,7 @@
                         
                         ${vendor.securityControls && vendor.securityControls.length > 0 ? `
                             <div style="margin-bottom: 20px;">
-                                <h3 style="color: var(--vendorsoluce-green); margin-bottom: 10px;">✅ Security Controls</h3>
+                                <h3 style="color: var(--vendorsoluce-green); margin-bottom: 10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>Security Controls</h3>
                                 <ul style="margin: 0; padding-left: 20px;">
                                     ${vendor.securityControls.map(control => `<li style="color: var(--vendorsoluce-green);">${control}</li>`).join('')}
                                 </ul>
@@ -3129,7 +3637,7 @@
                         
                         ${vendor.riskEvents && vendor.riskEvents.length > 0 ? `
                             <div style="margin-bottom: 20px;">
-                                <h3 style="color: #f44336; margin-bottom: 10px;">🚨 Active Threat Intelligence</h3>
+                                <h3 style="color: #f44336; margin-bottom: 10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>Active Threat Intelligence</h3>
                                 <ul style="margin: 0; padding-left: 20px;">
                                     ${vendor.riskEvents.map(event => `<li style="color: #f44336;">${event}</li>`).join('')}
                                 </ul>
@@ -3317,14 +3825,14 @@
 </head>
 <body>
     <div class="header">
-        <h1>🎯 Vendor Risk Management Report</h1>
+        <h1><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 10px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Vendor Risk Management Report</h1>
         <p>Comprehensive Third-Party Risk Assessment</p>
         <p><strong>Generated:</strong> ${new Date().toLocaleString()}</p>
         <p><strong>Report Period:</strong> Current Portfolio Analysis</p>
     </div>
     
     <div class="section">
-        <h2>📊 Executive Summary</h2>
+        <h2><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>Executive Summary</h2>
         <div class="grid">
             <div class="risk-card">
                 <h3>Portfolio Overview</h3>
@@ -3343,12 +3851,12 @@
     </div>
     
     <div class="section">
-        <h2>🎯 Key Recommendations</h2>
+        <h2><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Key Recommendations</h2>
         ${analytics.recommendedActions.map(rec => `<div class="recommendation">${rec}</div>`).join('')}
     </div>
     
     <div class="section">
-        <h2>🏢 Sector Risk Analysis</h2>
+        <h2><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>Sector Risk Analysis</h2>
         <table>
             <tr><th>Sector</th><th>Vendor Count</th><th>Average Risk</th><th>Key Vendors</th></tr>
             ${Object.entries(analytics.sectorAnalysis).map(([sector, data]) => `
@@ -3391,7 +3899,7 @@
     
     ${analytics.activeThreats.length > 0 ? `
     <div class="section">
-        <h2>🚨 Active Threat Intelligence</h2>
+        <h2><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>Active Threat Intelligence</h2>
         ${analytics.activeThreats.map(vendor => `
             <div class="risk-card critical">
                 <h4>${vendor.name}</h4>
