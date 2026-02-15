@@ -850,22 +850,26 @@ const SupplyChainAssessment = () => {
                 <ArrowRight className="h-4 w-4" />
               </Button>
               {hasCompletedMinimumSections() && (
-                <div className="mt-4 p-4 bg-vendorsoluce-pale-green dark:bg-vendorsoluce-green/10 rounded-lg border border-vendorsoluce-green/30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <CheckCircle className="w-5 h-5 text-vendorsoluce-green" />
-                    <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
-                      Stage 2 Complete: You Understand Your Gaps
+                <div className="mt-4 p-6 bg-gradient-to-r from-vendorsoluce-pale-green to-green-50 dark:from-vendorsoluce-green/20 dark:to-green-900/20 rounded-lg border-2 border-vendorsoluce-green/50">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-vendorsoluce-green">
+                      <CheckCircle className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                      🎉 Stage 2 Complete: You Understand Your Gaps
                     </h3>
                   </div>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
-                    You know what controls you need from each vendor. Continue to Stage 3 to collect evidence.
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 ml-12">
+                    You know what controls you need from each vendor. Now it's time to collect evidence and close those gaps.
                   </p>
-                  <Link to="/vendor-assessments">
-                    <Button variant="primary" size="sm" className="flex items-center gap-2">
-                      Continue to Stage 3: Collect Evidence
-                      <ArrowRight className="w-4 h-4" />
-                    </Button>
-                  </Link>
+                  <div className="ml-12">
+                    <Link to="/vendor-assessments">
+                      <Button variant="primary" size="lg" className="flex items-center gap-2">
+                        Continue to Stage 3: Collect Evidence
+                        <ArrowRight className="w-5 h-5" />
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
@@ -885,6 +889,15 @@ const SupplyChainAssessment = () => {
                 <ArrowLeft className="w-3 h-3" />
                 Back to Stage 1
               </Link>
+              <a 
+                href="https://vendorsoluce.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-vendorsoluce-green hover:text-vendorsoluce-dark-green font-medium flex items-center gap-1"
+              >
+                <ExternalLink className="w-3 h-3" />
+                Back to Website
+              </a>
               <a 
                 href="https://vendorsoluce.com/how-it-works.html" 
                 target="_blank" 
