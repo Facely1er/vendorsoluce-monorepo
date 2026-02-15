@@ -30,10 +30,8 @@ import {
   AlertTriangle, 
   ExternalLink,
   RefreshCw,
-  FileText,
-  TrendingUp
+  FileText
 } from 'lucide-react';
-import type { VendorRadar } from '../types/vendorRadar';
 
 const VendorRequirementsDefinition: React.FC = () => {
   const navigate = useNavigate();

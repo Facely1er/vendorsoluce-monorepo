@@ -7,31 +7,49 @@
     'use strict';
 
     /**
-     * Initialize Dropdown Menus
+     * Initialize Dropdown Menus (click + hover)
      */
     function initDropdowns() {
         const dropdownButtons = document.querySelectorAll('[data-dropdown-toggle]');
-        
+        let hoverTimeout = null;
+
         dropdownButtons.forEach(button => {
             const dropdownId = button.getAttribute('data-dropdown-toggle');
             const dropdown = document.getElementById(dropdownId + '-dropdown');
             const parent = button.closest('.nav-dropdown');
-            
+
             if (!dropdown || !parent) return;
-            
-            // Toggle dropdown on click
+
+            // Open on hover (desktop)
+            parent.addEventListener('mouseenter', function() {
+                if (hoverTimeout) {
+                    clearTimeout(hoverTimeout);
+                    hoverTimeout = null;
+                }
+                document.querySelectorAll('.nav-dropdown').forEach(d => {
+                    if (d !== parent) d.classList.remove('open');
+                });
+                parent.classList.add('open');
+            });
+
+            // Close on mouse leave with short delay so user can move to menu
+            parent.addEventListener('mouseleave', function() {
+                hoverTimeout = setTimeout(function() {
+                    parent.classList.remove('open');
+                    hoverTimeout = null;
+                }, 120);
+            });
+
+            // Toggle dropdown on click (for keyboard and touch)
             button.addEventListener('click', function(e) {
                 e.stopPropagation();
+                e.preventDefault();
                 const isOpen = parent.classList.contains('open');
-                
-                // Close all other dropdowns
+
                 document.querySelectorAll('.nav-dropdown').forEach(d => {
-                    if (d !== parent) {
-                        d.classList.remove('open');
-                    }
+                    if (d !== parent) d.classList.remove('open');
                 });
-                
-                // Toggle current dropdown
+
                 if (isOpen) {
                     parent.classList.remove('open');
                 } else {
@@ -39,7 +57,7 @@
                 }
             });
         });
-        
+
         // Close dropdowns when clicking outside
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.nav-dropdown')) {
@@ -48,7 +66,7 @@
                 });
             }
         });
-        
+
         // Close dropdowns on escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
@@ -82,8 +100,9 @@
             }
         });
 
-        // Close menu when clicking outside
+        // Close menu when clicking outside (skip if clicking a link - let it navigate)
         document.addEventListener('click', function(e) {
+            if (e.target.closest('a[href]')) return;
             if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
                 if (!mobileMenu.classList.contains('hidden')) {
                     closeMobileMenu(menuButton, mobileMenu);
@@ -228,25 +247,20 @@
      * Initialize all navigation functionality
      */
     function init() {
-        // Wait for DOM to be ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() {
-                initDropdowns();
-                initMobileMenu();
-                setActiveNavLink();
-                updateBreadcrumbHeight();
-                
-                // Update breadcrumb height on resize
-                window.addEventListener('resize', updateBreadcrumbHeight);
-            });
-        } else {
+        function runInit() {
             initDropdowns();
             initMobileMenu();
             setActiveNavLink();
             updateBreadcrumbHeight();
-            
-            // Update breadcrumb height on resize
             window.addEventListener('resize', updateBreadcrumbHeight);
+        }
+        // Always wait for full DOM so mobile menu panel (often after script) exists
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                requestAnimationFrame(runInit);
+            });
+        } else {
+            requestAnimationFrame(runInit);
         }
     }
 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { X, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Button } from '../../../../components/ui/Button';
-import { Card, CardContent } from '../../../../components/ui/Card';
 import { ENTERPRISE_VENDOR_CATALOG } from '../../../../utils/vendorCatalog';
 import type { VendorBase } from '../../../../types/vendorRadar';
 
@@ -100,7 +99,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onClose, onComplete
           </div>
         );
 
-      case 2:
+      case 2: {
         const availableVendors = getIndustryVendors();
         return (
           <div className="space-y-4">
@@ -126,8 +125,9 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onClose, onComplete
             </div>
           </div>
         );
+      }
 
-      case 3:
+      case 3: {
         const dataTypeOptions = ['PII', 'PHI', 'Financial', 'IP', 'Confidential', 'Public'];
         return (
           <div className="space-y-4">
@@ -160,7 +160,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onClose, onComplete
               <label className="block text-sm font-medium mb-2">Default Criticality</label>
               <select
                 value={criticality}
-                onChange={(e) => setCriticality(e.target.value as any)}
+                onChange={(e) => setCriticality((e.target.value as 'critical' | 'strategic' | 'tactical' | 'commodity'))}
                 className="w-full p-2 border rounded-lg"
               >
                 <option value="critical">Critical</option>
@@ -171,6 +171,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onClose, onComplete
             </div>
           </div>
         );
+      }
 
       case 4:
         return (

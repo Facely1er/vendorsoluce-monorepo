@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ArrowLeft, Mail, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SBOMUploader from '../../components/sbom/SBOMUploader';

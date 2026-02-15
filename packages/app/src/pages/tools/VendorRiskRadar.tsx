@@ -20,8 +20,8 @@ const VendorRiskRadar: React.FC = () => {
     vendors,
     stats,
     addVendor,
-    updateVendor,
-    deleteVendor,
+    updateVendor: _updateVendor,
+    deleteVendor: _deleteVendor,
     importVendors,
     exportVendors,
     scanVendors,
@@ -381,6 +381,7 @@ const VendorRiskRadar: React.FC = () => {
                   value={filters.category}
                   onChange={(e) => setFilters({ ...filters, category: e.target.value })}
                   className="px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-sm"
+                  aria-label="Filter by category"
                 >
                   <option value="all">All Categories</option>
                   <option value="critical">Critical</option>
@@ -395,6 +396,7 @@ const VendorRiskRadar: React.FC = () => {
                   value={filters.riskLevel}
                   onChange={(e) => setFilters({ ...filters, riskLevel: e.target.value })}
                   className="px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-sm"
+                  aria-label="Filter by risk level"
                 >
                   <option value="all">All Risk Levels</option>
                   <option value="critical">Critical Risk (90+)</option>
@@ -484,13 +486,13 @@ const VendorRiskRadar: React.FC = () => {
                     </h3>
                   </div>
                   <p className="text-sm text-gray-600 dark:text-gray-400 ml-10">
-                    You know which vendors pose the greatest risk. Now define specific requirements for your critical vendors.
+                    You know which vendors pose the greatest risk. Now run a NIST-aligned assessment to understand compliance gaps.
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Link to="/vendor-requirements">
+                  <Link to="/supply-chain-assessment">
                     <Button variant="primary" className="flex items-center gap-2">
-                      Continue to Stage 2: Define Requirements
+                      Continue to Stage 2: Supply Chain Assessment
                       <ArrowRight className="w-4 h-4" />
                     </Button>
                   </Link>

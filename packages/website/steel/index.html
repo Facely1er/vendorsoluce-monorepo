@@ -1,0 +1,3424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEEL™ Assessment Platform | ERMITS Advisory</title>
+    <meta name="description" content="Free STEEL™ cybersecurity risk assessment. Evaluate Political, Economic, Social, Technological, Environmental, and Legal factors. Privacy-first, 30-minute assessment aligned with ISO 31000, COSO ERM, NIST CSF 2.0, and ISO/IEC 27001 frameworks.">
+    <meta name="keywords" content="cybersecurity assessment, risk management, PESTEL analysis, STEEL framework, enterprise risk, NIST CSF, ISO 27001, ISO 31000, COSO ERM">
+    <meta name="author" content="ERMITS Advisory">
+    <!-- theme-color: Added dynamically via JavaScript for supported browsers (Chrome, Edge, Safari, mobile) -->
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ermits-advisory.com/steel/">
+    <meta property="og:title" content="STEEL™ Assessment Platform | ERMITS Advisory">
+    <meta property="og:description" content="Free, privacy-first cybersecurity risk assessment. Get board-ready insights in 30 minutes. Aligned with ISO 31000, COSO ERM, NIST CSF 2.0, and ISO/IEC 27001.">
+    <meta property="og:image" content="https://ermits-advisory.com/steel/og-image.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ermits-advisory.com/steel/">
+    <meta name="twitter:title" content="STEEL™ Assessment Platform">
+    <meta name="twitter:description" content="Free cybersecurity risk assessment in 30 minutes. Privacy-first, board-ready reports.">
+    <meta name="twitter:image" content="https://ermits-advisory.com/steel/og-image.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://ermits-advisory.com/steel/">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "STEEL™ Assessment Platform",
+      "description": "Strategic Threat & Enterprise Evaluation Layer - Executive cybersecurity assessment",
+      "url": "https://ermits-advisory.com/steel/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "ERMITS Advisory",
+        "url": "https://ermits-advisory.com"
+      },
+      "featureList": [
+        "Free cybersecurity risk assessment",
+        "PESTEL framework analysis",
+        "Privacy-first architecture",
+        "Board-ready reports",
+        "ISO 31000, COSO ERM, NIST CSF 2.0 aligned"
+      ]
+    }
+    </script>
+    
+    <!-- Font Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Font Loading - Optimized -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet"></noscript>
+    <!-- External Scripts - Deferred for performance -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"
+            integrity="sha384-OLC6/1yTVzBU7Rq/W0LE7mUh1kc+A/o2jlV3G+3FpYAL/RYmBnl/lBqz/R05W2zn"
+            crossorigin="anonymous"
+            defer></script>
+    <!-- jsPDF loaded dynamically when export is needed -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            /* Main Project Colors - Aligned with Tailwind Config */
+            --navy: #004B87;
+            --navy-dark: #002A4D;
+            --navy-darker: #001a33;
+            --silver: #C9E6FF;
+            --silver-light: #E8F4FF;
+            --silver-lighter: #F0F8FF;
+            --gold: #F5A623;
+            --gold-light: #FFF4E6;
+            --gold-dark: #E8931A;
+            --gold-darker: #D68910;
+            --gold-luxury: #FFD700;
+            --gold-luxury-dark: #D4AF37;
+            --dark-bg: #0a0a0a;
+            --dark-surface: #1f1f1f;
+            --dark-card-bg: #151515;
+            --dark-text: #ffffff;
+            --dark-luxury-bg: #050505;
+            --dark-luxury-surface: #1a1a1a;
+            --dark: #0f172a;
+            
+            /* STEEL Dimension Colors */
+            --political: #8b5cf6;
+            --economic: #10b981;
+            --social: #06b6d4;
+            --technological: #f97316;
+            --environmental: #22c55e;
+            --legal: #ef4444;
+            
+            /* Enhanced Shadows - Aligned with Project */
+            --shadow: 0 10px 40px rgba(0, 75, 135, 0.15);
+            --shadow-lg: 0 20px 60px rgba(0, 75, 135, 0.25);
+            --shadow-luxury: 0 20px 60px -15px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            --shadow-luxury-lg: 0 25px 80px -20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08);
+            --shadow-luxury-gold: 0 20px 60px -15px rgba(212, 175, 55, 0.2), 0 0 0 1px rgba(212, 175, 55, 0.1);
+            --shadow-luxury-glow: 0 0 20px rgba(212, 175, 55, 0.3), 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+        
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --dark: #ffffff;
+            }
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--silver-lighter) 0%, var(--silver-light) 50%, #dbeafe 100%);
+            background-attachment: fixed;
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Enhanced background with subtle pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 75, 135, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 166, 35, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        body > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+        .header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            color: white;
+            padding: 50px 30px;
+            text-align: center;
+            border-radius: 30px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-luxury-lg);
+            position: relative;
+            overflow: hidden;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(180deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 25px;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 20px rgba(255, 215, 0, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container img:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-fallback {
+            display: none;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #004B87 0%, #003366 100%);
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            color: #FFD700;
+            font-weight: 700;
+            font-size: 1.2em;
+            text-align: center;
+            line-height: 120px;
+        }
+
+        .back-to-site {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.15);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 10;
+        }
+
+        .back-to-site:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-site i {
+            width: 18px;
+            height: 18px;
+        }
+
+        h1 { 
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: 3.5em; 
+            margin-bottom: 15px; 
+            font-weight: 800; 
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 1;
+        }
+        .subtitle { 
+            font-size: 1.6em; 
+            color: var(--silver); 
+            margin-bottom: 15px; 
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+        .tagline { 
+            font-size: 1.2em; 
+            color: var(--gold); 
+            font-style: italic; 
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-description { font-size: 1.15em; color: rgba(255,255,255,0.9); max-width: 800px; margin: 0 auto 35px; line-height: 1.7; }
+        
+        .hero-cta-container { display: flex; gap: 20px; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 30px; }
+        .hero-cta-primary {
+            padding: 18px 40px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-luxury) 100%);
+            color: var(--navy);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.15em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-luxury-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-cta-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        .hero-cta-primary:hover::before {
+            left: 100%;
+        }
+        .hero-cta-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-luxury-glow);
+            background: linear-gradient(135deg, var(--gold-luxury) 0%, var(--gold) 100%);
+        }
+        .hero-cta-secondary {
+            padding: 18px 40px;
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            font-size: 1.15em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hero-cta-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.5);
+            transform: translateY(-3px);
+        }
+        .hero-features {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .hero-feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.15);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .hero-feature-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+
+        .hero-feature:hover .hero-feature-icon {
+            background: rgba(255,255,255,0.25);
+            transform: scale(1.1);
+        }
+        .hero-feature-text {
+            font-size: 0.95em;
+            color: rgba(255,255,255,0.85);
+            font-weight: 500;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            flex-wrap: wrap;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-tab {
+            flex: 1;
+            min-width: 160px;
+            padding: 18px 30px;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.05em;
+            font-weight: 600;
+            color: var(--navy);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-tab:hover::before {
+            left: 100%;
+        }
+
+        .nav-tab:hover {
+            background: linear-gradient(135deg, var(--silver) 0%, #b8d4ea 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,75,135,0.2);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            color: white;
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,75,135,0.3);
+        }
+
+        .tab-content { 
+            display: none; 
+            animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .tab-content.active { 
+            display: block; 
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-luxury);
+            transform: translateY(-4px);
+            border-color: rgba(0, 75, 135, 0.2);
+        }
+
+        .progress-container { 
+            margin: 40px 0; 
+            position: relative;
+        }
+        .progress-bar { 
+            width: 100%; 
+            height: 16px; 
+            background: #e2e8f0; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .progress-fill { 
+            height: 100%; 
+            width: var(--progress-width, 0%); 
+            background: linear-gradient(90deg, var(--navy) 0%, var(--gold) 100%); 
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .progress-text { 
+            text-align: center; 
+            margin-top: 12px; 
+            font-weight: 700; 
+            font-size: 1.1em;
+            color: var(--navy); 
+        }
+
+        .pestel-category {
+            background: linear-gradient(135deg, var(--silver-lighter) 0%, var(--silver-light) 100%);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--navy);
+            border: 1px solid rgba(201, 230, 255, 0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .category-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .category-badge { padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 0.9em; color: white; }
+        .badge-political { background: var(--political); }
+        .badge-economic { background: var(--economic); }
+        .badge-social { background: var(--social); }
+        .badge-technological { background: var(--technological); }
+        .badge-environmental { background: var(--environmental); }
+        .badge-legal { background: var(--legal); }
+
+        .question-item {
+            background: rgba(255, 255, 255, 0.9);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .question-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-4px);
+            border-color: rgba(0, 75, 135, 0.2);
+        }
+
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+
+        .question-options { display: flex; flex-direction: column; gap: 10px; }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, var(--silver-lighter) 0%, var(--silver-light) 100%);
+            border: 2px solid rgba(201, 230, 255, 0.5);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .option-label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+            opacity: 0.1;
+            transition: width 0.3s;
+        }
+
+        .option-label:hover {
+            background: linear-gradient(135deg, var(--silver) 0%, #dbeafe 100%);
+            border-color: var(--navy);
+            transform: translateX(5px);
+        }
+
+        .option-label:hover::before {
+            width: 100%;
+        }
+
+        .option-label input[type="radio"] { 
+            width: 22px; 
+            height: 22px; 
+            accent-color: var(--navy); 
+            cursor: pointer;
+        }
+
+        .option-label input[type="radio"]:checked + span {
+            font-weight: 600;
+            color: white;
+        }
+
+        .option-label:has(input:checked) {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            border-color: var(--navy);
+            color: white;
+            font-weight: 600;
+            box-shadow: var(--shadow-luxury-gold);
+        }
+
+        .score-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .score-card {
+            background: rgba(255, 255, 255, 0.9);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-top: 6px solid var(--navy);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .score-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,75,135,0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .score-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+
+        .score-card:hover::before {
+            opacity: 1;
+        }
+
+        .score-value { 
+            font-size: 4em; 
+            font-weight: 800; 
+            background: linear-gradient(135deg, var(--navy) 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 20px 0; 
+            position: relative;
+        }
+        .score-label { 
+            font-size: 1.2em; 
+            color: #64748b; 
+            font-weight: 600; 
+            margin-bottom: 15px;
+        }
+        .score-bar { 
+            width: 100%; 
+            height: 10px; 
+            background: #e2e8f0; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            margin-top: 20px; 
+        }
+        .score-fill { 
+            height: 100%; 
+            background: linear-gradient(90deg, var(--navy) 0%, var(--gold) 100%); 
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1); 
+            position: relative;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-premium {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-luxury) 100%);
+            color: var(--navy);
+            font-weight: 700;
+            box-shadow: var(--shadow-luxury-gold);
+        }
+        
+        .btn-premium:hover {
+            box-shadow: var(--shadow-luxury-glow);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .btn-group { display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; }
+        .btn-group-hidden { display: none; }
+        .btn-group-export { gap: 10px; }
+
+        .chart-container { 
+            position: relative; 
+            height: 400px; 
+            margin: 30px 0; 
+            background: rgba(255, 255, 255, 0.9);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .recommendation-item {
+            background: linear-gradient(135deg, rgba(254, 252, 232, 0.9) 0%, rgba(254, 243, 199, 0.9) 100%);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 6px solid var(--gold);
+            border: 1px solid rgba(245, 166, 35, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(245, 166, 35, 0.1);
+        }
+
+        .recommendation-item:hover {
+            transform: translateX(5px) translateY(-2px);
+            box-shadow: var(--shadow-luxury-gold);
+        }
+
+        .priority-critical { 
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white; 
+            padding: 6px 16px; 
+            border-radius: 20px; 
+            font-size: 0.85em; 
+            display: inline-block; 
+            margin-bottom: 12px; 
+            font-weight: 700;
+            box-shadow: 0 2px 10px rgba(220,38,38,0.3);
+        }
+        .priority-high { 
+            background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+            color: white; 
+            padding: 6px 16px; 
+            border-radius: 20px; 
+            font-size: 0.85em; 
+            display: inline-block; 
+            margin-bottom: 12px; 
+            font-weight: 700;
+            box-shadow: 0 2px 10px rgba(234,88,12,0.3);
+        }
+        .priority-medium { 
+            background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+            color: #78350f; 
+            padding: 6px 16px; 
+            border-radius: 20px; 
+            font-size: 0.85em; 
+            display: inline-block; 
+            margin-bottom: 12px; 
+            font-weight: 700;
+            box-shadow: 0 2px 10px rgba(250,204,21,0.3);
+        }
+
+        h2 { 
+            font-family: 'Outfit', 'Inter', sans-serif;
+            color: var(--navy); 
+            margin-bottom: 20px; 
+            font-weight: 700;
+        }
+        h2.results-title { margin-bottom: 30px; }
+        h3 { 
+            font-family: 'Outfit', 'Inter', sans-serif;
+            color: var(--navy); 
+            margin-bottom: 15px; 
+            font-size: 1.2em; 
+            font-weight: 600;
+        }
+        h3.section-title { margin: 30px 0 20px; }
+        h4 { color: var(--navy); margin-bottom: 10px; }
+        h4.recommendation-title { margin-bottom: 10px; }
+
+        p.intro-text { font-size: 1.1em; line-height: 1.8; margin-bottom: 25px; }
+        p.intro-text-margin-top { font-size: 1.1em; line-height: 1.8; margin-bottom: 25px; margin-top: 15px; }
+        p.body-text { line-height: 1.8; margin-bottom: 15px; }
+        p.body-text-no-margin { line-height: 1.8; margin-bottom: 10px; }
+        p.body-text-small { margin-top: 15px; font-size: 0.9em; color: #666; }
+        p.body-text-top-margin { margin-top: 10px; line-height: 1.8; }
+        p.body-text-top-margin-italic { margin-top: 10px; line-height: 1.8; font-style: italic; }
+        p.centered-text { text-align: center; color: #64748b; font-size: 1.1em; }
+
+        ul.framed-list { line-height: 1.8; padding-left: 20px; margin-bottom: 0; }
+        ul.framed-list-margin-top { line-height: 1.8; padding-left: 20px; margin-bottom: 0; margin-top: 15px; }
+        ul.standard-list { line-height: 1.8; padding-left: 20px; }
+        ol.steps-list { line-height: 2; padding-left: 20px; margin-bottom: 15px; }
+
+        .info-box { 
+            background: rgba(248, 250, 252, 0.9); 
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            padding: 20px; 
+            border-radius: 10px; 
+            margin-bottom: 25px; 
+            border-left: 5px solid var(--navy); 
+            border: 1px solid rgba(201, 230, 255, 0.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .info-box-gold { 
+            background: rgba(254, 243, 199, 0.9); 
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            padding: 20px; 
+            border-radius: 10px; 
+            margin-bottom: 25px; 
+            border-left: 5px solid var(--gold); 
+            border: 1px solid rgba(245, 166, 35, 0.3);
+            box-shadow: 0 2px 8px rgba(245, 166, 35, 0.1);
+        }
+        .info-box-gold-gradient { 
+            background: linear-gradient(135deg, rgba(254, 243, 199, 0.9) 0%, rgba(253, 230, 138, 0.9) 100%); 
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            padding: 20px; 
+            border-radius: 10px; 
+            margin: 30px 0; 
+            border-left: 5px solid var(--gold); 
+            border: 1px solid rgba(245, 166, 35, 0.3);
+            box-shadow: 0 2px 8px rgba(245, 166, 35, 0.1);
+        }
+        .info-box-blue { 
+            background: rgba(240, 249, 255, 0.9); 
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            padding: 20px; 
+            border-radius: 10px; 
+            margin-top: 30px; 
+            border-left: 5px solid #004B87; 
+            border: 1px solid rgba(0, 75, 135, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 75, 135, 0.1);
+        }
+        .info-box-light-blue { 
+            background: rgba(240, 249, 255, 0.9); 
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            padding: 20px; 
+            border-radius: 10px; 
+            margin: 30px 0; 
+            border-left: 5px solid var(--navy); 
+            border: 1px solid rgba(0, 75, 135, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 75, 135, 0.1);
+        }
+        .info-box-gray { 
+            background: rgba(248, 250, 252, 0.9); 
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            padding: 20px; 
+            border-radius: 10px; 
+            margin-top: 20px; 
+            border-left: 5px solid var(--navy); 
+            border: 1px solid rgba(201, 230, 255, 0.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .info-box-yellow { 
+            background: linear-gradient(135deg, rgba(254, 243, 199, 0.9) 0%, rgba(253, 230, 138, 0.9) 100%); 
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            padding: 25px; 
+            border-radius: 10px; 
+            margin: 30px 0; 
+            border-left: 5px solid var(--gold); 
+            border: 1px solid rgba(245, 166, 35, 0.3);
+            box-shadow: 0 2px 8px rgba(245, 166, 35, 0.1);
+        }
+        .info-box-blue-gradient { 
+            background: linear-gradient(135deg, rgba(240, 249, 255, 0.9) 0%, rgba(224, 242, 254, 0.9) 100%); 
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border-left: 6px solid var(--navy); 
+            margin: 30px 0; 
+            padding: 25px; 
+            border: 1px solid rgba(0, 75, 135, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 75, 135, 0.1);
+            border-radius: 10px;
+        }
+
+        .comparison-title { color: var(--navy); margin-bottom: 20px; }
+        .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .comparison-card { 
+            background: rgba(255, 255, 255, 0.9); 
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            padding: 20px; 
+            border-radius: 10px; 
+            border: 2px solid rgba(201, 230, 255, 0.5); 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .comparison-card-gold { 
+            background: linear-gradient(135deg, rgba(254, 243, 199, 0.9) 0%, rgba(253, 230, 138, 0.9) 100%); 
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            padding: 20px; 
+            border-radius: 10px; 
+            border: 2px solid var(--gold); 
+            box-shadow: 0 2px 8px rgba(245, 166, 35, 0.1);
+        }
+        .comparison-card-title { color: var(--navy); margin-bottom: 15px; font-size: 1.2em; }
+        .comparison-list { margin: 0; }
+        .comparison-cta-container { margin-top: 15px; }
+        .btn-link-small { background: var(--navy); color: white; padding: 10px 20px; font-size: 0.95em; }
+        .btn-link-premium { background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%); color: var(--navy); font-weight: 700; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 30px 0; }
+        .stat-box { 
+            text-align: center; 
+            padding: 20px; 
+            background: rgba(248, 250, 252, 0.9); 
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border-radius: 10px; 
+            border: 1px solid rgba(201, 230, 255, 0.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .stat-value { font-size: 2em; color: var(--navy); font-weight: 700; }
+        .stat-label { color: #64748b; }
+
+        .score-composite-box { 
+            text-align: center; 
+            padding: 30px; 
+            background: linear-gradient(135deg, rgba(240, 249, 255, 0.9) 0%, rgba(224, 242, 254, 0.9) 100%); 
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            border-radius: 15px; 
+            margin-bottom: 30px; 
+            border: 1px solid rgba(0, 75, 135, 0.2);
+            box-shadow: var(--shadow);
+        }
+        .score-composite-title { color: var(--navy); margin-bottom: 10px; }
+        .score-composite-value { font-size: 4em; font-weight: 700; }
+        .score-composite-label { font-size: 1.5em; font-weight: 600; }
+
+        .interpretation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .interpretation-card { 
+            padding: 15px; 
+            background: rgba(255, 255, 255, 0.9); 
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border-radius: 8px; 
+            border-left: 4px solid #16a34a; 
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .interpretation-card-yellow { border-left-color: #eab308; }
+        .interpretation-card-orange { border-left-color: #f97316; }
+        .interpretation-card-red { border-left-color: #dc2626; }
+        .interpretation-title { font-weight: 700; margin-bottom: 5px; }
+        .interpretation-title-green { color: #16a34a; }
+        .interpretation-title-yellow { color: #eab308; }
+        .interpretation-title-orange { color: #f97316; }
+        .interpretation-title-red { color: #dc2626; }
+        .interpretation-text { font-size: 0.9em; color: #666; }
+
+        .btn-danger { background: #dc2626; color: white; }
+        .btn-link { display: inline-block; padding: 15px 30px; background: var(--navy); color: white; text-decoration: none; border-radius: 10px; font-weight: 600; transition: transform 0.3s ease; }
+        .btn-link:hover { transform: translateY(-2px); }
+        .btn-link-container { text-align: center; margin-top: 20px; }
+        .btn-inline-flex { text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+
+        .score-card-political { border-top-color: var(--political); }
+        .score-card-economic { border-top-color: var(--economic); }
+        .score-card-social { border-top-color: var(--social); }
+        .score-card-technological { border-top-color: var(--technological); }
+        .score-card-environmental { border-top-color: var(--environmental); }
+        .score-card-legal { border-top-color: var(--legal); }
+
+        .score-value-political { color: var(--political); }
+        .score-value-economic { color: var(--economic); }
+        .score-value-social { color: var(--social); }
+        .score-value-technological { color: var(--technological); }
+        .score-value-environmental { color: var(--environmental); }
+        .score-value-legal { color: var(--legal); }
+
+        /* Skip Link for Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--navy);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            z-index: 10000;
+            font-weight: 600;
+            border-radius: 0 0 8px 0;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Screen Reader Only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            color: white;
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+        }
+        .loading-overlay.hidden {
+            display: none;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--gold);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Error Message */
+        .error-message {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+        .error-message button {
+            margin-top: 15px;
+            padding: 12px 24px;
+            background: white;
+            color: #dc2626;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .error-message button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        /* Storage Warning */
+        .storage-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            display: none;
+        }
+        .storage-warning.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2em; }
+            .subtitle { font-size: 1.2em; }
+            .tagline { font-size: 1em; }
+            .hero-description { font-size: 1em; padding: 0 10px; }
+            .nav-tabs { flex-direction: column; padding: 15px; }
+            .nav-tab { min-width: 100%; }
+            .score-dashboard { grid-template-columns: 1fr; }
+            .card { padding: 25px; }
+            .question-text { font-size: 1.05em; }
+            .header { padding: 40px 15px; }
+            .hero-cta-container { flex-direction: column; gap: 15px; }
+            .hero-cta-primary, .hero-cta-secondary { width: 100%; max-width: 300px; padding: 16px 30px; font-size: 1em; }
+            .hero-features { gap: 20px; margin-top: 30px; }
+            .hero-feature-text { font-size: 0.85em; }
+            .hero-feature-icon { width: 40px; height: 40px; }
+            .hero-feature-icon svg { width: 20px; height: 20px; }
+            .logo-container { width: 100px; height: 100px; }
+            .back-to-site { top: 15px; left: 15px; padding: 10px 18px; font-size: 0.85em; }
+            .back-to-site i { width: 16px; height: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Processing your assessment...</p>
+    </div>
+    
+    <!-- Storage Warning -->
+    <div id="storage-warning" class="storage-warning">
+        <strong>⚠️ Local storage is not available.</strong> Please enable cookies to save your progress.
+    </div>
+    
+    <!-- Progress Announcement for Screen Readers -->
+    <div id="progress-announce" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    
+    <div class="container">
+        <main id="main-content" role="main" aria-label="STEEL Assessment Platform">
+        <div class="header">
+            <a href="/" class="back-to-site">
+                <i data-lucide="arrow-left"></i>
+                <span>Back to Main Site</span>
+            </a>
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="../ermits-advisory-logo.png" alt="ERMITS Advisory Logo" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                    <div class="logo-fallback">EA</div>
+                </div>
+                <h1>STEEL™ Assessment Platform</h1>
+                <div class="subtitle">Strategic Threat & Enterprise Evaluation Layer</div>
+                <div class="tagline">"Global Insights, Streamlined for Resilience"</div>
+                <p class="hero-description">
+                    Transform your cybersecurity strategy with a comprehensive PESTEL-based assessment that evaluates Political, Economic, Social, Technological, Environmental, and Legal factors. Get board-ready insights in 30 minutes with our free, privacy-first assessment platform. Aligned with ISO 31000, COSO ERM, NIST CSF 2.0, and ISO/IEC 27001 frameworks.
+                </p>
+                
+                <div class="hero-cta-container">
+                    <button class="hero-cta-primary" onclick="showTab('assessment', event)">
+                        <span>Start Free Assessment</span>
+                        <span>→</span>
+                    </button>
+                    <a href="#overview" class="hero-cta-secondary" onclick="showTab('overview', event); return false;">
+                        <span>Learn More</span>
+                    </a>
+                </div>
+
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <div class="hero-feature-icon">
+                            <i data-lucide="check-circle"></i>
+                        </div>
+                        <div class="hero-feature-text">100% Free</div>
+                    </div>
+                    <div class="hero-feature">
+                        <div class="hero-feature-icon">
+                            <i data-lucide="lock"></i>
+                        </div>
+                        <div class="hero-feature-text">Privacy-First</div>
+                    </div>
+                    <div class="hero-feature">
+                        <div class="hero-feature-icon">
+                            <i data-lucide="clock"></i>
+                        </div>
+                        <div class="hero-feature-text">30 Minutes</div>
+                    </div>
+                    <div class="hero-feature">
+                        <div class="hero-feature-icon">
+                            <i data-lucide="bar-chart-3"></i>
+                        </div>
+                        <div class="hero-feature-text">Board-Ready Reports</div>
+                    </div>
+                    <div class="hero-feature">
+                        <div class="hero-feature-icon">
+                            <i data-lucide="globe"></i>
+                        </div>
+                        <div class="hero-feature-text">Framework Aligned</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('overview', event)">Overview</button>
+            <button class="nav-tab" onclick="showTab('assessment', event)">Assessment</button>
+            <button class="nav-tab" onclick="showTab('results', event)">Results</button>
+        </div>
+
+        <div id="overview" class="tab-content active">
+            <div class="card">
+                <h2>About STEEL™ Assessment</h2>
+                <p class="intro-text">
+                    STEEL™ (Strategic Threat & Enterprise Evaluation Layer) is a structured methodology and scoring engine that translates external forces and internal capabilities into an actionable enterprise risk score. It integrates PESTEL, threat exposure, digital maturity, regulatory readiness, financial impact, and sustainability factors into a single composite index.
+                </p>
+                <p class="intro-text-margin-top">
+                    <strong>ERMITS Advisory Purpose:</strong> ERMITS Advisory is the intelligence engine behind the ERMITS ecosystem. Through the STEEL™ Assessment Platform, we evaluate political, economic, social, technological, environmental, and legal forces that shape enterprise resilience. The output is a unified STEEL score used across CyberCaution, CyberCorrect, CyberSoluce, VendorSoluce, TechnoSoluce, ImpactSoluce, EduSoluce, and SocialCaution to deliver consistent strategic and operational decision support.
+                </p>
+
+                <div class="info-box">
+                    <h3>Framework Alignment</h3>
+                    <p class="body-text-no-margin">
+                        STEEL™ integrates with leading Enterprise Risk Management (ERM) and Information Technology Security frameworks:
+                    </p>
+                    <ul class="framed-list">
+                        <li><strong>ISO 31000:2018</strong> - Risk Management Guidelines</li>
+                        <li><strong>COSO ERM Framework</strong> - Enterprise Risk Management integration</li>
+                        <li><strong>NIST Cybersecurity Framework (CSF) 2.0</strong> - Comprehensive security assessment</li>
+                        <li><strong>NIST Risk Management Framework (RMF)</strong> - Risk-based approach</li>
+                        <li><strong>ISO/IEC 27001:2022</strong> - Information security management alignment</li>
+                    </ul>
+                </div>
+
+                <div class="info-box-gold-gradient">
+                    <h3>How STEEL Scores Work</h3>
+                    <p class="body-text-no-margin">
+                        The STEEL platform evaluates 46 strategic indicators, grouped into six macro categories (PESTEL). Each category contributes to the overall enterprise resilience profile using calibrated weights. Results include:
+                    </p>
+                    <ul class="framed-list-margin-top">
+                        <li><strong>6 category scores (0–100):</strong> Individual PESTEL factor assessments</li>
+                        <li><strong>Composite STEEL Score:</strong> Weighted average across all factors</li>
+                        <li><strong>Risk Level:</strong> Low, Moderate, Elevated, or High classification</li>
+                        <li><strong>Recommendations:</strong> Aligned to ERMITS tools and actionable next steps</li>
+                    </ul>
+                    <p class="body-text-top-margin-italic">
+                        This methodology ensures leadership has a quantifiable, board-ready view of risk.
+                    </p>
+                </div>
+
+                <div class="info-box-gold">
+                    <h3>How to Complete This Assessment</h3>
+                    <ul class="framed-list">
+                        <li><strong>Time Required:</strong> 30 minutes for thoughtful responses</li>
+                        <li><strong>Who Should Complete:</strong> CISO, CIO, CRO, or security leadership</li>
+                        <li><strong>Preparation:</strong> Have recent audit reports and security metrics available</li>
+                        <li><strong>Scoring:</strong> Be honest—this identifies improvement opportunities</li>
+                        <li><strong>Privacy:</strong> All data stays on your device, nothing is transmitted</li>
+                    </ul>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-value">46</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">PESTEL Factors</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">30</div>
+                        <div class="stat-label">Minutes</div>
+                    </div>
+                </div>
+                <div class="privacy-notice info-box-blue">
+                    <h3>Privacy &amp; Data Handling</h3>
+                    <p class="body-text">
+                        <strong>Your privacy is our priority.</strong> This assessment operates entirely within your browser.
+                        No data is transmitted to our servers or any third parties.
+                    </p>
+                    <ul class="standard-list">
+                        <li><strong>Zero Data Collection:</strong> Your responses never leave your device</li>
+                        <li><strong>Local Storage Only:</strong> Progress saved in your browser (optional)</li>
+                        <li><strong>Full Control:</strong> Export, delete, or clear data at any time</li>
+                        <li><strong>No Tracking:</strong> No cookies, analytics, or third-party tracking</li>
+                        <li><strong>Offline Capable:</strong> Works without internet connection after loading</li>
+                    </ul>
+                    <p class="body-text-small">
+                        <strong>Technical Details:</strong> This assessment uses HTML5 LocalStorage for optional progress
+                        saving and client-side JavaScript for all calculations. No personally identifiable information (PII)
+                        is collected, stored, or processed by ERMITS Advisory.
+                    </p>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="showTab('assessment', event)">Start Assessment</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="assessment" class="tab-content">
+            <div class="card">
+                <h2>STEEL™ Executive Assessment</h2>
+
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">0% Complete (0 of 46 questions)</div>
+                </div>
+
+                <form id="assessmentForm">
+                    <!-- POLITICAL -->
+                    <div class="pestel-category">
+                        <div class="category-header">
+                            <span class="category-badge badge-political">POLITICAL</span>
+                            <h3>Regulatory & Policy Environment</h3>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">1. How well does your organization track and respond to cybersecurity regulations?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q1" value="1" onchange="updateProgress()"><span>Reactive - Respond only when violations occur</span></label>
+                                <label class="option-label"><input type="radio" name="q1" value="3" onchange="updateProgress()"><span>Basic - Monitor major regulations</span></label>
+                                <label class="option-label"><input type="radio" name="q1" value="7" onchange="updateProgress()"><span>Managed - Dedicated compliance monitoring</span></label>
+                                <label class="option-label"><input type="radio" name="q1" value="10" onchange="updateProgress()"><span>Optimized - Automated regulatory intelligence</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">2. What is your organization's relationship with regulatory bodies?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q2" value="1" onchange="updateProgress()"><span>Minimal - Limited interaction</span></label>
+                                <label class="option-label"><input type="radio" name="q2" value="3" onchange="updateProgress()"><span>Basic - Respond to audits</span></label>
+                                <label class="option-label"><input type="radio" name="q2" value="7" onchange="updateProgress()"><span>Collaborative - Regular communication</span></label>
+                                <label class="option-label"><input type="radio" name="q2" value="10" onchange="updateProgress()"><span>Strategic - Active partnership</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">3. How prepared is your organization for geopolitical cyber threats?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q3" value="1" onchange="updateProgress()"><span>Unaware - No consideration</span></label>
+                                <label class="option-label"><input type="radio" name="q3" value="3" onchange="updateProgress()"><span>Aware - Basic understanding</span></label>
+                                <label class="option-label"><input type="radio" name="q3" value="7" onchange="updateProgress()"><span>Protected - Threat intelligence monitoring</span></label>
+                                <label class="option-label"><input type="radio" name="q3" value="10" onchange="updateProgress()"><span>Resilient - Comprehensive program</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">4. How does your organization manage cross-border data transfer compliance?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q4" value="1" onchange="updateProgress()"><span>Unmanaged - No controls</span></label>
+                                <label class="option-label"><input type="radio" name="q4" value="3" onchange="updateProgress()"><span>Basic - Some awareness</span></label>
+                                <label class="option-label"><input type="radio" name="q4" value="7" onchange="updateProgress()"><span>Managed - Documented processes</span></label>
+                                <label class="option-label"><input type="radio" name="q4" value="10" onchange="updateProgress()"><span>Optimized - Automated controls</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">5. How effectively does leadership communicate security priorities to government?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q5" value="1" onchange="updateProgress()"><span>Absent - No engagement</span></label>
+                                <label class="option-label"><input type="radio" name="q5" value="3" onchange="updateProgress()"><span>Reactive - Only during issues</span></label>
+                                <label class="option-label"><input type="radio" name="q5" value="7" onchange="updateProgress()"><span>Regular - Scheduled updates</span></label>
+                                <label class="option-label"><input type="radio" name="q5" value="10" onchange="updateProgress()"><span>Strategic - Thought leadership</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">6. How well does your organization anticipate future regulatory requirements?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q6" value="1" onchange="updateProgress()"><span>Reactive - Address when mandated</span></label>
+                                <label class="option-label"><input type="radio" name="q6" value="3" onchange="updateProgress()"><span>Monitoring - Track proposed regulations</span></label>
+                                <label class="option-label"><input type="radio" name="q6" value="7" onchange="updateProgress()"><span>Proactive - Predictive roadmap</span></label>
+                                <label class="option-label"><input type="radio" name="q6" value="10" onchange="updateProgress()"><span>Leading - Influence development</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">7. How does your organization handle critical infrastructure designation?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q7" value="1" onchange="updateProgress()"><span>N/A or Unaware</span></label>
+                                <label class="option-label"><input type="radio" name="q7" value="3" onchange="updateProgress()"><span>Minimal - Basic compliance</span></label>
+                                <label class="option-label"><input type="radio" name="q7" value="7" onchange="updateProgress()"><span>Comprehensive - Enhanced security</span></label>
+                                <label class="option-label"><input type="radio" name="q7" value="10" onchange="updateProgress()"><span>Exemplary - Industry-leading</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ECONOMIC -->
+                    <div class="pestel-category">
+                        <div class="category-header">
+                            <span class="category-badge badge-economic">ECONOMIC</span>
+                            <h3>Financial Impact & Market Conditions</h3>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">8. How well does your organization quantify cybersecurity risk financially?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q8" value="1" onchange="updateProgress()"><span>None - No financial translation</span></label>
+                                <label class="option-label"><input type="radio" name="q8" value="3" onchange="updateProgress()"><span>Basic - Rough estimates</span></label>
+                                <label class="option-label"><input type="radio" name="q8" value="7" onchange="updateProgress()"><span>Structured - Regular quantification</span></label>
+                                <label class="option-label"><input type="radio" name="q8" value="10" onchange="updateProgress()"><span>Optimized - Real-time modeling</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">9. What is the alignment between security investment and business ROI?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q9" value="1" onchange="updateProgress()"><span>Unknown - Cost center</span></label>
+                                <label class="option-label"><input type="radio" name="q9" value="3" onchange="updateProgress()"><span>Emerging - Beginning to measure</span></label>
+                                <label class="option-label"><input type="radio" name="q9" value="7" onchange="updateProgress()"><span>Established - Clear ROI metrics</span></label>
+                                <label class="option-label"><input type="radio" name="q9" value="10" onchange="updateProgress()"><span>Strategic - Drives competitive advantage</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">10. How does your organization manage cyber insurance?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q10" value="1" onchange="updateProgress()"><span>None - No insurance</span></label>
+                                <label class="option-label"><input type="radio" name="q10" value="3" onchange="updateProgress()"><span>Basic - Standard coverage</span></label>
+                                <label class="option-label"><input type="radio" name="q10" value="7" onchange="updateProgress()"><span>Managed - Comprehensive coverage</span></label>
+                                <label class="option-label"><input type="radio" name="q10" value="10" onchange="updateProgress()"><span>Optimized - Strategic risk transfer</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">11. How prepared is your organization for economic downturns affecting security budgets?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q11" value="1" onchange="updateProgress()"><span>Unprepared - Vulnerable to cuts</span></label>
+                                <label class="option-label"><input type="radio" name="q11" value="3" onchange="updateProgress()"><span>Reactive - Some planning</span></label>
+                                <label class="option-label"><input type="radio" name="q11" value="7" onchange="updateProgress()"><span>Resilient - Prioritized investments</span></label>
+                                <label class="option-label"><input type="radio" name="q11" value="10" onchange="updateProgress()"><span>Strategic - Protected funding</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">12. How does your organization measure financial impact of security incidents?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q12" value="1" onchange="updateProgress()"><span>None - No assessment</span></label>
+                                <label class="option-label"><input type="radio" name="q12" value="3" onchange="updateProgress()"><span>Basic - Direct costs only</span></label>
+                                <label class="option-label"><input type="radio" name="q12" value="7" onchange="updateProgress()"><span>Comprehensive - Full analysis</span></label>
+                                <label class="option-label"><input type="radio" name="q12" value="10" onchange="updateProgress()"><span>Advanced - Real-time tracking</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">13. How well does your organization communicate security value to investors?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q13" value="1" onchange="updateProgress()"><span>Absent - Not discussed</span></label>
+                                <label class="option-label"><input type="radio" name="q13" value="3" onchange="updateProgress()"><span>Reactive - Only during incidents</span></label>
+                                <label class="option-label"><input type="radio" name="q13" value="7" onchange="updateProgress()"><span>Regular - Quarterly updates</span></label>
+                                <label class="option-label"><input type="radio" name="q13" value="10" onchange="updateProgress()"><span>Strategic - Competitive differentiator</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">14. How does your organization assess third-party financial stability?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q14" value="1" onchange="updateProgress()"><span>None - No assessment</span></label>
+                                <label class="option-label"><input type="radio" name="q14" value="3" onchange="updateProgress()"><span>Basic - Standard checks</span></label>
+                                <label class="option-label"><input type="radio" name="q14" value="7" onchange="updateProgress()"><span>Managed - Regular monitoring</span></label>
+                                <label class="option-label"><input type="radio" name="q14" value="10" onchange="updateProgress()"><span>Optimized - Continuous assessment</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SOCIAL -->
+                    <div class="pestel-category">
+                        <div class="category-header">
+                            <span class="category-badge badge-social">SOCIAL</span>
+                            <h3>Human Factors & Organizational Culture</h3>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">15. What is the level of security awareness across your organization?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q15" value="1" onchange="updateProgress()"><span>Low - Minimal training</span></label>
+                                <label class="option-label"><input type="radio" name="q15" value="3" onchange="updateProgress()"><span>Basic - Annual training</span></label>
+                                <label class="option-label"><input type="radio" name="q15" value="7" onchange="updateProgress()"><span>Engaged - Regular training</span></label>
+                                <label class="option-label"><input type="radio" name="q15" value="10" onchange="updateProgress()"><span>Culture - Embedded in DNA</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">16. How does your organization handle insider threat risk?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q16" value="1" onchange="updateProgress()"><span>Unmanaged - No program</span></label>
+                                <label class="option-label"><input type="radio" name="q16" value="3" onchange="updateProgress()"><span>Basic - Access controls</span></label>
+                                <label class="option-label"><input type="radio" name="q16" value="7" onchange="updateProgress()"><span>Managed - Behavior analytics</span></label>
+                                <label class="option-label"><input type="radio" name="q16" value="10" onchange="updateProgress()"><span>Comprehensive - Holistic program</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">17. How effectively does leadership demonstrate security commitment?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q17" value="1" onchange="updateProgress()"><span>Absent - Not prioritized</span></label>
+                                <label class="option-label"><input type="radio" name="q17" value="3" onchange="updateProgress()"><span>Verbal - Limited action</span></label>
+                                <label class="option-label"><input type="radio" name="q17" value="7" onchange="updateProgress()"><span>Active - Leaders participate</span></label>
+                                <label class="option-label"><input type="radio" name="q17" value="10" onchange="updateProgress()"><span>Exemplary - Champions culture</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">18. How well does your organization manage work-from-home security?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q18" value="1" onchange="updateProgress()"><span>Unmanaged - No controls</span></label>
+                                <label class="option-label"><input type="radio" name="q18" value="3" onchange="updateProgress()"><span>Basic - VPN and endpoints</span></label>
+                                <label class="option-label"><input type="radio" name="q18" value="7" onchange="updateProgress()"><span>Comprehensive - Zero trust</span></label>
+                                <label class="option-label"><input type="radio" name="q18" value="10" onchange="updateProgress()"><span>Optimized - Seamless secure experience</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">19. How does your organization address security in D&I initiatives?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q19" value="1" onchange="updateProgress()"><span>None - Not linked</span></label>
+                                <label class="option-label"><input type="radio" name="q19" value="3" onchange="updateProgress()"><span>Emerging - Beginning to address</span></label>
+                                <label class="option-label"><input type="radio" name="q19" value="7" onchange="updateProgress()"><span>Active - Targeted programs</span></label>
+                                <label class="option-label"><input type="radio" name="q19" value="10" onchange="updateProgress()"><span>Leading - Industry excellence</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">20. How well does your organization communicate security incidents?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q20" value="1" onchange="updateProgress()"><span>Minimal - Only legally required</span></label>
+                                <label class="option-label"><input type="radio" name="q20" value="3" onchange="updateProgress()"><span>Reactive - Standard templates</span></label>
+                                <label class="option-label"><input type="radio" name="q20" value="7" onchange="updateProgress()"><span>Transparent - Proactive</span></label>
+                                <label class="option-label"><input type="radio" name="q20" value="10" onchange="updateProgress()"><span>Exemplary - Model communication</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">21. How does your organization manage security team burnout?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q21" value="1" onchange="updateProgress()"><span>Unaddressed - No recognition</span></label>
+                                <label class="option-label"><input type="radio" name="q21" value="3" onchange="updateProgress()"><span>Aware - Standard wellness</span></label>
+                                <label class="option-label"><input type="radio" name="q21" value="7" onchange="updateProgress()"><span>Supportive - Specific programs</span></label>
+                                <label class="option-label"><input type="radio" name="q21" value="10" onchange="updateProgress()"><span>Comprehensive - Holistic approach</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TECHNOLOGICAL -->
+                    <div class="pestel-category">
+                        <div class="category-header">
+                            <span class="category-badge badge-technological">TECHNOLOGICAL</span>
+                            <h3>Innovation & Digital Transformation</h3>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">22. How well does your organization secure emerging technologies?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q22" value="1" onchange="updateProgress()"><span>Unmanaged - No assessment</span></label>
+                                <label class="option-label"><input type="radio" name="q22" value="3" onchange="updateProgress()"><span>Reactive - After deployment</span></label>
+                                <label class="option-label"><input type="radio" name="q22" value="7" onchange="updateProgress()"><span>Integrated - In adoption process</span></label>
+                                <label class="option-label"><input type="radio" name="q22" value="10" onchange="updateProgress()"><span>Leading - Proactive innovation</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">23. What is your capability to detect zero-day vulnerabilities?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q23" value="1" onchange="updateProgress()"><span>Reactive - Vendor patches</span></label>
+                                <label class="option-label"><input type="radio" name="q23" value="3" onchange="updateProgress()"><span>Monitoring - Threat intelligence</span></label>
+                                <label class="option-label"><input type="radio" name="q23" value="7" onchange="updateProgress()"><span>Responsive - Rapid deployment</span></label>
+                                <label class="option-label"><input type="radio" name="q23" value="10" onchange="updateProgress()"><span>Advanced - Predictive hunting</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">24. How effectively does your organization integrate security into DevOps?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q24" value="1" onchange="updateProgress()"><span>Absent - Security slows development</span></label>
+                                <label class="option-label"><input type="radio" name="q24" value="3" onchange="updateProgress()"><span>Basic - Manual reviews</span></label>
+                                <label class="option-label"><input type="radio" name="q24" value="7" onchange="updateProgress()"><span>Integrated - Automated testing</span></label>
+                                <label class="option-label"><input type="radio" name="q24" value="10" onchange="updateProgress()"><span>DevSecOps - Fully embedded</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">25. What is your organization's approach to API security?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q25" value="1" onchange="updateProgress()"><span>Unmanaged - No controls</span></label>
+                                <label class="option-label"><input type="radio" name="q25" value="3" onchange="updateProgress()"><span>Basic - Standard authentication</span></label>
+                                <label class="option-label"><input type="radio" name="q25" value="7" onchange="updateProgress()"><span>Managed - API gateway</span></label>
+                                <label class="option-label"><input type="radio" name="q25" value="10" onchange="updateProgress()"><span>Optimized - Full lifecycle security</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">26. How does your organization manage cloud security posture?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q26" value="1" onchange="updateProgress()"><span>Unmanaged - No review</span></label>
+                                <label class="option-label"><input type="radio" name="q26" value="3" onchange="updateProgress()"><span>Basic - Default settings</span></label>
+                                <label class="option-label"><input type="radio" name="q26" value="7" onchange="updateProgress()"><span>Managed - CSPM tools</span></label>
+                                <label class="option-label"><input type="radio" name="q26" value="10" onchange="updateProgress()"><span>Optimized - Multi-cloud security</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">27. What is your capability for security orchestration (SOAR)?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q27" value="1" onchange="updateProgress()"><span>Manual - All manual operations</span></label>
+                                <label class="option-label"><input type="radio" name="q27" value="3" onchange="updateProgress()"><span>Basic - Automated alerts</span></label>
+                                <label class="option-label"><input type="radio" name="q27" value="7" onchange="updateProgress()"><span>Orchestrated - Automated playbooks</span></label>
+                                <label class="option-label"><input type="radio" name="q27" value="10" onchange="updateProgress()"><span>Advanced - Full SOAR integration</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">28. How well does your organization secure IoT and OT environments?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q28" value="1" onchange="updateProgress()"><span>Unmanaged - No controls</span></label>
+                                <label class="option-label"><input type="radio" name="q28" value="3" onchange="updateProgress()"><span>Basic - Network segmentation</span></label>
+                                <label class="option-label"><input type="radio" name="q28" value="7" onchange="updateProgress()"><span>Managed - Dedicated program</span></label>
+                                <label class="option-label"><input type="radio" name="q28" value="10" onchange="updateProgress()"><span>Optimized - OT/IT convergence</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ENVIRONMENTAL -->
+                    <div class="pestel-category">
+                        <div class="category-header">
+                            <span class="category-badge badge-environmental">ENVIRONMENTAL</span>
+                            <h3>Sustainability & ESG Compliance</h3>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">29. How does your organization address climate-related cybersecurity risks?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q29" value="1" onchange="updateProgress()"><span>Unaddressed - No consideration</span></label>
+                                <label class="option-label"><input type="radio" name="q29" value="3" onchange="updateProgress()"><span>Aware - Basic understanding</span></label>
+                                <label class="option-label"><input type="radio" name="q29" value="7" onchange="updateProgress()"><span>Managed - Integrated in BC</span></label>
+                                <label class="option-label"><input type="radio" name="q29" value="10" onchange="updateProgress()"><span>Leading - Comprehensive program</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">30. What is your approach to sustainable IT and green cybersecurity?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q30" value="1" onchange="updateProgress()"><span>None - Not considered</span></label>
+                                <label class="option-label"><input type="radio" name="q30" value="3" onchange="updateProgress()"><span>Emerging - Energy efficiency</span></label>
+                                <label class="option-label"><input type="radio" name="q30" value="7" onchange="updateProgress()"><span>Established - Green IT integrated</span></label>
+                                <label class="option-label"><input type="radio" name="q30" value="10" onchange="updateProgress()"><span>Leading - Industry practices</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">31. How well does your organization manage ESG cyber risk disclosure?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q31" value="1" onchange="updateProgress()"><span>None - No ESG reporting</span></label>
+                                <label class="option-label"><input type="radio" name="q31" value="3" onchange="updateProgress()"><span>Minimal - Basic mentions</span></label>
+                                <label class="option-label"><input type="radio" name="q31" value="7" onchange="updateProgress()"><span>Comprehensive - Detailed metrics</span></label>
+                                <label class="option-label"><input type="radio" name="q31" value="10" onchange="updateProgress()"><span>Exemplary - Industry transparency</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">32. What is your capability for environmental monitoring system security?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q32" value="1" onchange="updateProgress()"><span>N/A or Unmanaged</span></label>
+                                <label class="option-label"><input type="radio" name="q32" value="3" onchange="updateProgress()"><span>Basic - Standard IT security</span></label>
+                                <label class="option-label"><input type="radio" name="q32" value="7" onchange="updateProgress()"><span>Specialized - Dedicated security</span></label>
+                                <label class="option-label"><input type="radio" name="q32" value="10" onchange="updateProgress()"><span>Advanced - Integrated detection</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">33. How does your organization protect against climate-event cyber disruptions?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q33" value="1" onchange="updateProgress()"><span>Unprepared - No planning</span></label>
+                                <label class="option-label"><input type="radio" name="q33" value="3" onchange="updateProgress()"><span>Basic - Standard DR</span></label>
+                                <label class="option-label"><input type="radio" name="q33" value="7" onchange="updateProgress()"><span>Prepared - Climate scenarios</span></label>
+                                <label class="option-label"><input type="radio" name="q33" value="10" onchange="updateProgress()"><span>Resilient - Adaptive infrastructure</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">34. What is your approach to sustainable supply chain cybersecurity?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q34" value="1" onchange="updateProgress()"><span>None - Not factored</span></label>
+                                <label class="option-label"><input type="radio" name="q34" value="3" onchange="updateProgress()"><span>Emerging - Beginning to consider</span></label>
+                                <label class="option-label"><input type="radio" name="q34" value="7" onchange="updateProgress()"><span>Integrated - Required in standards</span></label>
+                                <label class="option-label"><input type="radio" name="q34" value="10" onchange="updateProgress()"><span>Leading - Comprehensive program</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">35. How well does your organization integrate environmental compliance with cyber?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q35" value="1" onchange="updateProgress()"><span>Separate - Managed independently</span></label>
+                                <label class="option-label"><input type="radio" name="q35" value="3" onchange="updateProgress()"><span>Aware - Basic understanding</span></label>
+                                <label class="option-label"><input type="radio" name="q35" value="7" onchange="updateProgress()"><span>Integrated - Coordinated approach</span></label>
+                                <label class="option-label"><input type="radio" name="q35" value="10" onchange="updateProgress()"><span>Optimized - Unified governance</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LEGAL -->
+                    <div class="pestel-category">
+                        <div class="category-header">
+                            <span class="category-badge badge-legal">LEGAL</span>
+                            <h3>Legal Requirements & Data Protection</h3>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">36. How well does your organization manage data privacy legal requirements?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q36" value="1" onchange="updateProgress()"><span>Non-compliant - Significant exposure</span></label>
+                                <label class="option-label"><input type="radio" name="q36" value="3" onchange="updateProgress()"><span>Reactive - Basic compliance</span></label>
+                                <label class="option-label"><input type="radio" name="q36" value="7" onchange="updateProgress()"><span>Managed - Comprehensive program</span></label>
+                                <label class="option-label"><input type="radio" name="q36" value="10" onchange="updateProgress()"><span>Exemplary - Privacy-by-design</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">37. What is your approach to cyber liability and legal risk transfer?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q37" value="1" onchange="updateProgress()"><span>Unmanaged - No strategy</span></label>
+                                <label class="option-label"><input type="radio" name="q37" value="3" onchange="updateProgress()"><span>Basic - Standard clauses</span></label>
+                                <label class="option-label"><input type="radio" name="q37" value="7" onchange="updateProgress()"><span>Managed - Comprehensive allocation</span></label>
+                                <label class="option-label"><input type="radio" name="q37" value="10" onchange="updateProgress()"><span>Optimized - Strategic management</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">38. How prepared is your organization for breach litigation?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q38" value="1" onchange="updateProgress()"><span>Unprepared - No preparedness</span></label>
+                                <label class="option-label"><input type="radio" name="q38" value="3" onchange="updateProgress()"><span>Basic - Standard protocols</span></label>
+                                <label class="option-label"><input type="radio" name="q38" value="7" onchange="updateProgress()"><span>Prepared - Dedicated team</span></label>
+                                <label class="option-label"><input type="radio" name="q38" value="10" onchange="updateProgress()"><span>Optimized - Comprehensive readiness</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">39. What is your capability for cross-border legal compliance?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q39" value="1" onchange="updateProgress()"><span>Unmanaged - No program</span></label>
+                                <label class="option-label"><input type="radio" name="q39" value="3" onchange="updateProgress()"><span>Basic - Awareness of regulations</span></label>
+                                <label class="option-label"><input type="radio" name="q39" value="7" onchange="updateProgress()"><span>Managed - Multi-jurisdictional framework</span></label>
+                                <label class="option-label"><input type="radio" name="q39" value="10" onchange="updateProgress()"><span>Optimized - Global program</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">40. How well does your organization manage intellectual property protection?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q40" value="1" onchange="updateProgress()"><span>Unmanaged - Minimal protection</span></label>
+                                <label class="option-label"><input type="radio" name="q40" value="3" onchange="updateProgress()"><span>Basic - Standard contracts</span></label>
+                                <label class="option-label"><input type="radio" name="q40" value="7" onchange="updateProgress()"><span>Managed - Comprehensive program</span></label>
+                                <label class="option-label"><input type="radio" name="q40" value="10" onchange="updateProgress()"><span>Advanced - Multi-layered security</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">41. What is your approach to employment law and insider threat?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q41" value="1" onchange="updateProgress()"><span>Unintegrated - Managed separately</span></label>
+                                <label class="option-label"><input type="radio" name="q41" value="3" onchange="updateProgress()"><span>Basic - Standard clauses</span></label>
+                                <label class="option-label"><input type="radio" name="q41" value="7" onchange="updateProgress()"><span>Integrated - In program</span></label>
+                                <label class="option-label"><input type="radio" name="q41" value="10" onchange="updateProgress()"><span>Comprehensive - Unified approach</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">42. How effectively does your organization manage security contracts and SLAs?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q42" value="1" onchange="updateProgress()"><span>Weak - Insufficient requirements</span></label>
+                                <label class="option-label"><input type="radio" name="q42" value="3" onchange="updateProgress()"><span>Basic - Standard clauses</span></label>
+                                <label class="option-label"><input type="radio" name="q42" value="7" onchange="updateProgress()"><span>Managed - Detailed SLAs</span></label>
+                                <label class="option-label"><input type="radio" name="q42" value="10" onchange="updateProgress()"><span>Optimized - Automated monitoring</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ADDITIONAL STRATEGIC QUESTIONS -->
+                    <div class="pestel-category">
+                        <div class="category-header">
+                            <span class="category-badge badge-political">POLITICAL</span>
+                            <h3>Enterprise Risk Management</h3>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">43. How clearly has your organization defined and communicated its cybersecurity risk appetite?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q43" value="1" onchange="updateProgress()"><span>Undefined - No documented risk appetite</span></label>
+                                <label class="option-label"><input type="radio" name="q43" value="3" onchange="updateProgress()"><span>Informal - Verbal understanding only</span></label>
+                                <label class="option-label"><input type="radio" name="q43" value="7" onchange="updateProgress()"><span>Documented - Written risk appetite statement</span></label>
+                                <label class="option-label"><input type="radio" name="q43" value="10" onchange="updateProgress()"><span>Operationalized - Risk appetite drives decision-making and resource allocation</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pestel-category">
+                        <div class="category-header">
+                            <span class="category-badge badge-technological">TECHNOLOGICAL</span>
+                            <h3>Modern Security Architecture</h3>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">44. What is your organization's Zero Trust Architecture maturity?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q44" value="1" onchange="updateProgress()"><span>No Zero Trust - Traditional perimeter security</span></label>
+                                <label class="option-label"><input type="radio" name="q44" value="3" onchange="updateProgress()"><span>Piloting - Testing Zero Trust for specific use cases</span></label>
+                                <label class="option-label"><input type="radio" name="q44" value="7" onchange="updateProgress()"><span>Implementing - Rolling out Zero Trust principles</span></label>
+                                <label class="option-label"><input type="radio" name="q44" value="10" onchange="updateProgress()"><span>Mature - Zero Trust architecture fully implemented and enforced</span></label>
+                            </div>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">45. How does your organization secure the software supply chain?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q45" value="1" onchange="updateProgress()"><span>Unmanaged - No supply chain security controls</span></label>
+                                <label class="option-label"><input type="radio" name="q45" value="3" onchange="updateProgress()"><span>Basic - Vendor attestations only</span></label>
+                                <label class="option-label"><input type="radio" name="q45" value="7" onchange="updateProgress()"><span>Managed - SBOM and vulnerability scanning</span></label>
+                                <label class="option-label"><input type="radio" name="q45" value="10" onchange="updateProgress()"><span>Optimized - Continuous supply chain monitoring and validation</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pestel-category">
+                        <div class="category-header">
+                            <span class="category-badge badge-environmental">ENVIRONMENTAL</span>
+                            <h3>Business Continuity & Resilience</h3>
+                        </div>
+
+                        <div class="question-item">
+                            <div class="question-text">46. What is your cybersecurity incident recovery capability?</div>
+                            <div class="question-options">
+                                <label class="option-label"><input type="radio" name="q46" value="1" onchange="updateProgress()"><span>No BC/DR - No documented recovery plans</span></label>
+                                <label class="option-label"><input type="radio" name="q46" value="3" onchange="updateProgress()"><span>Basic - Annual BC/DR tests</span></label>
+                                <label class="option-label"><input type="radio" name="q46" value="7" onchange="updateProgress()"><span>Managed - Defined RTOs/RPOs, quarterly tests</span></label>
+                                <label class="option-label"><input type="radio" name="q46" value="10" onchange="updateProgress()"><span>Optimized - Automated failover, continuous validation</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary" onclick="calculateResults()">Calculate Results</button>
+                        <button type="button" class="btn btn-primary" onclick="saveProgress()">Save Progress</button>
+                        <button type="button" class="btn btn-primary" onclick="loadProgress()">Load Progress</button>
+                        <button type="button" class="btn btn-danger" onclick="clearAllData()">Clear All Data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="results" class="tab-content">
+            <div class="card">
+                <h2 class="results-title">STEEL™ Assessment Results</h2>
+
+                <div id="resultsContent">
+                    <p class="centered-text">Complete the assessment to view your results.</p>
+                </div>
+
+                <div class="btn-group btn-group-hidden btn-group-export" id="exportButtons">
+                    <button type="button" class="btn btn-primary" onclick="exportPDF()" id="pdfExportBtn">
+                        <i data-lucide="file-text"></i> Export PDF Report
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="exportJSON()">
+                        <i data-lucide="download"></i> Export JSON Data
+                    </button>
+                    <a href="/dashboard" class="btn btn-primary btn-inline-flex">
+                        <span>View in Dashboard</span>
+                        <span>→</span>
+                    </a>
+                    <a href="/dashboard/steel-results" class="btn btn-primary btn-inline-flex">
+                        <span>View Full Recommendations</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                
+                <!-- Free vs Premium Comparison -->
+                <div class="info-box info-box-blue-gradient">
+                    <h3 class="comparison-title">Free vs Premium</h3>
+                    <div class="comparison-grid">
+                        <div class="comparison-card">
+                            <h4 class="comparison-card-title">✓ Free Assessment</h4>
+                            <ul class="standard-list comparison-list">
+                                <li>Complete 46-question assessment</li>
+                                <li>Basic results and scores display</li>
+                                <li>JSON data export</li>
+                                <li>Dashboard integration</li>
+                                <li>Recommended action plan</li>
+                                <li>Basic risk level indicators</li>
+                            </ul>
+                        </div>
+                        <div class="comparison-card-gold">
+                            <h4 class="comparison-card-title">⭐ Premium ($29)</h4>
+                            <ul class="standard-list comparison-list">
+                                <li><strong>Everything in Free, plus:</strong></li>
+                                <li>📄 Detailed PDF reports (20+ pages)</li>
+                                <li>📊 Industry benchmarking</li>
+                                <li>📈 Executive summary templates</li>
+                                <li>💾 Multiple export formats (PNG, PowerPoint)</li>
+                                <li>🎨 High-resolution visualizations</li>
+                                <li>✨ Custom charts and graphs</li>
+                            </ul>
+                            <div class="comparison-cta-container">
+                                <a href="/steel/premium" class="btn-link btn-link-small btn-link-premium">
+                                    Upgrade to Premium →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Inject theme-color meta tag for supported browsers (Chrome, Edge, Safari, mobile)
+        // This avoids linter warnings about Firefox/Opera non-support while maintaining functionality
+        (function() {
+            const themeColorMeta = document.createElement('meta');
+            themeColorMeta.name = 'theme-color';
+            themeColorMeta.content = '#004B87';
+            document.head.appendChild(themeColorMeta);
+        })();
+        
+        let assessmentData = {};
+        const TOTAL_QUESTIONS = 46;
+        
+        // Premium Access Management
+        const PREMIUM_STORAGE_KEY = 'steel_premium_access';
+        const PREMIUM_PURCHASE_URL = '/steel/premium';
+        
+        function checkPremiumAccess() {
+            const premium = localStorage.getItem(PREMIUM_STORAGE_KEY);
+            if (premium) {
+                try {
+                    const data = JSON.parse(premium);
+                    // Check if premium is still valid (not expired)
+                    if (data.expiresAt && new Date(data.expiresAt) > new Date()) {
+                        return true;
+                    } else if (!data.expiresAt) {
+                        // Lifetime access
+                        return true;
+                    }
+                } catch (e) {
+                    console.warn('Error checking premium access:', e);
+                }
+            }
+            return false;
+        }
+        
+        function setPremiumAccess(purchaseData) {
+            const premiumData = {
+                purchased: true,
+                purchaseDate: new Date().toISOString(),
+                expiresAt: null, // Lifetime access
+                ...purchaseData
+            };
+            localStorage.setItem(PREMIUM_STORAGE_KEY, JSON.stringify(premiumData));
+            // Trigger event to refresh UI
+            window.dispatchEvent(new CustomEvent('steel_premium_updated', { detail: premiumData }));
+        }
+        
+        function showPremiumUpgrade(message = 'This feature requires STEEL™ Premium. Upgrade to unlock detailed reports, industry benchmarking, and executive templates.') {
+            const upgrade = confirm(message + '\n\nWould you like to upgrade to Premium ($29)?');
+            if (upgrade) {
+                window.location.href = PREMIUM_PURCHASE_URL;
+            }
+        }
+        
+        // Check for premium access from purchase success page
+        function checkPurchaseSuccess() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('premium') === 'activated') {
+                setPremiumAccess({ source: 'purchase' });
+                // Remove the parameter from URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+                alert('Premium access activated! You now have access to all premium features.');
+            }
+        }
+        
+        // Import free assessment results into Premium
+        function importFreeAssessmentToPremium() {
+            const freeData = localStorage.getItem('steel_assessment');
+            if (!freeData) {
+                alert('No assessment data found. Please complete the assessment first.');
+                return;
+            }
+            
+            if (!checkPremiumAccess()) {
+                showPremiumUpgrade('Import your free assessment results into Premium to unlock detailed reports and advanced features.');
+                return;
+            }
+            
+            try {
+                const data = JSON.parse(freeData);
+                assessmentData = data;
+                displayResults(assessmentData);
+                showTab('results');
+                alert('Assessment results imported successfully! You now have access to all premium features for this assessment.');
+            } catch (e) {
+                alert('Error importing assessment data. Please try again.');
+                console.error('Import error:', e);
+            }
+        }
+
+        function showTab(tabName, event) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            
+            // Update nav tab if called from nav button
+            if (event && event.target && event.target.classList.contains('nav-tab')) {
+                event.target.classList.add('active');
+            } else {
+                // Find and activate the corresponding nav tab
+                const navTabs = document.querySelectorAll('.nav-tab');
+                navTabs.forEach(tab => {
+                    if (tab.getAttribute('onclick') && tab.getAttribute('onclick').includes(tabName)) {
+                        tab.classList.add('active');
+                    }
+                });
+            }
+            
+            // Smooth scroll to top of content
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Storage availability check
+        function checkStorageAvailable() {
+            try {
+                const test = '__storage_test__';
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+        
+        // Show storage warning if needed
+        function checkStorageOnLoad() {
+            if (!checkStorageAvailable()) {
+                document.getElementById('storage-warning').classList.add('show');
+            }
+        }
+        
+        // Progress persistence - Save progress automatically
+        let saveTimeout;
+        function saveProgress() {
+            if (!checkStorageAvailable()) return;
+            
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(() => {
+                try {
+                    const form = document.getElementById('assessmentForm');
+                    const progress = {};
+                    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+                        const checked = form.querySelector(`input[name="q${i}"]:checked`);
+                        if (checked) {
+                            progress[`q${i}`] = checked.value;
+                        }
+                    }
+                    localStorage.setItem('steel_assessment_progress', JSON.stringify(progress));
+                    
+                    // Track progress save
+                    trackEvent('progress_saved', { questions_answered: Object.keys(progress).length });
+                } catch (e) {
+                    console.error('Error saving progress:', e);
+                }
+            }, 500); // Debounce saves
+        }
+        
+        // Load saved progress
+        function loadProgress() {
+            if (!checkStorageAvailable()) return;
+            
+            try {
+                const saved = localStorage.getItem('steel_assessment_progress');
+                if (saved) {
+                    const progress = JSON.parse(saved);
+                    let loadedCount = 0;
+                    Object.entries(progress).forEach(([name, value]) => {
+                        const input = document.querySelector(`input[name="${name}"][value="${value}"]`);
+                        if (input) {
+                            input.checked = true;
+                            loadedCount++;
+                        }
+                    });
+                    updateProgress();
+                    
+                    if (loadedCount > 0) {
+                        // Announce to screen readers
+                        announceToScreenReader(`Loaded ${loadedCount} saved answers`);
+                        trackEvent('progress_loaded', { questions_loaded: loadedCount });
+                    }
+                }
+            } catch (e) {
+                console.error('Error loading progress:', e);
+            }
+        }
+        
+        // Announce to screen readers
+        function announceToScreenReader(message) {
+            const announceEl = document.getElementById('progress-announce');
+            if (announceEl) {
+                announceEl.textContent = message;
+                setTimeout(() => {
+                    announceEl.textContent = '';
+                }, 1000);
+            }
+        }
+        
+        function updateProgress() {
+            const form = document.getElementById('assessmentForm');
+            let answered = 0;
+            for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+                if (form.querySelector(`input[name="q${i}"]:checked`)) answered++;
+            }
+            const percent = Math.round((answered / TOTAL_QUESTIONS) * 100);
+            document.getElementById('progressFill').style.setProperty('--progress-width', percent + '%');
+            document.getElementById('progressText').textContent = `${percent}% Complete (${answered} of ${TOTAL_QUESTIONS} questions)`;
+            
+            // Announce progress to screen readers
+            if (answered > 0 && answered % 5 === 0) {
+                announceToScreenReader(`${percent}% complete, ${answered} of ${TOTAL_QUESTIONS} questions answered`);
+            }
+            
+            // Auto-save progress
+            saveProgress();
+        }
+
+        // Analytics tracking
+        function trackEvent(eventName, eventData = {}) {
+            // Google Analytics 4
+            if (typeof gtag !== 'undefined') {
+                gtag('event', eventName, {
+                    'event_category': 'STEEL Assessment',
+                    ...eventData
+                });
+            }
+            
+            // Console log for debugging
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                console.log('Event tracked:', eventName, eventData);
+            }
+        }
+        
+        // Show loading overlay
+        function showLoading() {
+            document.getElementById('loading-overlay').classList.remove('hidden');
+        }
+        
+        // Hide loading overlay
+        function hideLoading() {
+            document.getElementById('loading-overlay').classList.add('hidden');
+        }
+        
+        function calculateResults() {
+            // Track assessment completion
+            trackEvent('assessment_started');
+            showLoading();
+            
+            const form = document.getElementById('assessmentForm');
+            let factorScores = {
+                political: 0,
+                economic: 0,
+                social: 0,
+                technological: 0,
+                environmental: 0,
+                legal: 0
+            };
+            let factorQuestionCounts = {
+                political: 0,
+                economic: 0,
+                social: 0,
+                technological: 0,
+                environmental: 0,
+                legal: 0
+            };
+
+            // Political: Q1-Q7 + Q43 (8 questions, max 80 points)
+            for (let i = 1; i <= 7; i++) {
+                const val = form.querySelector(`input[name="q${i}"]:checked`)?.value;
+                if (val) { factorScores.political += parseInt(val); factorQuestionCounts.political++; }
+            }
+            const q43 = form.querySelector('input[name="q43"]:checked')?.value;
+            if (q43) { factorScores.political += parseInt(q43); factorQuestionCounts.political++; }
+
+            // Economic: Q8-Q14 (7 questions, max 70 points)
+            for (let i = 8; i <= 14; i++) {
+                const val = form.querySelector(`input[name="q${i}"]:checked`)?.value;
+                if (val) { factorScores.economic += parseInt(val); factorQuestionCounts.economic++; }
+            }
+
+            // Social: Q15-Q21 (7 questions, max 70 points)
+            for (let i = 15; i <= 21; i++) {
+                const val = form.querySelector(`input[name="q${i}"]:checked`)?.value;
+                if (val) { factorScores.social += parseInt(val); factorQuestionCounts.social++; }
+            }
+
+            // Technological: Q22-Q28 + Q44-Q45 (9 questions, max 90 points)
+            for (let i = 22; i <= 28; i++) {
+                const val = form.querySelector(`input[name="q${i}"]:checked`)?.value;
+                if (val) { factorScores.technological += parseInt(val); factorQuestionCounts.technological++; }
+            }
+            const q44 = form.querySelector('input[name="q44"]:checked')?.value;
+            const q45 = form.querySelector('input[name="q45"]:checked')?.value;
+            if (q44) { factorScores.technological += parseInt(q44); factorQuestionCounts.technological++; }
+            if (q45) { factorScores.technological += parseInt(q45); factorQuestionCounts.technological++; }
+
+            // Environmental: Q29-Q35 + Q46 (8 questions, max 80 points)
+            for (let i = 29; i <= 35; i++) {
+                const val = form.querySelector(`input[name="q${i}"]:checked`)?.value;
+                if (val) { factorScores.environmental += parseInt(val); factorQuestionCounts.environmental++; }
+            }
+            const q46 = form.querySelector('input[name="q46"]:checked')?.value;
+            if (q46) { factorScores.environmental += parseInt(q46); factorQuestionCounts.environmental++; }
+
+            // Legal: Q36-Q42 (7 questions, max 70 points)
+            for (let i = 36; i <= 42; i++) {
+                const val = form.querySelector(`input[name="q${i}"]:checked`)?.value;
+                if (val) { factorScores.legal += parseInt(val); factorQuestionCounts.legal++; }
+            }
+
+            // Normalize scores to 0-100 scale based on answered questions
+            for (let factor in factorScores) {
+                const maxScore = factorQuestionCounts[factor] * 10;
+                factorScores[factor] = maxScore > 0 ? Math.round((factorScores[factor] / maxScore) * 100) : 0;
+            }
+
+            const weights = {
+                political: 1.0,
+                economic: 1.0,
+                social: 1.0,
+                technological: 1.2,
+                environmental: 0.9,
+                legal: 1.1
+            };
+
+            let weightedSum = 0, totalWeight = 0;
+            for (let factor in factorScores) {
+                weightedSum += factorScores[factor] * weights[factor];
+                totalWeight += weights[factor];
+            }
+            const composite = Math.round(weightedSum / totalWeight);
+
+            assessmentData = { factorScores, composite, timestamp: new Date().toISOString() };
+            
+            // Save calculated results to localStorage for Dashboard integration
+            try {
+                if (checkStorageAvailable()) {
+                    localStorage.setItem('steel_assessment', JSON.stringify(assessmentData));
+                    // Trigger custom event for auto-refresh in Dashboard
+                    window.dispatchEvent(new CustomEvent('steel_assessment_updated', { detail: assessmentData }));
+                }
+            } catch (e) {
+                console.warn('Could not save assessment results to localStorage:', e);
+                showError('Could not save results. Please try again or export your data.');
+            }
+            
+            // Track completion
+            trackEvent('assessment_completed', {
+                composite_score: composite,
+                risk_level: composite >= 80 ? 'LOW' : composite >= 60 ? 'MODERATE' : composite >= 40 ? 'ELEVATED' : 'HIGH'
+            });
+            
+            hideLoading();
+            displayResults(assessmentData);
+            showTab('results');
+            
+            // Clear progress save after completion
+            localStorage.removeItem('steel_assessment_progress');
+        }
+
+        function generateInsights(factorScores, composite) {
+            const insights = {
+                executiveSummary: '',
+                keyInsights: [],
+                strengths: [],
+                opportunities: [],
+                riskContext: ''
+            };
+
+            // Executive Summary
+            const riskLevel = composite >= 80 ? 'LOW' : composite >= 60 ? 'MODERATE' : composite >= 40 ? 'ELEVATED' : 'HIGH';
+            insights.executiveSummary = `Your organization's composite STEEL score of ${composite} indicates a ${riskLevel.toLowerCase()} risk posture. `;
+            
+            const lowFactors = Object.entries(factorScores).filter(([_, score]) => score < 60);
+            const highFactors = Object.entries(factorScores).filter(([_, score]) => score >= 80);
+            
+            if (lowFactors.length > 0) {
+                insights.executiveSummary += `Critical attention is needed in ${lowFactors.length} PESTEL factor${lowFactors.length > 1 ? 's' : ''} (${lowFactors.map(([f]) => f.charAt(0).toUpperCase() + f.slice(1)).join(', ')}). `;
+            }
+            if (highFactors.length > 0) {
+                insights.executiveSummary += `Strong performance is evident in ${highFactors.length} area${highFactors.length > 1 ? 's' : ''} (${highFactors.map(([f]) => f.charAt(0).toUpperCase() + f.slice(1)).join(', ')}).`;
+            }
+
+            // Key Insights
+            Object.entries(factorScores).forEach(([factor, score]) => {
+                const factorName = factor.charAt(0).toUpperCase() + factor.slice(1);
+                if (score < 40) {
+                    insights.keyInsights.push({
+                        factor,
+                        text: `${factorName} factor shows critical vulnerabilities (${score}/100). Immediate action required to address regulatory, operational, and financial exposure.`,
+                        priority: 'critical'
+                    });
+                } else if (score < 60) {
+                    insights.keyInsights.push({
+                        factor,
+                        text: `${factorName} factor indicates significant gaps (${score}/100). Strategic improvements needed to enhance resilience and reduce risk exposure.`,
+                        priority: 'high'
+                    });
+                } else if (score >= 80) {
+                    insights.strengths.push({
+                        factor,
+                        text: `${factorName} demonstrates mature capabilities (${score}/100). Consider leveraging this strength to support improvements in other areas.`
+                    });
+                }
+            });
+
+            // Opportunities
+            Object.entries(factorScores).forEach(([factor, score]) => {
+                if (score >= 60 && score < 80) {
+                    const factorName = factor.charAt(0).toUpperCase() + factor.slice(1);
+                    insights.opportunities.push({
+                        factor,
+                        text: `${factorName} shows good foundation (${score}/100). Optimization opportunities exist to reach best-in-class maturity.`
+                    });
+                }
+            });
+
+            // Risk Context
+            if (composite < 40) {
+                insights.riskContext = 'Your organization faces significant strategic cybersecurity risks across multiple dimensions. Immediate executive attention and resource allocation are critical to prevent potential regulatory violations, financial losses, and operational disruptions.';
+            } else if (composite < 60) {
+                insights.riskContext = 'Your organization has foundational security controls but significant gaps remain. Strategic investments and programmatic improvements are needed to enhance resilience and reduce exposure to emerging threats.';
+            } else if (composite < 80) {
+                insights.riskContext = 'Your organization demonstrates a developing security program with managed processes. Focused optimization efforts can elevate your security posture to industry-leading levels.';
+            } else {
+                insights.riskContext = 'Your organization maintains a mature and resilient security posture. Continue monitoring emerging threats and evolving best practices to maintain this strong position.';
+            }
+
+            return insights;
+        }
+
+        function generateRecommendations(factorScores) {
+            const recommendations = [];
+            const factorNames = {
+                political: 'Political',
+                economic: 'Economic',
+                social: 'Social',
+                technological: 'Technological',
+                environmental: 'Environmental',
+                legal: 'Legal'
+            };
+
+            const recommendationLibrary = {
+                political: {
+                    critical: [
+                        'Establish dedicated regulatory compliance monitoring program with automated intelligence feeds',
+                        'Develop proactive government relations strategy with regular stakeholder engagement',
+                        'Create regulatory change management process with impact assessment framework',
+                        'Implement cross-border data transfer compliance controls and verification mechanisms',
+                        'Consider ERMITS CyberCorrect platform for privacy exposure and regulatory gaps'
+                    ],
+                    high: [
+                        'Enhance regulatory tracking with quarterly compliance reviews and gap analysis',
+                        'Strengthen relationships with key regulatory bodies through industry group participation',
+                        'Develop predictive compliance roadmap for upcoming regulatory changes',
+                        'Integrate regulatory requirements into enterprise risk management framework'
+                    ],
+                    moderate: [
+                        'Optimize existing compliance processes with automation and analytics',
+                        'Expand regulatory intelligence sources and monitoring capabilities',
+                        'Enhance executive communication with government stakeholders'
+                    ],
+                    low: [
+                        'Maintain regulatory excellence through continuous monitoring and early adoption',
+                        'Share best practices with industry peers and regulatory bodies',
+                        'Consider influencing policy development through thought leadership'
+                    ]
+                },
+                economic: {
+                    critical: [
+                        'Implement financial risk quantification framework (e.g., FAIR, Monte Carlo simulation)',
+                        'Develop security ROI metrics tied to business outcomes and revenue protection',
+                        'Establish cyber insurance program with comprehensive coverage and risk transfer strategy',
+                        'Create budget protection mechanisms to prevent security funding cuts during downturns',
+                        'Build business case for security investments with clear financial impact analysis'
+                    ],
+                    high: [
+                        'Enhance financial risk modeling with regular quantification exercises',
+                        'Align security investments with business strategy and competitive advantage',
+                        'Optimize cyber insurance portfolio with regular policy reviews',
+                        'Develop contingency plans for economic downturn scenarios'
+                    ],
+                    moderate: [
+                        'Refine financial impact measurement with comprehensive cost analysis',
+                        'Enhance investor communication about security value proposition',
+                        'Strengthen vendor financial stability assessment processes'
+                    ],
+                    low: [
+                        'Maintain financial risk excellence through continuous optimization',
+                        'Leverage security as competitive differentiator in market positioning',
+                        'Share financial risk management best practices across organization'
+                    ]
+                },
+                social: {
+                    critical: [
+                        'Launch comprehensive security awareness program with regular training and phishing simulations',
+                        'Implement insider threat program with user behavior analytics and anomaly detection',
+                        'Establish security culture initiatives with leadership participation and accountability',
+                        'Deploy zero trust architecture for remote work security',
+                        'Integrate security into diversity and inclusion talent acquisition strategies',
+                        'Consider ERMITS EduSoluce platform for training aligned to your risk profile',
+                        'Consider ERMITS SocialCaution platform for public-facing privacy understanding'
+                    ],
+                    high: [
+                        'Enhance security awareness with targeted training and engagement metrics',
+                        'Strengthen insider threat detection with behavioral analytics tools',
+                        'Improve leadership security commitment through executive training and communication',
+                        'Optimize remote work security with zero trust principles'
+                    ],
+                    moderate: [
+                        'Refine security culture programs with advanced engagement techniques',
+                        'Enhance incident communication with proactive transparency',
+                        'Implement security team wellness programs to address burnout'
+                    ],
+                    low: [
+                        'Maintain security culture excellence through continuous innovation',
+                        'Share security culture best practices as industry leader',
+                        'Leverage security culture as talent attraction differentiator'
+                    ]
+                },
+                technological: {
+                    critical: [
+                        'Establish security-by-design process for emerging technology adoption',
+                        'Implement threat hunting program for zero-day vulnerability detection',
+                        'Deploy DevSecOps pipeline with automated security testing and validation',
+                        'Implement API security gateway with comprehensive lifecycle management',
+                        'Deploy cloud security posture management (CSPM) tools for multi-cloud environments',
+                        'Consider ERMITS CyberCaution platform for ransomware readiness and threat forecasts',
+                        'Consider ERMITS TechnoSoluce platform for SBOM risk and component vulnerability management'
+                    ],
+                    high: [
+                        'Enhance emerging technology security with integrated assessment processes',
+                        'Strengthen zero-day response with rapid patch deployment capabilities',
+                        'Optimize DevSecOps integration with advanced automation',
+                        'Improve cloud security with continuous compliance validation'
+                    ],
+                    moderate: [
+                        'Refine technology security with advanced orchestration (SOAR) capabilities',
+                        'Enhance IoT/OT security with dedicated program management',
+                        'Optimize API security with full lifecycle protection'
+                    ],
+                    low: [
+                        'Maintain technology security leadership through continuous innovation',
+                        'Share security innovation best practices with industry',
+                        'Leverage security technology as competitive advantage'
+                    ]
+                },
+                environmental: {
+                    critical: [
+                        'Integrate climate-related cybersecurity risks into business continuity planning',
+                        'Develop sustainable IT and green cybersecurity initiatives',
+                        'Establish ESG cyber risk disclosure framework with detailed metrics',
+                        'Implement environmental monitoring system security with specialized controls',
+                        'Create climate-event cyber resilience planning with adaptive infrastructure',
+                        'Consider ERMITS CyberSoluce platform for NIST CSF–aligned maturity mapping',
+                        'Consider ERMITS ImpactSoluce platform for sustainability, ESG, and supply chain climate risks'
+                    ],
+                    high: [
+                        'Enhance climate-cyber risk integration with comprehensive planning',
+                        'Strengthen sustainable IT practices with energy efficiency focus',
+                        'Improve ESG reporting with detailed cyber risk metrics',
+                        'Optimize environmental compliance integration with unified governance'
+                    ],
+                    moderate: [
+                        'Refine environmental security with advanced monitoring capabilities',
+                        'Enhance climate resilience with scenario-based planning',
+                        'Strengthen sustainable supply chain cybersecurity requirements'
+                    ],
+                    low: [
+                        'Maintain environmental security excellence through continuous improvement',
+                        'Share sustainable cybersecurity best practices as industry leader',
+                        'Leverage green IT as competitive differentiator'
+                    ]
+                },
+                legal: {
+                    critical: [
+                        'Implement comprehensive data privacy program aligned with GDPR, CCPA, and other regulations',
+                        'Develop cyber liability and legal risk transfer strategy with insurance integration',
+                        'Establish breach litigation preparedness with dedicated response team and forensic protocols',
+                        'Create multi-jurisdictional compliance framework with automated jurisdiction mapping',
+                        'Implement intellectual property protection program with multi-layered security',
+                        'Consider ERMITS CyberCorrect platform for privacy exposure and regulatory gaps',
+                        'Consider ERMITS VendorSoluce platform for vendor exposure scoring & TPRM',
+                        'Consider ERMITS SocialCaution platform for public-facing privacy understanding'
+                    ],
+                    high: [
+                        'Enhance privacy compliance with privacy-by-design principles',
+                        'Strengthen legal risk management with comprehensive contract governance',
+                        'Improve breach litigation readiness with evidence preservation protocols',
+                        'Optimize cross-border compliance with global program management'
+                    ],
+                    moderate: [
+                        'Refine legal protections with advanced IP security measures',
+                        'Enhance contract management with automated SLA monitoring',
+                        'Strengthen employment law integration with insider threat programs'
+                    ],
+                    low: [
+                        'Maintain legal compliance excellence through continuous monitoring',
+                        'Share legal risk management best practices as industry leader',
+                        'Leverage compliance excellence as competitive advantage'
+                    ]
+                }
+            };
+
+            Object.entries(factorScores).forEach(([factor, score]) => {
+                let priority, actions, timeline;
+                
+                if (score < 40) {
+                    priority = 'CRITICAL';
+                    actions = recommendationLibrary[factor].critical;
+                    timeline = '30 days';
+                } else if (score < 60) {
+                    priority = 'HIGH';
+                    actions = recommendationLibrary[factor].high;
+                    timeline = '60-90 days';
+                } else if (score < 80) {
+                    priority = 'MODERATE';
+                    actions = recommendationLibrary[factor].moderate;
+                    timeline = '90-180 days';
+                } else {
+                    priority = 'LOW';
+                    actions = recommendationLibrary[factor].low;
+                    timeline = 'Ongoing';
+                }
+
+                recommendations.push({
+                    factor,
+                    factorName: factorNames[factor],
+                    score,
+                    priority,
+                    timeline,
+                    actions,
+                    quickWins: actions.slice(0, 2),
+                    longTerm: actions.slice(2)
+                });
+            });
+
+            // Sort by priority (critical first, then by score)
+            const priorityOrder = { 'CRITICAL': 0, 'HIGH': 1, 'MODERATE': 2, 'LOW': 3 };
+            recommendations.sort((a, b) => {
+                if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
+                    return priorityOrder[a.priority] - priorityOrder[b.priority];
+                }
+                return a.score - b.score;
+            });
+
+            return recommendations;
+        }
+
+        function displayResults(data) {
+            const { factorScores, composite } = data;
+            const riskLevel = composite >= 80 ? 'LOW' : composite >= 60 ? 'MODERATE' : composite >= 40 ? 'ELEVATED' : 'HIGH';
+            const riskColor = composite >= 80 ? '#16a34a' : composite >= 60 ? '#eab308' : composite >= 40 ? '#f97316' : '#dc2626';
+
+            // Generate insights and recommendations
+            const insights = generateInsights(factorScores, composite);
+            const recommendations = generateRecommendations(factorScores);
+
+            let html = `
+                <!-- Executive Summary -->
+                <div class="info-box" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-left: 6px solid var(--navy); margin-bottom: 30px;">
+                    <h2 style="color: var(--navy); margin-bottom: 15px;">Executive Summary</h2>
+                    <p class="body-text" style="font-size: 1.1em; line-height: 1.8;">${insights.executiveSummary}</p>
+                    <p class="body-text" style="margin-top: 15px;">${insights.riskContext}</p>
+                </div>
+
+                <!-- Composite Score -->
+                <div class="score-composite-box">
+                    <h2 class="score-composite-title">Composite STEEL Score</h2>
+                    <div class="score-composite-value" style="color: ${riskColor};">${composite}</div>
+                    <div class="score-composite-label" style="color: ${riskColor};">${riskLevel} RISK</div>
+                </div>
+
+                <div class="score-dashboard">
+                    <div class="score-card score-card-political">
+                        <div class="score-label">Political</div>
+                        <div class="score-value score-value-political">${factorScores.political}</div>
+                        <div class="score-bar"><div class="score-fill" style="width: ${factorScores.political}%; background: var(--political);"></div></div>
+                    </div>
+                    <div class="score-card score-card-economic">
+                        <div class="score-label">Economic</div>
+                        <div class="score-value score-value-economic">${factorScores.economic}</div>
+                        <div class="score-bar"><div class="score-fill" style="width: ${factorScores.economic}%; background: var(--economic);"></div></div>
+                    </div>
+                    <div class="score-card score-card-social">
+                        <div class="score-label">Social</div>
+                        <div class="score-value score-value-social">${factorScores.social}</div>
+                        <div class="score-bar"><div class="score-fill" style="width: ${factorScores.social}%; background: var(--social);"></div></div>
+                    </div>
+                    <div class="score-card score-card-technological">
+                        <div class="score-label">Technological</div>
+                        <div class="score-value score-value-technological">${factorScores.technological}</div>
+                        <div class="score-bar"><div class="score-fill" style="width: ${factorScores.technological}%; background: var(--technological);"></div></div>
+                    </div>
+                    <div class="score-card score-card-environmental">
+                        <div class="score-label">Environmental</div>
+                        <div class="score-value score-value-environmental">${factorScores.environmental}</div>
+                        <div class="score-bar"><div class="score-fill" style="width: ${factorScores.environmental}%; background: var(--environmental);"></div></div>
+                    </div>
+                    <div class="score-card score-card-legal">
+                        <div class="score-label">Legal</div>
+                        <div class="score-value score-value-legal">${factorScores.legal}</div>
+                        <div class="score-bar"><div class="score-fill" style="width: ${factorScores.legal}%; background: var(--legal);"></div></div>
+                    </div>
+                </div>
+
+                <!-- Key Insights -->
+                ${insights.keyInsights.length > 0 ? `
+                <div class="info-box" style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-left: 6px solid #dc2626; margin: 30px 0;">
+                    <h3 style="color: #dc2626; margin-bottom: 15px;">🔍 Key Insights</h3>
+                    <ul class="standard-list" style="margin-top: 10px;">
+                        ${insights.keyInsights.map(insight => `
+                            <li style="margin-bottom: 10px; line-height: 1.7;"><strong>${insight.factor.charAt(0).toUpperCase() + insight.factor.slice(1)}:</strong> ${insight.text}</li>
+                        `).join('')}
+                    </ul>
+                </div>
+                ` : ''}
+
+                <!-- Strengths -->
+                ${insights.strengths.length > 0 ? `
+                <div class="info-box" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-left: 6px solid #16a34a; margin: 30px 0;">
+                    <h3 style="color: #16a34a; margin-bottom: 15px;">✅ Strengths</h3>
+                    <ul class="standard-list" style="margin-top: 10px;">
+                        ${insights.strengths.map(strength => `
+                            <li style="margin-bottom: 10px; line-height: 1.7;">${strength.text}</li>
+                        `).join('')}
+                    </ul>
+                </div>
+                ` : ''}
+
+                <!-- Opportunities -->
+                ${insights.opportunities.length > 0 ? `
+                <div class="info-box" style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border-left: 6px solid #eab308; margin: 30px 0;">
+                    <h3 style="color: #eab308; margin-bottom: 15px;">💡 Opportunities</h3>
+                    <ul class="standard-list" style="margin-top: 10px;">
+                        ${insights.opportunities.map(opp => `
+                            <li style="margin-bottom: 10px; line-height: 1.7;">${opp.text}</li>
+                        `).join('')}
+                    </ul>
+                </div>
+                ` : ''}
+
+                <div class="info-box-light-blue">
+                    <h3>Score Interpretation Guide</h3>
+                    <div class="interpretation-grid">
+                        <div class="interpretation-card">
+                            <div class="interpretation-title interpretation-title-green">80-100: Low Risk</div>
+                            <div class="interpretation-text">Mature security posture with optimized controls</div>
+                        </div>
+                        <div class="interpretation-card interpretation-card-yellow">
+                            <div class="interpretation-title interpretation-title-yellow">60-79: Moderate Risk</div>
+                            <div class="interpretation-text">Developing program with managed processes</div>
+                        </div>
+                        <div class="interpretation-card interpretation-card-orange">
+                            <div class="interpretation-title interpretation-title-orange">40-59: Elevated Risk</div>
+                            <div class="interpretation-text">Initial controls with significant gaps</div>
+                        </div>
+                        <div class="interpretation-card interpretation-card-red">
+                            <div class="interpretation-title interpretation-title-red">0-39: High Risk</div>
+                            <div class="interpretation-text">Ad-hoc approach requiring immediate action</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Strategic Recommendations</h3>
+            `;
+
+            // Display recommendations
+            recommendations.forEach(rec => {
+                if (rec.priority === 'LOW' && rec.score >= 80) return; // Skip low priority for high scores
+                
+                const priorityClass = rec.priority === 'CRITICAL' ? 'priority-critical' : 
+                                     rec.priority === 'HIGH' ? 'priority-high' : 'priority-medium';
+                
+                html += `
+                    <div class="recommendation-item">
+                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px; flex-wrap: wrap;">
+                            <span class="${priorityClass}">${rec.priority}</span>
+                            <span style="color: #64748b; font-weight: 600;">Timeline: ${rec.timeline}</span>
+                            <span style="color: #64748b; font-weight: 600;">Score: ${rec.score}/100</span>
+                        </div>
+                        <h4 class="recommendation-title">${rec.factorName} Factor Enhancement</h4>
+                        <p style="margin-bottom: 15px; line-height: 1.7;">
+                            Your ${rec.factorName.toLowerCase()} score of ${rec.score} indicates ${rec.priority === 'CRITICAL' ? 'critical vulnerabilities requiring immediate action' : rec.priority === 'HIGH' ? 'significant gaps needing strategic improvements' : rec.priority === 'MODERATE' ? 'opportunities for optimization' : 'areas for continuous improvement'}.
+                        </p>
+                        ${rec.quickWins.length > 0 ? `
+                        <div style="margin-top: 15px;">
+                            <strong style="color: var(--navy);">Quick Wins (${rec.timeline}):</strong>
+                            <ul class="standard-list" style="margin-top: 8px;">
+                                ${rec.quickWins.map(action => `<li style="margin-bottom: 8px; line-height: 1.6;">${action}</li>`).join('')}
+                            </ul>
+                        </div>
+                        ` : ''}
+                        ${rec.longTerm.length > 0 ? `
+                        <div style="margin-top: 15px;">
+                            <strong style="color: var(--navy);">Long-term Strategies:</strong>
+                            <ul class="standard-list" style="margin-top: 8px;">
+                                ${rec.longTerm.map(action => `<li style="margin-bottom: 8px; line-height: 1.6;">${action}</li>`).join('')}
+                            </ul>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            // Timeline Recommendations
+            const criticalRecs = recommendations.filter(r => r.priority === 'CRITICAL');
+            const highRecs = recommendations.filter(r => r.priority === 'HIGH');
+            
+            html += `
+                <div class="info-box-yellow">
+                    <h3>📅 Recommended Action Timeline</h3>
+                    ${criticalRecs.length > 0 ? `
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: #dc2626; margin-bottom: 10px;">30-Day Critical Actions</h4>
+                        <ul class="standard-list">
+                            ${criticalRecs.slice(0, 5).map(rec => `
+                                <li style="margin-bottom: 8px;"><strong>${rec.factorName}:</strong> ${rec.quickWins[0] || rec.actions[0]}</li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                    ${highRecs.length > 0 ? `
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: #ea580c; margin-bottom: 10px;">60-90 Day Strategic Improvements</h4>
+                        <ul class="standard-list">
+                            ${highRecs.slice(0, 5).map(rec => `
+                                <li style="margin-bottom: 8px;"><strong>${rec.factorName}:</strong> ${rec.quickWins[0] || rec.actions[0]}</li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                </div>
+
+                <!-- Professional Upgrade CTA -->
+                <div class="info-box" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-left: 6px solid var(--gold); margin: 30px 0; padding: 30px;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <span style="font-size: 2em;">✨</span>
+                        <h3 style="color: var(--navy); margin: 0; font-size: 1.5em;">Upgrade to STEEL Professional</h3>
+                    </div>
+                    <p class="body-text" style="margin-bottom: 20px; font-size: 1.1em; color: #78350f;">
+                        <strong>Unlock Enterprise Features:</strong> Get ERMITS platform integration, custom pricing, advanced analytics, multi-user collaboration, API access, and priority support.
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                        <div style="background: white; padding: 15px; border-radius: 8px;">
+                            <strong style="color: var(--navy); display: block; margin-bottom: 5px;">✓ ERMITS Integration</strong>
+                            <span style="font-size: 0.9em; color: #666;">Connect with all ERMITS platforms</span>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px;">
+                            <strong style="color: var(--navy); display: block; margin-bottom: 5px;">✓ Custom Pricing</strong>
+                            <span style="font-size: 0.9em; color: #666;">Tailored to your requirements</span>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px;">
+                            <strong style="color: var(--navy); display: block; margin-bottom: 5px;">✓ Enterprise Features</strong>
+                            <span style="font-size: 0.9em; color: #666;">Multi-user, API, advanced analytics</span>
+                        </div>
+                    </div>
+                    <div class="btn-link-container" style="margin-top: 20px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                        <a href="/vciso-professional" class="btn-link" style="background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%); color: var(--navy); font-weight: 700; padding: 15px 30px; font-size: 1.1em;">
+                            Learn About Professional Version →
+                        </a>
+                        <a href="/steel/enterprise" class="btn-link" style="background: var(--navy); color: white; padding: 15px 30px;">
+                            Enterprise Pricing
+                        </a>
+                        <a href="/contact" class="btn-link" style="background: var(--navy); color: white; padding: 15px 30px;">
+                            Contact Sales
+                        </a>
+                    </div>
+                </div>
+
+                <div class="info-box" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-left: 6px solid var(--navy); margin: 30px 0;">
+                    <h3>🚀 ERMITS Ecosystem Integration Pathway</h3>
+                    <p class="body-text" style="margin-bottom: 15px;">
+                        STEEL feeds every ERMITS product with consistent intelligence. Based on your assessment results, your STEEL scores will inform these platform solutions:
+                    </p>
+                    <p class="body-text" style="margin-bottom: 15px; padding: 10px; background: rgba(255, 215, 0, 0.1); border-left: 3px solid var(--gold); border-radius: 4px;">
+                        <strong>💡 Professional Feature:</strong> With STEEL Professional, your assessment automatically syncs with ERMITS platforms for seamless integration and real-time updates.
+                    </p>
+                    <ul class="standard-list">
+                        ${recommendations.some(r => r.factor === 'technological' && r.score < 60) ? `
+                        <li style="margin-bottom: 10px;"><strong>CyberCaution:</strong> Ransomware readiness and threat forecasts based on your technological risk profile</li>
+                        ` : ''}
+                        ${recommendations.some(r => (r.factor === 'political' || r.factor === 'legal') && r.score < 60) ? `
+                        <li style="margin-bottom: 10px;"><strong>CyberCorrect:</strong> Privacy exposure and regulatory gaps identified through your STEEL assessment</li>
+                        ` : ''}
+                        ${recommendations.some(r => r.factor === 'environmental' && r.score < 60) ? `
+                        <li style="margin-bottom: 10px;"><strong>CyberSoluce:</strong> NIST CSF–aligned maturity mapping derived from your strategic risk scores</li>
+                        ` : ''}
+                        ${recommendations.some(r => r.factor === 'legal' && r.score < 60) ? `
+                        <li style="margin-bottom: 10px;"><strong>VendorSoluce:</strong> Vendor exposure scoring & TPRM informed by your legal and operational risk factors</li>
+                        ` : ''}
+                        ${recommendations.some(r => r.factor === 'technological' && r.score < 60) ? `
+                        <li style="margin-bottom: 10px;"><strong>TechnoSoluce:</strong> SBOM risk and component vulnerabilities aligned to your technological maturity</li>
+                        ` : ''}
+                        ${recommendations.some(r => r.factor === 'environmental' && r.score < 60) ? `
+                        <li style="margin-bottom: 10px;"><strong>ImpactSoluce:</strong> Sustainability, ESG, and supply chain climate risks from your environmental assessment</li>
+                        ` : ''}
+                        ${recommendations.some(r => r.factor === 'social' && r.score < 60) ? `
+                        <li style="margin-bottom: 10px;"><strong>EduSoluce:</strong> Training aligned to your risk profile and social factor maturity</li>
+                        ` : ''}
+                        ${recommendations.some(r => (r.factor === 'social' || r.factor === 'legal') && r.score < 60) ? `
+                        <li style="margin-bottom: 10px;"><strong>SocialCaution:</strong> Public-facing privacy understanding based on your social and legal risk exposure</li>
+                        ` : ''}
+                        <li style="margin-bottom: 10px;"><strong>vCISO Services:</strong> Strategic advisory to guide implementation and program development across all ERMITS platforms</li>
+                    </ul>
+                    <p class="body-text" style="margin-top: 15px; font-style: italic; color: #475569;">
+                        <strong>Cross-Product Intelligence:</strong> ERMITS Advisory ensures that every tool—CyberCaution, CyberCorrect, VendorSoluce, CyberSoluce, TechnoSoluce, ImpactSoluce, EduSoluce, and SocialCaution—uses the same STEEL intelligence base, eliminating fragmentation and inconsistent scoring across departments.
+                    </p>
+                </div>
+
+                <div class="info-box-yellow">
+                    <h3>Recommended Next Steps</h3>
+                    <ol class="steps-list">
+                        <li><strong>Review with Leadership:</strong> Share results with executive team and board within 7 days</li>
+                        <li><strong>Prioritize Actions:</strong> Focus on Critical priority recommendations first (30-day timeline)</li>
+                        <li><strong>View in Dashboard:</strong> <a href="/dashboard" style="color: var(--navy); text-decoration: underline; font-weight: 600;">Access your interactive dashboard</a> for real-time monitoring and updates</li>
+                        <li><strong>Schedule Consultation:</strong> Connect with ERMITS Advisory for strategic guidance and platform recommendations</li>
+                        <li><strong>Update Risk Register:</strong> Integrate findings into your enterprise risk register (ISO 31000 alignment)</li>
+                        <li><strong>Plan Roadmap:</strong> Develop a 30/60/90 day improvement plan with clear milestones</li>
+                        <li><strong>Consider ERMITS Platform:</strong> Evaluate platform solutions to accelerate implementation</li>
+                        <li><strong>Upgrade to Professional:</strong> Unlock ERMITS integration, custom pricing, and enterprise features for advanced capabilities</li>
+                    </ol>
+                    <div class="btn-link-container" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                        <a href="/dashboard" class="btn-link" style="background: var(--navy); color: white;">
+                            View in Dashboard
+                        </a>
+                        <a href="/contact" class="btn-link" style="background: var(--navy); color: white;">
+                            Schedule Strategic Consultation
+                        </a>
+                        <a href="/vciso-professional" class="btn-link" style="background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%); color: var(--navy); font-weight: 700;">
+                            Upgrade to Professional
+                        </a>
+                        <a href="/steel/enterprise" class="btn-link" style="background: var(--navy); color: white;">
+                            Enterprise Solutions
+                        </a>
+                    </div>
+                </div>
+
+                <div class="info-box-gray">
+                    <h4>Integrating with Your Risk Register</h4>
+                    <p class="body-text-no-margin">Use these STEEL results to update your enterprise risk register (aligned with ISO 31000 and COSO ERM):</p>
+                    <ul class="standard-list">
+                        <li><strong>Low scores (&lt; 40):</strong> Critical/High priority risks requiring immediate treatment</li>
+                        <li><strong>Medium scores (40-70):</strong> Medium priority risks for strategic planning</li>
+                        <li><strong>High scores (70+):</strong> Residual risks to monitor and maintain</li>
+                    </ul>
+                    <p class="body-text-top-margin"><strong>Risk Treatment Options:</strong> Accept, Mitigate, Transfer, Avoid</p>
+                    <p class="body-text-top-margin"><strong>Framework Alignment:</strong> Map STEEL scores to NIST CSF 2.0 functions and ISO/IEC 27001:2022 controls for comprehensive risk management.</p>
+                </div>
+                
+                ${!checkPremiumAccess() ? `
+                <!-- Premium Upgrade CTA -->
+                <div class="info-box" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-left: 6px solid var(--gold); margin: 30px 0; padding: 30px;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <span style="font-size: 2em;">⭐</span>
+                        <h3 style="color: var(--navy); margin: 0; font-size: 1.5em;">Unlock Premium Features</h3>
+                    </div>
+                    <p class="body-text" style="margin-bottom: 20px; font-size: 1.1em; color: #78350f;">
+                        <strong>Your free assessment is complete!</strong> Upgrade to STEEL™ Premium ($29) to unlock:
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                        <div style="background: white; padding: 15px; border-radius: 8px;">
+                            <strong style="color: var(--navy); display: block; margin-bottom: 5px;">📄 Detailed PDF Reports</strong>
+                            <span style="font-size: 0.9em; color: #666;">20+ page executive reports</span>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px;">
+                            <strong style="color: var(--navy); display: block; margin-bottom: 5px;">📊 Industry Benchmarking</strong>
+                            <span style="font-size: 0.9em; color: #666;">Compare with peers</span>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px;">
+                            <strong style="color: var(--navy); display: block; margin-bottom: 5px;">📈 Executive Templates</strong>
+                            <span style="font-size: 0.9em; color: #666;">Board-ready presentations</span>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px;">
+                            <strong style="color: var(--navy); display: block; margin-bottom: 5px;">💾 Multiple Formats</strong>
+                            <span style="font-size: 0.9em; color: #666;">PNG, PowerPoint, JSON</span>
+                        </div>
+                    </div>
+                    <div class="btn-link-container" style="margin-top: 20px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                        <a href="/steel/premium" class="btn-link" style="background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%); color: var(--navy); font-weight: 700; padding: 15px 30px; font-size: 1.1em;">
+                            Upgrade to Premium ($29) →
+                        </a>
+                        <button onclick="importFreeAssessmentToPremium()" class="btn-link" style="background: var(--navy); color: white; padding: 15px 30px; border: none; cursor: pointer;">
+                            Import Results to Premium
+                        </button>
+                    </div>
+                    <p style="text-align: center; margin-top: 15px; font-size: 0.9em; color: #666;">
+                        💡 <strong>Tip:</strong> Your free assessment results will automatically unlock premium features after purchase!
+                    </p>
+                </div>
+                ` : `
+                <!-- Premium User Badge -->
+                <div class="info-box" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-left: 6px solid #16a34a; margin: 30px 0; padding: 20px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 1.5em;">✅</span>
+                        <div>
+                            <strong style="color: #16a34a; font-size: 1.1em;">Premium Access Active</strong>
+                            <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9em;">You have access to all premium features including detailed PDF reports, industry benchmarking, and executive templates.</p>
+                        </div>
+                    </div>
+                </div>
+                `}
+            `;
+
+            document.getElementById('resultsContent').innerHTML = html;
+            
+            // Show export buttons
+            const exportButtons = document.getElementById('exportButtons');
+            if (exportButtons) {
+                exportButtons.classList.remove('btn-group-hidden');
+            }
+            
+            // Update export button states based on premium access
+            setTimeout(() => {
+                updateExportButtons();
+            }, 100);
+            
+            // Re-initialize Lucide icons for new content
+            if (typeof lucide !== 'undefined') {
+                setTimeout(() => {
+                    lucide.createIcons();
+                }, 100);
+            }
+        }
+        
+        function updateExportButtons() {
+            const isPremium = checkPremiumAccess();
+            const pdfButton = document.getElementById('pdfExportBtn');
+            
+            if (pdfButton) {
+                if (isPremium) {
+                    pdfButton.innerHTML = '<i data-lucide="file-text"></i> Export Detailed PDF Report';
+                    pdfButton.classList.remove('btn-secondary');
+                    pdfButton.classList.add('btn-primary');
+                    pdfButton.onclick = exportPDF;
+                } else {
+                    pdfButton.innerHTML = '<i data-lucide="lock"></i> Export PDF (Premium Required)';
+                    pdfButton.classList.remove('btn-primary');
+                    pdfButton.classList.add('btn-secondary');
+                    pdfButton.onclick = function() {
+                        showPremiumUpgrade('Detailed PDF reports with industry benchmarking and executive summaries are available in STEEL™ Premium ($29).');
+                    };
+                }
+            }
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        // Note: saveProgress() and loadProgress() are defined earlier with enhanced features
+        // These are kept for backward compatibility with button onclick handlers
+
+        // Error handling function
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.innerHTML = `
+                <p><strong>Error:</strong> ${message}</p>
+                <button onclick="this.parentElement.remove()">Dismiss</button>
+            `;
+            document.body.insertBefore(errorDiv, document.body.firstChild);
+            
+            // Auto-remove after 10 seconds
+            setTimeout(() => {
+                if (errorDiv.parentElement) {
+                    errorDiv.remove();
+                }
+            }, 10000);
+        }
+        
+        async function exportPDF() {
+            if (!assessmentData.composite) {
+                alert('Please complete the assessment first.');
+                return;
+            }
+            
+            // Lazy load jsPDF
+            if (typeof window.jspdf === 'undefined') {
+                showLoading();
+                try {
+                    await new Promise((resolve, reject) => {
+                        const script = document.createElement('script');
+                        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                        script.integrity = 'sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==';
+                        script.crossOrigin = 'anonymous';
+                        script.referrerPolicy = 'no-referrer';
+                        script.onload = resolve;
+                        script.onerror = reject;
+                        document.head.appendChild(script);
+                    });
+                } catch (e) {
+                    hideLoading();
+                    showError('Failed to load PDF library. Please check your internet connection and try again.');
+                    return;
+                }
+            }
+            
+            try {
+            
+            // Check premium access for detailed PDF
+            if (!checkPremiumAccess()) {
+                showPremiumUpgrade('Detailed PDF reports with industry benchmarking and executive summaries are available in STEEL™ Premium.');
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            let y = 20;
+            const pageHeight = doc.internal.pageSize.height;
+            const margin = 20;
+            const maxWidth = doc.internal.pageSize.width - (margin * 2);
+
+            // Helper function to add new page if needed
+            function checkPageBreak(requiredSpace = 10) {
+                if (y + requiredSpace > pageHeight - margin) {
+                    doc.addPage();
+                    y = margin;
+                }
+            }
+
+            // Title Page
+            doc.setFontSize(24);
+            doc.setTextColor(0, 75, 135);
+            doc.text('STEEL™ Assessment Results', margin, y);
+            y += 15;
+
+            doc.setFontSize(14);
+            doc.setTextColor(100, 100, 100);
+            doc.text('Strategic Threat Environment Evaluation Landscape', margin, y);
+            y += 10;
+
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Assessment Date: ${new Date(assessmentData.timestamp).toLocaleDateString()}`, margin, y);
+            y += 20;
+
+            // Executive Summary
+            checkPageBreak(30);
+            doc.setFontSize(16);
+            doc.setTextColor(0, 75, 135);
+            doc.text('Executive Summary', margin, y);
+            y += 10;
+
+            const insights = generateInsights(assessmentData.factorScores, assessmentData.composite);
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            const summaryLines = doc.splitTextToSize(insights.executiveSummary + ' ' + insights.riskContext, maxWidth);
+            doc.text(summaryLines, margin, y);
+            y += (summaryLines.length * 6) + 10;
+
+            // Composite Score
+            checkPageBreak(20);
+            doc.setFontSize(14);
+            doc.setTextColor(0, 75, 135);
+            doc.text('Composite STEEL Score', margin, y);
+            y += 8;
+
+            const riskLevel = assessmentData.composite >= 80 ? 'LOW' : assessmentData.composite >= 60 ? 'MODERATE' : assessmentData.composite >= 40 ? 'ELEVATED' : 'HIGH';
+            doc.setFontSize(32);
+            doc.setTextColor(0, 75, 135);
+            doc.text(`${assessmentData.composite}`, margin, y);
+            y += 10;
+
+            doc.setFontSize(12);
+            doc.text(`${riskLevel} RISK`, margin, y);
+            y += 15;
+
+            // Factor Scores
+            checkPageBreak(30);
+            doc.setFontSize(14);
+            doc.setTextColor(0, 75, 135);
+            doc.text('PESTEL Factor Scores', margin, y);
+            y += 10;
+
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            for (let factor in assessmentData.factorScores) {
+                checkPageBreak(8);
+                const factorName = factor.charAt(0).toUpperCase() + factor.slice(1);
+                doc.text(`${factorName}: ${assessmentData.factorScores[factor]}/100`, margin + 5, y);
+                y += 7;
+            }
+            y += 10;
+
+            // Key Insights
+            if (insights.keyInsights.length > 0) {
+                checkPageBreak(30);
+                doc.setFontSize(14);
+                doc.setTextColor(220, 38, 38);
+                doc.text('Key Insights', margin, y);
+                y += 10;
+
+                doc.setFontSize(10);
+                doc.setTextColor(0, 0, 0);
+                insights.keyInsights.forEach(insight => {
+                    checkPageBreak(15);
+                    const lines = doc.splitTextToSize(`• ${insight.text}`, maxWidth);
+                    doc.text(lines, margin + 5, y);
+                    y += (lines.length * 5) + 3;
+                });
+                y += 5;
+            }
+
+            // Strengths
+            if (insights.strengths.length > 0) {
+                checkPageBreak(30);
+                doc.setFontSize(14);
+                doc.setTextColor(22, 163, 74);
+                doc.text('Strengths', margin, y);
+                y += 10;
+
+                doc.setFontSize(10);
+                doc.setTextColor(0, 0, 0);
+                insights.strengths.forEach(strength => {
+                    checkPageBreak(15);
+                    const lines = doc.splitTextToSize(`• ${strength.text}`, maxWidth);
+                    doc.text(lines, margin + 5, y);
+                    y += (lines.length * 5) + 3;
+                });
+                y += 5;
+            }
+
+            // Recommendations
+            const recommendations = generateRecommendations(assessmentData.factorScores);
+            const priorityRecs = recommendations.filter(r => r.priority !== 'LOW' || r.score < 80);
+
+            if (priorityRecs.length > 0) {
+                checkPageBreak(30);
+                doc.setFontSize(14);
+                doc.setTextColor(0, 75, 135);
+                doc.text('Strategic Recommendations', margin, y);
+                y += 10;
+
+                priorityRecs.forEach(rec => {
+                    checkPageBreak(40);
+                    doc.setFontSize(12);
+                    doc.setTextColor(0, 75, 135);
+                    doc.text(`${rec.factorName} Factor (${rec.score}/100) - ${rec.priority} Priority`, margin, y);
+                    y += 8;
+
+                    doc.setFontSize(10);
+                    doc.setTextColor(0, 0, 0);
+                    doc.text(`Timeline: ${rec.timeline}`, margin + 5, y);
+                    y += 6;
+
+                    doc.setFontSize(10);
+                    doc.text('Recommended Actions:', margin + 5, y);
+                    y += 6;
+
+                    rec.actions.slice(0, 5).forEach(action => {
+                        checkPageBreak(10);
+                        const lines = doc.splitTextToSize(`• ${action}`, maxWidth - 10);
+                        doc.text(lines, margin + 10, y);
+                        y += (lines.length * 5) + 2;
+                    });
+                    y += 5;
+                });
+            }
+
+            // Next Steps
+            checkPageBreak(40);
+            doc.setFontSize(14);
+            doc.setTextColor(0, 75, 135);
+            doc.text('Recommended Next Steps', margin, y);
+            y += 10;
+
+            doc.setFontSize(10);
+            doc.setTextColor(0, 0, 0);
+            const nextSteps = [
+                'Review results with executive team and board within 7 days',
+                'Prioritize Critical and High priority recommendations',
+                'Schedule consultation with ERMITS Advisory',
+                'Update enterprise risk register with findings',
+                'Develop 30/60/90 day improvement plan',
+                'Evaluate ERMITS platform solutions for implementation'
+            ];
+
+            nextSteps.forEach((step, index) => {
+                checkPageBreak(10);
+                const lines = doc.splitTextToSize(`${index + 1}. ${step}`, maxWidth);
+                doc.text(lines, margin + 5, y);
+                y += (lines.length * 5) + 3;
+            });
+
+            // Footer
+            doc.setFontSize(8);
+            doc.setTextColor(100, 100, 100);
+            doc.text('STEEL™ Assessment Platform | ERMITS Advisory | www.ermits-advisory.com', margin, pageHeight - 10);
+
+            doc.save(`STEEL_Assessment_${new Date(assessmentData.timestamp).toISOString().split('T')[0]}.pdf`);
+            
+            hideLoading();
+            trackEvent('export', { format: 'pdf', premium: checkPremiumAccess() });
+            } catch (e) {
+                hideLoading();
+                console.error('PDF export error:', e);
+                showError('Error generating PDF. Please try again.');
+            }
+        }
+
+        function exportJSON() {
+            if (!assessmentData.composite) {
+                alert('Please complete the assessment first.');
+                return;
+            }
+
+            try {
+                const blob = new Blob([JSON.stringify(assessmentData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `STEEL_Assessment_${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                trackEvent('export', { format: 'json' });
+            } catch (e) {
+                console.error('Export error:', e);
+                showError('Error exporting JSON. Please try again.');
+            }
+        }
+
+        function clearAllData() {
+            if (confirm('This will permanently delete your saved assessment progress from your browser. This action cannot be undone. Continue?')) {
+                localStorage.removeItem('steel_assessment');
+                assessmentData = {};
+                document.getElementById('assessmentForm').reset();
+                updateProgress();
+                alert('All saved data has been permanently deleted from your browser.');
+                showTab('overview');
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            // Tab navigation between questions (Arrow keys)
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                const questions = Array.from(document.querySelectorAll('.question-item'));
+                const current = document.activeElement.closest('.question-item');
+                if (current) {
+                    e.preventDefault();
+                    const currentIndex = questions.indexOf(current);
+                    const nextIndex = e.key === 'ArrowDown' 
+                        ? (currentIndex + 1) % questions.length
+                        : (currentIndex - 1 + questions.length) % questions.length;
+                    questions[nextIndex]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Focus first radio button in next question
+                    const firstRadio = questions[nextIndex]?.querySelector('input[type="radio"]');
+                    if (firstRadio) {
+                        setTimeout(() => firstRadio.focus(), 300);
+                    }
+                }
+            }
+            
+            // Number keys 1-4 for answer selection (when in a question)
+            if (e.key >= '1' && e.key <= '4' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                const activeQuestion = document.activeElement.closest('.question-item');
+                if (activeQuestion) {
+                    const options = Array.from(activeQuestion.querySelectorAll('input[type="radio"]'));
+                    const selected = options[parseInt(e.key) - 1];
+                    if (selected) {
+                        e.preventDefault();
+                        selected.checked = true;
+                        selected.dispatchEvent(new Event('change'));
+                        // Move to next question
+                        const questions = Array.from(document.querySelectorAll('.question-item'));
+                        const currentIndex = questions.indexOf(activeQuestion);
+                        if (currentIndex < questions.length - 1) {
+                            setTimeout(() => {
+                                questions[currentIndex + 1]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }, 200);
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Global error handler
+        window.addEventListener('error', function(e) {
+            console.error('Assessment error:', e.error);
+            showError('An unexpected error occurred. Your progress has been saved. Please refresh the page if the issue persists.');
+        });
+        
+        // Performance tracking
+        window.addEventListener('load', function() {
+            if ('performance' in window) {
+                const perfData = performance.timing;
+                const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+                trackEvent('page_load_time', {
+                    load_time_ms: Math.round(pageLoadTime),
+                    non_interaction: true
+                });
+            }
+        });
+        
+        // Initialize Lucide icons and check for premium activation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check storage availability
+            checkStorageOnLoad();
+            
+            // Load saved progress
+            loadProgress();
+            
+            // Initialize Lucide icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            } else {
+                // Retry after a delay if lucide hasn't loaded yet
+                setTimeout(() => {
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                    }
+                }, 500);
+            }
+            
+            // Check for premium activation from purchase
+            checkPurchaseSuccess();
+            
+            // Track page view
+            trackEvent('page_view', { page: 'steel_assessment' });
+            
+            // Add ARIA labels to form inputs
+            document.querySelectorAll('input[type="radio"]').forEach((input, index) => {
+                if (!input.getAttribute('aria-label')) {
+                    const questionText = input.closest('.question-item')?.querySelector('.question-text')?.textContent;
+                    const optionText = input.nextElementSibling?.textContent;
+                    if (questionText && optionText) {
+                        input.setAttribute('aria-label', `${questionText} - ${optionText}`);
+                    }
+                }
+            });
+        });
+        
+        // Listen for premium updates
+        window.addEventListener('steel_premium_updated', function() {
+            // Refresh export buttons if results are displayed
+            if (assessmentData.composite) {
+                updateExportButtons();
+                // Re-display results to show premium badge
+                displayResults(assessmentData);
+            }
+        });
+    </script>
+        </main>
+</body>
+</html>

@@ -7,8 +7,8 @@ import { AuthProvider } from '../../context/AuthContext';
 import { ThemeProvider } from '../../context/ThemeContext';
 import { I18nProvider } from '../../context/I18nContext';
 
-// Mock the hooks
-vi.mock('../../hooks/useVendors.mock', () => ({
+// Mock the hooks (real hooks used by page: useVendors, useVendorAssessments)
+vi.mock('../../hooks/useVendors', () => ({
   useVendors: () => ({
     vendors: [
       {
@@ -21,7 +21,7 @@ vi.mock('../../hooks/useVendors.mock', () => ({
   })
 }));
 
-vi.mock('../../hooks/useVendorAssessments.mock', () => ({
+vi.mock('../../hooks/useVendorAssessments', () => ({
   useVendorAssessments: () => ({
     assessments: [
       {
@@ -69,7 +69,8 @@ vi.mock('../../hooks/useVendorAssessments.mock', () => ({
       overdue: 0,
       averageScore: 0,
       completionRate: 0
-    })
+    }),
+    refetch: vi.fn().mockResolvedValue(undefined)
   })
 }));
 

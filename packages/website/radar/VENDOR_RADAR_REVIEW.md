@@ -4,6 +4,14 @@
 
 This document provides a comprehensive review of the Vendor Risk Radar page design, functionality, and vendor template registration system. The review covers both the HTML/JavaScript implementation (`vendor-risk-radar.html`) and the React component implementation (`VendorRiskRadar.tsx`).
 
+### Latest Updates (2025)
+
+**NIST-Aligned Vendor Data Normalization & SBOM Review** - The Vendor Risk Radar now supports a minimal three-column CSV import model with automatic NIST-aligned enrichment:
+- **Minimal Input Required**: Vendor Name, Service Category, Data Sensitivity
+- **Automatic Enrichment**: CIA impact levels (per NIST SP 800-37), FIPS-199 classification, vendor category derivation, data type mapping
+- **SBOM Review Logic**: Automatic detection of software vendors requiring Software Bill of Materials review per NIST SP 800-161
+- **Enhanced Vendor Details**: New sections displaying NIST impact classifications and SBOM status with actionable guidance
+
 ---
 
 ## 1. Design Review
@@ -116,14 +124,96 @@ This document provides a comprehensive review of the Vendor Risk Radar page desi
 
 ## 3. Vendor Template Registration System
 
-### 3.1 Template Structure
+### 3.1 NIST-Aligned Minimal Import Format (NEW)
 
-#### CSV Template Format:
+**Introduced**: 2025 - Simplified vendor onboarding with automatic NIST-aligned enrichment
+
+#### Minimal CSV Format:
+```csv
+Vendor Name,Service Category,Data Sensitivity,Description
+AWS,Cloud Infrastructure,High,Primary cloud hosting provider
+Okta,Identity Management,Moderate,SSO and authentication platform
+Slack,Communication Platform,Low,Team collaboration tool
+Office Depot,Office Supplies,None,Office supply vendor
+```
+
+#### Required Columns (Minimal Format):
+1. **Vendor Name** (required): Name of the vendor or service provider
+2. **Service Category** (required): Free-text description of service type (e.g., "Cloud Storage", "Payment Processing", "SaaS Platform")
+3. **Data Sensitivity** (required): One of: `None`, `Internal only`, `Low`, `Moderate`, `High`
+
+#### Optional Helpful Columns:
+- **Description** or **Notes**: Additional vendor details
+- **Sector** or **Industry**: Business sector (e.g., Technology, Finance, Healthcare)
+- **Location** or **Country**: Geographic location
+- **Contact** or **Email**: Vendor contact information
+
+#### Automatic Enrichment Process:
+
+The `normalizeImportedVendorRowMinimal()` function automatically enriches minimal vendor data with:
+
+1. **Vendor Category Derivation** (`critical` | `strategic` | `tactical` | `commodity`):
+   - Based on keyword analysis of Service Category, Vendor Name, and Description
+   - Critical: infrastructure, security, identity, auth, payment, core systems
+   - Strategic: CRM, analytics, platforms, major SaaS
+   - Commodity: office supplies, facilities, non-tech services
+   - Default: tactical
+
+2. **Data Types Mapping** (from Data Sensitivity):
+   - **None**: No data types assigned
+   - **Internal only** / **Low**: `['Confidential']`
+   - **Moderate**: `['PII', 'Confidential']`
+   - **High**: `['PII', 'Financial', 'Confidential']`
+
+3. **CIA Impact Levels** (per NIST SP 800-37):
+   - **High sensitivity**: C=HIGH, I=MODERATE, A=HIGH
+   - **Moderate sensitivity**: C=MODERATE, I=MODERATE, A=MODERATE
+   - **Low sensitivity**: C=MODERATE, I=LOW, A=LOW
+   - **None**: C=LOW, I=LOW, A=LOW
+
+4. **FIPS-199 Overall Impact Classification**:
+   - Per FIPS 199: Overall impact = highest of C/I/A impacts
+   - Used for compliance reporting and risk prioritization
+
+5. **SBOM Requirement Inference** (per NIST SP 800-161):
+   - Automatically detects software/SaaS vendors using keyword heuristics:
+     - Software keywords: saas, software, platform, app, tool, agent, sdk, api, cloud, security, devops, monitoring, etc.
+     - Non-software keywords: facilities, catering, office supplies, consulting, etc.
+   - Sets `sbom.sbomRequiredForReview` flag for software vendors
+   - Enables targeted SBOM collection and review workflows
+
+6. **Risk Scores**:
+   - Inherent and residual risk calculated automatically via `calculateVendorRisk()`
+   - Integrated with existing risk calculation engine
+
+#### Integration Function:
+
+```javascript
+function mapRawRowToVendorForRadar(rawRow) {
+    // Step 1: Normalize and enrich minimal input
+    const normalizedVendor = normalizeImportedVendorRowMinimal(rawRow);
+    
+    // Step 2: Generate unique ID
+    normalizedVendor.id = generateId();
+    
+    // Step 3: Calculate risk scores
+    const riskData = calculateVendorRisk(normalizedVendor);
+    
+    // Step 4: Merge and return complete vendor object
+    return { ...normalizedVendor, ...riskData };
+}
+```
+
+### 3.2 Legacy Detailed CSV Format (Still Supported)
+
+The system maintains backward compatibility with the detailed CSV format for advanced use cases.
+
+#### Legacy CSV Template Format:
 ```csv
 name,category,dataTypes,sector,location,contact,notes,sbomAvailable,sbomFormat,providesSoftware
 ```
 
-#### Required Columns:
+#### Required Columns (Legacy Format):
 1. **name** (required): Vendor name
 2. **category** (required): One of: `critical`, `strategic`, `tactical`, `commodity`
 3. **dataTypes** (optional): Semicolon-separated list: `PII;PHI;Financial;IP;Confidential`
@@ -134,23 +224,6 @@ name,category,dataTypes,sector,location,contact,notes,sbomAvailable,sbomFormat,p
 8. **sbomAvailable** (optional): `true` or `false`
 9. **sbomFormat** (optional): `SPDX`, `CycloneDX`, or `none`
 10. **providesSoftware** (optional): `true` or `false`
-
-### 3.2 Template Download Functionality
-
-**Location**: `templateCsv()` function (line ~4146)
-
-**Features**:
-- Generates CSV template with sample data
-- Includes 8 example vendors (AWS, Okta, Salesforce, etc.)
-- Proper CSV formatting with quote handling
-- Downloadable via "CSV Template" button
-
-**Sample Data Included**:
-```javascript
-['AWS','critical','PII;Financial;Confidential','Cloud Services','United States','security@aws.amazon.com','Primary cloud infrastructure provider','false','none','true'],
-['Okta','strategic','PII;Confidential','Identity & Access','United States','security@okta.com','SSO/IdP','true','SPDX','true'],
-// ... more examples
-```
 
 ### 3.3 Data Import Process
 

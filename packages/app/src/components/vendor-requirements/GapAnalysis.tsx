@@ -36,22 +36,6 @@ const GapAnalysis: React.FC<GapAnalysisProps> = ({
     }
   };
 
-  const getStatusColor = (status: RequirementGap['status']) => {
-    switch (status) {
-      case 'compliant': return 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20';
-      case 'partial': return 'text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-900/20';
-      case 'missing': return 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20';
-    }
-  };
-
-  const getStatusLabel = (status: RequirementGap['status']) => {
-    switch (status) {
-      case 'compliant': return 'Compliant';
-      case 'partial': return 'Partial';
-      case 'missing': return 'Missing';
-    }
-  };
-
   if (requirement.gaps.length === 0) {
     return (
       <Card className="border-l-4 border-l-green-500">

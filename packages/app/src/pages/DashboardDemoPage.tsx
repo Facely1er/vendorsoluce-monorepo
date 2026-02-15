@@ -22,7 +22,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const DashboardDemoPage: React.FC = () => {
-  const { isAuthenticated } = useAuth();
+  useAuth();
 
   // Note: This component is now used for demo mode in ConditionalDashboard
   // Authenticated users will see the actual DashboardPage instead

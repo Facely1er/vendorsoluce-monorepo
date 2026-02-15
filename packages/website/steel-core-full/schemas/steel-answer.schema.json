@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SteelAnswers",
+  "type": "object",
+  "additionalProperties": false,
+  "patternProperties": {
+    "^[A-Z]{1,2}[0-9]+$": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 4
+    }
+  }
+}

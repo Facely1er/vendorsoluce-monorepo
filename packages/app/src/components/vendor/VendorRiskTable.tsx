@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { VendorRisk } from '../../types';
 import RiskBadge from '../ui/RiskBadge';
 import { useTranslation } from 'react-i18next';
-import { Edit, Trash2, Eye, Radar, Shield, ExternalLink } from 'lucide-react';
+import { Edit, Trash2, Eye, Radar, Shield } from 'lucide-react';
 import { Button } from '../ui/Button';
 import BulkDataOperations from '../data/BulkDataOperations';
 
@@ -28,7 +28,7 @@ const VendorRiskTable: React.FC<VendorRiskTableProps> = ({
   const [selectedVendors, setSelectedVendors] = useState<string[]>([]);
   
   // Mock portal status - in real app, this would come from props or API
-  const getPortalStatus = (vendorId: string) => {
+  const getPortalStatus = (_vendorId: string) => {
     // This would be replaced with actual portal assessment data
     const statuses = ['pending', 'in_progress', 'completed', null];
     return statuses[Math.floor(Math.random() * statuses.length)];

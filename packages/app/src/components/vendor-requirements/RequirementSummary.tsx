@@ -5,18 +5,11 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
-import { Badge } from '../ui/Badge';
-import { 
-  Shield, 
-  TrendingUp, 
-  AlertTriangle, 
-  CheckCircle,
-  BarChart3
-} from 'lucide-react';
-import type { RequirementSummary, RiskTier } from '../../types/requirements';
+import { BarChart3 } from 'lucide-react';
+import type { RequirementSummary as RequirementSummaryType, RiskTier } from '../../types/requirements';
 
 interface RequirementSummaryProps {
-  summary: RequirementSummary;
+  summary: RequirementSummaryType;
   showDetails?: boolean;
 }
 

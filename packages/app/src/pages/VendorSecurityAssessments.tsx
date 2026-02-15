@@ -21,8 +21,8 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useVendors } from '../hooks/useVendors.mock';
-import { useVendorAssessments } from '../hooks/useVendorAssessments.mock';
+import { useVendors } from '../hooks/useVendors';
+import { useVendorAssessments } from '../hooks/useVendorAssessments';
 import { useVendorRequirements } from '../hooks/useVendorRequirements';
 import CreateAssessmentModal from '../components/vendor-assessments/CreateAssessmentModal';
 import AssessmentProgressTracker from '../components/vendor-assessments/AssessmentProgressTracker';
@@ -66,13 +66,13 @@ const VendorSecurityAssessments: React.FC = () => {
     frameworks, 
     loading: assessmentsLoading, 
     error: assessmentsError,
-    createAssessment,
-    sendAssessment,
+    createAssessment: _createAssessment,
+    sendAssessment: _sendAssessment,
     deleteAssessment,
     getAssessmentProgress,
     refetch,
   } = useVendorAssessments();
-  const { requirements: vendorRequirements, loading: requirementsLoading } = useVendorRequirements();
+  const { requirements: vendorRequirements, loading: _requirementsLoading } = useVendorRequirements();
   
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');

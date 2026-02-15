@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from '../ui/Button';
-import { Badge } from '../ui/Badge';
 import { Card, CardContent } from '../ui/Card';
-import { X, Send, Shield, CheckCircle, AlertTriangle } from 'lucide-react';
+import { X, Send, Shield } from 'lucide-react';
 import { logger } from '../../utils/logger';
 import type { VendorRequirement } from '../../types/requirements';
 

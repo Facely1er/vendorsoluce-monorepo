@@ -17,25 +17,26 @@ const JourneyProgress: React.FC<JourneyProgressProps> = ({
   stage3Complete = false,
   showNavigation = true,
 }) => {
+  // Aligned with website (how-it-works.html, index.html): Stage 1 Risk Radar, Stage 2 Assessment, Stage 3 Due Diligence
   const stages = [
     {
       number: 1,
-      title: 'Discover Your Exposure',
-      outcome: 'I know exactly which vendors pose the greatest risk',
+      title: 'Discover Your Vendor Exposure',
+      outcome: 'I know exactly which vendors pose the greatest risk to my organization.',
       path: '/tools/vendor-risk-radar',
       complete: stage1Complete,
     },
     {
       number: 2,
-      title: 'Understand Your Gaps',
-      outcome: 'I know exactly what controls I need from each vendor',
-      path: '/vendor-requirements',
+      title: 'Understand Your Compliance Gaps',
+      outcome: 'I know exactly which security controls and compliance requirements I need from each vendor based on their risk level.',
+      path: '/supply-chain-assessment',
       complete: stage2Complete,
     },
     {
       number: 3,
-      title: 'Close the Gaps',
-      outcome: 'I have evidence-based proof of vendor compliance',
+      title: 'Close the Compliance Gaps',
+      outcome: 'I have evidence-based proof of vendor compliance and defensible vendor risk management decisions.',
       path: '/vendor-assessments',
       complete: stage3Complete,
     },

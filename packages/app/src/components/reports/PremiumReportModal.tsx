@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, FileText, Check, Sparkles } from 'lucide-react';
+import { X, Check, Sparkles } from 'lucide-react';
 import { Card, CardContent } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { useAuth } from '../../context/AuthContext';
@@ -17,7 +17,7 @@ interface PremiumReportModalProps {
 export const PremiumReportModal: React.FC<PremiumReportModalProps> = ({
   isOpen,
   onClose,
-  onPurchase,
+  onPurchase: _onPurchase,
   reportType,
   reportData
 }) => {
