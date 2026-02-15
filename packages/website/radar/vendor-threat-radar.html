@@ -2333,7 +2333,7 @@
             let derivedCategory = 'tactical'; // default
             
             // Critical: Core infrastructure, security, identity, payments
-            if (categoryText.match(/\b(infrastructure|security|identity|auth|payment|core|mission.?critical|primary|essential)\b/)) {
+            if (categoryText.match(/\b(infrastructure|security|identity|auth|payment|core|mission[- ]?critical|primary|essential)\b/)) {
                 derivedCategory = 'critical';
             }
             // Strategic: Important SaaS, analytics, CRM, major platforms
@@ -3183,9 +3183,42 @@
                         return;
                     }
                     
+                    // Helper function to parse CSV line handling quoted fields
+                    // Implements RFC 4180 compliant parsing
+                    function parseCSVLine(line) {
+                        const result = [];
+                        let current = '';
+                        let inQuotes = false;
+                        
+                        for (let i = 0; i < line.length; i++) {
+                            const char = line[i];
+                            const nextChar = line[i + 1];
+                            
+                            if (char === '"') {
+                                if (inQuotes && nextChar === '"') {
+                                    // Escaped quote
+                                    current += '"';
+                                    i++; // Skip next quote
+                                } else {
+                                    // Toggle quote mode
+                                    inQuotes = !inQuotes;
+                                }
+                            } else if (char === ',' && !inQuotes) {
+                                // Field separator
+                                result.push(current.trim());
+                                current = '';
+                            } else {
+                                current += char;
+                            }
+                        }
+                        
+                        // Add last field
+                        result.push(current.trim());
+                        return result;
+                    }
+                    
                     // Parse header row and normalize column names
-                    const headerLine = lines[0];
-                    const headers = headerLine.split(',').map(h => 
+                    const headers = parseCSVLine(lines[0]).map(h => 
                         h.trim().toLowerCase().replace(/[^a-z0-9]/g, '')
                     );
                     
@@ -3201,7 +3234,7 @@
                         if (!lines[i].trim()) continue;
                         
                         try {
-                            const values = lines[i].split(',').map(v => v.trim().replace(/^["']|["']$/g, ''));
+                            const values = parseCSVLine(lines[i]);
                             
                             // Create row object from headers and values
                             const row = {};
