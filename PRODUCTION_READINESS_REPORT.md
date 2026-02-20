@@ -124,51 +124,54 @@ The VendorSoluce monorepo was audited for production readiness across security, 
 
 ## Remaining Recommendations (Not Blocking)
 
-### High Priority
+### Resolved in Follow-Up
 
-1. **Upgrade `jspdf` to address 7 high-severity vulnerabilities** (PDF injection, DoS, XSS metadata injection). Monitor for a patched release or evaluate alternatives like `@react-pdf/renderer`.
+The following items from the original audit have been resolved:
 
-2. **Replace Tailwind CDN in `vendor-threat-radar.html`** - The radar page at `packages/website/radar/vendor-threat-radar.html` still uses `https://cdn.tailwindcss.com` which is not recommended for production (slower, no tree-shaking, potential availability issues). Compile Tailwind locally instead.
+- ~~Upgrade `jspdf`~~ -- Upgraded to 4.2.0, resolving all 7 high-severity CVEs
+- ~~Replace Tailwind CDN~~ -- `vendor-threat-radar.html` now uses compiled CSS
+- ~~Add `social-preview.png`~~ -- Created `social-preview.svg` and updated meta tags
+- ~~Complete TODO items~~ -- Implemented PDF report generation and email service integration
+- ~~Add integration tests~~ -- 35 new tests for ProtectedRoute, ErrorBoundary, Checkout, Security
+- ~~Remove `@supabase/auth-helpers-nextjs`~~ -- Removed unused Next.js-specific packages
+- ~~Clean up workspace root~~ -- Organized scripts, SQL, docs into `scripts/`, `archive/`
+- ~~Add `dns-prefetch`~~ -- Added hints for Stripe, Vercel Analytics, and font CDNs
 
-3. **Implement CSP nonces** - Current CSP uses `'unsafe-inline'` for scripts/styles (needed for React). For stronger security, implement nonce-based CSP with server-side nonce injection.
+### Still Open
 
-### Medium Priority
+1. **Implement CSP nonces** - Current CSP uses `'unsafe-inline'` for scripts/styles (needed for React). For stronger security, implement nonce-based CSP with server-side nonce injection.
 
-4. **Add `social-preview.png`** - Open Graph and Twitter Card meta tags reference `/social-preview.png` but this file doesn't appear in the build output. Create and deploy this image.
+2. **Monitor bundle sizes** - The `charts` chunk (380KB) and `main` chunk (419KB) are borderline. Consider further splitting if they grow.
 
-5. **Complete TODO items in code:**
-   - `assessmentService.ts`: Email service integration placeholder
-   - `VendorAssessmentPortal.tsx`: Report generation not implemented
+3. **Remaining npm audit vulnerabilities** - 16 vulnerabilities remain, all in ESLint and its transitive dev dependencies (`minimatch`, `ajv`). These do not ship to production. Upgrading to ESLint 9+ would resolve them.
 
-6. **Add integration tests** - The project has unit test infrastructure (Vitest + Testing Library) but limited test coverage for critical flows like authentication and checkout.
+4. **Fix pre-existing test failures** - 18 existing test files have failures unrelated to this audit. These should be triaged and fixed.
 
-7. **Monitor bundle sizes** - The `charts` chunk (380KB) and `main` chunk (419KB) are borderline. Consider further splitting if they grow.
+5. **Convert `social-preview.svg` to PNG** - Some social platforms (notably LinkedIn) require PNG/JPG for OG images. Convert the SVG to a 1200x630 PNG for maximum compatibility.
 
-### Low Priority
-
-8. **Remove `@supabase/auth-helpers-nextjs`** - This is a Next.js-specific package included in a Vite project. It adds unnecessary weight and may cause confusion.
-
-9. **Clean up workspace root** - The root directory contains many SQL migration scripts, PowerShell scripts, and documentation files that should be organized into subdirectories.
-
-10. **Add `dns-prefetch`** - Add `<link rel="dns-prefetch">` for Supabase and Stripe API domains to reduce connection latency.
+6. **Deploy Supabase Edge Function for email** - The `send-email` Edge Function is now invoked by `assessmentService.ts` but must be deployed on Supabase with the email provider (SendGrid, AWS SES, etc.).
 
 ---
 
 ## Build Output Summary
 
 ```
-Total build size: 4.9 MB (uncompressed)
+Total build size: ~5 MB (uncompressed)
 
-Key chunks:
-  react-core:   162 KB  (loaded immediately)
-  main:         419 KB  (loaded immediately)  
-  supabase:     168 KB  (loaded immediately)
-  charts:       380 KB  (lazy - loaded with dashboard)
-  pdf-utils:    581 KB  (lazy - loaded on PDF export only)
-  generatePdf:  523 KB  (lazy - loaded on PDF export only)
-  i18n:          60 KB  (lazy)
-  ui-utils:      56 KB  (lazy)
-  CSS:           91 KB  (main stylesheet)
+Key chunks (after optimization):
+  react-core:     162 KB  (loaded immediately - was 557 KB as react-vendor)
+  main:           419 KB  (loaded immediately)  
+  supabase:       168 KB  (loaded immediately)
+  charts:         380 KB  (lazy - loaded with dashboard)
+  react-plugins:   10 KB  (lazy - Sentry, Joyride)
+  pdf-utils:      582 KB  (lazy - loaded on PDF export only)
+  generatePdf:    523 KB  (lazy - loaded on PDF export only)
+  i18n:            60 KB  (lazy)
+  ui-utils:        56 KB  (lazy)
+  CSS:             91 KB  (main stylesheet)
+
+npm audit: 16 vulnerabilities remaining (all in ESLint dev dependencies, not shipped to production)
+Tests: 35 new integration tests passing; 65 existing tests passing
 ```
 
 ---
