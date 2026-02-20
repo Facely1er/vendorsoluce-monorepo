@@ -18,6 +18,112 @@ import { uploadAssessmentEvidence } from '../utils/supabaseStorage';
 import { logger } from '../utils/logger';
 import JourneyProgress from '../components/journey/JourneyProgress';
 
+const generateComplianceReport = async (
+  assessment: AssessmentData,
+  answers: Record<string, AnswerValue>,
+  vendorInfo: { companyName: string; contactName: string; contactEmail: string }
+) => {
+  const { default: jsPDF } = await import('jspdf');
+  const pdf = new jsPDF('p', 'mm', 'a4');
+  const pageWidth = 210;
+  const margin = 20;
+  const contentWidth = pageWidth - margin * 2;
+  let y = margin;
+
+  const addPage = () => {
+    pdf.addPage();
+    y = margin;
+  };
+
+  const checkPageBreak = (needed: number) => {
+    if (y + needed > 280) addPage();
+  };
+
+  // Title page
+  pdf.setFontSize(24);
+  pdf.setFont('helvetica', 'bold');
+  pdf.text('Vendor Compliance Report', pageWidth / 2, 50, { align: 'center' });
+
+  pdf.setFontSize(14);
+  pdf.setFont('helvetica', 'normal');
+  pdf.text(assessment.frameworkName, pageWidth / 2, 65, { align: 'center' });
+
+  pdf.setFontSize(11);
+  pdf.setTextColor(100, 100, 100);
+  pdf.text(`Vendor: ${vendorInfo.companyName || assessment.vendorName}`, pageWidth / 2, 85, { align: 'center' });
+  pdf.text(`Requesting Organization: ${assessment.organizationName}`, pageWidth / 2, 93, { align: 'center' });
+  pdf.text(`Generated: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`, pageWidth / 2, 101, { align: 'center' });
+
+  // Summary stats
+  const totalQuestions = assessment.questions.length;
+  const answeredCount = Object.keys(answers).length;
+  const yesCount = Object.values(answers).filter(a => a === 'yes' || a === true).length;
+  const noCount = Object.values(answers).filter(a => a === 'no' || a === false).length;
+  const complianceRate = answeredCount > 0 ? Math.round((yesCount / answeredCount) * 100) : 0;
+
+  pdf.setTextColor(0, 0, 0);
+  y = 125;
+  pdf.setFontSize(16);
+  pdf.setFont('helvetica', 'bold');
+  pdf.text('Executive Summary', margin, y);
+  y += 10;
+
+  pdf.setFontSize(11);
+  pdf.setFont('helvetica', 'normal');
+  const summaryLines = [
+    `Total Controls Assessed: ${totalQuestions}`,
+    `Controls Answered: ${answeredCount} of ${totalQuestions} (${Math.round((answeredCount / totalQuestions) * 100)}%)`,
+    `Compliant Controls: ${yesCount}`,
+    `Non-Compliant Controls: ${noCount}`,
+    `Not Applicable / Other: ${answeredCount - yesCount - noCount}`,
+    `Compliance Rate: ${complianceRate}%`,
+  ];
+  for (const line of summaryLines) {
+    pdf.text(line, margin, y);
+    y += 7;
+  }
+
+  // Detailed answers by section
+  addPage();
+  pdf.setFontSize(16);
+  pdf.setFont('helvetica', 'bold');
+  pdf.text('Detailed Assessment Results', margin, y);
+  y += 12;
+
+  const sections = [...new Set(assessment.questions.map(q => q.section))];
+  for (const section of sections) {
+    checkPageBreak(20);
+    pdf.setFontSize(13);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text(section, margin, y);
+    y += 8;
+
+    const sectionQuestions = assessment.questions.filter(q => q.section === section);
+    for (const q of sectionQuestions) {
+      checkPageBreak(22);
+      pdf.setFontSize(10);
+      pdf.setFont('helvetica', 'bold');
+      const questionLines = pdf.splitTextToSize(`${q.id}: ${q.question}`, contentWidth);
+      pdf.text(questionLines, margin, y);
+      y += questionLines.length * 5;
+
+      pdf.setFont('helvetica', 'normal');
+      const answer = answers[q.id];
+      const displayAnswer = answer === null || answer === undefined
+        ? 'Not answered'
+        : typeof answer === 'boolean'
+          ? (answer ? 'Yes' : 'No')
+          : String(answer);
+      const answerLines = pdf.splitTextToSize(`Answer: ${displayAnswer}`, contentWidth);
+      pdf.text(answerLines, margin, y);
+      y += answerLines.length * 5 + 4;
+    }
+    y += 4;
+  }
+
+  pdf.save(`compliance-report-${assessment.id}-${Date.now()}.pdf`);
+};
+
 interface AssessmentQuestion {
   id: string;
   section: string;
@@ -754,8 +860,10 @@ const VendorAssessmentPortal: React.FC = () => {
                         size="lg"
                         className="w-full md:w-auto flex items-center gap-2 justify-center"
                         onClick={() => {
-                          // TODO: Implement report generation
-                          logger.info('Generate Report clicked');
+                          if (assessment) {
+                            generateComplianceReport(assessment, answers, vendorInfo)
+                              .catch(err => logger.error('Report generation failed:', err));
+                          }
                         }}
                       >
                         <Download className="w-5 h-5" />

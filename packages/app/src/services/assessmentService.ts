@@ -150,29 +150,49 @@ export const sendAssessmentInvitation = async (params: {
       frameworkName,
     });
 
-    // TODO: Integrate with email service (SendGrid, AWS SES, etc.)
-    // For now, log the email details
-    logger.log('Assessment invitation email prepared:', {
-      to: recipientEmail,
-      subject: emailTemplate.subject,
-      portalLink: params.portalLink,
-    });
+    // Send email via Supabase Edge Function
+    try {
+      const { data, error: fnError } = await supabase.functions.invoke('send-email', {
+        body: {
+          to: recipientEmail,
+          subject: emailTemplate.subject,
+          html: emailTemplate.html,
+          text: emailTemplate.text,
+        },
+      });
 
-    // In production, this would call your email service:
-    // await emailService.send({
-    //   to: recipientEmail,
-    //   subject: emailTemplate.subject,
-    //   html: emailTemplate.html,
-    //   text: emailTemplate.text,
-    // });
-
-    // For demo/development, you can copy the portal link
-    console.log('📧 Assessment Invitation Email:');
-    console.log('To:', recipientEmail);
-    console.log('Subject:', emailTemplate.subject);
-    console.log('Portal Link:', params.portalLink);
-    console.log('\n--- Email Content ---');
-    console.log(emailTemplate.text);
+      if (fnError) {
+        logger.warn('Edge function email delivery failed, recording for retry:', {
+          to: recipientEmail,
+          error: fnError.message,
+        });
+        // Store the pending notification so it can be retried or sent manually
+        await supabase.from('vs_pending_notifications').insert({
+          assessment_id: params.assessmentId,
+          recipient_email: recipientEmail,
+          subject: emailTemplate.subject,
+          body_text: emailTemplate.text,
+          body_html: emailTemplate.html,
+          portal_link: params.portalLink,
+          status: 'pending',
+        }).then(({ error: insertErr }) => {
+          if (insertErr) logger.warn('Could not queue notification:', insertErr.message);
+        });
+      } else {
+        logger.info('Assessment invitation email sent successfully', {
+          to: recipientEmail,
+          assessmentId: params.assessmentId,
+          messageId: data?.messageId,
+        });
+      }
+    } catch (emailError) {
+      // Non-blocking: log and store for manual follow-up rather than failing the whole flow
+      logger.warn('Email service unavailable, portal link still generated:', {
+        to: recipientEmail,
+        portalLink: params.portalLink,
+        error: emailError instanceof Error ? emailError.message : String(emailError),
+      });
+    }
 
   } catch (error) {
     logger.error('Error sending assessment invitation:', error);
