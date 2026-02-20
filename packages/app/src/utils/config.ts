@@ -60,17 +60,10 @@ const getEnvVar = (key: string, defaultValue?: string): string => {
 };
 
 // Supabase configuration
-// SECURITY: In production, these MUST be set via environment variables - no hardcoded credentials
-// In development, fallback values are provided for local development convenience
-// For production, missing variables will cause the app to fail fast
-const SUPABASE_URL = getEnvVar(
-  'VITE_SUPABASE_URL',
-  import.meta.env.DEV ? 'https://dfklqsdfycwjlcasfciu.supabase.co' : undefined
-);
-const SUPABASE_ANON_KEY = getEnvVar(
-  'VITE_SUPABASE_ANON_KEY',
-  import.meta.env.DEV ? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRma2xxc2RmeWN3amxjYXNmY2l1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzODA5OTcsImV4cCI6MjA3OTk1Njk5N30.OiaL5SkKnMlpdfW2Y2L-m2mzmCFA_LgpUq2-m8XF-yQ' : undefined
-);
+// SECURITY: Credentials MUST be set via environment variables - never hardcoded
+// In development, set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env.local
+const SUPABASE_URL = getEnvVar('VITE_SUPABASE_URL');
+const SUPABASE_ANON_KEY = getEnvVar('VITE_SUPABASE_ANON_KEY');
 
 // Validate required environment variables
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
