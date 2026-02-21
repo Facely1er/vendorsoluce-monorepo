@@ -54,17 +54,20 @@ export default defineConfig(({ mode }) => {
         entryFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks: (id) => {
-          // Core React - must be loaded first, keep together for proper initialization
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom')) {
-            return 'react-vendor';
+          // Core React - must be loaded first
+          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/') || id.includes('node_modules/react-router-dom/') || id.includes('node_modules/react-is/')) {
+            return 'react-core';
           }
           
-          // React-dependent libraries that need React available
-          // Include recharts in react-vendor since it requires React to be loaded first
+          // Charting library (large, lazy-loaded via chart components)
+          if (id.includes('node_modules/recharts') || id.includes('node_modules/d3-')) {
+            return 'charts';
+          }
+
+          // React-dependent libraries
           if (id.includes('node_modules/@sentry/react') || 
-              id.includes('node_modules/react-joyride') || 
-              id.includes('node_modules/recharts')) {
-            return 'react-vendor';
+              id.includes('node_modules/react-joyride')) {
+            return 'react-plugins';
           }
 
           // Backend services

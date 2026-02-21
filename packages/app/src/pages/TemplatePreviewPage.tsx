@@ -5,6 +5,7 @@ import { Button } from '../components/ui/Button';
 import { ArrowLeft, Download, Eye, FileText, AlertTriangle, Loader, Copy, ChevronRight, ChevronDown } from 'lucide-react';
 import { downloadTemplateFile } from '../utils/generatePdf';
 import { logger } from '../utils/logger';
+import DOMPurify from 'dompurify';
 
 const TemplatePreviewPage: React.FC = () => {
   const location = useLocation();
@@ -542,7 +543,7 @@ const TemplatePreviewPage: React.FC = () => {
                                 <span className="text-gray-400 dark:text-gray-600 mr-4 select-none inline-block w-8 text-right">
                                   {index + 1}
                                 </span>
-                                <span dangerouslySetInnerHTML={{ __html: highlighted }} className="text-gray-900 dark:text-gray-100" />
+                                <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(highlighted, { ALLOWED_TAGS: ['span'], ALLOWED_ATTR: ['class'] }) }} className="text-gray-900 dark:text-gray-100" />
                               </div>
                             );
                           })}

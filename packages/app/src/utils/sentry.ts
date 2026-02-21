@@ -24,7 +24,7 @@ export function initSentry() {
     integrations: [
       Sentry.browserTracingIntegration({
         // Set sampling to 10% in production
-        tracePropagationTargets: ['localhost', /^\//],
+        tracePropagationTargets: ['localhost', 'vendorsoluce.com', 'vendortal.com', /^\//],
       }),
       Sentry.replayIntegration({
         maskAllText: false,
